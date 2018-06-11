@@ -4,4 +4,16 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\Common\Groove.AspNetCore.Common\Groove.AspNetCore.Common.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\Domain\Groove.AspNetCore.Domain\Groove.AspNetCore.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Identity\Entities\" />
+    <Folder Include="Identity\Models\" />
+    <Folder Include="Identity\Services\" />
+    <Folder Include="Identity\Repositories\" />
+  </ItemGroup>
+
 </Project>

@@ -2,7 +2,7 @@
 
 namespace Infrastructures
 {
-    public class Class1
+    public class ApplicationDbContext
     {
     }
 }
