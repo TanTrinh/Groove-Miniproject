@@ -23,8 +23,7 @@ namespace GoGoSpa
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            
+            }         
 
 			app.UseDefaultFiles();
 			app.UseStaticFiles();
