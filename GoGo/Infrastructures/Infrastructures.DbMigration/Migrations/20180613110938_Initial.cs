@@ -551,6 +551,12 @@ namespace Infrastructures.DbMigration.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Vehicle_LicensePlate",
+                table: "Vehicle",
+                column: "LicensePlate",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vehicle_VehicleTypeId",
                 table: "Vehicle",
                 column: "VehicleTypeId",

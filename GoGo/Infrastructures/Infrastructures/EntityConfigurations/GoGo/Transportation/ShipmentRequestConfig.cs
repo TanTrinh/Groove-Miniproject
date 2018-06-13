@@ -20,6 +20,7 @@ namespace Infrastructures.EntityConfigurations.GoGo
 			builder.Property(p => p.RequestId).IsRequired();
 			builder.Property(p => p.Status).IsRequired();
 			builder.Property(p => p.Note).IsRequired();
+		
 
 		}
 	}

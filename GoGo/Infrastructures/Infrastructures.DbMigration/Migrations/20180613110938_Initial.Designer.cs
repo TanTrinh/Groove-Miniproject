@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructures.DbMigration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180613105738_Initial")]
+    [Migration("20180613110938_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -232,6 +232,9 @@ namespace Infrastructures.DbMigration.Migrations
                     b.Property<float>("width");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LicensePlate")
+                        .IsUnique();
 
                     b.HasIndex("VehicleTypeId")
                         .IsUnique();

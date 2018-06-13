@@ -231,6 +231,9 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LicensePlate")
+                        .IsUnique();
+
                     b.HasIndex("VehicleTypeId")
                         .IsUnique();
 
