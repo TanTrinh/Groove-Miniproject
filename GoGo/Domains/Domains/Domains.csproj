@@ -10,6 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="GoGo\Models\" />
+    <Folder Include="GoGo\Services\" />
+    <Folder Include="GoGo\Repositories\" />
     <Folder Include="Identity\Models\" />
     <Folder Include="Identity\Services\" />
   </ItemGroup>
