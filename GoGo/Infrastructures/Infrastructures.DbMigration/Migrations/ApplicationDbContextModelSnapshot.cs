@@ -31,9 +31,11 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DriverId");
+                    b.HasIndex("DriverId")
+                        .IsUnique();
 
-                    b.HasIndex("VehicleTypeId");
+                    b.HasIndex("VehicleTypeId")
+                        .IsUnique();
 
                     b.ToTable("DriverAbility");
                 });
@@ -50,9 +52,11 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VehicleFeatureId");
+                    b.HasIndex("VehicleFeatureId")
+                        .IsUnique();
 
-                    b.HasIndex("VehicleId");
+                    b.HasIndex("VehicleId")
+                        .IsUnique();
 
                     b.ToTable("FeatureOfVehicle");
                 });
@@ -63,7 +67,8 @@ namespace Infrastructures.DbMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FeatureName");
+                    b.Property<string>("FeatureName")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -76,17 +81,18 @@ namespace Infrastructures.DbMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("RequestId");
+                    b.Property<string>("RequestId")
+                        .IsRequired();
 
-                    b.Property<int?>("VehicleFeatureId");
-
-                    b.Property<int>("VehileFeatureId");
+                    b.Property<int>("VehicleFeatureId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RequestId");
+                    b.HasIndex("RequestId")
+                        .IsUnique();
 
-                    b.HasIndex("VehicleFeatureId");
+                    b.HasIndex("VehicleFeatureId")
+                        .IsUnique();
 
                     b.ToTable("VehicleFeatureRequest");
                 });
@@ -96,9 +102,11 @@ namespace Infrastructures.DbMigration.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Message");
+                    b.Property<string>("Message")
+                        .IsRequired();
 
-                    b.Property<string>("ShipmentId");
+                    b.Property<string>("ShipmentId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -112,7 +120,8 @@ namespace Infrastructures.DbMigration.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("DeliveryAddress");
+                    b.Property<string>("DeliveryAddress")
+                        .IsRequired();
 
                     b.Property<DateTime>("DeliveryDate");
 
@@ -122,15 +131,19 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<DateTime>("PickingDate");
 
-                    b.Property<string>("Status");
+                    b.Property<string>("Status")
+                        .IsRequired();
 
-                    b.Property<string>("WareHouseId");
+                    b.Property<string>("WareHouseId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IssuerId");
+                    b.HasIndex("IssuerId")
+                        .IsUnique();
 
-                    b.HasIndex("WareHouseId");
+                    b.HasIndex("WareHouseId")
+                        .IsUnique();
 
                     b.ToTable("Request");
                 });
@@ -139,6 +152,8 @@ namespace Infrastructures.DbMigration.Migrations
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<long>("CoordinatorId");
 
                     b.Property<long>("DriverId");
 
@@ -152,33 +167,14 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DriverId");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("Shipment");
-                });
-
-            modelBuilder.Entity("Domains.GoGo.Entities.ShipmentRecord", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<long>("CoordinatorId");
-
-                    b.Property<string>("Note");
-
-                    b.Property<string>("ShipmentId");
-
-                    b.Property<string>("Status");
-
-                    b.HasKey("Id");
-
                     b.HasIndex("CoordinatorId");
 
-                    b.HasIndex("ShipmentId");
+                    b.HasIndex("DriverId");
 
-                    b.ToTable("ShipmentRecord");
+                    b.HasIndex("VehicleId")
+                        .IsUnique();
+
+                    b.ToTable("Shipment");
                 });
 
             modelBuilder.Entity("Domains.GoGo.Entities.ShipmentRequest", b =>
@@ -188,23 +184,30 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<long>("CustomerId");
 
-                    b.Property<string>("Note");
+                    b.Property<string>("Note")
+                        .IsRequired();
 
-                    b.Property<int>("ReQuestOrder");
+                    b.Property<string>("RequestId")
+                        .IsRequired();
 
-                    b.Property<string>("RequestId");
+                    b.Property<int>("RequestOrder");
 
-                    b.Property<string>("ShipmentId");
+                    b.Property<string>("ShipmentId")
+                        .IsRequired();
 
-                    b.Property<string>("Status");
+                    b.Property<string>("Status")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
 
-                    b.HasIndex("RequestId");
+                    b.HasIndex("RequestId")
+                        .IsUnique();
 
-                    b.HasIndex("ShipmentId");
+                    b.HasIndex("ShipmentId")
+                        .IsUnique();
 
                     b.ToTable("ShipmentRequest");
                 });
@@ -219,7 +222,8 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<float>("Lenght");
 
-                    b.Property<string>("LicensePlate");
+                    b.Property<string>("LicensePlate")
+                        .IsRequired();
 
                     b.Property<int>("VehicleTypeId");
 
@@ -227,7 +231,8 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VehicleTypeId");
+                    b.HasIndex("VehicleTypeId")
+                        .IsUnique();
 
                     b.ToTable("Vehicle");
                 });
@@ -238,7 +243,8 @@ namespace Infrastructures.DbMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("TypeName");
+                    b.Property<string>("TypeName")
+                        .IsRequired();
 
                     b.Property<int>("Weight");
 
@@ -252,11 +258,14 @@ namespace Infrastructures.DbMigration.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
+                    b.Property<string>("Address")
+                        .IsRequired();
 
                     b.Property<long>("OwnerId");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -459,106 +468,105 @@ namespace Infrastructures.DbMigration.Migrations
             modelBuilder.Entity("Domains.GoGo.Entities.DriverAbility", b =>
                 {
                     b.HasOne("Domains.Identity.Entities.User", "Driver")
-                        .WithMany()
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.DriverAbility", "DriverId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domains.GoGo.Entities.VehicleType", "VehicleType")
-                        .WithMany()
-                        .HasForeignKey("VehicleTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.DriverAbility", "VehicleTypeId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domains.GoGo.Entities.Fleet.FeatureOfVehicle", b =>
                 {
                     b.HasOne("Domains.GoGo.Entities.Fleet.VehicleFeature", "VehicleFeature")
-                        .WithMany()
-                        .HasForeignKey("VehicleFeatureId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.Fleet.FeatureOfVehicle", "VehicleFeatureId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domains.GoGo.Entities.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.Fleet.FeatureOfVehicle", "VehicleId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domains.GoGo.Entities.Fleet.VehicleFeatureRequest", b =>
                 {
                     b.HasOne("Domains.GoGo.Entities.Request", "Request")
-                        .WithMany()
-                        .HasForeignKey("RequestId");
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.Fleet.VehicleFeatureRequest", "RequestId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domains.GoGo.Entities.Fleet.VehicleFeature", "VehicleFeature")
-                        .WithMany()
-                        .HasForeignKey("VehicleFeatureId");
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.Fleet.VehicleFeatureRequest", "VehicleFeatureId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domains.GoGo.Entities.ProblemMessage", b =>
                 {
                     b.HasOne("Domains.GoGo.Entities.Shipment", "Shipment")
                         .WithMany()
-                        .HasForeignKey("ShipmentId");
+                        .HasForeignKey("ShipmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Domains.GoGo.Entities.Request", b =>
                 {
                     b.HasOne("Domains.Identity.Entities.User", "Issuer")
-                        .WithMany()
-                        .HasForeignKey("IssuerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.Request", "IssuerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domains.GoGo.WareHouse", "WareHouse")
-                        .WithMany()
-                        .HasForeignKey("WareHouseId");
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.Request", "WareHouseId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domains.GoGo.Entities.Shipment", b =>
                 {
-                    b.HasOne("Domains.Identity.Entities.User", "Driver")
-                        .WithMany()
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Domains.GoGo.Entities.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Domains.GoGo.Entities.ShipmentRecord", b =>
-                {
                     b.HasOne("Domains.Identity.Entities.User", "Coordinator")
                         .WithMany()
                         .HasForeignKey("CoordinatorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Domains.GoGo.Entities.Shipment", "Shipment")
+                    b.HasOne("Domains.Identity.Entities.User", "Driver")
                         .WithMany()
-                        .HasForeignKey("ShipmentId");
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domains.GoGo.Entities.Vehicle", "Vehicle")
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.Shipment", "VehicleId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domains.GoGo.Entities.ShipmentRequest", b =>
                 {
                     b.HasOne("Domains.Identity.Entities.User", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.ShipmentRequest", "CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domains.GoGo.Entities.Request", "Request")
-                        .WithMany()
-                        .HasForeignKey("RequestId");
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.ShipmentRequest", "RequestId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domains.GoGo.Entities.Shipment", "Shipment")
-                        .WithMany()
-                        .HasForeignKey("ShipmentId");
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.ShipmentRequest", "ShipmentId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domains.GoGo.Entities.Vehicle", b =>
                 {
                     b.HasOne("Domains.GoGo.Entities.VehicleType", "VehicleType")
-                        .WithMany()
-                        .HasForeignKey("VehicleTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithOne()
+                        .HasForeignKey("Domains.GoGo.Entities.Vehicle", "VehicleTypeId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domains.GoGo.WareHouse", b =>

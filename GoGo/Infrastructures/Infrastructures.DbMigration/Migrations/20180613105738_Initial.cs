@@ -69,7 +69,7 @@ namespace Infrastructures.DbMigration.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FeatureName = table.Column<string>(nullable: true)
+                    FeatureName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,7 +82,7 @@ namespace Infrastructures.DbMigration.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TypeName = table.Column<string>(nullable: true),
+                    TypeName = table.Column<string>(nullable: false),
                     Weight = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -201,8 +201,8 @@ namespace Infrastructures.DbMigration.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(maxLength: 20, nullable: false),
+                    Address = table.Column<string>(nullable: false),
                     OwnerId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -222,8 +222,8 @@ namespace Infrastructures.DbMigration.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DriverId = table.Column<long>(nullable: false),
-                    VehicleTypeId = table.Column<int>(nullable: false)
+                    VehicleTypeId = table.Column<int>(nullable: false),
+                    DriverId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -233,13 +233,13 @@ namespace Infrastructures.DbMigration.Migrations
                         column: x => x.DriverId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DriverAbility_VehicleType_VehicleTypeId",
                         column: x => x.VehicleTypeId,
                         principalTable: "VehicleType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -248,7 +248,7 @@ namespace Infrastructures.DbMigration.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    LicensePlate = table.Column<string>(nullable: true),
+                    LicensePlate = table.Column<string>(nullable: false),
                     VehicleTypeId = table.Column<int>(nullable: false),
                     Height = table.Column<float>(nullable: false),
                     width = table.Column<float>(nullable: false),
@@ -262,7 +262,7 @@ namespace Infrastructures.DbMigration.Migrations
                         column: x => x.VehicleTypeId,
                         principalTable: "VehicleType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -272,11 +272,11 @@ namespace Infrastructures.DbMigration.Migrations
                     Id = table.Column<string>(nullable: false),
                     PickingDate = table.Column<DateTime>(nullable: false),
                     DeliveryDate = table.Column<DateTime>(nullable: false),
-                    DeliveryAddress = table.Column<string>(nullable: true),
+                    DeliveryAddress = table.Column<string>(nullable: false),
                     PackageQuantity = table.Column<int>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: false),
                     IssuerId = table.Column<long>(nullable: false),
-                    WareHouseId = table.Column<string>(nullable: true)
+                    WareHouseId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -286,7 +286,7 @@ namespace Infrastructures.DbMigration.Migrations
                         column: x => x.IssuerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Request_WareHouse_WareHouseId",
                         column: x => x.WareHouseId,
@@ -312,13 +312,13 @@ namespace Infrastructures.DbMigration.Migrations
                         column: x => x.VehicleFeatureId,
                         principalTable: "VehicleFeature",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_FeatureOfVehicle_Vehicle_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicle",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -330,23 +330,30 @@ namespace Infrastructures.DbMigration.Migrations
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
                     VehicleId = table.Column<int>(nullable: false),
-                    DriverId = table.Column<long>(nullable: false)
+                    DriverId = table.Column<long>(nullable: false),
+                    CoordinatorId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Shipment", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Shipment_AspNetUsers_CoordinatorId",
+                        column: x => x.CoordinatorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Shipment_AspNetUsers_DriverId",
                         column: x => x.DriverId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Shipment_Vehicle_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicle",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -355,9 +362,8 @@ namespace Infrastructures.DbMigration.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RequestId = table.Column<string>(nullable: true),
-                    VehileFeatureId = table.Column<int>(nullable: false),
-                    VehicleFeatureId = table.Column<int>(nullable: true)
+                    RequestId = table.Column<string>(nullable: false),
+                    VehicleFeatureId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -381,8 +387,8 @@ namespace Infrastructures.DbMigration.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    ShipmentId = table.Column<string>(nullable: true),
-                    Message = table.Column<string>(nullable: true)
+                    ShipmentId = table.Column<string>(nullable: false),
+                    Message = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -392,34 +398,7 @@ namespace Infrastructures.DbMigration.Migrations
                         column: x => x.ShipmentId,
                         principalTable: "Shipment",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ShipmentRecord",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    CoordinatorId = table.Column<long>(nullable: false),
-                    ShipmentId = table.Column<string>(nullable: true),
-                    Status = table.Column<string>(nullable: true),
-                    Note = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShipmentRecord", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ShipmentRecord_AspNetUsers_CoordinatorId",
-                        column: x => x.CoordinatorId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ShipmentRecord_Shipment_ShipmentId",
-                        column: x => x.ShipmentId,
-                        principalTable: "Shipment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -427,12 +406,12 @@ namespace Infrastructures.DbMigration.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    ReQuestOrder = table.Column<int>(nullable: false),
-                    ShipmentId = table.Column<string>(nullable: true),
-                    RequestId = table.Column<string>(nullable: true),
-                    CustomerId = table.Column<long>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
-                    Note = table.Column<string>(nullable: true)
+                    RequestOrder = table.Column<int>(nullable: false),
+                    Status = table.Column<string>(nullable: false),
+                    Note = table.Column<string>(nullable: false),
+                    ShipmentId = table.Column<string>(nullable: false),
+                    RequestId = table.Column<string>(nullable: false),
+                    CustomerId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -442,7 +421,7 @@ namespace Infrastructures.DbMigration.Migrations
                         column: x => x.CustomerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ShipmentRequest_Request_RequestId",
                         column: x => x.RequestId,
@@ -499,22 +478,26 @@ namespace Infrastructures.DbMigration.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_DriverAbility_DriverId",
                 table: "DriverAbility",
-                column: "DriverId");
+                column: "DriverId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_DriverAbility_VehicleTypeId",
                 table: "DriverAbility",
-                column: "VehicleTypeId");
+                column: "VehicleTypeId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_FeatureOfVehicle_VehicleFeatureId",
                 table: "FeatureOfVehicle",
-                column: "VehicleFeatureId");
+                column: "VehicleFeatureId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_FeatureOfVehicle_VehicleId",
                 table: "FeatureOfVehicle",
-                column: "VehicleId");
+                column: "VehicleId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProblemMessage_ShipmentId",
@@ -524,12 +507,19 @@ namespace Infrastructures.DbMigration.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Request_IssuerId",
                 table: "Request",
-                column: "IssuerId");
+                column: "IssuerId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Request_WareHouseId",
                 table: "Request",
-                column: "WareHouseId");
+                column: "WareHouseId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shipment_CoordinatorId",
+                table: "Shipment",
+                column: "CoordinatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Shipment_DriverId",
@@ -539,47 +529,44 @@ namespace Infrastructures.DbMigration.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Shipment_VehicleId",
                 table: "Shipment",
-                column: "VehicleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShipmentRecord_CoordinatorId",
-                table: "ShipmentRecord",
-                column: "CoordinatorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShipmentRecord_ShipmentId",
-                table: "ShipmentRecord",
-                column: "ShipmentId");
+                column: "VehicleId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShipmentRequest_CustomerId",
                 table: "ShipmentRequest",
-                column: "CustomerId");
+                column: "CustomerId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShipmentRequest_RequestId",
                 table: "ShipmentRequest",
-                column: "RequestId");
+                column: "RequestId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShipmentRequest_ShipmentId",
                 table: "ShipmentRequest",
-                column: "ShipmentId");
+                column: "ShipmentId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicle_VehicleTypeId",
                 table: "Vehicle",
-                column: "VehicleTypeId");
+                column: "VehicleTypeId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_VehicleFeatureRequest_RequestId",
                 table: "VehicleFeatureRequest",
-                column: "RequestId");
+                column: "RequestId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_VehicleFeatureRequest_VehicleFeatureId",
                 table: "VehicleFeatureRequest",
-                column: "VehicleFeatureId");
+                column: "VehicleFeatureId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_WareHouse_OwnerId",
@@ -612,9 +599,6 @@ namespace Infrastructures.DbMigration.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProblemMessage");
-
-            migrationBuilder.DropTable(
-                name: "ShipmentRecord");
 
             migrationBuilder.DropTable(
                 name: "ShipmentRequest");

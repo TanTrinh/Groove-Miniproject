@@ -14,7 +14,9 @@ namespace Infrastructures.EntityConfigurations.GoGo
 			builder.HasKey(p => p.Id);
 			builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
-			builder.HasOne(p => p.VehicleType);
+			builder.HasOne(p => p.VehicleType).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+
+			builder.Property(p => p.LicensePlate).IsRequired();
 		}
 	}
 }

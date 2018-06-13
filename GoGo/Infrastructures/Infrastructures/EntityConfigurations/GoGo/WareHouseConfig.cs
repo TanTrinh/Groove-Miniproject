@@ -12,7 +12,9 @@ namespace Infrastructures.EntityConfigurations.GoGo
 		public override void OnConfigure(EntityTypeBuilder<WareHouse> builder)
 		{
 			builder.HasKey(p => p.Id);
-			builder.Property(p => p.Id).ValueGeneratedOnAdd();
+
+			builder.Property(p => p.PhoneNumber).HasMaxLength(20).IsRequired();
+			builder.Property(p => p.Address).IsRequired();
 		}
 	}
 }

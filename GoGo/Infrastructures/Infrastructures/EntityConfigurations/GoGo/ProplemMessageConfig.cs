@@ -15,6 +15,10 @@ namespace Infrastructures.EntityConfigurations.GoGo
 			builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
 			builder.HasOne(p => p.Shipment);
+
+			builder.Property(p => p.ShipmentId).IsRequired();
+			builder.Property(p => p.Message).IsRequired();
+
 		}
 	}
 }

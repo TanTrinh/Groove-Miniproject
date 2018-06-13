@@ -12,8 +12,13 @@ namespace Infrastructures.EntityConfigurations.GoGo
 		{
 			builder.HasKey(p => p.Id);
 
-			builder.HasOne(p => p.Issuer);
-			builder.HasOne(p => p.WareHouse);
+			builder.HasOne(p => p.Issuer).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+			builder.HasOne(p => p.WareHouse).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+
+
+			builder.Property(p => p.WareHouseId).IsRequired();
+			builder.Property(p => p.DeliveryAddress).IsRequired();
+			builder.Property(p => p.Status).IsRequired();
 		}
 	}
 }

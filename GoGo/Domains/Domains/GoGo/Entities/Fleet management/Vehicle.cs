@@ -11,10 +11,11 @@ namespace Domains.GoGo.Entities
 		public string LicensePlate { get; set; }
 
 		public int VehicleTypeId { get; set; }
-		public VehicleType VehicleType { get; set; }
-
+		
 		public float Height { get; set; }
 		public float width { get; set; }
 		public float Lenght { get; set; }
+
+		public VehicleType VehicleType { get; set; }
 	}
 }

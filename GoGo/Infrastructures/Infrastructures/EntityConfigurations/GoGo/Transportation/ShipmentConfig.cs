@@ -14,9 +14,12 @@ namespace Infrastructures.EntityConfigurations.GoGo
 		{
 			builder.HasKey(p => p.Id);
 
-			builder.HasOne(p => p.Vehicle);
-			builder.HasOne(p => p.Driver);
+			builder.HasOne(p => p.Vehicle).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 			
+
+			builder.HasOne(p => p.Driver).WithMany().HasForeignKey(p => p.DriverId).OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+			builder.HasOne(p => p.Coordinator).WithMany().HasForeignKey(p => p.CoordinatorId).OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+
 		}
 	}
 }

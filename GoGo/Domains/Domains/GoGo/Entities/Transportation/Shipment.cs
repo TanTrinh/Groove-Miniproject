@@ -12,13 +12,14 @@ namespace Domains.GoGo.Entities
 		public int RequestQuantity { get; set; }
 
 		public DateTime StartDate { get; set; }
-
 		public DateTime EndDate { get; set; }
 
 		public int VehicleId { get; set; }
-		public Vehicle Vehicle { get; set; }
+		public long DriverId { get; set; }
+		public long CoordinatorId { get; set; }
 
-		public long DriverId { get; set; }	
+		public Vehicle Vehicle { get; set; }
 		public User Driver { get; set; }
+		public User Coordinator { get; set; }
 	}
 }

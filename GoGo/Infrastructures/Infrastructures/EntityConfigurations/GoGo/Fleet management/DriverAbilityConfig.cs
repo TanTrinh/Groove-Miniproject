@@ -15,8 +15,8 @@ namespace Infrastructures.EntityConfigurations.GoGo.Fleet_management
 			builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
 
-			builder.HasOne(p => p.VehicleType);
-			builder.HasOne(p => p.Driver);
+			builder.HasOne(p => p.VehicleType).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+			builder.HasOne(p => p.Driver).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 		}
 	}
 }

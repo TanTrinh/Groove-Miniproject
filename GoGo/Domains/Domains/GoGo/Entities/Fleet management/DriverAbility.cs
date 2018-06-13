@@ -9,10 +9,10 @@ namespace Domains.GoGo.Entities
     {
 		public int Id { get; set; }
 
-		public long DriverId { get; set; }
-		public User Driver { get; set; }
-
 		public int VehicleTypeId { get; set; }
+		public long DriverId { get; set; }
+
+		public User Driver { get; set; }
 		public VehicleType VehicleType { get; set; }
 	}
 }

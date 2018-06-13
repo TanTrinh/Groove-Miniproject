@@ -12,9 +12,14 @@ namespace Infrastructures.EntityConfigurations.GoGo
 		{
 			builder.HasKey(p => p.Id);
 
-			builder.HasOne(p => p.Request);
-			builder.HasOne(p => p.Shipment);
-			builder.HasOne(p => p.Customer);
+			builder.HasOne(p => p.Request).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+			builder.HasOne(p => p.Shipment).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+			builder.HasOne(p => p.Customer).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+
+			builder.Property(p => p.ShipmentId).IsRequired();
+			builder.Property(p => p.RequestId).IsRequired();
+			builder.Property(p => p.Status).IsRequired();
+			builder.Property(p => p.Note).IsRequired();
 
 		}
 	}

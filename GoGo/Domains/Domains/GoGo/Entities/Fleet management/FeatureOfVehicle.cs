@@ -9,9 +9,9 @@ namespace Domains.GoGo.Entities.Fleet
 		public int Id { get; set; }
 
 		public int VehicleFeatureId { get; set; }
-		public VehicleFeature VehicleFeature { get; set; }
-
 		public int VehicleId { get; set; }
+
+		public VehicleFeature VehicleFeature { get; set; }
 		public Vehicle Vehicle { get; set; }
 	}
 }
