@@ -36,6 +36,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _layout_layout_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layout/layout.component */ "./src/app/layout/layout.component.ts");
+/* harmony import */ var _ggmap_ggmap_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ggmap/ggmap.component */ "./src/app/ggmap/ggmap.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -45,8 +46,13 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var routes = [
-    { path: '', component: _layout_layout_component__WEBPACK_IMPORTED_MODULE_2__["LayoutComponent"] }
+    {
+        path: '', component: _layout_layout_component__WEBPACK_IMPORTED_MODULE_2__["LayoutComponent"], children: [{
+                path: 'map', component: _ggmap_ggmap_component__WEBPACK_IMPORTED_MODULE_3__["GgmapComponent"]
+            }]
+    }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -143,12 +149,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layout_header_header_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./layout/header/header.component */ "./src/app/layout/header/header.component.ts");
 /* harmony import */ var _layout_footer_footer_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./layout/footer/footer.component */ "./src/app/layout/footer/footer.component.ts");
 /* harmony import */ var _layout_navigation_navigation_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./layout/navigation/navigation.component */ "./src/app/layout/navigation/navigation.component.ts");
+/* harmony import */ var _ggmap_ggmap_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ggmap/ggmap.component */ "./src/app/ggmap/ggmap.component.ts");
+/* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
+/* harmony import */ var agm_direction__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! agm-direction */ "./node_modules/agm-direction/agm-direction.umd.js");
+/* harmony import */ var agm_direction__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(agm_direction__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _shipment_shipment_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./shipment/shipment.component */ "./src/app/shipment/shipment.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
+
 
 
 
@@ -171,11 +186,17 @@ var AppModule = /** @class */ (function () {
                 _layout_layout_component__WEBPACK_IMPORTED_MODULE_6__["LayoutComponent"],
                 _layout_header_header_component__WEBPACK_IMPORTED_MODULE_7__["HeaderComponent"],
                 _layout_footer_footer_component__WEBPACK_IMPORTED_MODULE_8__["FooterComponent"],
-                _layout_navigation_navigation_component__WEBPACK_IMPORTED_MODULE_9__["NavigationComponent"]
+                _layout_navigation_navigation_component__WEBPACK_IMPORTED_MODULE_9__["NavigationComponent"],
+                _ggmap_ggmap_component__WEBPACK_IMPORTED_MODULE_10__["GgmapComponent"],
+                _shipment_shipment_component__WEBPACK_IMPORTED_MODULE_13__["ShipmentComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"]
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
+                _agm_core__WEBPACK_IMPORTED_MODULE_11__["AgmCoreModule"].forRoot({
+                    apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
+                }),
+                agm_direction__WEBPACK_IMPORTED_MODULE_12__["AgmDirectionModule"]
             ],
             providers: [],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]]
@@ -245,6 +266,191 @@ var DashboardComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], DashboardComponent);
     return DashboardComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/ggmap/ggmap.component.html":
+/*!********************************************!*\
+  !*** ./src/app/ggmap/ggmap.component.html ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!--<div class=\"row\">\r\n  <div class=\"col-md-4\">\r\n    <div id=\"directions-panel\"></div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <div id=\"map\"></div>\r\n  </div>\r\n</div>-->\r\n\r\n<div id=\"map\"></div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/ggmap/ggmap.component.scss":
+/*!********************************************!*\
+  !*** ./src/app/ggmap/ggmap.component.scss ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".row {\n  margin-left: 10px;\n  margin-top: 5px; }\n\n#map {\n  height: 960px; }\n\n.map {\n  height: 100%; }\n\n.location {\n  border-bottom-color: darkorange; }\n"
+
+/***/ }),
+
+/***/ "./src/app/ggmap/ggmap.component.ts":
+/*!******************************************!*\
+  !*** ./src/app/ggmap/ggmap.component.ts ***!
+  \******************************************/
+/*! exports provided: GgmapComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GgmapComponent", function() { return GgmapComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var GgmapComponent = /** @class */ (function () {
+    function GgmapComponent(ngZone) {
+        this.ngZone = ngZone;
+        //parameter 
+        //parameter of map
+        this.latcenter = 10.7711799;
+        this.lngcenter = 106.7004174;
+        this.zoom = 15;
+        this.directionsService = new google.maps.DirectionsService();
+        this.directionsDisplay = new google.maps.DirectionsRenderer();
+        //The array of waypoints
+        this.checkboxArray = [
+            'benthanhmarket',
+            { lat: 10.7711899, lng: 106.7304174 },
+            'dai hoc khoa hoc tu nhien'
+        ];
+        this.iconWarehouse = '../assets/warehouse.png';
+        this.iconBase = '../assets/trucking.png';
+    }
+    GgmapComponent.prototype.ngOnInit = function () {
+        this.GetYourPosition();
+        this.InitMap(this.latcenter, this.lngcenter);
+        this.latlngOrigin = this.GetLatlng(10.7711799, 106.7004174);
+        this.latlngDestination = this.GetLatlng(10.803780, 106.694184);
+        this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.latlngOrigin, this.latlngDestination, this.checkboxArray);
+    };
+    //Init the map
+    GgmapComponent.prototype.InitMap = function (latitude, longitude) {
+        this.map = new google.maps.Map(document.getElementById('map'), {
+            zoom: this.zoom,
+            center: { lat: latitude, lng: longitude },
+            scrollwheel: true,
+            zoomControl: true
+        });
+        this.directionsDisplay.setMap(this.map);
+    };
+    //Optimize the route and show
+    //Input:
+    //start point: originLocation || end point: destinationLocation
+    //checkboxArray: the array of detination
+    GgmapComponent.prototype.CalculateAndDisplayRoute = function (directionsService, directionsDisplay, originLocation, destinationLocation, checkboxArray) {
+        var waypts = [];
+        for (var i = 0; i < checkboxArray.length; i++) {
+            waypts.push({
+                location: checkboxArray[i],
+                stopover: true
+            });
+        }
+        directionsService.route({
+            origin: originLocation,
+            destination: destinationLocation,
+            waypoints: waypts,
+            optimizeWaypoints: true,
+            travelMode: 'DRIVING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+                var route = response.routes[0];
+                //var summaryPanel = document.getElementById('directions-panel');
+                //summaryPanel.innerHTML = '';
+                //// For each route, display summary information.
+                //for (var i = 0; i < route.legs.length; i++) {
+                //  var routeSegment = i + 1;
+                //  summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                //    '</b><br>';
+                //  summaryPanel.innerHTML += route.legs[i].start_address + '<br> ';
+                //  summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+                //  summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+                //}
+                //return summaryPanel;
+            }
+            else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    };
+    //Convert the address to the latitude and longitude
+    GgmapComponent.prototype.Geocoding = function (address) {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+                var latlng = new google.maps.LatLng(latitude, longitude);
+                return latlng;
+            }
+        });
+    };
+    //Get your position
+    //Add the marker where you are
+    //Address of where you are
+    GgmapComponent.prototype.GetYourPosition = function () {
+        var _this = this;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                _this.yourlat = position.coords.latitude;
+                _this.yourlng = position.coords.longitude;
+                var geocoder = new google.maps.Geocoder();
+                var latlng = new google.maps.LatLng(_this.yourlat, _this.yourlng);
+                var marker = new google.maps.Marker({
+                    position: { lat: _this.yourlat, lng: _this.yourlng },
+                    icon: _this.iconBase
+                });
+                marker.setMap(_this.map);
+                var request = {
+                    latLng: latlng
+                };
+                geocoder.geocode(request, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0] != null) {
+                            _this.ngZone.run(function () { _this.yourAddress = results[0].formatted_address; });
+                        }
+                        else {
+                            alert("No address available");
+                        }
+                    }
+                });
+            }, function (error) {
+                console.log("Error code: " + error.code + "<br /> Error message: " + error.message);
+            });
+        }
+    };
+    //Get the Latlng
+    GgmapComponent.prototype.GetLatlng = function (latitude, longitude) {
+        var latlng = new google.maps.LatLng(latitude, longitude);
+        return latlng;
+    };
+    GgmapComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-ggmap',
+            template: __webpack_require__(/*! ./ggmap.component.html */ "./src/app/ggmap/ggmap.component.html"),
+            styles: [__webpack_require__(/*! ./ggmap.component.scss */ "./src/app/ggmap/ggmap.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]])
+    ], GgmapComponent);
+    return GgmapComponent;
 }());
 
 
@@ -321,7 +527,7 @@ var HomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  footer works!\n</p>\n"
+module.exports = "<p>\r\n  footer works!\r\n</p>\r\n"
 
 /***/ }),
 
@@ -332,7 +538,7 @@ module.exports = "<p>\n  footer works!\n</p>\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "p {\n  background-color: black; }\n"
 
 /***/ }),
 
@@ -447,7 +653,7 @@ var HeaderComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid clearfix\">\r\n  <app-header></app-header>\r\n  <div class=\"row\" id=\"body-row\">\r\n    <app-navigation></app-navigation>\r\n    <main class=\"main-section col\">\r\n      <!--BODY BEGIN-->\r\n      <router-outlet></router-outlet>\r\n      <p>qweasdzxc</p>\r\n      <!--BODY END-->\r\n    </main>\r\n  </div>\r\n  <app-footer></app-footer>\r\n</div>\r\n"
+module.exports = "<div class=\"container-fluid clearfix\">\r\n  <app-header></app-header>\r\n  <div class=\"row\" id=\"body-row\">\r\n    <app-navigation></app-navigation>\r\n    <main class=\"main-section col\">\r\n      <!--BODY BEGIN-->\r\n      <app-shipment></app-shipment>\r\n\r\n      <!--BODY END-->\r\n\r\n    </main>\r\n  </div>\r\n  <app-footer></app-footer>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -566,6 +772,73 @@ var NavigationComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shipment/shipment.component.html":
+/*!**************************************************!*\
+  !*** ./src/app/shipment/shipment.component.html ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\r\n<div class=\"row\">\r\n  <div class=\"col-md-4\">\r\n    <div class=\"tille\">\r\n      <p id=\"header\">REQUEST</p>\r\n     \r\n      <div class=\"form-group row\">\r\n\r\n        <div class=\"col-sm-12\">\r\n          <input type=\"text\" class=\"form-control-plaintext yourAddress\" value=\"email@example.com\">\r\n        </div>\r\n      </div>\r\n      <div class=\"form-group row\">\r\n        <div class=\"col-sm-12\">\r\n          <input type=\"text\" class=\"form-control-plaintext nextAddress\" value=\"email@example.com\">\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <app-ggmap></app-ggmap>\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment.component.scss":
+/*!**************************************************!*\
+  !*** ./src/app/shipment/shipment.component.scss ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".row {\n  margin-top: 5px; }\n\n#header {\n  font-size: 40px;\n  text-align: center;\n  color: #0073e6; }\n\n.yourAddress {\n  border-bottom-color: #0073e6;\n  background-image: url(\"data:image/svg+xml,%3C%3Fxml version%3D%221.0%22 encoding%3D%22iso-8859-1%22%3F%3E%0D%3C!-- Generator%3A Adobe Illustrator 19.0.0%2C SVG Export Plug-In . SVG Version%3A 6.00 Build 0)  --%3E%0D%3Csvg version%3D%221.1%22 id%3D%22Capa_1%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22 x%3D%220px%22 y%3D%220px%22%0D%09 viewBox%3D%220 0 52 52%22 style%3D%22enable-background%3Anew 0 0 52 52%3B%22 xml%3Aspace%3D%22preserve%22%3E%0D%3Cpath style%3D%22fill%3A%231081E0%3B%22 d%3D%22M38.853%2C5.324L38.853%2C5.324c-7.098-7.098-18.607-7.098-25.706%2C0h0%0D%09C6.751%2C11.72%2C6.031%2C23.763%2C11.459%2C31L26%2C52l14.541-21C45.969%2C23.763%2C45.249%2C11.72%2C38.853%2C5.324z M26.177%2C24c-3.314%2C0-6-2.686-6-6%0D%09s2.686-6%2C6-6s6%2C2.686%2C6%2C6S29.491%2C24%2C26.177%2C24z%22%2F%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3C%2Fsvg%3E%0D\");\n  background-repeat: no-repeat;\n  padding-left: 48px; }\n\n.nextAddress {\n  background-image: url(\"data:image/svg+xml,%3C%3Fxml version%3D%221.0%22 encoding%3D%22iso-8859-1%22%3F%3E%0D%3C!-- Generator%3A Adobe Illustrator 19.0.0%2C SVG Export Plug-In . SVG Version%3A 6.00 Build 0)  --%3E%0D%3Csvg version%3D%221.1%22 id%3D%22Capa_1%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22 x%3D%220px%22 y%3D%220px%22%0D%09 viewBox%3D%220 0 512 512%22 style%3D%22enable-background%3Anew 0 0 512 512%3B%22 xml%3Aspace%3D%22preserve%22%3E%0D%3Cpolygon style%3D%22fill%3A%234398D1%3B%22 points%3D%22256%2C8.509 8.533%2C145.042 8.533%2C503.442 51.2%2C503.442 51.2%2C196.242 460.8%2C196.242 %0D%09460.8%2C503.442 503.467%2C503.442 503.467%2C153.575 %22%2F%3E%0D%3Cg%3E%0D%09%3Cpath style%3D%22fill%3A%233E8CC7%3B%22 d%3D%22M460.8%2C503.442h42.667V226.45c-14.054%2C9.899-28.271%2C19.371-42.667%2C28.416V503.442z%22%2F%3E%0D%09%3Cpath style%3D%22fill%3A%233E8CC7%3B%22 d%3D%22M8.533%2C503.442H51.2v-79.275c-14.677%2C3.584-28.902%2C6.827-42.667%2C9.728V503.442z%22%2F%3E%0D%3C%2Fg%3E%0D%3Crect x%3D%2251.2%22 y%3D%22196.242%22 style%3D%22fill%3A%23E5E5E5%3B%22 width%3D%22409.6%22 height%3D%2268.267%22%2F%3E%0D%3Crect x%3D%2251.2%22 y%3D%22221.842%22 style%3D%22fill%3A%23CFCFCF%3B%22 width%3D%22409.6%22 height%3D%2217.067%22%2F%3E%0D%3Crect x%3D%22213.333%22 y%3D%22127.975%22 style%3D%22fill%3A%23E5E5E5%3B%22 width%3D%2285.333%22 height%3D%2234.133%22%2F%3E%0D%3Crect x%3D%22324.267%22 y%3D%22298.642%22 style%3D%22fill%3A%23FDB62F%3B%22 width%3D%22102.4%22 height%3D%22102.4%22%2F%3E%0D%3Crect x%3D%22358.4%22 y%3D%22298.642%22 style%3D%22fill%3A%23FD7B2F%3B%22 width%3D%2234.133%22 height%3D%2234.133%22%2F%3E%0D%3Cpath style%3D%22fill%3A%23FFA230%3B%22 d%3D%22M324.267%2C401.042h102.4v-69.035c-29.44%2C24.704-64.674%2C41.532-102.4%2C48.896V401.042z%22%2F%3E%0D%3Crect x%3D%22324.267%22 y%3D%22401.042%22 style%3D%22fill%3A%23FDB62F%3B%22 width%3D%22102.4%22 height%3D%22102.4%22%2F%3E%0D%3Crect x%3D%22358.4%22 y%3D%22401.042%22 style%3D%22fill%3A%23FD7B2F%3B%22 width%3D%2234.133%22 height%3D%2234.133%22%2F%3E%0D%3Cpath style%3D%22fill%3A%23FFA230%3B%22 d%3D%22M324.267%2C503.442h102.4v-69.035c-29.44%2C24.704-64.674%2C41.532-102.4%2C48.896V503.442z%22%2F%3E%0D%3Crect x%3D%22221.867%22 y%3D%22401.042%22 style%3D%22fill%3A%23FDB62F%3B%22 width%3D%22102.4%22 height%3D%22102.4%22%2F%3E%0D%3Crect x%3D%22256%22 y%3D%22401.042%22 style%3D%22fill%3A%23FD7B2F%3B%22 width%3D%2234.133%22 height%3D%2234.133%22%2F%3E%0D%3Cpath style%3D%22fill%3A%23FFA230%3B%22 d%3D%22M221.867%2C503.442h102.4v-69.035c-29.44%2C24.704-64.674%2C41.532-102.4%2C48.896V503.442z%22%2F%3E%0D%3Crect x%3D%22213.333%22 y%3D%22162.109%22 style%3D%22fill%3A%233E8CC7%3B%22 width%3D%2285.333%22 height%3D%2217.067%22%2F%3E%0D%3Cpath d%3D%22M507.819%2C146.237L260.352%2C1.17c-2.637-1.527-5.897-1.527-8.533%2C0L4.352%2C137.703c-2.654%2C1.493-4.318%2C4.292-4.352%2C7.339v358.4%0D%09c0%2C4.71%2C3.823%2C8.533%2C8.533%2C8.533H51.2c4.71%2C0%2C8.533-3.823%2C8.533-8.533v-230.4h392.533v230.4c0%2C4.71%2C3.823%2C8.533%2C8.533%2C8.533h42.667%0D%09c4.71%2C0%2C8.533-3.823%2C8.533-8.533V153.575C512%2C150.563%2C510.413%2C147.773%2C507.819%2C146.237z M452.267%2C221.842H59.733v-17.067h392.533%0D%09V221.842z M59.733%2C255.975v-17.067h392.533v17.067H59.733z M494.933%2C494.909h-25.6V196.242c0-4.71-3.823-8.533-8.533-8.533H51.2%0D%09c-4.71%2C0-8.533%2C3.823-8.533%2C8.533v298.667h-25.6V150.077L256%2C18.322l238.933%2C140.117V494.909z%22%2F%3E%0D%3Cpath d%3D%22M324.267%2C511.975h102.4c4.71%2C0%2C8.533-3.823%2C8.533-8.533v-204.8c0-4.71-3.823-8.533-8.533-8.533h-102.4%0D%09c-4.71%2C0-8.533%2C3.823-8.533%2C8.533v93.867h-93.867c-4.71%2C0-8.533%2C3.823-8.533%2C8.533v102.4c0%2C4.71%2C3.823%2C8.533%2C8.533%2C8.533H324.267z%0D%09 M418.133%2C494.909H332.8v-85.333h17.067v25.6c0%2C4.71%2C3.823%2C8.533%2C8.533%2C8.533h34.133c4.71%2C0%2C8.533-3.823%2C8.533-8.533v-25.6h17.067%0D%09V494.909z M366.933%2C409.576H384v17.067h-17.067V409.576z M366.933%2C307.176H384v17.067h-17.067V307.176z M332.8%2C307.176h17.067v25.6%0D%09c0%2C4.71%2C3.823%2C8.533%2C8.533%2C8.533h34.133c4.71%2C0%2C8.533-3.823%2C8.533-8.533v-25.6h17.067v85.333H332.8V307.176z M264.533%2C409.576H281.6%0D%09v17.067h-17.067V409.576z M230.4%2C409.576h17.067v25.6c0%2C4.71%2C3.823%2C8.533%2C8.533%2C8.533h34.133c4.71%2C0%2C8.533-3.823%2C8.533-8.533v-25.6%0D%09h17.067v85.333H230.4V409.576z%22%2F%3E%0D%3Cpath d%3D%22M204.8%2C127.975v34.133c0%2C4.71%2C3.823%2C8.533%2C8.533%2C8.533h85.333c4.71%2C0%2C8.533-3.823%2C8.533-8.533v-34.133%0D%09c0-4.71-3.823-8.533-8.533-8.533h-85.333C208.623%2C119.442%2C204.8%2C123.265%2C204.8%2C127.975z M221.867%2C136.509h68.267v17.067h-68.267%0D%09V136.509z%22%2F%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3Cg%3E%0D%3C%2Fg%3E%0D%3C%2Fsvg%3E%0D\");\n  background-repeat: no-repeat;\n  padding-left: 48px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment.component.ts":
+/*!************************************************!*\
+  !*** ./src/app/shipment/shipment.component.ts ***!
+  \************************************************/
+/*! exports provided: ShipmentComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentComponent", function() { return ShipmentComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ShipmentComponent = /** @class */ (function () {
+    function ShipmentComponent() {
+    }
+    ShipmentComponent.prototype.ngOnInit = function () {
+    };
+    ShipmentComponent.prototype.showRouter = function () {
+        console.log(123);
+        document.getElementById("test").style.display = 'block';
+    };
+    ShipmentComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-shipment',
+            template: __webpack_require__(/*! ./shipment.component.html */ "./src/app/shipment/shipment.component.html"),
+            styles: [__webpack_require__(/*! ./shipment.component.scss */ "./src/app/shipment/shipment.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ShipmentComponent);
+    return ShipmentComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/environments/environment.ts":
 /*!*****************************************!*\
   !*** ./src/environments/environment.ts ***!
@@ -626,7 +899,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\intern05\Documents\MiniProject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\intern01\Intership\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })
