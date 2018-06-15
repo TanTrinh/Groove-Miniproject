@@ -67,12 +67,12 @@ namespace Infrastructures.SeedData
 
         private static async Task SeedDataAsync(ApplicationDbContext dbContext)
         {
-            await SeedUserDataAsync(dbContext);
-            await SeedRoleDataAsync(dbContext);
-            await SeedAdministratortDataAsync(dbContext);
-            await SeedCoordinatorDataAsync(dbContext);
-            await SeedDriverDataAsync(dbContext);
-            await SeedCustomerDataAsync(dbContext);
+            //await SeedUserDataAsync(dbContext);
+            //await SeedRoleDataAsync(dbContext);
+            //await SeedAdministratortDataAsync(dbContext);
+            //await SeedCoordinatorDataAsync(dbContext);
+            //await SeedDriverDataAsync(dbContext);
+            //await SeedCustomerDataAsync(dbContext);
 
             SeedWarehouseData(dbContext);
 
@@ -500,7 +500,7 @@ namespace Infrastructures.SeedData
                         ShipmentId = i + 1,
                         RequestId = (i * 5) + j + 1,
                         RequestOrder = j + 1,
-                        CustomerId = (i * 5) + j + 78,
+                        CustomerId = (i * 5) + j + 77,
                         Note = "",
                         Status = "Wait",
                     };
