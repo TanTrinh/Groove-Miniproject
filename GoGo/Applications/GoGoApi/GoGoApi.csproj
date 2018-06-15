@@ -5,11 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\CreateDatabase\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\IoC\Groove.AspNetCore.IoC.Autofact\Groove.AspNetCore.IoC.Autofact.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\Mvc\Groove.AspNetCore.Mvc.JwtBearer\Groove.AspNetCore.Mvc.JwtBearer.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\Mvc\Groove.AspNetCore.Mvc\Groove.AspNetCore.Mvc.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\UnitOfWork\Groove.AspNetCore.UnitOfWork.EntityFramework\Groove.AspNetCore.UnitOfWork.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\UnitOfWork\Groove.AspNetCore.UnitOfWork\Groove.AspNetCore.UnitOfWork.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\Validation\Groove.AspNetCore.FluentValidation\Groove.AspNetCore.FluentValidation.csproj" />
+    <ProjectReference Include="..\..\Infrastructures\Infrastructures\Infrastructures.csproj" />
   </ItemGroup>
 
 </Project>

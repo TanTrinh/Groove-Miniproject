@@ -13,10 +13,11 @@ namespace Infrastructures.EntityConfigurations.GoGo
 		public override void OnConfigure(EntityTypeBuilder<Shipment> builder)
 		{
 			builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
-			builder.HasOne(p => p.Vehicle).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
-			
+            builder.HasIndex(p => p.Code).IsUnique();
 
+			builder.HasOne(p => p.Vehicle).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 			builder.HasOne(p => p.Driver).WithMany().HasForeignKey(p => p.DriverId).OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 			builder.HasOne(p => p.Coordinator).WithMany().HasForeignKey(p => p.CoordinatorId).OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 

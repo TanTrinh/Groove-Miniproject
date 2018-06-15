@@ -11,10 +11,11 @@ namespace Infrastructures.EntityConfigurations.GoGo
 		public override void OnConfigure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<ShipmentRequest> builder)
 		{
 			builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
-			builder.HasOne(p => p.Request).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
-			builder.HasOne(p => p.Shipment).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
-			builder.HasOne(p => p.Customer).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+            builder.HasOne(p => p.Request).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+			builder.HasOne(p => p.Shipment).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+			builder.HasOne(p => p.Customer).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 
 			builder.Property(p => p.ShipmentId).IsRequired();
 			builder.Property(p => p.RequestId).IsRequired();

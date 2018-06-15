@@ -14,8 +14,8 @@ namespace Infrastructures.EntityConfigurations.GoGo.Fleet_management
 			builder.HasKey(p => p.Id);
 			builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
-			builder.HasOne(p => p.Request).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
-			builder.HasOne(p => p.VehicleFeature).WithOne().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+			builder.HasOne(p => p.Request).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+			builder.HasOne(p => p.VehicleFeature).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 
 			builder.Property(p => p.RequestId).IsRequired();
 			builder.Property(p => p.VehicleFeatureId).IsRequired();
