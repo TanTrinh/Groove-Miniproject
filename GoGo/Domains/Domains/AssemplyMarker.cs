@@ -2,7 +2,7 @@
 
 namespace Domains
 {
-    public class AssemplyMarker
+     public sealed class AssemplyMarker
     {
     }
 }
