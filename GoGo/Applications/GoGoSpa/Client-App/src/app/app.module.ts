@@ -12,7 +12,10 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
 import { GgmapComponent } from './ggmap/ggmap.component';
 import { AgmCoreModule, AgmDataLayer } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
-import { ShipmentComponent } from './shipment/shipment.component';
+import { DetailComponent } from './detail/detail.component';
+import { RequestComponent } from './request/request.component';
+import { ProblemComponent } from './problem/problem.component';
+import { TrafficjamComponent } from './trafficjam/trafficjam.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +26,10 @@ import { ShipmentComponent } from './shipment/shipment.component';
     FooterComponent,
     NavigationComponent,
     GgmapComponent,
-    ShipmentComponent,
+    DetailComponent,
+    RequestComponent,
+    ProblemComponent,
+    TrafficjamComponent,
   ],
   imports: [
     BrowserModule,

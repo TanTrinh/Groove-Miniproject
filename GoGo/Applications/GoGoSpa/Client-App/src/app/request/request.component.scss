@@ -1,0 +1,75 @@
+$main-color: #0073e6;
+$sidebar-color: #e6e6ff;
+$my-color: #0073e6;
+
+.row {
+  margin-top: 5px;
+  margin-right: 2px;
+ 
+}
+.tille {
+  text-align: center;
+}
+
+#header {
+  font-size: 40px;
+  color: $main-color;
+}
+
+.yourAddress {
+  border-bottom: 1px solid $main-color;
+  background-image: url("../../assets/placeholder.svg");
+  background-repeat: no-repeat;
+  padding-left: 48px;
+}
+
+.nextAddress {
+  background-image: url("../../assets/warehouse.svg");
+  background-repeat: no-repeat;
+  padding-left: 48px;
+}
+
+#completed {
+  //background-color: #80ff80;
+}
+
+#tracffic {
+  border: 10px;
+}
+
+#noti {
+  border: 3px;
+}
+
+#inf {
+  margin-top: 10px;
+  border: 1px solid $my-color;
+}
+.nav {
+  border-bottom: 1px solid $my-color;
+  color: black;
+}
+
+.nav-item a.hold {
+  background-color: $sidebar-color;
+  color: $main-color;
+  font-weight: 500;
+  border-bottom: solid;
+  border-bottom-color: $main-color;
+}
+
+/* Sidebar */
+#sidebar-container {
+  margin-top: 10px;
+  min-height: 460px;
+  // height:100%;
+  padding: 0;
+  border-bottom-color: $main-color;
+  font-weight: 500;
+}
+
+#support {
+  border: 2px solid #55E0DE;
+  background-color: $sidebar-color;
+  margin-top: 1px;
+}
