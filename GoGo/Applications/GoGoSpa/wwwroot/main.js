@@ -298,7 +298,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container detail\">\r\n  <table class=\"table table-hover\">\r\n    <tbody>\r\n      <tr>\r\n        <td>Code request</td>\r\n        <td>150620181320GG1</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Number of</td>\r\n        <td>3/20</td>\r\n      </tr>\r\n\r\n      <tr>\r\n        <td>Name receive</td>\r\n        <td>Đoàn Quang Đức</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Phone number</td>\r\n        <td>0909090909</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
+module.exports = "<div class=\"container detail\">\r\n  <table class=\"table table-hover\">\r\n    <tbody>\r\n      <tr>\r\n        <td>Code request</td>\r\n        <td>150620181320GG1</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Request quality</td>\r\n        <td>4</td>\r\n      </tr>\r\n\r\n      <tr>\r\n        <td>Name receive</td>\r\n        <td>Đoàn Quang Đức</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Phone number</td>\r\n        <td>0909090909</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -868,7 +868,7 @@ var NavigationComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container problem\">\r\n  <div class=\"row\">\r\n    <img src=\"../../assets/sick.svg\" width=\"96\" height=\"90\" />\r\n    <img src=\"../../assets/broken.svg\" width=\"96\" height=\"90\" />\r\n    <img src=\"../../assets/crash.svg\" width=\"96\" height=\"90\" />\r\n    <img src=\"../../assets/police.svg\" width=\"96\" height=\"90\" />\r\n\r\n  </div>\r\n  <label id=\"tille\">Your problem:</label><br />\r\n  <input class=\"form-control\" placeholder=\"Your problem\" />\r\n\r\n\r\n  <a class=\"btn btn-danger\">Send message</a>\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"container problem\">\r\n  <div class=\"row\">\r\n    <img src=\"../../assets/sick.svg\" width=\"90\" height=\"90\" />\r\n    <img src=\"../../assets/broken.svg\" width=\"90\" height=\"90\" />\r\n    <img src=\"../../assets/crash.svg\" width=\"90\" height=\"90\" />\r\n    <img src=\"../../assets/police.svg\" width=\"90\" height=\"90\" />\r\n\r\n  </div>\r\n  <label id=\"tille\">Your problem:</label><br />\r\n  <input class=\"form-control\" placeholder=\"Your problem\" />\r\n\r\n\r\n  <a class=\"btn btn-danger\">Send message</a>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -931,7 +931,7 @@ var ProblemComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-4\">\r\n    <div class=\"tille\">\r\n      <span id=\"header\">REQUEST</span>\r\n      <img src=\"../../assets/support.svg\" class=\"rounded-circle float-right\" id=\"support\" width=\"60\" height=\"60\" />\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-sm-12\">\r\n        <input type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value=\"132 Hàm Nghi, Phường Bến Thành, Quận 1, Hồ Chí Minh, Vietnam\">\r\n      </div>\r\n    </div>\r\n    <div class=\"form-group row\">\r\n      <div class=\"col-sm-12\">\r\n        <input type=\"text\" class=\"form-control-plaintext nextAddress\" readonly value=\"132 Hoàng Văn Thụ, Phường 9, Phú Nhuận, Hồ Chí Minh, Vietnam\">\r\n      </div>\r\n    </div>\r\n    <button class=\"btn btn-success btn-block\" id=\"completed\">Completed the request</button>\r\n\r\n    <div id=\"inf\">\r\n      <ul class=\"nav nav-tabs\">\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link \" routerLink=\"./detail\" routerLinkActive=\"hold\" id=\"detail\">Request detail</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\"  routerLink=\"./problem\" routerLinkActive=\"hold\" id=\"problem\">Have problem</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\" routerLink=\"./trafficjam\" routerLinkActive=\"hold\" id=\"trafficjam\">Alert traffic jam</a>\r\n        </li>\r\n      </ul>\r\n      <div id=\"router\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n    </div>\r\n    <div class=\"coordinator\">\r\n      \r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <app-ggmap></app-ggmap>\r\n  </div>\r\n</div>\r\n"
+module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-3\">\r\n    <div class=\"tille\">\r\n      <span id=\"header\">REQUEST</span>\r\n      <img src=\"../../assets/support.svg\" class=\"rounded-circle float-right\" id=\"support\" width=\"60\" height=\"60\" />\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-sm-12\">\r\n        <input type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value=\"132 Hàm Nghi, Phường Bến Thành, Quận 1, Hồ Chí Minh, Vietnam\">\r\n      </div>\r\n    </div>\r\n    <div class=\"form-group row\">\r\n      <div class=\"col-sm-12\">\r\n        <input type=\"text\" class=\"form-control-plaintext nextAddress\" readonly value=\"132 Hoàng Văn Thụ, Phường 9, Phú Nhuận, Hồ Chí Minh, Vietnam\">\r\n      </div>\r\n    </div>\r\n    <button class=\"btn btn-success btn-block\" id=\"completed\">Completed the request</button>\r\n\r\n    <div id=\"inf\">\r\n      <ul class=\"nav nav-tabs\">\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link \" routerLink=\"./detail\" routerLinkActive=\"hold\" id=\"detail\">Request detail</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\"  routerLink=\"./problem\" routerLinkActive=\"hold\" id=\"problem\">Have problem</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\" routerLink=\"./trafficjam\" routerLinkActive=\"hold\" id=\"trafficjam\">Alert traffic</a>\r\n        </li>\r\n      </ul>\r\n      <div id=\"router\">\r\n        <router-outlet></router-outlet>\r\n      </div>\r\n    </div>\r\n    <div class=\"coordinator\">\r\n      \r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-9\">\r\n    <app-ggmap></app-ggmap>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -998,7 +998,7 @@ var RequestComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n  <p>Level of traffic jam:</p>\r\n  <img src=\"../../assets/1.svg\" width=\"96\" height=\"90\" />\r\n  <img src=\"../../assets/2.svg\" width=\"96\" height=\"90\" />\r\n  <img src=\"../../assets/3.svg\" width=\"96\" height=\"90\" />\r\n  <img src=\"../../assets/4.svg\" width=\"96\" height=\"90\" />\r\n\r\n  <input class=\"form-control\" placeholder=\"Enter the reason if you want\" />\r\n\r\n  <button class=\"btn btn-warning btn-block\" id=\"completed\">Send alert</button>\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"container\">\r\n  <p>Level of traffic jam:</p>\r\n  <img src=\"../../assets/1.svg\" width=\"90\" height=\"90\" />\r\n  <img src=\"../../assets/2.svg\" width=\"90\" height=\"90\" />\r\n  <img src=\"../../assets/3.svg\" width=\"90\" height=\"90\" />\r\n  <img src=\"../../assets/4.svg\" width=\"90\" height=\"90\" />\r\n\r\n  <input class=\"form-control\" placeholder=\"Enter the reason if you want\" />\r\n\r\n  <button class=\"btn btn-warning btn-block\" id=\"completed\">Send alert</button>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1114,7 +1114,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\Driver\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\intern01\GG\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

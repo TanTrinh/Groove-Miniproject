@@ -68,11 +68,11 @@ namespace Infrastructures.SeedData
         private static async Task SeedDataAsync(ApplicationDbContext dbContext)
         {
             await SeedUserDataAsync(dbContext);
-            //await SeedRoleDataAsync(dbContext);
-            //await SeedAdministratortDataAsync(dbContext);
-            //await SeedCoordinatorDataAsync(dbContext);
-            //await SeedDriverDataAsync(dbContext);
-            //await SeedCustomerDataAsync(dbContext);
+            await SeedRoleDataAsync(dbContext);
+            await SeedAdministratortDataAsync(dbContext);
+            await SeedCoordinatorDataAsync(dbContext);
+            await SeedDriverDataAsync(dbContext);
+            await SeedCustomerDataAsync(dbContext);
 
             SeedWarehouseData(dbContext);
 
@@ -351,11 +351,10 @@ namespace Infrastructures.SeedData
                 {
                     Height = Height[type],
                     Lenght = Lenght[type],
-                    width = Width[type],
+                    Width = Width[type],
                     LicensePlate = licenseplate + licenseplate_current,
                     VehicleTypeId = type + 1
                 };
-                Console.WriteLine(vehicle.LicensePlate);
                 dbContext.Add(vehicle);
             }
             dbContext.SaveChanges();
@@ -429,23 +428,33 @@ namespace Infrastructures.SeedData
                     PhoneNumber = phonenumberHeader + ran.Next(100000, 999999).ToString(),
                     OwnerId = custormerID,
                     Latitude = Math.Round(latitudeBase + i * 0.0001, 6),
-                    Longitude = Math.Round(longitudeBase + i * 0.0001, 6)
+                    Longitude = Math.Round(longitudeBase + i * 0.0001, 6),
+                    Address = "This is my warehouse address"
                 };
                 dbContext.Add(warehouse);
                 dbContext.SaveChanges();
             }
         }
-
+        private static DateTime FormatDateTime(DateTime dateTime)
+        {
+            String dateTimeString= String.Format("{0:g}", dateTime);
+            return DateTime.Parse(dateTimeString);
+        }
         //Add seed data of Request
         private static void SeedRequestData(ApplicationDbContext dbContext)
         {
             double latitudeBase = 10.762622;
             double longitudeBase = 106.660172;
-            DateTime createdDate = DateTime.Now;
-            
+            DateTime createdDate = FormatDateTime(DateTime.Now);
+            Random ran = new Random();
+
+            string phonenumberHeader = "0908";
+            string[] name = { "Khanh", "Khoi", "Khoa", "Khang", "Khai", "Chi", "Cong", "Cuong", "Cao", "Cuc", "Dung", "Danh", "Diem", "Duy", "Diep"};
+            string[] lastname = { "Tran", "Nguyen", "Trinh", "Le", "Mai" };
+
             for (int i = 1; i < 26; i++)
             {
-                DateTime pickingDate = DateTime.Now.AddDays(i % 5);
+                DateTime pickingDate =createdDate.AddDays(i % 5);
                 var request = new Request
                 {
                     CreatedDate = createdDate,
@@ -457,6 +466,9 @@ namespace Infrastructures.SeedData
                     WareHouseId = i,
                     IssuerId = i + 76,
                     Status = "Wait",
+                    ReceiverName = name[ran.Next(0, 14)] + lastname[ran.Next(0, 4)],
+                    ReceiverPhoneNumber = phonenumberHeader + ran.Next(100000, 999999).ToString(),
+                    Address = "This is my address",
                     Code = GenerateCode(createdDate,i+76)
                 };
                 dbContext.Add(request);
@@ -469,7 +481,7 @@ namespace Infrastructures.SeedData
         {
             for (int i = 0; i < 5; i++)
             {
-                DateTime createdDate = DateTime.Now;
+                DateTime createdDate = FormatDateTime(DateTime.Now);
                 long custormerID = (long)i + 77;
                 var shipment = new Shipment
                 {

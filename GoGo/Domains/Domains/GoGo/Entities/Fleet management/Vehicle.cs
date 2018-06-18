@@ -13,7 +13,7 @@ namespace Domains.GoGo.Entities
 		public int VehicleTypeId { get; set; }
 		
 		public float Height { get; set; }
-		public float width { get; set; }
+		public float Width { get; set; }
 		public float Lenght { get; set; }
 
 		public VehicleType VehicleType { get; set; }
