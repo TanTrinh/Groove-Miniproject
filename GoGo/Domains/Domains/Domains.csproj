@@ -13,8 +13,10 @@
     <Folder Include="GoGo\Models\" />
     <Folder Include="GoGo\Services\" />
     <Folder Include="GoGo\Repositories\" />
-    <Folder Include="Identity\Models\" />
-    <Folder Include="Identity\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
