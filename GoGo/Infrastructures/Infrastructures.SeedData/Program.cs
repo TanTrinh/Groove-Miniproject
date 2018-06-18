@@ -67,27 +67,27 @@ namespace Infrastructures.SeedData
 
         private static async Task SeedDataAsync(ApplicationDbContext dbContext)
         {
-            //await SeedUserDataAsync(dbContext);
-            //await SeedRoleDataAsync(dbContext);
-            //await SeedAdministratortDataAsync(dbContext);
-            //await SeedCoordinatorDataAsync(dbContext);
-            //await SeedDriverDataAsync(dbContext);
-            //await SeedCustomerDataAsync(dbContext);
+			await SeedUserDataAsync(dbContext);
+			await SeedRoleDataAsync(dbContext);
+			await SeedAdministratortDataAsync(dbContext);
+			await SeedCoordinatorDataAsync(dbContext);
+			await SeedDriverDataAsync(dbContext);
+			await SeedCustomerDataAsync(dbContext);
 
-            SeedWarehouseData(dbContext);
+			SeedWarehouseData(dbContext);
 
-            SeedVehicleTypeDataAsync(dbContext);
-            SeedVehicleData(dbContext);
-            SeedVehicleFeatureData(dbContext);
-            SeedDriverAbilityData(dbContext);
-            SeedFeatureOfVehicleData(dbContext);
+			SeedVehicleTypeDataAsync(dbContext);
+			SeedVehicleData(dbContext);
+			SeedVehicleFeatureData(dbContext);
+			SeedDriverAbilityData(dbContext);
+			SeedFeatureOfVehicleData(dbContext);
 
-            SeedRequestData(dbContext);
-            SeedShipmentData(dbContext);
-            SeedShipmentRequestData(dbContext);
-        }
+			SeedRequestData(dbContext);
+			SeedShipmentData(dbContext);
+			SeedShipmentRequestData(dbContext);
+		}
 
-        private static string ConverIntToString(int input)
+		private static string ConverIntToString(int input)
         {
             string output = "";
             if (input < 10)
@@ -441,11 +441,15 @@ namespace Infrastructures.SeedData
         {
             double latitudeBase = 10.762622;
             double longitudeBase = 106.660172;
-            DateTime createdDate = DateTime.Now;
+
+			var DateTimeNow = String.Format("{0:G}", DateTime.Now); 
+
+			DateTime createdDate = DateTime.Parse(DateTimeNow);
             
             for (int i = 1; i < 26; i++)
             {
-                DateTime pickingDate = DateTime.Now.AddDays(i % 5);
+                DateTime pickingDate = createdDate.AddDays(i % 5);
+
                 var request = new Request
                 {
                     CreatedDate = createdDate,

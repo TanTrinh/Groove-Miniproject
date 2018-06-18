@@ -33,11 +33,5 @@ namespace Domains.GoGo.Entities
         //string IEntity<string>.Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 
-    public class RequestModel : Profile
-    {
-        public RequestModel()
-        {
-            CreateMap<Request, Request>();
-        }
-    }
+   
 }

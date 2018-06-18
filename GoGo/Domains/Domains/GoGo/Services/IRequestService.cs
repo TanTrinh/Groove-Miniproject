@@ -1,4 +1,5 @@
 ﻿using Domains.GoGo.Entities;
+using Domains.GoGo.Models.Transportation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Domains.GoGo.Services
 {
     public interface IRequestService
     {
-        Task<IEnumerable<Request>> GetWaitingRequest();
+        Task<IEnumerable<WaitingRequestModel>> GetWaitingRequest();
     }
 }

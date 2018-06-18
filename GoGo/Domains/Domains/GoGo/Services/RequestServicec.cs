@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domains.GoGo.Entities;
+using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.UnitOfWork;
 
@@ -22,7 +23,7 @@ namespace Domains.GoGo.Services
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<Request>> GetWaitingRequest()
+        public Task<IEnumerable<WaitingRequestModel>> GetWaitingRequest()
         {
             return _repository.GetWaitingRequestAsync();
         }

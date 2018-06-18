@@ -10,21 +10,22 @@ using Groove.AspNetCore.DataBinding.AutoMapperExtentions;
 using AutoMapper;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Domains.GoGo.Models.Transportation;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
     public class RequestRepository : GenericRepository<Request, string>, IRequestRepository
     {
-        private readonly IMapper mapper;
+        private readonly IMapper _mapper;
 
         public RequestRepository(IMapper mapper, IUnitOfWorkContext uoWContext) : base(uoWContext)
         {
-            this.mapper = mapper;
+            _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Request>> GetWaitingRequestAsync()
+        public async Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync()
         {
-            return await this.dbSet.Where(p => p.Status == "Wait").MapQueryTo<Request>(mapper).ToListAsync();
+            return await this.dbSet.Where(p => p.Status == "Wait").MapQueryTo<WaitingRequestModel>(_mapper).ToListAsync();
         }
     }
 }
