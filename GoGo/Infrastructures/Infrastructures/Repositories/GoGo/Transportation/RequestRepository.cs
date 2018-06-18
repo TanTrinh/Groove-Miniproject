@@ -14,7 +14,7 @@ using Domains.GoGo.Models.Transportation;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
-    public class RequestRepository : GenericRepository<Request, string>, IRequestRepository
+    public class RequestRepository : GenericRepository<Request, int>, IRequestRepository
     {
         private readonly IMapper _mapper;
 

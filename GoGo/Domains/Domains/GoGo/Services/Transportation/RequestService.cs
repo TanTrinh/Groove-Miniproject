@@ -10,13 +10,13 @@ using Groove.AspNetCore.UnitOfWork;
 
 namespace Domains.GoGo.Services
 {
-    public class RequestServicec : IRequestService
+    public class RequestService : IRequestService
     {
         private readonly IRequestRepository _repository;
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public RequestServicec(IMapper mapper, IUnitOfWork uow, IRequestRepository repository)
+        public RequestService(IMapper mapper, IUnitOfWork uow, IRequestRepository repository)
         {
             _uow = uow;
             _repository = repository;

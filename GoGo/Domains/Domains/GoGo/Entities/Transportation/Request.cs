@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Domains.GoGo.Entities
 {
-    public class Request : IEntity<string>
+    public class Request : IEntity<int>
     {
 		public int Id { get; set; }
 
@@ -29,7 +29,7 @@ namespace Domains.GoGo.Entities
 
 		public User Issuer { get; set; }
 		public WareHouse WareHouse { get; set; }
-        string IEntity<string>.Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+      
         //string IEntity<string>.Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 
