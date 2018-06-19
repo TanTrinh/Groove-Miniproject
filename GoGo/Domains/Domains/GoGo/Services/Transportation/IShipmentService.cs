@@ -1,4 +1,5 @@
 ﻿using Domains.GoGo.Models.Transportation;
+using Groove.AspNetCore.Common.Identity;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Domains.GoGo.Services.Transportation
 {
 	public interface IShipmentService
     {
-		Task CreateShipmentAsync(CreateShipmentModel model);
+		Task<int> CreateShipmentAsync(CreateShipmentModel model);
     }
 }

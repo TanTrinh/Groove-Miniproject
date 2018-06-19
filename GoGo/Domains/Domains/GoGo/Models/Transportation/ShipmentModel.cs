@@ -8,13 +8,10 @@ namespace Domains.GoGo.Models.Transportation
 {
     public class CreateShipmentModel
     {
-		public List<int> RequestIdLIst { get; set; }
-
-		public string Code { set; get; }
+		public List<int> RequestIdList { get; set; }
 
 		public int RequestQuantity { get; set; }
 
-		public DateTime CreatedDate { set; get; }
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
 
@@ -28,6 +25,7 @@ namespace Domains.GoGo.Models.Transportation
 		public CreateShipmentModelMapper()
 		{
 			CreateMap<Shipment, CreateShipmentModel>();
+			CreateMap<CreateShipmentModel, Shipment>();
 		}
 	}
 }

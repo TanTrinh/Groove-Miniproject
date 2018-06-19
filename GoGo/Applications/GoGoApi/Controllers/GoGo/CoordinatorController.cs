@@ -17,11 +17,14 @@ namespace GoGoApi.Controllers
     {
         private readonly IRequestService _service;
 		private readonly IShipmentService _Shipmentservice;
+		private readonly IShipmentRequestService _shipmentRequestService;
 
-		public CoordinatorController(IRequestService service)
+		public CoordinatorController(IRequestService service, IShipmentService Shipmentservice, IShipmentRequestService shipmentRequestService)
         {
             _service = service;
-        }
+			_Shipmentservice = Shipmentservice;
+			_shipmentRequestService = shipmentRequestService;
+		}
 
         [Route("")]
         [HttpGet]
@@ -34,7 +37,10 @@ namespace GoGoApi.Controllers
 		[HttpPost]
 		public async Task<IActionResult> CreateShipment(CreateShipmentModel model)
 		{
-			await _Shipmentservice.CreateShipmentAsync(model);
+			//var userIdentity = GetCurrentIdentity<long>();
+
+			var shipmentId = await _Shipmentservice.CreateShipmentAsync(model);
+			await _shipmentRequestService.CreateShipmentRequestAsync(model.RequestIdList, shipmentId);
 
 			return Ok();
 		}

@@ -1,22 +1,19 @@
 ﻿using AutoMapper;
 using Domains.GoGo.Entities;
-using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.UnitOfWork;
 using Groove.AspNetCore.UnitOfWork.EntityFramework;
 using System;
 using System.Collections.Generic;
-using Groove.AspNetCore.DataBinding.AutoMapperExtentions;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
-    public class ShipmentRepository : GenericRepository<Shipment, int>, IShipmentRepository
+    public class ShipmentRequestRepository : GenericRepository<ShipmentRequest, int>, IShipmentRequestRepository
 	{
 		private readonly IMapper _mapper;
 
-		public ShipmentRepository(IMapper mapper, IUnitOfWorkContext uoWContext) : base(uoWContext)
+		public ShipmentRequestRepository(IMapper mapper, IUnitOfWorkContext uoWContext) : base(uoWContext)
 		{
 			_mapper = mapper;
 		}

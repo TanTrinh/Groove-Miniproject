@@ -460,7 +460,8 @@ namespace Infrastructures.SeedData
                     DeliveryLongitude = Math.Round(longitudeBase + i * 0.0001, 6),
                     WareHouseId = i,
                     IssuerId = i + 76,
-                    Status = "Wait",
+					CustomerId = i+76,
+					Status = "Wait",
                     Code = GenerateCode(createdDate,i+76)
                 };
                 dbContext.Add(request);
@@ -504,7 +505,6 @@ namespace Infrastructures.SeedData
                         ShipmentId = i + 1,
                         RequestId = (i * 5) + j + 1,
                         RequestOrder = j + 1,
-                        CustomerId = (i * 5) + j + 77,
                         Note = "",
                         Status = "Wait",
                     };
