@@ -18,7 +18,7 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
     LayoutComponent,
     HeaderComponent,
     FooterComponent,
-    NavigationComponent
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,

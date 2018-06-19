@@ -13,7 +13,7 @@ namespace Domains.Identity.Entities
 
 		public DateTimeOffset UpdatedDate { get; set; }
 		public long UpdatedByUserId { get; set; } // use to query/join
-		public string UpdatedByUserName { get; set; } // Use to display
+		public string UpdatedByUserName { get; set; } // Use to display 
 
 		public byte[] RowVersion { get; set; }
 

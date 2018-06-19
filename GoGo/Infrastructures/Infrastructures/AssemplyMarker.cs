@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Infrastructures
 {
-    class AssemplyMarker
+    public class AssemplyMarker
     {
     }
 }
