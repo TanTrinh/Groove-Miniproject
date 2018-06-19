@@ -1,0 +1,35 @@
+$sidebar-color: #e6e6ff;
+$my-color: #0073e6;
+$main-color: #0073e6;
+
+/*  navbar */
+#narbar {
+  color: $my-color;
+  background-color: #0059b3;
+}
+
+/*  navbar item */
+#narbar a {
+  color: white;
+}
+
+#narbar a:hover {
+  color: white;
+}
+
+#smallMenu a {
+  color: black;
+}
+
+#AccountDropdown a {
+  color: $main-color;
+}
+
+#AccountDropdown a:hover {
+  color: white;
+  background-color: $main-color
+}
+/*  navbar submenu item*/
+#smallMenu a:hover {
+  color: $my-color;
+}

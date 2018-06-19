@@ -1,16 +1,19 @@
 ﻿using Domains.Identity.Entities;
+using Groove.AspNetCore.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Domains.GoGo.Entities
 {
-    public class Shipment
+    public class Shipment : IEntity<int>
     {
-		public string Id { get; set; }
+		public int Id { get; set; }
+        public string Code { set; get; }
 
 		public int RequestQuantity { get; set; }
 
+        public DateTime CreatedDate { set; get; }
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
 

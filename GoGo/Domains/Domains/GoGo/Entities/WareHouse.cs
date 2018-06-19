@@ -7,12 +7,14 @@ namespace Domains.GoGo
 {
     public class WareHouse
     {
-		public string Id { get; set; }
+		public int Id { get; set; }
 
+        public string NameWarehouse { set; get; }
 		public string PhoneNumber { get; set; }
-		public string Address { get; set; }
+		public double Latitude { get; set; }
+        public double Longitude{ get; set; }
 
-		public long OwnerId { get; set; }
+        public long OwnerId { get; set; }
 		public User Owner { get; set; }		
 	}
 }

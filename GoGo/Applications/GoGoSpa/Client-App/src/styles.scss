@@ -1,13 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+$sidebar-color: #e6e6ff;
+$main-color: #0073e6;
+$btn-thead-color: #3399ff;
 
-body {
-  padding-top: 3.5rem;
+// override kendo ui
+kendo-grid {
+  .k-grid-header {
+    thead {
+      tr:first-child {
+        background-color: $btn-thead-color;
+        color: white;
+      }
+    }
+  }
+}
+// Utilities
+h1 {
+  color: darkslategrey;
 }
 
+thead {
+  background-color: #3399ff;
+  color: white;
+}
 
+.border-custom {
+  border-bottom-style: solid;
+  border-width: 1px;
+  border-bottom-color: $main-color;
+}
 
-h1 {
-  padding-bottom: 9px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #eee;
+img {
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+// Custom button
+.btn-custom {
+  border-style: solid;
+  border-color: $btn-thead-color;
+  background-color: white;
+  color: $btn-thead-color;
 }

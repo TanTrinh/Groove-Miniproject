@@ -6,7 +6,7 @@ namespace Domains.GoGo.Entities
 {
     public class ProblemMessage
     {
-		public string Id { get; set; }
+		public int Id { get; set; }
 
 		public string ShipmentId { get; set; }
 		public Shipment Shipment { get; set; }

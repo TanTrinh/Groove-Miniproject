@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructures.DbMigration.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -200,9 +200,12 @@ namespace Infrastructures.DbMigration.Migrations
                 name: "WareHouse",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    NameWarehouse = table.Column<string>(nullable: false),
                     PhoneNumber = table.Column<string>(maxLength: 20, nullable: false),
-                    Address = table.Column<string>(nullable: false),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false),
                     OwnerId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -269,14 +272,18 @@ namespace Infrastructures.DbMigration.Migrations
                 name: "Request",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
                     PickingDate = table.Column<DateTime>(nullable: false),
                     DeliveryDate = table.Column<DateTime>(nullable: false),
-                    DeliveryAddress = table.Column<string>(nullable: false),
+                    DeliveryLatitude = table.Column<double>(nullable: false),
+                    DeliveryLongitude = table.Column<double>(nullable: false),
                     PackageQuantity = table.Column<int>(nullable: false),
+                    Code = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: false),
                     IssuerId = table.Column<long>(nullable: false),
-                    WareHouseId = table.Column<string>(nullable: false)
+                    WareHouseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -325,8 +332,11 @@ namespace Infrastructures.DbMigration.Migrations
                 name: "Shipment",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Code = table.Column<string>(nullable: true),
                     RequestQuantity = table.Column<int>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
                     VehicleId = table.Column<int>(nullable: false),
@@ -362,7 +372,7 @@ namespace Infrastructures.DbMigration.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RequestId = table.Column<string>(nullable: false),
+                    RequestId = table.Column<int>(nullable: false),
                     VehicleFeatureId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -386,31 +396,34 @@ namespace Infrastructures.DbMigration.Migrations
                 name: "ProblemMessage",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ShipmentId = table.Column<string>(nullable: false),
+                    ShipmentId1 = table.Column<int>(nullable: true),
                     Message = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProblemMessage", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProblemMessage_Shipment_ShipmentId",
-                        column: x => x.ShipmentId,
+                        name: "FK_ProblemMessage_Shipment_ShipmentId1",
+                        column: x => x.ShipmentId1,
                         principalTable: "Shipment",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ShipmentRequest",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     RequestOrder = table.Column<int>(nullable: false),
                     Status = table.Column<string>(nullable: false),
                     Note = table.Column<string>(nullable: false),
-                    ShipmentId = table.Column<string>(nullable: false),
-                    RequestId = table.Column<string>(nullable: false),
+                    ShipmentId = table.Column<int>(nullable: false),
+                    RequestId = table.Column<int>(nullable: false),
                     CustomerId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -478,20 +491,17 @@ namespace Infrastructures.DbMigration.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_DriverAbility_DriverId",
                 table: "DriverAbility",
-                column: "DriverId",
-                unique: true);
+                column: "DriverId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DriverAbility_VehicleTypeId",
                 table: "DriverAbility",
-                column: "VehicleTypeId",
-                unique: true);
+                column: "VehicleTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FeatureOfVehicle_VehicleFeatureId",
                 table: "FeatureOfVehicle",
-                column: "VehicleFeatureId",
-                unique: true);
+                column: "VehicleFeatureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FeatureOfVehicle_VehicleId",
@@ -500,21 +510,33 @@ namespace Infrastructures.DbMigration.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProblemMessage_ShipmentId",
+                name: "IX_ProblemMessage_ShipmentId1",
                 table: "ProblemMessage",
-                column: "ShipmentId");
+                column: "ShipmentId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Request_Code",
+                table: "Request",
+                column: "Code",
+                unique: true,
+                filter: "[Code] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Request_IssuerId",
                 table: "Request",
-                column: "IssuerId",
-                unique: true);
+                column: "IssuerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Request_WareHouseId",
                 table: "Request",
-                column: "WareHouseId",
-                unique: true);
+                column: "WareHouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shipment_Code",
+                table: "Shipment",
+                column: "Code",
+                unique: true,
+                filter: "[Code] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Shipment_CoordinatorId",
@@ -529,26 +551,22 @@ namespace Infrastructures.DbMigration.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Shipment_VehicleId",
                 table: "Shipment",
-                column: "VehicleId",
-                unique: true);
+                column: "VehicleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShipmentRequest_CustomerId",
                 table: "ShipmentRequest",
-                column: "CustomerId",
-                unique: true);
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShipmentRequest_RequestId",
                 table: "ShipmentRequest",
-                column: "RequestId",
-                unique: true);
+                column: "RequestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShipmentRequest_ShipmentId",
                 table: "ShipmentRequest",
-                column: "ShipmentId",
-                unique: true);
+                column: "ShipmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicle_LicensePlate",
@@ -559,19 +577,22 @@ namespace Infrastructures.DbMigration.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicle_VehicleTypeId",
                 table: "Vehicle",
-                column: "VehicleTypeId",
-                unique: true);
+                column: "VehicleTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VehicleFeatureRequest_RequestId",
                 table: "VehicleFeatureRequest",
-                column: "RequestId",
-                unique: true);
+                column: "RequestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VehicleFeatureRequest_VehicleFeatureId",
                 table: "VehicleFeatureRequest",
-                column: "VehicleFeatureId",
+                column: "VehicleFeatureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WareHouse_NameWarehouse",
+                table: "WareHouse",
+                column: "NameWarehouse",
                 unique: true);
 
             migrationBuilder.CreateIndex(
