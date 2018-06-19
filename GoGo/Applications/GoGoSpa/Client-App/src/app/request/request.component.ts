@@ -11,7 +11,7 @@ export class RequestComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-   // this.router.navigate(['./request/detail']);
+    this.router.navigate(['./request/requestdetail']);
   }
 
 }

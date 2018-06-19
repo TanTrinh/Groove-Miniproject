@@ -3,7 +3,7 @@
 
   <div class="col-md-3">
     <div class="tille">
-      <span id="header">REQUEST</span>
+      <span id="header">SHIPMENT</span>
       <img src="../../assets/support.svg" class="rounded-circle float-right" id="support" width="60" height="60" />
     </div>
 
@@ -17,26 +17,28 @@
         <input type="text" class="form-control-plaintext nextAddress" readonly value="132 Hoàng Văn Thụ, Phường 9, Phú Nhuận, Hồ Chí Minh, Vietnam">
       </div>
     </div>
-    <button class="btn btn-success btn-block" id="completed">Completed the request</button>
+
 
     <div id="inf">
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link " routerLink="./detail" routerLinkActive="hold" id="detail">Request detail</a>
+          <a class="nav-link " routerLink="./requestdetail" routerLinkActive="hold" id="detail">Request detail</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"  routerLink="./problem" routerLinkActive="hold" id="problem">Have problem</a>
+          <a class="nav-link " routerLink="./listrequest" routerLinkActive="hold" id="listrequest">List request</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="./trafficjam" routerLinkActive="hold" id="trafficjam">Alert traffic</a>
+          <a class="nav-link " routerLink="./shipmentdetail" routerLinkActive="hold" id="shipmentdetail">Shipment detail</a>
         </li>
+
+
       </ul>
       <div id="router">
         <router-outlet></router-outlet>
       </div>
     </div>
     <div class="coordinator">
-      
+      <button class="btn btn-success btn-block" id="completed">Completed the request</button>
     </div>
   </div>
   <div class="col-md-9">

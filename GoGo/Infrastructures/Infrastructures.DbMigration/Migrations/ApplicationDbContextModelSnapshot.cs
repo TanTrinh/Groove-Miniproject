@@ -124,11 +124,11 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<DateTime>("DeliveryDate");
-
                     b.Property<double>("DeliveryLatitude");
 
                     b.Property<double>("DeliveryLongitude");
+
+                    b.Property<DateTime>("ExpectedDate");
 
                     b.Property<long>("IssuerId");
 
@@ -205,6 +205,10 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<string>("Note")
                         .IsRequired();
+
+                    b.Property<DateTime>("RequestDeliveriedDate");
+
+                    b.Property<DateTime>("RequestEstimateDate");
 
                     b.Property<int>("RequestId");
 

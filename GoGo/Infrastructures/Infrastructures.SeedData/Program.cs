@@ -459,7 +459,7 @@ namespace Infrastructures.SeedData
                 {
                     CreatedDate = createdDate,
                     PickingDate = pickingDate,
-                    DeliveryDate = pickingDate.AddDays(i % 5 + 2),
+                    ExpectedDate = pickingDate.AddDays(i % 5 + 2),
                     PackageQuantity = i,
                     DeliveryLatitude = Math.Round(latitudeBase + i * 0.0001, 6),
                     DeliveryLongitude = Math.Round(longitudeBase + i * 0.0001, 6),
@@ -468,7 +468,7 @@ namespace Infrastructures.SeedData
                     Status = "Wait",
                     ReceiverName = name[ran.Next(0, 14)] + lastname[ran.Next(0, 4)],
                     ReceiverPhoneNumber = phonenumberHeader + ran.Next(100000, 999999).ToString(),
-                    Address = "This is my address",
+                     Address = "This is my address",
                     Code = GenerateCode(createdDate,i+76)
                 };
                 dbContext.Add(request);
@@ -502,8 +502,9 @@ namespace Infrastructures.SeedData
         //Add seed data of Shipment_Request
         private static void SeedShipmentRequestData(ApplicationDbContext dbContext)
         {
-            
-            for(int i=0;i<5;i++)
+            Random ran = new Random();
+            DateTime RequestEstimateDate = FormatDateTime(DateTime.Now);
+            for (int i=0;i<5;i++)
             {
                 for(int j = 0; j < 5; j++)
                 {
@@ -512,9 +513,10 @@ namespace Infrastructures.SeedData
                         ShipmentId = i + 1,
                         RequestId = (i * 5) + j + 1,
                         RequestOrder = j + 1,
-                        CustomerId = (i * 5) + j + 77,
                         Note = "",
                         Status = "Wait",
+                        RequestEstimateDate=RequestEstimateDate.AddDays(ran.Next(0,i%2+1)),
+                        RequestDeliveriedDate=RequestEstimateDate.AddDays(ran.Next(2,i%7+3))
                     };
                     dbContext.Add(shipmentRequest);
                     dbContext.SaveChanges();

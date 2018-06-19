@@ -26,8 +26,8 @@ namespace GoGoApi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            var defaultConnectionString = "Server=(localdb)\\mssqllocaldb;Database=GoGo;Trusted_Connection=True;ConnectRetryCount=0";
-
+            var defaultConnectionString = Configuration.GetConnectionString("DefaultConnection");
+           
             services.AddMvc();
             services.AddAutoMapper(typeof(Domains.AssemplyMarker));
 
@@ -40,7 +40,7 @@ namespace GoGoApi
             });
 
             services.AddUnitOfWork<ApplicationDbContext>();
-
+          
             var autofactServiceProvider = services.BuildAutofactServiceProvider(options =>
             {
                 // Register services,...
@@ -59,7 +59,12 @@ namespace GoGoApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(builder =>
+                   builder
+                   .AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+           );
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc();

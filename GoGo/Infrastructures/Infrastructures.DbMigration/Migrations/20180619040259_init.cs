@@ -206,6 +206,7 @@ namespace Infrastructures.DbMigration.Migrations
                     PhoneNumber = table.Column<string>(maxLength: 20, nullable: false),
                     Latitude = table.Column<double>(nullable: false),
                     Longitude = table.Column<double>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
                     OwnerId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -254,7 +255,7 @@ namespace Infrastructures.DbMigration.Migrations
                     LicensePlate = table.Column<string>(nullable: false),
                     VehicleTypeId = table.Column<int>(nullable: false),
                     Height = table.Column<float>(nullable: false),
-                    width = table.Column<float>(nullable: false),
+                    Width = table.Column<float>(nullable: false),
                     Lenght = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
@@ -276,12 +277,15 @@ namespace Infrastructures.DbMigration.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     PickingDate = table.Column<DateTime>(nullable: false),
-                    DeliveryDate = table.Column<DateTime>(nullable: false),
+                    ExpectedDate = table.Column<DateTime>(nullable: false),
                     DeliveryLatitude = table.Column<double>(nullable: false),
                     DeliveryLongitude = table.Column<double>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
                     PackageQuantity = table.Column<int>(nullable: false),
                     Code = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: false),
+                    ReceiverName = table.Column<string>(nullable: true),
+                    ReceiverPhoneNumber = table.Column<string>(nullable: true),
                     IssuerId = table.Column<long>(nullable: false),
                     WareHouseId = table.Column<int>(nullable: false)
                 },
@@ -424,7 +428,9 @@ namespace Infrastructures.DbMigration.Migrations
                     Note = table.Column<string>(nullable: false),
                     ShipmentId = table.Column<int>(nullable: false),
                     RequestId = table.Column<int>(nullable: false),
-                    CustomerId = table.Column<long>(nullable: false)
+                    CustomerId = table.Column<long>(nullable: false),
+                    RequestEstimateDate = table.Column<DateTime>(nullable: false),
+                    RequestDeliveriedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -7,15 +7,22 @@ import { RequestComponent } from './request/request.component';
 import { DetailComponent } from './detail/detail.component';
 import { ProblemComponent } from './problem/problem.component';
 import { TrafficjamComponent } from './trafficjam/trafficjam.component';
+import { ShipmentdetailComponent } from './shipmentdetail/shipmentdetail.component';
+import { ListrequestComponent } from './listrequest/listrequest.component';
+import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.component';
+
 
 const routes: Routes = [
   {
-    path: '', component: LayoutComponent, children: [{
-      path: 'request', component: RequestComponent, children: [
-        { path: 'detail', component: DetailComponent },
-        { path: 'problem', component: ProblemComponent },
-        { path: 'trafficjam', component: TrafficjamComponent }]
-    }]
+    path: '', component: LayoutComponent, children: [
+      { path: 'assigned', component: AssignedComponent },
+      {
+        path: 'request', component: RequestComponent, children: [
+        { path: 'requestdetail', component: DetailComponent },
+        { path: 'shipmentdetail', component: ShipmentdetailComponent },
+        { path: 'listrequest', component: ListrequestComponent }]
+      }
+    ]
   }
 ];
 

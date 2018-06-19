@@ -7,34 +7,24 @@ using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.UnitOfWork;
 
-
 namespace Domains.GoGo.Services.Transportation
 {
-    public class RequestService : IRequestService
+    public class ShipmentService : IShipmentService
     {
-        private readonly IRequestRepository _repository;
+        private readonly IShipmentRepository _repository;
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-
-        public RequestService(IMapper mapper, IRequestRepository repository, IUnitOfWork uow)
+        public ShipmentService(IMapper mapper,IShipmentRepository repository, IUnitOfWork uow)
         {
             _mapper = mapper;
             _repository = repository;
             _uow = uow;
         }
 
-        
-        public Task<string> ChangeStatus(int? id, string status)
+        public Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
         {
-            return _repository.ChangeStatus(id, status);
+            return _repository.GetShipmentAssignedModel(id);
         }
-
-        public Task<RequestDetailModel> GetRequestDetails(int? id)
-        {
-            return _repository.GetRequestDetailAsync(id);
-        }
-
-
     }
 }

@@ -11,9 +11,12 @@ namespace Domains.GoGo.Entities
 		public int Id { get; set; }
 
         public DateTime CreatedDate { get; set; }
+        //Customer add 
         public DateTime PickingDate { get; set; }
-		public DateTime DeliveryDate { get; set; }
-        
+        public DateTime ExpectedDate { set; get; }
+       
+
+
 		public double DeliveryLatitude { get; set; }
         public double DeliveryLongitude{ get; set; }
         public string Address { set; get; }
@@ -28,7 +31,9 @@ namespace Domains.GoGo.Entities
         
         public long IssuerId { get; set; }
 		public int WareHouseId { get; set; }
+        public long CustomerID { set; get; }
 
+        public User Customer { set; get; }
 		public User Issuer { get; set; }
 		public WareHouse WareHouse { get; set; }
 		

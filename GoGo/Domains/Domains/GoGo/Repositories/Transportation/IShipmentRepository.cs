@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Domains.GoGo.Repositories.Transportation
 {
-   public interface IRequestRepository
+    public interface IShipmentRepository
     {
-        Task<RequestDetailModel> GetRequestDetailAsync(int? id);
-        Task<string> ChangeStatus(int? id,string status);
+        Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id);
+
     }
 }

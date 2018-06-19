@@ -11,6 +11,7 @@ using AutoMapper;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Domains.GoGo.Models.Transportation;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -21,6 +22,18 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         public RequestRepository(IMapper mapper, IUnitOfWorkContext uoWContext) : base(uoWContext)
         {
             _mapper = mapper;
+        }
+
+     
+        public async Task<string> ChangeStatus(int? id, string status)
+        {
+            var request = await this.dbSet.Where(p => p.Id == id).SingleOrDefaultAsync();
+            request.Status = status;
+            context.Update(request);
+            int result= await context.SaveChangesAsync();
+            if (result == 1)
+                return "Successfull";
+            else return "Fail";
         }
 
         public async Task<RequestDetailModel> GetRequestDetailAsync(int? id)
