@@ -7,14 +7,16 @@
   <ItemGroup>
     <ProjectReference Include="..\..\BuildingBlocks\Common\Groove.AspNetCore.Common\Groove.AspNetCore.Common.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\Domain\Groove.AspNetCore.Domain\Groove.AspNetCore.Domain.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\UnitOfWork\Groove.AspNetCore.UnitOfWork\Groove.AspNetCore.UnitOfWork.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GoGo\Models\" />
-    <Folder Include="GoGo\Services\" />
-    <Folder Include="GoGo\Repositories\" />
     <Folder Include="Identity\Models\" />
     <Folder Include="Identity\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

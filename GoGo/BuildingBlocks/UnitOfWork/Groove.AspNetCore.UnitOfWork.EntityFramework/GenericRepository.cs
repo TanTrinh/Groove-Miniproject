@@ -14,9 +14,10 @@ namespace Groove.AspNetCore.UnitOfWork.EntityFramework
     {
         protected DbContext context;
         protected DbSet<TEntity> dbSet;
-        public GenericRepository(DbContext context)
+
+        public GenericRepository(IUnitOfWorkContext uoWContext)
         {
-            this.context = context;
+            this.context = uoWContext.GetUnitOfWorkContext() as DbContext;
             this.dbSet = context.Set<TEntity>();
         }
 
