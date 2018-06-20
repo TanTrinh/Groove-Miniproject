@@ -1,4 +1,6 @@
-﻿using Domains.Identity.Entities;
+using AutoMapper;
+using Domains.Core;
+using Domains.Identity.Entities;
 using Groove.AspNetCore.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Text;
 
 namespace Domains.GoGo.Entities
 {
-    public class Request:IEntity<int>
+    public class Request : IEntity<int>
     {
 		public int Id { get; set; }
 
@@ -31,11 +33,14 @@ namespace Domains.GoGo.Entities
         
         public long IssuerId { get; set; }
 		public int WareHouseId { get; set; }
-        public long CustomerID { set; get; }
+		public long CustomerId { set; get; }
 
-        public User Customer { set; get; }
+		public User Customer { set; get; }
 		public User Issuer { get; set; }
 		public WareHouse WareHouse { get; set; }
-		
-	}
+      
+        //string IEntity<string>.Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    }
+
+   
 }

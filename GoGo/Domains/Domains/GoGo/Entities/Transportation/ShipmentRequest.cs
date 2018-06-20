@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Domains.GoGo.Entities
 {
-    public class ShipmentRequest:IEntity<int>
+    public class ShipmentRequest : IEntity<int>
     {
 		public int Id { get; set; }
 
@@ -23,6 +23,7 @@ namespace Domains.GoGo.Entities
 		public Shipment Shipment { get; set; }
 		public Request Request { get; set; }
 		
+
 
 	}
 }

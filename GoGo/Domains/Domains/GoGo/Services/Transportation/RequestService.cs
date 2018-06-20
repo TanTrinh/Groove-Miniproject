@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.UnitOfWork;
 
-
-namespace Domains.GoGo.Services.Transportation
+namespace Domains.GoGo.Services
 {
     public class RequestService : IRequestService
     {
@@ -16,15 +16,17 @@ namespace Domains.GoGo.Services.Transportation
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-
-        public RequestService(IMapper mapper, IRequestRepository repository, IUnitOfWork uow)
+        public RequestService(IMapper mapper, IUnitOfWork uow, IRequestRepository repository)
         {
-            _mapper = mapper;
-            _repository = repository;
             _uow = uow;
+            _repository = repository;
+            _mapper = mapper;
         }
 
-        
+        public Task<IEnumerable<WaitingRequestModel>> GetWaitingRequest()
+        {
+            return _repository.GetWaitingRequestAsync();
+        }
         public Task<string> ChangeStatus(int? id, string status)
         {
             return _repository.ChangeStatus(id, status);
@@ -34,7 +36,5 @@ namespace Domains.GoGo.Services.Transportation
         {
             return _repository.GetRequestDetailAsync(id);
         }
-
-
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Infrastructures
+namespace Domains.GoGo.Models.Transportation
 {
-    public sealed class AssemplyMarker
+    class RequestListModel
     {
     }
 }
