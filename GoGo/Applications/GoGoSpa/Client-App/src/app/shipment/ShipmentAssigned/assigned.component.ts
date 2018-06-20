@@ -29,14 +29,11 @@ export class AssignedComponent implements OnInit {
         'ResponseType': 'Json'
       })
     };
-    this.http.get('http://localhost:60012/api/Driver/shipmentAssigned?id=54').subscribe(result => {
+    this.http.get('http://localhost:58976/api/Driver/shipmentAssigned?id=54').subscribe(result => {
       //this.paginators = [];
       this.data = result;
-      console.log(this.data);
       this.shipmentAssigned = this.data;
-      console.log(this.shipmentAssigned);
-      //this.paginators = this.data.totalPage;
-      //this.currentpage = page;
+
     });
   }
   changeStatus(code, status) {
@@ -47,11 +44,9 @@ export class AssignedComponent implements OnInit {
         'ResponseType': 'Json'
       })
     };
-    this.http.post('http://localhost:60012/api/Driver/shipmentfeedback', param, httpOptions).subscribe(result => {
-    
-      this.data = result;
-      console.log(this.data);
-      
+    this.http.post('http://localhost:58976/api/Driver/shipmentfeedback', param, httpOptions).subscribe(result => {
+      console.log(result);
+      this.LoadPage(1);
     });
   }
 }
