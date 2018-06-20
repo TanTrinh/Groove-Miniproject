@@ -33,7 +33,8 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                             LicensePlate = p.Vehicle.LicensePlate,
                             EndDate = p.EndDate,
                             StartDate=p.StartDate,
-                            VehicleID=p.VehicleId
+                            VehicleID=p.VehicleId,
+                            RequestQuality=p.RequestQuantity
                         });
             return await query.ToListAsync();
 

@@ -28,7 +28,7 @@ export class AssignedComponent implements OnInit {
         'ResponseType': 'Json'
       })
     };
-    this.http.get('http://localhost:50858/api/Request/shipmentAssigned?id=54').subscribe(result => {
+    this.http.get('http://localhost:60012/api/Request/shipmentAssigned?id=54').subscribe(result => {
       //this.paginators = [];
       this.data = result;
       console.log(this.data);

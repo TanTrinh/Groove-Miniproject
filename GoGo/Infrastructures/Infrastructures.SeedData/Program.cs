@@ -492,7 +492,8 @@ namespace Infrastructures.SeedData
                     VehicleId = i+1,
                     DriverId=i+53,
                     CoordinatorId=i+28,
-                    Code=GenerateCode(createdDate,i+28)
+                    Code=GenerateCode(createdDate,i+28),
+                    Status="Assigned"
                 };
                 dbContext.Add(shipment);
             }
