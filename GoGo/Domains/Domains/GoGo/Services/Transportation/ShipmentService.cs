@@ -6,6 +6,7 @@ using AutoMapper;
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
+using Domains.Helpers;
 using Groove.AspNetCore.Common.Identity;
 using Groove.AspNetCore.UnitOfWork;
 

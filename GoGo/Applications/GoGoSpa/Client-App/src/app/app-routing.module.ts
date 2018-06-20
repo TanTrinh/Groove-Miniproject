@@ -6,12 +6,14 @@ import { LayoutComponent } from './layout/layout.component';
 import { GgmapComponent } from './ggmap/ggmap.component';
 import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.component';
 import { HomeComponent } from './home/home.component';
+import { RequestListComponent } from './request/request-list/request-list.component';
 
 
 const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'layout', component: LayoutComponent },
+    { path: '', component: LayoutComponent, children: [
+       { path: 'request', component: RequestListComponent }
+     ]},
     {
       path: 'home', component: HomeComponent, children: [
           { path: 'assigned', component: AssignedComponent }

@@ -18,6 +18,13 @@ import { LoginComponent } from './modules/account/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ShipmentModule } from './shipment/shipment.module';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
+import { ConfigService } from './shared/sevices/config-service.service';
+import { PagerService } from './shared/sevices/pager-service.service';
+import { RequestService } from './request/request-service.service';
+import { SharedModule } from './shared/shared.module';
+import { RequestListComponent } from './request/request-list/request-list.component';
+import { Request, HttpModule } from '@angular/http';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,21 +35,27 @@ import { NotificationService } from 'src/app/shared/components/dialog/notificati
     FooterComponent,
     NavigationComponent,
     GgmapComponent,
-    LoginComponent
+    LoginComponent,
+    RequestListComponent,
+ 
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    SharedModule,
+    AgmDirectionModule,
+    HttpClientModule,
+    ShipmentModule,
+    CommonModule,
+    HttpModule,
+ 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
     }),
-    AgmDirectionModule,
-    HttpClientModule,
-    ShipmentModule
   ],
   providers: [
-    NotificationService
+    NotificationService, ConfigService, PagerService, RequestService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="border-custom">
+    <h1>Request Management</h1>
+  </div>
+  <div class="py-3">
+    <button class="btn btn-success" routerLink="/request/create">Create Request</button>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Customer Name</th>
+        <th>Picking Date</th>
+        <th>Delivery Date</th>
+        <th>Delivery Address</th>
+        <th>Werehouse Address</th>
+        <th>Package Quantity</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of pagedItems, index as i">
+        <td>{{item.id}}</td>
+        <td>{{item.customerName}}</td>
+        <td>{{item.pickingDate}}</td>
+        <td>{{item.deliveryDate}}</td>
+        <td>{{item.deliveryAddress}}</td>
+        <td>{{item.wereHouseAddress}}</td>
+        <td>{{item.packageQuantity}}</td>
+        <td>{{item.status}}</td>
+        <td>
+          <button class="btn btn-custom" routerLink="/request/edit">Edit</button> &nbsp;
+          <button class="btn btn-custom" data-toggle="modal" data-target="#CancelModal">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(1)">First</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+      </li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="setPage(page)">{{page}}</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.totalPages)">Last</a>
+      </li>
+    </ul>
+  </div>
+
+
+  <!--Cancel Modal-->
+  <div class="modal fade" id="CancelModal" tabindex="-1" role="dialog" aria-labelledby="CancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="CancelModalLabel">Cancel</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

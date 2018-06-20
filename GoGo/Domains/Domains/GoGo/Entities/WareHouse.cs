@@ -14,6 +14,7 @@ namespace Domains.GoGo
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Address { set; get; }
+
         public long OwnerId { get; set; }
 		public User Owner { get; set; }		
 	}

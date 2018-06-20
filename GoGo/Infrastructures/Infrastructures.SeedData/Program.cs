@@ -85,6 +85,7 @@ namespace Infrastructures.SeedData
 			SeedRequestData(dbContext);
 			SeedShipmentData(dbContext);
 			SeedShipmentRequestData(dbContext);
+			SeedVehicleFeatureRequest(dbContext);
 		}
 
 		private static string ConverIntToString(int input)
@@ -131,7 +132,21 @@ namespace Infrastructures.SeedData
                 Console.WriteLine("Finish seed user info");
             }
         }
-        private static async Task SeedCustomerDataAsync(ApplicationDbContext dbContext)
+		private static void SeedVehicleFeatureRequest(ApplicationDbContext dbContext)
+		{
+			for (int i = 1; i < 25; i++)
+			{
+				var vehicleFeatureRequest = new VehicleFeatureRequest
+				{
+					RequestId = i,
+					VehicleFeatureId = 1
+				};
+
+				dbContext.Add(vehicleFeatureRequest);
+			}
+			dbContext.SaveChanges();
+		}
+		private static async Task SeedCustomerDataAsync(ApplicationDbContext dbContext)
         {
             Console.WriteLine("Start to seed user info");
             string[] name = { "Chi", "Cong", "Cuong", "Cao", "Cuc" };
@@ -465,10 +480,11 @@ namespace Infrastructures.SeedData
                     DeliveryLongitude = Math.Round(longitudeBase + i * 0.0001, 6),
                     WareHouseId = i,
                     IssuerId = i + 76,
-                    Status = "Wait",
+					CustomerId = i + 76,
+					Status = "Pending",
                     ReceiverName = name[ran.Next(0, 14)] + lastname[ran.Next(0, 4)],
                     ReceiverPhoneNumber = phonenumberHeader + ran.Next(100000, 999999).ToString(),
-                     Address = "This is my address",
+                    Address = "This is my address",
                     Code = GenerateCode(createdDate,i+76)
                 };
                 dbContext.Add(request);
@@ -493,8 +509,8 @@ namespace Infrastructures.SeedData
                     DriverId=i+53,
                     CoordinatorId=i+28,
                     Code=GenerateCode(createdDate,i+28),
-                    Status="Assigned"
-                };
+                    Status= "Pending"
+				};
                 dbContext.Add(shipment);
             }
             dbContext.SaveChanges();
@@ -515,7 +531,7 @@ namespace Infrastructures.SeedData
                         RequestId = (i * 5) + j + 1,
                         RequestOrder = j + 1,
                         Note = "",
-                        Status = "Wait",
+                        Status = "Pending",
                         RequestEstimateDate=RequestEstimateDate.AddDays(ran.Next(0,i%2+1)),
                         RequestDeliveriedDate=RequestEstimateDate.AddDays(ran.Next(2,i%7+3))
                     };

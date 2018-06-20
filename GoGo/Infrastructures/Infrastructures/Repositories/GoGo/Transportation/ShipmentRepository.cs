@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using Groove.AspNetCore.DataBinding.AutoMapperExtentions;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {

@@ -9,8 +9,10 @@ namespace Domains.GoGo.Repositories.Transportation
 {
     public interface IRequestRepository
     {
-        Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync();
-        Task<RequestDetailModel> GetRequestDetailAsync(int? id);
+		IEnumerable<WaitingRequestModel> GetWaitingRequestAsync(int pageNumber, int pageSize);
+		int GetWaitingRequestQuantity();
+
+		Task<RequestDetailModel> GetRequestDetailAsync(int? id);
         Task<string> ChangeStatus(int? id, string status);
     }
 }

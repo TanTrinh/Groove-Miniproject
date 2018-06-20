@@ -10,7 +10,7 @@ namespace Domains.GoGo.Repositories.Transportation
 {
 	public interface IShipmentRepository : IGenericRepository<Shipment, int>
     {
-        //Task CreateShipmentAsync(CreateShipmentModel model);
+        
         Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id);
     }
 }

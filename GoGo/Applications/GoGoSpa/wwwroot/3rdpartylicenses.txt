@@ -96,7 +96,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 MIT
 The MIT License (MIT)
 
-Copyright (c) 2017 Sebastian Müller
+Copyright (c) 2017 Sebastian MÃ¼ller
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -132,6 +132,10 @@ MIT
 MIT
 MIT
 
+@angular/http@6.0.4
+MIT
+MIT
+
 @angular/platform-browser-dynamic@6.0.4
 MIT
 MIT
@@ -141,6 +145,10 @@ MIT
 MIT
 
 @angular/router@6.0.4
+MIT
+MIT
+
+agm-direction@0.5.5
 MIT
 MIT
 
@@ -182,10 +190,6 @@ All files located in the node_modules and external directories are
 externally maintained libraries used by this software which have their
 own licenses; we recommend you read them, as their terms may differ from
 the terms above.
-
-agm-direction@0.5.5
-MIT
-MIT
 
 rxjs@6.2.0
 Apache-2.0

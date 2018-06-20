@@ -23,13 +23,30 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync()
-        {
-            return await this.dbSet.Where(p => p.Status == "Wait").MapQueryTo<WaitingRequestModel>(_mapper).ToListAsync();
-        }
-        public async Task<RequestDetailModel> GetRequestDetailAsync(int? id)
+		public IEnumerable<WaitingRequestModel> GetWaitingRequestAsync(int pageNumber, int pageSize)
+		{
+			return this.dbSet.Include(p => p.WareHouse)
+							.Where(p => p.WareHouse.Id == p.WareHouseId)
+							.Where(p => p.Status == "Pending")
+							.Skip(pageSize * (pageNumber - 1))
+							.Take(pageSize)
+							.MapQueryTo<WaitingRequestModel>(_mapper)
+							.ToList();
+	}
+
+		public int GetWaitingRequestQuantity()
+		{
+			return this.dbSet.Where(p => p.Status == "Pending").Count();
+		}
+
+		public async Task<RequestDetailModel> GetRequestDetailAsync(int? id)
         {
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
         }
-    }
+
+		public Task<string> ChangeStatus(int? id, string status)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

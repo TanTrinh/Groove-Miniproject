@@ -32,8 +32,8 @@ namespace Domains.GoGo.Services.Transportation
 				entity.RequestId = requestId;
 				entity.ShipmentId = shipmentId;
 				entity.RequestOrder = i++;
-				entity.Note = "Initial";
-				entity.Status = "Initial";
+				entity.Note = "Pending";
+				entity.Status = "Pending";
 
 				_uow.GetRepository<IShipmentRequestRepository>().Create(entity);
 			}

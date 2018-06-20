@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Services;
@@ -8,6 +9,7 @@ using Domains.GoGo.Services.Transportation;
 using Groove.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace GoGoApi.Controllers
 {
@@ -26,12 +28,23 @@ namespace GoGoApi.Controllers
 			_shipmentRequestService = shipmentRequestService;
 		}
 
-        [Route("")]
-        [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
-        {
-            return Ok( await _service.GetWaitingRequest());
-        }
+		[Route("WaitingRequest")]
+		[HttpGet]
+		public IActionResult GetAllAsync(int pageNumber)
+		{
+			var userIdentity = GetCurrentIdentity<int>();
+			var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).ToList();
+
+			//if (roles.Any("coordinator", true))
+			//{
+			//	_service.GetWaitingRequest(pageNumber, null);
+			//}
+			//else
+			//{
+			//	_service.GetWaitingRequest(pageNumber, userIdentity.Id);
+			//}
+			return Ok(_service.GetWaitingRequest(pageNumber));
+		}
 
 		[Route("CreateShipment")]
 		[HttpPost]
