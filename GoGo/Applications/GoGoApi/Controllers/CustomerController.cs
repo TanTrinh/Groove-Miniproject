@@ -6,6 +6,7 @@ using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Services.Transportation;
 using Microsoft.AspNetCore.Mvc;
 using Groove.AspNetCore.Mvc;
+using Domains.Helpers;
 
 namespace GoGoApi.Controllers
 {
@@ -18,15 +19,15 @@ namespace GoGoApi.Controllers
             _requestService = requestService;
         }
 
-        [Route("request/create")]
+        [Route("request")]
         [HttpPost]
-        public async Task<IActionResult> Create(RequestModel model)
+        public async Task<IActionResult> Create([FromBody]RequestModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-
+            if (ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
             //var userIdentity = GetCurrentIdentity<long>();
             var result = await this._requestService.CreateAsync(model, null);
             return OkValueObject(result);

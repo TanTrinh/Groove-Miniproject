@@ -34,7 +34,7 @@ namespace GoGoApi
             var defaultConnectionString = Configuration.GetConnectionString("DefaultConnection");
             var jwtSecurityKey = Configuration.GetValue<string>("Security:Jwt:SecurityKey");
             var tokenTimeOutMinutes = Configuration.GetValue<long>("Security:Jwt:TokenTimeOutMinutes");
-
+            
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -43,6 +43,8 @@ namespace GoGoApi
                     sqlServerOptions.EnableRetryOnFailure();
                 });
             });
+
+            services.AddCors();
 
             services.AddGrooveMvcApi().AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<Domains.AssemplyMarker>().RegisterValidatorsFromAssemblyContaining<GoGoApi.Startup>());
 

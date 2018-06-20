@@ -1,3 +1,75 @@
-<p>
-  request-list works!
-</p>
+<div class="container-fluid">
+  <div class="border-custom">
+    <h1>Request Management</h1>
+  </div>
+  <div class="py-3">
+    <button class="btn btn-success" routerLink="/request/form/create">Create Request</button>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Adress</th>
+        <th>Phone Number</th>
+        <th>Owner</th>
+        <th>GPS</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>001</td>
+        <td>132 Hàm Nghi, Quận 1, TP.Hồ Chí Minh</td>
+        <td>0169696969</td>
+        <td>Nguyễn Văn Tư</td>
+        <td>...</td>
+        <td>
+          <button class="btn btn-custom" routerLink="/request/edit">Edit</button> &nbsp;
+          <button class="btn btn-custom" data-toggle="modal" data-target="#CancelModal">Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td>001</td>
+        <td>132 Hàm Nghi, Quận 1, TP.Hồ Chí Minh</td>
+        <td>0169696969</td>
+        <td>Nguyễn Văn Tư</td>
+        <td>...</td>
+        <td>
+          <button class="btn btn-custom" routerLink="/request/edit">Edit</button> &nbsp;
+          <button class="btn btn-custom" data-toggle="modal" data-target="#CancelModal">Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td>001</td>
+        <td>132 Hàm Nghi, Quận 1, TP.Hồ Chí Minh</td>
+        <td>0169696969</td>
+        <td>Nguyễn Văn Tư</td>
+        <td>...</td>
+        <td>
+          <button class="btn btn-custom" routerLink="/request/edit">Edit</button> &nbsp;
+          <button class="btn btn-custom" data-toggle="modal" data-target="#CancelModal">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!--Cancel Modal-->
+  <div class="modal fade" id="CancelModal" tabindex="-1" role="dialog" aria-labelledby="CancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="CancelModalLabel">Cancel</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

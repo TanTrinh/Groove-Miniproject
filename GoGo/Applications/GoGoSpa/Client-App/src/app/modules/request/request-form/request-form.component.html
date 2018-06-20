@@ -1,3 +1,93 @@
-<p>
-  request-form works!
-</p>
+<!--<div class="form-wrapper container">
+  <form name="loginForm" #mainForm="ngForm" (ngSubmit)="onSubmitForm(mainForm)">
+
+    <div class="btn-wrapper">
+      <button *ngIf="!isUpdateFormMode" type="submit" class="btn btn-primary signin-btn" (click)="onNavigateToListPage()">Back to List</button>
+
+      <button *ngIf="isUpdateFormMode" type="submit" class="btn btn-primary signin-btn" (click)="onNavigateToViewPage()">Cancel</button>
+
+      <button *ngIf="!isViewFormMode" type="submit" class="btn btn-primary signin-btn">Save</button>
+
+      <a *ngIf="isViewFormMode" routerLink="/user/form/update/{{formData?.id}}" class="btn btn-primary">Update</a>
+    </div>
+
+    <div class="form-group">
+      <label for="userName">Email</label>
+      <input type="text" id="email" name="email" class="form-control" [(ngModel)]="formData.email" required [disabled]="!isCreateFormMode">
+      <div [hidden]="!formErrors.email" class="form-control-feedback">{{formErrors.email}}</div>
+    </div>
+
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" [(ngModel)]="formData.phoneNumber" required [disabled]="isViewFormMode">
+      <div [hidden]="!formErrors.phoneNumber" class="form-control-feedback">{{formErrors.phoneNumber}}</div>
+    </div>
+
+
+    <div *ngIf="isCreateFormMode" class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-control" [(ngModel)]="formData.password" required>
+      <div [hidden]="!formErrors.password" class="form-control-feedback">{{formErrors.password}}</div>
+    </div>
+
+    <div *ngIf="isCreateFormMode" class="form-group">
+      <label for="rePassword">Re-Password</label>
+      <input type="password" id="rePassword" name="rePassword" class="form-control" [(ngModel)]="formData.rePassword" required>
+      <div [hidden]="!formErrors.rePassword" class="form-control-feedback">{{formErrors.rePassword}}</div>
+    </div>
+  </form>
+</div>-->
+
+<div class="container-fluid">
+  <div class="border-custom">
+    <h1>Create Request</h1>
+  </div>
+  <div class="container-fluid pt-3">
+    <div class="btn-wrapper">
+      <!-- Create / View -->
+      <button *ngIf="!isUpdateFormMode" type="submit" class="btn btn-primary signin-btn" (click)="onNavigateToListPage()">Back to List</button>
+
+      <!-- Update -->
+      <button *ngIf="isUpdateFormMode" type="submit" class="btn btn-primary signin-btn" (click)="onNavigateToViewPage()">Cancel</button>
+
+      <!-- Create / Update -->
+      <button *ngIf="!isViewFormMode" type="submit" class="btn btn-primary signin-btn">Save</button>
+
+      <!-- View -->
+      <a *ngIf="isViewFormMode" routerLink="/user/form/update/{{formData?.id}}" class="btn btn-primary">Update</a>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-lg-4">
+        <form #mainForm="ngForm" name="mainForm" (ngSubmit)="onSubmitForm(mainForm)">
+          <div class="form-group">
+            <label for="PackageQuantity">Package Quantity</label>
+            <input type="text" class="form-control" name="PackageQuantity" #PackageQuantity="ngModel" [(ngModel)]="model.PackageQuantity">
+          </div>
+          <div class="form-group">
+            <label for="DeliveryDate">Delivery Date</label>
+            <input class="form-control" name="DeliveryDate" id="DeliveryDate" #DeliveryDate="ngModel" [(ngModel)]="model.DeliveryDate">
+          </div>
+          <div class="form-group">
+            <label for="Warehouse">Warehouse</label>
+            <select class="form-control" id="Warehouse" #Warehouse="ngModel" [(ngModel)]="model.Warehouse" placeholder="Choose here...">
+              <option>1</option>
+              <option>2</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="Address">Delivery Latitude</label>
+            <input type="text" class="form-control" name="DeliveryLatitude" #DeliveryLatitude="ngModel" [(ngModel)]="model.DeliveryLatitude">
+          </div>
+          <div class="form-group ">
+            <label for="FullName">Delivery Longitude</label>
+            <input type="text" class="form-control" name="DeliveryLongitude" #DeliveryLongitude="ngModel" [(ngModel)]="model.DeliveryLongitude">
+          </div>
+          <button type="submit" class="btn btn-custom">Create</button>
+        </form>
+      </div>
+      <div class="col-md-8 col-lg-8 ">
+        <p>Map here!</p>
+      </div>
+    </div>
+  </div>
+</div>

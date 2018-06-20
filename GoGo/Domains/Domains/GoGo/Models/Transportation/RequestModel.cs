@@ -35,13 +35,13 @@ namespace Domains.GoGo.Models.Transportation
 
     public class RequestModelValidator : AbstractValidator<RequestModel>
     {
-        //public RequestModelValidator()
-        //{
-        //    RuleFor(p => p.PackageQuantity).NotEmpty();
-        //    RuleFor(p => p.Code).NotEmpty();
-        //    RuleFor(p => p.Status).NotEmpty();
-        //    RuleFor(p => p.IssuerId).NotEmpty();
-        //    RuleFor(p => p.WareHouseId).NotEmpty();
-        //}
+        public RequestModelValidator()
+        {
+            RuleFor(p => p.PackageQuantity).NotEmpty().IsInEnum();
+            RuleFor(p => p.Code).NotEmpty();
+            RuleFor(p => p.Status).NotEmpty();
+            RuleFor(p => p.IssuerId).NotEmpty();
+            RuleFor(p => p.WareHouseId).NotEmpty();
+        }
     }
 }

@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   ],
   declarations: [
     RequestListComponent,
-    RequestFormComponent
+    RequestFormComponent,
   ]
 })
 export class RequestModule { }

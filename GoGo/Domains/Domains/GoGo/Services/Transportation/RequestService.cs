@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Domains.Helpers;
 
 namespace Domains.GoGo.Services.Transportation
 {
@@ -27,6 +28,11 @@ namespace Domains.GoGo.Services.Transportation
         public async Task<int> CreateAsync(RequestModel model, UserIdentity<long> issuer)
         {
             var entity = this._mapper.Map<Request>(model);
+
+            entity.Status = "Pending";
+            entity.CreatedDate = DateTime.Now;
+            entity.Code = Helper.GenerateCode(DateTime.Now, 1);
+            entity.IssuerId = 77; //take from claim
 
             _repository.Create(entity);
             //_uow.GetRepository<IRequestRepository>().Create(entity);
