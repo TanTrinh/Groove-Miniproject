@@ -124,6 +124,8 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
+                    b.Property<long>("CustomerId");
+
                     b.Property<double>("DeliveryLatitude");
 
                     b.Property<double>("DeliveryLongitude");
@@ -179,6 +181,8 @@ namespace Infrastructures.DbMigration.Migrations
                     b.Property<int>("RequestQuantity");
 
                     b.Property<DateTime>("StartDate");
+
+                    b.Property<string>("Status");
 
                     b.Property<int>("VehicleId");
 

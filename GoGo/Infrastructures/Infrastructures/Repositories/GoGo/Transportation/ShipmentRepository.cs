@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using Groove.AspNetCore.DataBinding.AutoMapperExtentions;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -35,6 +37,13 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                             RequestQuality = p.RequestQuantity
                         });
             return await query.ToListAsync();
+        }
+        public async Task<int> ChangeStatus(string code, string status)
+        {
+            var shipment = await this.dbSet.Where(p => p.Code == code).Where(p=>p.Status=="Pending").FirstAsync();
+            shipment.Status = status;
+            this.context.Update(shipment);
+            return await this.context.SaveChangesAsync();
         }
     }
 }

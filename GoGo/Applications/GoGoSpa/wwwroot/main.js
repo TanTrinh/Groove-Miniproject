@@ -726,7 +726,7 @@ var NavigationComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>List shipment</h1>\r\n<div class=\"list\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>ShipmentCode</th>\r\n        <th>License plate</th>\r\n        <th>StartDate</th>\r\n        <th>EndDate</th>\r\n        <th>RequestQuality</th>\r\n        <th>Assign</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let item of shipmentAssigned\">\r\n        <td>{{item.code}}</td>\r\n        <td>{{item.licensePlate}}</td>\r\n        <td>{{item.startDate}}</td>\r\n        <td>{{item.endDate}}</td>\r\n        <td>{{item.requestQuality}}</td>\r\n        <td><a class=\"btn btn-custom\">Accept</a></td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
+module.exports = "<h1>List shipment</h1>\r\n<div class=\"list\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>ShipmentCode</th>\r\n        <th>License plate</th>\r\n        <th>StartDate</th>\r\n        <th>EndDate</th>\r\n        <th>RequestQuality</th>\r\n        <th>Assign</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let item of shipmentAssigned\">\r\n        <td>{{item.code}}</td>\r\n        <td>{{item.licensePlate}}</td>\r\n        <td>{{item.startDate}}</td>\r\n        <td>{{item.endDate}}</td>\r\n        <td>{{item.requestQuality}}</td>\r\n        <td>\r\n          <a class=\"btn btn-outline-success\" (click)=\"changeStatus(item.code, 'Accept')\">Accept</a>\r\n          <a class=\"btn btn-outline-danger\"  (click)=\"changeStatus(item.code, 'Reject')\">Reject</a>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -737,7 +737,7 @@ module.exports = "<h1>List shipment</h1>\r\n<div class=\"list\">\r\n  <table cla
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".list {\n  margin-top: 10px;\n  border: 0.5px solid #000205; }\n\n#head {\n  color: black;\n  background-color: #f2f2f2; }\n\nh1 {\n  text-align: center;\n  color: #0073e6; }\n\n.btn-custom {\n  border-style: solid;\n  border-color: #0073e6;\n  background-color: white;\n  color: aqua; }\n\n.table {\n  text-align: center; }\n"
+module.exports = ".list {\n  margin-top: 10px;\n  border: 0.5px solid #000205; }\n\n#head {\n  color: black;\n  background-color: #f2f2f2; }\n\nh1 {\n  text-align: center;\n  color: #0073e6; }\n\n.btn {\n  margin-left: 5px; }\n\n.table {\n  text-align: center; }\n"
 
 /***/ }),
 
@@ -784,7 +784,7 @@ var AssignedComponent = /** @class */ (function () {
                 'ResponseType': 'Json'
             })
         };
-        this.http.get('http://localhost:60012/api/Request/shipmentAssigned?id=54').subscribe(function (result) {
+        this.http.get('http://localhost:60012/api/Driver/shipmentAssigned?id=54').subscribe(function (result) {
             //this.paginators = [];
             _this.data = result;
             console.log(_this.data);
@@ -792,6 +792,20 @@ var AssignedComponent = /** @class */ (function () {
             console.log(_this.shipmentAssigned);
             //this.paginators = this.data.totalPage;
             //this.currentpage = page;
+        });
+    };
+    AssignedComponent.prototype.changeStatus = function (code, status) {
+        var _this = this;
+        var param = { 'code': code, 'status': status };
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'ResponseType': 'Json'
+            })
+        };
+        this.http.post('http://localhost:60012/api/Driver/shipmentfeedback', param, httpOptions).subscribe(function (result) {
+            _this.data = result;
+            console.log(_this.data);
         });
     };
     AssignedComponent = __decorate([
@@ -911,7 +925,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\intern08\Documents\Groove\gogo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\intern01\DEV\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

@@ -67,27 +67,27 @@ namespace Infrastructures.SeedData
 
         private static async Task SeedDataAsync(ApplicationDbContext dbContext)
         {
-			await SeedUserDataAsync(dbContext);
-			await SeedRoleDataAsync(dbContext);
-			await SeedAdministratortDataAsync(dbContext);
-			await SeedCoordinatorDataAsync(dbContext);
-			await SeedDriverDataAsync(dbContext);
-			await SeedCustomerDataAsync(dbContext);
+            await SeedUserDataAsync(dbContext);
+            await SeedRoleDataAsync(dbContext);
+            await SeedAdministratortDataAsync(dbContext);
+            await SeedCoordinatorDataAsync(dbContext);
+            await SeedDriverDataAsync(dbContext);
+            await SeedCustomerDataAsync(dbContext);
 
-			SeedWarehouseData(dbContext);
+            SeedWarehouseData(dbContext);
 
-			SeedVehicleTypeDataAsync(dbContext);
-			SeedVehicleData(dbContext);
-			SeedVehicleFeatureData(dbContext);
-			SeedDriverAbilityData(dbContext);
-			SeedFeatureOfVehicleData(dbContext);
+            SeedVehicleTypeDataAsync(dbContext);
+            SeedVehicleData(dbContext);
+            SeedVehicleFeatureData(dbContext);
+            SeedDriverAbilityData(dbContext);
+            SeedFeatureOfVehicleData(dbContext);
 
-			SeedRequestData(dbContext);
-			SeedShipmentData(dbContext);
-			SeedShipmentRequestData(dbContext);
-		}
+            SeedRequestData(dbContext);
+            SeedShipmentData(dbContext);
+            SeedShipmentRequestData(dbContext);
+        }
 
-		private static string ConverIntToString(int input)
+        private static string ConverIntToString(int input)
         {
             string output = "";
             if (input < 10)
@@ -102,7 +102,7 @@ namespace Infrastructures.SeedData
             string month = ConverIntToString(dateTime.Month);
             string hour = ConverIntToString(dateTime.Hour);
             string minute = ConverIntToString(dateTime.Minute);
-            string code = day+month+dateTime.Year.ToString()+hour+minute+"GG"+id.ToString();
+            string code = day + month + dateTime.Year.ToString() + hour + minute + "GG" + id.ToString();
             return code;
         }
 
@@ -437,7 +437,7 @@ namespace Infrastructures.SeedData
         }
         private static DateTime FormatDateTime(DateTime dateTime)
         {
-            String dateTimeString= String.Format("{0:g}", dateTime);
+            String dateTimeString = String.Format("{0:g}", dateTime);
             return DateTime.Parse(dateTimeString);
         }
         //Add seed data of Request
@@ -449,12 +449,12 @@ namespace Infrastructures.SeedData
             Random ran = new Random();
 
             string phonenumberHeader = "0908";
-            string[] name = { "Khanh", "Khoi", "Khoa", "Khang", "Khai", "Chi", "Cong", "Cuong", "Cao", "Cuc", "Dung", "Danh", "Diem", "Duy", "Diep"};
+            string[] name = { "Khanh", "Khoi", "Khoa", "Khang", "Khai", "Chi", "Cong", "Cuong", "Cao", "Cuc", "Dung", "Danh", "Diem", "Duy", "Diep" };
             string[] lastname = { "Tran", "Nguyen", "Trinh", "Le", "Mai" };
 
             for (int i = 1; i < 26; i++)
             {
-                DateTime pickingDate =createdDate.AddDays(i % 5);
+                DateTime pickingDate = createdDate.AddDays(i % 5);
                 var request = new Request
                 {
                     CreatedDate = createdDate,
@@ -465,11 +465,12 @@ namespace Infrastructures.SeedData
                     DeliveryLongitude = Math.Round(longitudeBase + i * 0.0001, 6),
                     WareHouseId = i,
                     IssuerId = i + 76,
-                    Status = "Wait",
+                    Status = "Pending",
                     ReceiverName = name[ran.Next(0, 14)] + lastname[ran.Next(0, 4)],
                     ReceiverPhoneNumber = phonenumberHeader + ran.Next(100000, 999999).ToString(),
-                     Address = "This is my address",
-                    Code = GenerateCode(createdDate,i+76)
+                    Address = "This is my address",
+                    Code = GenerateCode(createdDate, i + 76),
+                    CustomerId = i + 76
                 };
                 dbContext.Add(request);
             }
@@ -485,15 +486,15 @@ namespace Infrastructures.SeedData
                 long custormerID = (long)i + 77;
                 var shipment = new Shipment
                 {
-                    RequestQuantity = 0,
+                    RequestQuantity = i * 15,
                     CreatedDate = createdDate,
                     StartDate = createdDate,
                     EndDate = createdDate,
-                    VehicleId = i+1,
-                    DriverId=i+53,
-                    CoordinatorId=i+28,
-                    Code=GenerateCode(createdDate,i+28),
-                    Status="Assigned"
+                    VehicleId = i + 1,
+                    DriverId = i + 53,
+                    CoordinatorId = i + 28,
+                    Code = GenerateCode(createdDate, i + 28),
+                    Status = "Pending"
                 };
                 dbContext.Add(shipment);
             }
@@ -505,9 +506,9 @@ namespace Infrastructures.SeedData
         {
             Random ran = new Random();
             DateTime RequestEstimateDate = FormatDateTime(DateTime.Now);
-            for (int i=0;i<5;i++)
+            for (int i = 0; i < 5; i++)
             {
-                for(int j = 0; j < 5; j++)
+                for (int j = 0; j < 5; j++)
                 {
                     var shipmentRequest = new ShipmentRequest
                     {
@@ -515,15 +516,15 @@ namespace Infrastructures.SeedData
                         RequestId = (i * 5) + j + 1,
                         RequestOrder = j + 1,
                         Note = "",
-                        Status = "Wait",
-                        RequestEstimateDate=RequestEstimateDate.AddDays(ran.Next(0,i%2+1)),
-                        RequestDeliveriedDate=RequestEstimateDate.AddDays(ran.Next(2,i%7+3))
+                        Status = "Waiting",
+                        RequestEstimateDate = RequestEstimateDate.AddDays(ran.Next(0, i % 2 + 1)),
+                        RequestDeliveriedDate = RequestEstimateDate.AddDays(ran.Next(2, i % 7 + 3))
                     };
                     dbContext.Add(shipmentRequest);
                     dbContext.SaveChanges();
                 }
             }
-           
+
         }
     }
 

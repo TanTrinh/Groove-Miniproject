@@ -19,7 +19,10 @@
         <td>{{item.startDate}}</td>
         <td>{{item.endDate}}</td>
         <td>{{item.requestQuality}}</td>
-        <td><a class="btn btn-custom">Accept</a></td>
+        <td>
+          <a class="btn btn-outline-success" (click)="changeStatus(item.code, 'Accept')">Accept</a>
+          <a class="btn btn-outline-danger"  (click)="changeStatus(item.code, 'Reject')">Reject</a>
+        </td>
       </tr>
     </tbody>
   </table>
