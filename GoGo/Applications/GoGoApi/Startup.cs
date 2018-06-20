@@ -21,7 +21,6 @@ namespace GoGoApi
 {
     public class Startup
     {
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,40 +28,73 @@ namespace GoGoApi
 
         public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
-		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-		public IServiceProvider ConfigureServices(IServiceCollection services)
-		{
-			var defaultConnectionString = Configuration.GetConnectionString("DefaultConnection");
-	
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public IServiceProvider ConfigureServices(IServiceCollection services)
+        {
+            var defaultConnectionString = Configuration.GetConnectionString("DefaultConnection");
+            var jwtSecurityKey = Configuration.GetValue<string>("Security:Jwt:SecurityKey");
+            var tokenTimeOutMinutes = Configuration.GetValue<long>("Security:Jwt:TokenTimeOutMinutes");
 
-			services.AddDbContext<ApplicationDbContext>(options =>
-			{
-				options.UseSqlServer(defaultConnectionString, sqlServerOptions =>
-				{
-					sqlServerOptions.EnableRetryOnFailure();
-				});
-			});
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(defaultConnectionString, sqlServerOptions =>
+                {
+                    sqlServerOptions.EnableRetryOnFailure();
+                });
+            });
 
-			services.AddGrooveMvcApi().AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<Domains.AssemplyMarker>().RegisterValidatorsFromAssemblyContaining<GoGoApi.Startup>());
+            services.AddGrooveMvcApi().AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<Domains.AssemplyMarker>().RegisterValidatorsFromAssemblyContaining<GoGoApi.Startup>());
 
-			services.AddAutoMapper(typeof(Domains.AssemplyMarker));
+            services.AddAutoMapper(typeof(Domains.AssemplyMarker));
 
-			// Add UoW 
-			services.AddUnitOfWork<ApplicationDbContext>();
-					
-			// ALL SERVICE REGISTERS SHOULD BE PLACED BEFORE THIS LINE
-			// Register our custom service provider
-			var autofactServiceProvider = services.BuildAutofactServiceProvider(options =>
-			{
-				// Register services,...
-				options.AddAsImplementedInterfaces(typeof(Domains.AssemplyMarker));
-				// Register repositories
-				options.AddAsImplementedInterfaces(typeof(Infrastructures.AssemplyMarker));
-			});
+            // Add UoW 
+            services.AddUnitOfWork<ApplicationDbContext>();
 
-			return autofactServiceProvider;
-		}
+            // Add Identity
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders(); // protection provider responsible for generating an email confirmation token or a password reset token
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
+
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(tokenTimeOutMinutes);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings
+                options.User.RequireUniqueEmail = true;
+
+            });
+
+            // Add Jwt Bearer
+            // IMPORTANCE: AddJwtBearerAuthentication should be added after services.AddIdentity, to replaced Authentication config in Identity
+            services.AddJwtBearerAuthentication(options =>
+            {
+                options.SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecurityKey));
+                options.TokenTimeOutMinutes = tokenTimeOutMinutes;
+            });
+
+            // ALL SERVICE REGISTERS SHOULD BE PLACED BEFORE THIS LINE
+            // Register our custom service provider
+            var autofactServiceProvider = services.BuildAutofactServiceProvider(options =>
+            {
+                // Register services,...
+                options.AddAsImplementedInterfaces(typeof(Domains.AssemplyMarker));
+                // Register repositories
+                options.AddAsImplementedInterfaces(typeof(Infrastructures.AssemplyMarker));
+            });
+
+            return autofactServiceProvider;
+        }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -79,6 +111,7 @@ namespace GoGoApi
            );
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
