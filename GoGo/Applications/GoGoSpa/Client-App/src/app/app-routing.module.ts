@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './modules/account/login/login.component';
 import { LayoutComponent } from './layout/layout.component';
-import { GgmapComponent } from './ggmap/ggmap.component';
+//import { GgmapComponent } from './ggmap/ggmap.component';
 import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.component';
 import { HomeComponent } from './home/home.component';
 

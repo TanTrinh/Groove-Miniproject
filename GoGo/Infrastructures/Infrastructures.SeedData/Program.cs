@@ -67,12 +67,12 @@ namespace Infrastructures.SeedData
 
         private static async Task SeedDataAsync(ApplicationDbContext dbContext)
         {
-			await SeedUserDataAsync(dbContext);
-			await SeedRoleDataAsync(dbContext);
-			await SeedAdministratortDataAsync(dbContext);
-			await SeedCoordinatorDataAsync(dbContext);
-			await SeedDriverDataAsync(dbContext);
-			await SeedCustomerDataAsync(dbContext);
+			//await SeedUserDataAsync(dbContext);
+			//await SeedRoleDataAsync(dbContext);
+			//await SeedAdministratortDataAsync(dbContext);
+			//await SeedCoordinatorDataAsync(dbContext);
+			//await SeedDriverDataAsync(dbContext);
+			//await SeedCustomerDataAsync(dbContext);
 
 			SeedWarehouseData(dbContext);
 

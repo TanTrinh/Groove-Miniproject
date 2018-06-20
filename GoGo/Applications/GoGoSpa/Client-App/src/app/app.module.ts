@@ -10,9 +10,9 @@ import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
-import { GgmapComponent } from './ggmap/ggmap.component';
-import { AgmCoreModule, AgmDataLayer } from '@agm/core';
-import { AgmDirectionModule } from 'agm-direction';
+//import { GgmapComponent } from './ggmap/ggmap.component';
+//import { AgmCoreModule, AgmDataLayer } from '@agm/core';
+//import { AgmDirectionModule } from 'agm-direction';
 
 import { LoginComponent } from './modules/account/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -27,17 +27,17 @@ import { NotificationService } from 'src/app/shared/components/dialog/notificati
     HeaderComponent,
     FooterComponent,
     NavigationComponent,
-    GgmapComponent,
+    //GgmapComponent,
     LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
-    }),
-    AgmDirectionModule,
+    //AgmCoreModule.forRoot({
+    //  apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
+    //}),
+    //AgmDirectionModule,
     HttpClientModule,
     ShipmentModule
   ],

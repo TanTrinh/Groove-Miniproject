@@ -7,6 +7,8 @@ using Groove.AspNetCore.UnitOfWork.EntityFramework;
 using Infrastructures;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructures.Repositories.Identity
 {
@@ -26,6 +28,9 @@ namespace Infrastructures.Repositories.Identity
 			return await _userManager.FindByNameAsync(userName);
 		}
 
-
-	}
+        public async Task<IEnumerable<User>> GetUserListAsync()
+        {
+            return await _userManager.Users.ToListAsync();
+        }
+    }
 }

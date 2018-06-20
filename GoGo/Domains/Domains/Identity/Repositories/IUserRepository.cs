@@ -9,5 +9,6 @@ namespace Domains.Identity.Repositories
 	public interface IUserRepository
 	{
 		Task<User> FindByUserNameAsync(string userName);
+        Task<IEnumerable<User>> GetUserListAsync();
 	}
 }

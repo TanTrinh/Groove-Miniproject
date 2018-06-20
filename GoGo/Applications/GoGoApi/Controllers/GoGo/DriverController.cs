@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domains.GoGo.Services;
 using Domains.GoGo.Services.Transportation;
 using Microsoft.AspNetCore.Mvc;
 
