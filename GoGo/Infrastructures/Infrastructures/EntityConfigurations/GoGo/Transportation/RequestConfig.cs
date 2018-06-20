@@ -15,7 +15,7 @@ namespace Infrastructures.EntityConfigurations.GoGo
 
 			builder.HasOne(p => p.Issuer).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 			builder.HasOne(p => p.WareHouse).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
-			builder.HasOne(p => p.Customer).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
+            builder.HasOne(p => p.Customer).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
             builder.HasIndex(p => p.Code).IsUnique();
 
 			builder.Property(p => p.WareHouseId).IsRequired();

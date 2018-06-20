@@ -1,0 +1,26 @@
+<h1>List shipment</h1>
+<div class="list">
+  <table class="table table-hover">
+    <thead id="head">
+      <tr>
+        <th>ShipmentCode</th>
+        <th>License plate</th>
+        <th>StartDate</th>
+        <th>EndDate</th>
+        <th>RequestQuality</th>
+        <th>Assign</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let item of shipmentAssigned">
+        <td>{{item.code}}</td>
+        <td>{{item.licensePlate}}</td>
+        <td>{{item.startDate}}</td>
+        <td>{{item.endDate}}</td>
+        <td>{{item.requestQuality}}</td>
+        <td><a class="btn btn-custom">Accept</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

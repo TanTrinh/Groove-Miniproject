@@ -27,5 +27,14 @@ namespace Domains.GoGo.Services
         {
             return _repository.GetWaitingRequestAsync();
         }
+        public Task<string> ChangeStatus(int? id, string status)
+        {
+            return _repository.ChangeStatus(id, status);
+        }
+
+        public Task<RequestDetailModel> GetRequestDetails(int? id)
+        {
+            return _repository.GetRequestDetailAsync(id);
+        }
     }
 }

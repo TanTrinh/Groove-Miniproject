@@ -40,6 +40,9 @@ namespace Domains.GoGo.Services.Transportation
 			return entity.Id;
 		}
 
-		
-	}
+        public Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
+        {
+            return _repository.GetShipmentAssignedModel(id);
+        }
+    }
 }

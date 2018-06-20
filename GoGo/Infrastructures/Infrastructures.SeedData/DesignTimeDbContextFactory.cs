@@ -40,7 +40,6 @@ namespace Infrastructures.SeedData
 													.SetBasePath(Directory.GetCurrentDirectory())
 													.AddJsonFile("appsettings.json", optional: true)
 													.Build();
-
 			return configuration.GetConnectionString("DefaultConnection");
 		}
 	}

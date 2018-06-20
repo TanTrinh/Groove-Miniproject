@@ -10,5 +10,6 @@ namespace Domains.GoGo.Services.Transportation
 	public interface IShipmentService
     {
 		Task<int> CreateShipmentAsync(CreateShipmentModel model);
+        Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id);
     }
 }

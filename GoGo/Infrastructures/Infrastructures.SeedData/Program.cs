@@ -351,11 +351,10 @@ namespace Infrastructures.SeedData
                 {
                     Height = Height[type],
                     Lenght = Lenght[type],
-                    width = Width[type],
+                    Width = Width[type],
                     LicensePlate = licenseplate + licenseplate_current,
                     VehicleTypeId = type + 1
                 };
-                Console.WriteLine(vehicle.LicensePlate);
                 dbContext.Add(vehicle);
             }
             dbContext.SaveChanges();
@@ -429,39 +428,47 @@ namespace Infrastructures.SeedData
                     PhoneNumber = phonenumberHeader + ran.Next(100000, 999999).ToString(),
                     OwnerId = custormerID,
                     Latitude = Math.Round(latitudeBase + i * 0.0001, 6),
-                    Longitude = Math.Round(longitudeBase + i * 0.0001, 6)
+                    Longitude = Math.Round(longitudeBase + i * 0.0001, 6),
+                    Address = "This is my warehouse address"
                 };
                 dbContext.Add(warehouse);
                 dbContext.SaveChanges();
             }
         }
-
+        private static DateTime FormatDateTime(DateTime dateTime)
+        {
+            String dateTimeString= String.Format("{0:g}", dateTime);
+            return DateTime.Parse(dateTimeString);
+        }
         //Add seed data of Request
         private static void SeedRequestData(ApplicationDbContext dbContext)
         {
             double latitudeBase = 10.762622;
             double longitudeBase = 106.660172;
+            DateTime createdDate = FormatDateTime(DateTime.Now);
+            Random ran = new Random();
 
-			var DateTimeNow = String.Format("{0:G}", DateTime.Now); 
+            string phonenumberHeader = "0908";
+            string[] name = { "Khanh", "Khoi", "Khoa", "Khang", "Khai", "Chi", "Cong", "Cuong", "Cao", "Cuc", "Dung", "Danh", "Diem", "Duy", "Diep"};
+            string[] lastname = { "Tran", "Nguyen", "Trinh", "Le", "Mai" };
 
-			DateTime createdDate = DateTime.Parse(DateTimeNow);
-            
             for (int i = 1; i < 26; i++)
             {
-                DateTime pickingDate = createdDate.AddDays(i % 5);
-
+                DateTime pickingDate =createdDate.AddDays(i % 5);
                 var request = new Request
                 {
                     CreatedDate = createdDate,
                     PickingDate = pickingDate,
-                    DeliveryDate = pickingDate.AddDays(i % 5 + 2),
+                    ExpectedDate = pickingDate.AddDays(i % 5 + 2),
                     PackageQuantity = i,
                     DeliveryLatitude = Math.Round(latitudeBase + i * 0.0001, 6),
                     DeliveryLongitude = Math.Round(longitudeBase + i * 0.0001, 6),
                     WareHouseId = i,
                     IssuerId = i + 76,
-					CustomerId = i+76,
-					Status = "Wait",
+                    Status = "Wait",
+                    ReceiverName = name[ran.Next(0, 14)] + lastname[ran.Next(0, 4)],
+                    ReceiverPhoneNumber = phonenumberHeader + ran.Next(100000, 999999).ToString(),
+                     Address = "This is my address",
                     Code = GenerateCode(createdDate,i+76)
                 };
                 dbContext.Add(request);
@@ -474,7 +481,7 @@ namespace Infrastructures.SeedData
         {
             for (int i = 0; i < 5; i++)
             {
-                DateTime createdDate = DateTime.Now;
+                DateTime createdDate = FormatDateTime(DateTime.Now);
                 long custormerID = (long)i + 77;
                 var shipment = new Shipment
                 {
@@ -485,7 +492,8 @@ namespace Infrastructures.SeedData
                     VehicleId = i+1,
                     DriverId=i+53,
                     CoordinatorId=i+28,
-                    Code=GenerateCode(createdDate,i+28)
+                    Code=GenerateCode(createdDate,i+28),
+                    Status="Assigned"
                 };
                 dbContext.Add(shipment);
             }
@@ -495,8 +503,9 @@ namespace Infrastructures.SeedData
         //Add seed data of Shipment_Request
         private static void SeedShipmentRequestData(ApplicationDbContext dbContext)
         {
-            
-            for(int i=0;i<5;i++)
+            Random ran = new Random();
+            DateTime RequestEstimateDate = FormatDateTime(DateTime.Now);
+            for (int i=0;i<5;i++)
             {
                 for(int j = 0; j < 5; j++)
                 {
@@ -507,6 +516,8 @@ namespace Infrastructures.SeedData
                         RequestOrder = j + 1,
                         Note = "",
                         Status = "Wait",
+                        RequestEstimateDate=RequestEstimateDate.AddDays(ran.Next(0,i%2+1)),
+                        RequestDeliveriedDate=RequestEstimateDate.AddDays(ran.Next(2,i%7+3))
                     };
                     dbContext.Add(shipmentRequest);
                     dbContext.SaveChanges();

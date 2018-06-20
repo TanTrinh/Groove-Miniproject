@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
@@ -20,5 +20,21 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		{
 			_mapper = mapper;
 		}
-	}
+        public async Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
+        {
+            var query = this.dbSet
+                        .Include(p => p.Vehicle)
+                        .Where(p => p.DriverId == id)
+                        .Select(p => new ShipmentAssignedModel
+                        {
+                            Code = p.Code,
+                            LicensePlate = p.Vehicle.LicensePlate,
+                            EndDate = p.EndDate,
+                            StartDate = p.StartDate,
+                            VehicleID = p.VehicleId,
+                            RequestQuality = p.RequestQuantity
+                        });
+            return await query.ToListAsync();
+        }
+    }
 }

@@ -71,14 +71,15 @@ namespace GoGoApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(builder =>
+                   builder
+                   .AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+           );
             app.UseDefaultFiles();
             app.UseStaticFiles();
-			app.UseCors(CorsPolicies.AllowAny);
-			app.UseMvc();
-
-			
-			
-		}
+            app.UseMvc();
+        }
     }
 }

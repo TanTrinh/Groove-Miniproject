@@ -27,5 +27,9 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             return await this.dbSet.Where(p => p.Status == "Wait").MapQueryTo<WaitingRequestModel>(_mapper).ToListAsync();
         }
+        public async Task<RequestDetailModel> GetRequestDetailAsync(int? id)
+        {
+            return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
+        }
     }
 }

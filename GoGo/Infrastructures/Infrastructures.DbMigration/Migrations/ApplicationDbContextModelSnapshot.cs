@@ -118,23 +118,27 @@ namespace Infrastructures.DbMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address");
+
                     b.Property<string>("Code");
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<long>("CustomerId");
-
-                    b.Property<DateTime>("DeliveryDate");
-
                     b.Property<double>("DeliveryLatitude");
 
                     b.Property<double>("DeliveryLongitude");
+
+                    b.Property<DateTime>("ExpectedDate");
 
                     b.Property<long>("IssuerId");
 
                     b.Property<int>("PackageQuantity");
 
                     b.Property<DateTime>("PickingDate");
+
+                    b.Property<string>("ReceiverName");
+
+                    b.Property<string>("ReceiverPhoneNumber");
 
                     b.Property<string>("Status")
                         .IsRequired();
@@ -202,6 +206,10 @@ namespace Infrastructures.DbMigration.Migrations
                     b.Property<string>("Note")
                         .IsRequired();
 
+                    b.Property<DateTime>("RequestDeliveriedDate");
+
+                    b.Property<DateTime>("RequestEstimateDate");
+
                     b.Property<int>("RequestId");
 
                     b.Property<int>("RequestOrder");
@@ -235,7 +243,7 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<int>("VehicleTypeId");
 
-                    b.Property<float>("width");
+                    b.Property<float>("Width");
 
                     b.HasKey("Id");
 
@@ -268,6 +276,8 @@ namespace Infrastructures.DbMigration.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
 
                     b.Property<double>("Latitude");
 

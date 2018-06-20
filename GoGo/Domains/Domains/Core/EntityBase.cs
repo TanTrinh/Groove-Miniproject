@@ -1,4 +1,5 @@
-﻿using Groove.AspNetCore.Common.Identity;
+﻿using Domains.Identity.Entities;
+using Groove.AspNetCore.Common.Identity;
 using Groove.AspNetCore.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,8 @@ namespace Domains.Core
 
 		public DateTimeOffset UpdatedDate { get; set; }
 		public long UpdatedByUserId { get; set; } // use to query/join
-		public string UpdatedByUserName { get; set; } // Use to display
+        public User UpdatedByUser { get; set; }
+        public string UpdatedByUserName { get; set; } // Use to display
 
 		public byte[] RowVersion { get; set; }
 
