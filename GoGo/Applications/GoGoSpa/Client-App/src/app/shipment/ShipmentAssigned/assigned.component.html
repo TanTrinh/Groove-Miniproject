@@ -13,7 +13,7 @@
     </thead>
     <tbody>
 
-      <tr *ngFor="let item of shipmentAssigned">
+      <tr *ngFor="let item of shipmentAssigned" [(ngModel)]="item.status">
         <td>{{item.code}}</td>
         <td>{{item.licensePlate}}</td>
         <td>{{item.startDate}}</td>

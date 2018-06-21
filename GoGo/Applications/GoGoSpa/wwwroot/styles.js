@@ -48,7 +48,7 @@ module.exports = "/*!\n * Bootstrap v4.1.1 (https://getbootstrap.com/)\n * Copyr
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "kendo-grid .k-grid-header thead tr:first-child {\n  background-color: #3399ff;\n  color: white; }\n\nh1 {\n  color: darkslategrey; }\n\nthead {\n  background-color: #3399ff;\n  color: white; }\n\n.border-custom {\n  border-bottom-style: solid;\n  border-width: 1px;\n  border-bottom-color: #0073e6; }\n\nimg {\n  border: 2px solid black;\n  border-radius: 4px;\n  padding: 10px; }\n\n.btn-custom {\n  border-style: solid;\n  border-color: #3399ff;\n  background-color: white;\n  color: #3399ff; }\n"
+module.exports = "kendo-grid .k-grid-header thead tr:first-child {\n  background-color: #3399ff;\n  color: white; }\n\nh1 {\n  color: darkslategrey; }\n\nthead {\n  background-color: #3399ff;\n  color: white; }\n\n.border-custom {\n  border-bottom-style: solid;\n  border-width: 1px;\n  border-bottom-color: #0073e6; }\n\nimg {\n  border: 2px solid black;\n  border-radius: 4px;\n  padding: 10px; }\n\n.btn-custom {\n  border-style: solid;\n  border-color: #3399ff;\n  background-color: white;\n  color: #3399ff; }\n\n.hidden {\n  visibility: hidden; }\n"
 
 /***/ }),
 
@@ -580,8 +580,8 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\GoGo\GoGo\Applications\GoGoSpa\Client-App\node_modules\bootstrap\dist\css\bootstrap.css */"./node_modules/bootstrap/dist/css/bootstrap.css");
-module.exports = __webpack_require__(/*! D:\GoGo\GoGo\Applications\GoGoSpa\Client-App\src\styles.scss */"./src/styles.scss");
+__webpack_require__(/*! C:\Users\intern01\DEV\GoGo\Applications\GoGoSpa\Client-App\node_modules\bootstrap\dist\css\bootstrap.css */"./node_modules/bootstrap/dist/css/bootstrap.css");
+module.exports = __webpack_require__(/*! C:\Users\intern01\DEV\GoGo\Applications\GoGoSpa\Client-App\src\styles.scss */"./src/styles.scss");
 
 
 /***/ })

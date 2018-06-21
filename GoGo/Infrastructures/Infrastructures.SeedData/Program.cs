@@ -34,7 +34,6 @@ namespace Infrastructures.SeedData
                     Console.WriteLine("Commit all seed");
                 }
             }
-
             Console.WriteLine("Seed data successful");
         }
 
@@ -123,7 +122,8 @@ namespace Infrastructures.SeedData
                     CreatedByUserName = "system",
                     UpdatedByUserId = 1,
                     UpdatedDate = DateTimeOffset.UtcNow,
-                    UpdatedByUserName = "system"
+                    UpdatedByUserName = "system",
+                    Status = "Active"
                 };
 
                 await userManagement.CreateAsync(user, "Password@1");
@@ -146,6 +146,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
@@ -179,6 +180,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
@@ -212,6 +214,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
@@ -245,6 +248,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
