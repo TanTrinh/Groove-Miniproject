@@ -34,7 +34,6 @@ namespace GoGoApi
             var defaultConnectionString = Configuration.GetConnectionString("DefaultConnection");
             var jwtSecurityKey = Configuration.GetValue<string>("Security:Jwt:SecurityKey");
             var tokenTimeOutMinutes = Configuration.GetValue<long>("Security:Jwt:TokenTimeOutMinutes");
-            
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -44,8 +43,6 @@ namespace GoGoApi
                 });
             });
 
-            services.AddCors();
-
             services.AddGrooveMvcApi().AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<Domains.AssemplyMarker>().RegisterValidatorsFromAssemblyContaining<GoGoApi.Startup>());
 
             services.AddAutoMapper(typeof(Domains.AssemplyMarker));
@@ -54,36 +51,37 @@ namespace GoGoApi
             services.AddUnitOfWork<ApplicationDbContext>();
 
             // Add Identity
-            //services.AddIdentity<User, Role>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>()
-            //    .AddDefaultTokenProviders(); // protection provider responsible for generating an email confirmation token or a password reset token
-            //services.Configure<IdentityOptions>(options =>
-            //{
-            //    // Password settings
-            //    options.Password.RequireDigit = true;
-            //    options.Password.RequiredLength = 8;
-            //    options.Password.RequireNonAlphanumeric = false;
-            //    options.Password.RequireUppercase = true;
-            //    options.Password.RequireLowercase = false;
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders(); // protection provider responsible for generating an email confirmation token or a password reset token
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
 
 
-            //    // Lockout settings
-            //    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(tokenTimeOutMinutes);
-            //    options.Lockout.MaxFailedAccessAttempts = 10;
-            //    options.Lockout.AllowedForNewUsers = true;
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(tokenTimeOutMinutes);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.AllowedForNewUsers = true;
 
-            //    // User settings
-            //    options.User.RequireUniqueEmail = true;
+                // User settings
+                options.User.RequireUniqueEmail = true;
 
-            //});
+            });
 
-            //// Add Jwt Bearer
-            //// IMPORTANCE: AddJwtBearerAuthentication should be added after services.AddIdentity, to replaced Authentication config in Identity
-            //services.AddJwtBearerAuthentication(options =>
-            //{
-            //    options.SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecurityKey));
-            //    options.TokenTimeOutMinutes = tokenTimeOutMinutes;
-            //});
+            // Add Jwt Bearer
+            // IMPORTANCE: AddJwtBearerAuthentication should be added after services.AddIdentity, to replaced Authentication config in Identity
+            services.AddJwtBearerAuthentication(options =>
+            {
+                options.SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecurityKey));
+                options.TokenTimeOutMinutes = tokenTimeOutMinutes;
+            });
+
             // ALL SERVICE REGISTERS SHOULD BE PLACED BEFORE THIS LINE
             // Register our custom service provider
             var autofactServiceProvider = services.BuildAutofactServiceProvider(options =>
@@ -95,23 +93,25 @@ namespace GoGoApi
             });
 
             return autofactServiceProvider;
-
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                if (env.IsDevelopment())
-                {
-                    app.UseDeveloperExceptionPage();
-                }
-                app.UseCors(CorsPolicies.AllowAny);
-                app.UseAuthentication();
-                app.UseMvc();
+                app.UseDeveloperExceptionPage();
             }
-            
+            app.UseCors(builder =>
+                   builder
+                   .AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+           );
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseAuthentication();
+            app.UseMvc();
         }
     }
 }

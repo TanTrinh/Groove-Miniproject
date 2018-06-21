@@ -1,0 +1,38 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+<<<<<<< HEAD
+=======
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from './modules/account/login/login.component';
+>>>>>>> 2c3347003fb8a57d383be8a0ab579fcb710d087e
+import { LayoutComponent } from './layout/layout.component';
+import { GgmapComponent } from './ggmap/ggmap.component';
+import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.component';
+import { HomeComponent } from './home/home.component';
+
+
+const routes: Routes = [
+<<<<<<< HEAD
+  {
+    path: '', component: LayoutComponent, children: [
+      { path: 'request', loadChildren: './modules/request/request.module#RequestModule' }
+    ]
+  },
+=======
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent },
+    { path: 'layout', component: LayoutComponent },
+    {
+      path: 'home', component: HomeComponent, children: [
+          { path: 'assigned', component: AssignedComponent }
+      ]
+    }
+>>>>>>> 2c3347003fb8a57d383be8a0ab579fcb710d087e
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+  declarations: []
+})
+export class AppRoutingModule { }

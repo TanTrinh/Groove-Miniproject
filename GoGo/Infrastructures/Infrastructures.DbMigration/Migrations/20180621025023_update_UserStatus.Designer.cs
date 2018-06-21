@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructures.DbMigration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180615060926_init")]
-    partial class init
+    [Migration("20180621025023_update_UserStatus")]
+    partial class update_UserStatus
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -120,21 +120,29 @@ namespace Infrastructures.DbMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address");
+
                     b.Property<string>("Code");
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<DateTime>("DeliveryDate");
+                    b.Property<long>("CustomerId");
 
                     b.Property<double>("DeliveryLatitude");
 
                     b.Property<double>("DeliveryLongitude");
+
+                    b.Property<DateTime>("ExpectedDate");
 
                     b.Property<long>("IssuerId");
 
                     b.Property<int>("PackageQuantity");
 
                     b.Property<DateTime>("PickingDate");
+
+                    b.Property<string>("ReceiverName");
+
+                    b.Property<string>("ReceiverPhoneNumber");
 
                     b.Property<string>("Status")
                         .IsRequired();
@@ -146,6 +154,8 @@ namespace Infrastructures.DbMigration.Migrations
                     b.HasIndex("Code")
                         .IsUnique()
                         .HasFilter("[Code] IS NOT NULL");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("IssuerId");
 
@@ -174,6 +184,8 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<DateTime>("StartDate");
 
+                    b.Property<string>("Status");
+
                     b.Property<int>("VehicleId");
 
                     b.HasKey("Id");
@@ -197,10 +209,12 @@ namespace Infrastructures.DbMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("CustomerId");
-
                     b.Property<string>("Note")
                         .IsRequired();
+
+                    b.Property<DateTime>("RequestDeliveriedDate");
+
+                    b.Property<DateTime>("RequestEstimateDate");
 
                     b.Property<int>("RequestId");
 
@@ -212,8 +226,6 @@ namespace Infrastructures.DbMigration.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.HasIndex("RequestId");
 
@@ -237,7 +249,7 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<int>("VehicleTypeId");
 
-                    b.Property<float>("width");
+                    b.Property<float>("Width");
 
                     b.HasKey("Id");
 
@@ -270,6 +282,8 @@ namespace Infrastructures.DbMigration.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
 
                     b.Property<double>("Latitude");
 
@@ -376,6 +390,8 @@ namespace Infrastructures.DbMigration.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Status");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -533,6 +549,11 @@ namespace Infrastructures.DbMigration.Migrations
 
             modelBuilder.Entity("Domains.GoGo.Entities.Request", b =>
                 {
+                    b.HasOne("Domains.Identity.Entities.User", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Domains.Identity.Entities.User", "Issuer")
                         .WithMany()
                         .HasForeignKey("IssuerId")
@@ -564,11 +585,6 @@ namespace Infrastructures.DbMigration.Migrations
 
             modelBuilder.Entity("Domains.GoGo.Entities.ShipmentRequest", b =>
                 {
-                    b.HasOne("Domains.Identity.Entities.User", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Domains.GoGo.Entities.Request", "Request")
                         .WithMany()
                         .HasForeignKey("RequestId")

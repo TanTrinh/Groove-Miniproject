@@ -16,9 +16,14 @@ import { AuthenticationService } from './shared/services/authentication.service'
 import { HttpClientModule } from '@angular/common/http';
 import { DlDateTimePickerDateModule } from 'angular-bootstrap-datetimepicker';
 import { InvalidTooltipModule } from 'ng-invalid-tooltip';
+import { GgmapComponent } from './ggmap/ggmap.component';
+import { AgmCoreModule, AgmDataLayer } from '@agm/core';
+import { AgmDirectionModule } from 'agm-direction';
+
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
   provide: APP_INITIALIZER,
   useFactory: (ServiceRegistryService: ServiceRegistryService) => {
+
 
     // Do initing of services that is required before app loads
     // NOTE: this factory needs to return a function (that then returns a promise)
@@ -49,6 +54,8 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     HeaderComponent,
     FooterComponent,
     NavigationComponent,
+    GgmapComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +71,15 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     AuthHttpService,
     AuthenticationService,
     FormValidationService,
-    APP_INITIALIZER_PROVIDER
+    APP_INITIALIZER_PROVIDER,
+    FormsModule,
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
+    }),
+    AgmDirectionModule,
+    HttpClientModule,
+    ShipmentModule
   ],
   bootstrap: [AppComponent]
 })

@@ -206,6 +206,7 @@ namespace Infrastructures.DbMigration.Migrations
                     PhoneNumber = table.Column<string>(maxLength: 20, nullable: false),
                     Latitude = table.Column<double>(nullable: false),
                     Longitude = table.Column<double>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
                     OwnerId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
@@ -254,7 +255,7 @@ namespace Infrastructures.DbMigration.Migrations
                     LicensePlate = table.Column<string>(nullable: false),
                     VehicleTypeId = table.Column<int>(nullable: false),
                     Height = table.Column<float>(nullable: false),
-                    width = table.Column<float>(nullable: false),
+                    Width = table.Column<float>(nullable: false),
                     Lenght = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
@@ -276,18 +277,28 @@ namespace Infrastructures.DbMigration.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     PickingDate = table.Column<DateTime>(nullable: false),
-                    DeliveryDate = table.Column<DateTime>(nullable: false),
+                    ExpectedDate = table.Column<DateTime>(nullable: false),
                     DeliveryLatitude = table.Column<double>(nullable: false),
                     DeliveryLongitude = table.Column<double>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
                     PackageQuantity = table.Column<int>(nullable: false),
                     Code = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: false),
+                    ReceiverName = table.Column<string>(nullable: true),
+                    ReceiverPhoneNumber = table.Column<string>(nullable: true),
                     IssuerId = table.Column<long>(nullable: false),
-                    WareHouseId = table.Column<int>(nullable: false)
+                    WareHouseId = table.Column<int>(nullable: false),
+                    CustomerId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Request", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Request_AspNetUsers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Request_AspNetUsers_IssuerId",
                         column: x => x.IssuerId,
@@ -339,6 +350,7 @@ namespace Infrastructures.DbMigration.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<string>(nullable: true),
                     VehicleId = table.Column<int>(nullable: false),
                     DriverId = table.Column<long>(nullable: false),
                     CoordinatorId = table.Column<long>(nullable: false)
@@ -424,17 +436,12 @@ namespace Infrastructures.DbMigration.Migrations
                     Note = table.Column<string>(nullable: false),
                     ShipmentId = table.Column<int>(nullable: false),
                     RequestId = table.Column<int>(nullable: false),
-                    CustomerId = table.Column<long>(nullable: false)
+                    RequestEstimateDate = table.Column<DateTime>(nullable: false),
+                    RequestDeliveriedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ShipmentRequest", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ShipmentRequest_AspNetUsers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ShipmentRequest_Request_RequestId",
                         column: x => x.RequestId,
@@ -522,6 +529,11 @@ namespace Infrastructures.DbMigration.Migrations
                 filter: "[Code] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Request_CustomerId",
+                table: "Request",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Request_IssuerId",
                 table: "Request",
                 column: "IssuerId");
@@ -552,11 +564,6 @@ namespace Infrastructures.DbMigration.Migrations
                 name: "IX_Shipment_VehicleId",
                 table: "Shipment",
                 column: "VehicleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShipmentRequest_CustomerId",
-                table: "ShipmentRequest",
-                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShipmentRequest_RequestId",

@@ -11,8 +11,10 @@ namespace Groove.AspNetCore.UnitOfWork.EntityFramework
     {
         protected DbContext dbContext;
         protected IUnitOfWorkContext context;
-        protected IServiceProvider serviceProvider;
+        protected IServiceProvider serviceProvider; 
         private bool disposed = false;
+
+
         public UnitOfWork(IUnitOfWorkContext context, IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;

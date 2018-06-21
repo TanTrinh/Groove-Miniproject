@@ -11,25 +11,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GoGo\Models\Fleet management\" />
-    <Folder Include="GoGo\Repositories\Fleet management\" />
-    <Folder Include="GoGo\Services\Fleet management\" />
     <Folder Include="Identity\Models\" />
     <Folder Include="Identity\Services\" />
+    <Folder Include="GoGo\Models\" />
+    <Folder Include="GoGo\Services\" />
+    <Folder Include="GoGo\Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />
-    <PackageReference Include="FluentValidation.Extensions.QuickValidate" Version="1.0.2" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Microsoft.Extensions.Identity.Stores">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.identity.stores\2.0.3\lib\netstandard2.0\Microsoft.Extensions.Identity.Stores.dll</HintPath>
-    </Reference>
-    <Reference Include="StackExchange.Redis.StrongName">
-      <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\stackexchange.redis.strongname\1.2.4\lib\netstandard1.5\StackExchange.Redis.StrongName.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -1,14 +1,17 @@
-﻿using Domains.GoGo.Models.Transportation;
-using Groove.AspNetCore.Common.Identity;
+using Domains.GoGo.Entities;
+using Domains.GoGo.Models.Transportation;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domains.GoGo.Services.Transportation
+namespace Domains.GoGo.Services
 {
     public interface IRequestService
     {
-        Task<int> CreateAsync(RequestModel model, UserIdentity<long> issuer);
+        Task<IEnumerable<WaitingRequestModel>> GetWaitingRequest();
+        Task<RequestDetailModel> GetRequestDetails(int? id);
+        Task<string> ChangeStatus(int? id, string status);
+        Task<int> CreateAsync(RequestModel model, UserIdentity<long> issuer)
     }
 }

@@ -6,34 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Client-App\src\app\app-setting.ts" />
-    <None Remove="Client-App\src\app\shared\component\form\index.ts" />
-    <None Remove="Client-App\src\app\shared\index.ts" />
-    <None Remove="Client-App\src\app\shared\models\guid.ts" />
-    <None Remove="Client-App\src\app\shared\models\service-registry.ts" />
-    <None Remove="Client-App\src\app\shared\services\authentication.service.ts" />
-    <None Remove="Client-App\src\app\shared\services\local-storage.service.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Client-App\src\app\modules\" />
-    <Folder Include="Client-App\src\app\shared\component\dialog\" />
+    <Folder Include="Client-App\src\app\shared\components\dialog\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="Client-App\src\app\app-setting.ts" />
-    <TypeScriptCompile Include="Client-App\src\app\shared\component\form\index.ts" />
-    <TypeScriptCompile Include="Client-App\src\app\shared\index.ts" />
-    <TypeScriptCompile Include="Client-App\src\app\shared\models\guid.ts" />
-    <TypeScriptCompile Include="Client-App\src\app\shared\models\service-registry.ts" />
-    <TypeScriptCompile Include="Client-App\src\app\shared\services\authentication.service.ts" />
-    <TypeScriptCompile Include="Client-App\src\app\shared\services\local-storage.service.ts" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
   </ItemGroup>
 
 </Project>
