@@ -1,4 +1,4 @@
-﻿using Domains.GoGo.Entities;
+using Domains.GoGo.Entities;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.UnitOfWork;
 using Groove.AspNetCore.UnitOfWork.EntityFramework;

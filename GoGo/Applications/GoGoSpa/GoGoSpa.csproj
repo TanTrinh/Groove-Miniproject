@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Client-App\src\app\shared\components\dialog\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

@@ -1,25 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+//import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GgmapComponent } from './ggmap.component';
+//import { GgmapComponent } from './ggmap.component';
 
-describe('GgmapComponent', () => {
-  let component: GgmapComponent;
-  let fixture: ComponentFixture<GgmapComponent>;
+//describe('GgmapComponent', () => {
+//  let component: GgmapComponent;
+//  let fixture: ComponentFixture<GgmapComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ GgmapComponent ]
-    })
-    .compileComponents();
-  }));
+//  beforeEach(async(() => {
+//    TestBed.configureTestingModule({
+//      declarations: [ GgmapComponent ]
+//    })
+//    .compileComponents();
+//  }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(GgmapComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//  beforeEach(() => {
+//    fixture = TestBed.createComponent(GgmapComponent);
+//    component = fixture.componentInstance;
+//    fixture.detectChanges();
+//  });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//  it('should create', () => {
+//    expect(component).toBeTruthy();
+//  });
+//});

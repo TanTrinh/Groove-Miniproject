@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
+import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
 import * as $ from 'jquery';
 
 const httpOptions = {
@@ -42,13 +42,13 @@ export class LoginComponent implements OnInit {
         if (valueUser.length > 0 && valuePass.length > 0) {
             $("#val-user").attr('style', 'visibility: hidden')
             $("#val-pass").attr('style', 'visibility: hidden');
-            this.http.post('http://localhost:62772/api/authentication/token', this.model, httpOptions).subscribe(result => {
+            this.http.post('http://localhost:49943/api/authentication/token', this.model, httpOptions).subscribe(result => {
                 var key = "tokenKey";
                 console.log(result);
                 if (result) {
                     var keyValue = JSON.stringify(result);
                     localStorage.setItem(key, keyValue);
-                    this.router.navigate(['home']);
+                    this.router.navigate(['']);
                 }
             }, error => {
                 $("#check-valid").removeAttr('style', 'visibility', 'hidden');

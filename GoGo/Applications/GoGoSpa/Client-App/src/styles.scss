@@ -1,7 +1,8 @@
 $sidebar-color: #e6e6ff;
 $main-color: #0073e6;
 $btn-thead-color: #3399ff;
-
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~open-iconic/font/css/open-iconic-bootstrap.css';
 // override kendo ui
 kendo-grid {
   .k-grid-header {

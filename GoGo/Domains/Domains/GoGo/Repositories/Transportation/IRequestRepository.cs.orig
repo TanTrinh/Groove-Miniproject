@@ -1,0 +1,28 @@
+<<<<<<< HEAD
+﻿using Domains.GoGo.Entities;
+using Domains.GoGo.Models.Transportation;
+using Groove.AspNetCore.Common.Identity;
+using Groove.AspNetCore.UnitOfWork;
+=======
+using Domains.GoGo.Entities;
+using Domains.GoGo.Models.Transportation;
+>>>>>>> 2c3347003fb8a57d383be8a0ab579fcb710d087e
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Domains.GoGo.Repositories.Transportation
+{
+<<<<<<< HEAD
+    public interface IRequestRepository : IGenericRepository<Request, int>
+    {
+=======
+    public interface IRequestRepository
+    {
+        Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync();
+        Task<RequestDetailModel> GetRequestDetailAsync(int? id);
+        Task<string> ChangeStatus(int? id, string status);
+>>>>>>> 2c3347003fb8a57d383be8a0ab579fcb710d087e
+    }
+}

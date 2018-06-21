@@ -3,27 +3,29 @@
   <!-- Bootstrap List Group -->
   <ul class="list-group " id="menu">
     <!--Menu with submenu
-    <li>
-      <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class=" list-group-item list-group-item-action flex-column align-items-start">
-        Dashboard
+  <li>
+    <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class=" list-group-item list-group-item-action flex-column align-items-start">
+      Dashboard
+    </a>
+    <div id='submenu1' class="collapse sidebar-submenu">
+      <a href="#" class="list-group-item list-group-item-action ">
+        1. Charts
       </a>
-      <div id='submenu1' class="collapse sidebar-submenu">
-        <a href="#" class="list-group-item list-group-item-action ">
-          1. Charts
-        </a>
-        <a href="#" class="list-group-item list-group-item-action ">
-          2. Reports
-        </a>
-        <a href="#" class="list-group-item list-group-item-action ">
-          3. Tables
-        </a>
-      </div>
+      <a href="#" class="list-group-item list-group-item-action ">
+        2. Reports
+      </a>
+      <a href="#" class="list-group-item list-group-item-action ">
+        3. Tables
+      </a>
+    </div>
+  </li>-->
+
+
+    <!--<li>
+      <a routerLink="/assigned" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Assigned</a>
     </li>-->
     <li>
-      <a routerLink="/assigned" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Assigned</a>
-    </li>
-    <li>
-      <a routerLink="/request" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Request</a>
+     <a routerLink="/request/list" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Request</a>
     </li>
     <li>
       <a routerLink="/warehouse" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Warehouse</a>
