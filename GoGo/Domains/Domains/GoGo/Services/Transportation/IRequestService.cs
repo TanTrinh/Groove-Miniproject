@@ -1,5 +1,6 @@
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
+using Groove.AspNetCore.Common.Identity;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,6 @@ namespace Domains.GoGo.Services
         Task<IEnumerable<WaitingRequestModel>> GetWaitingRequest();
         Task<RequestDetailModel> GetRequestDetails(int? id);
         Task<string> ChangeStatus(int? id, string status);
-        Task<int> CreateAsync(RequestModel model, UserIdentity<long> issuer)
+        Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
     }
 }

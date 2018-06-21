@@ -26,7 +26,6 @@ namespace Groove.AspNetCore.UnitOfWork.EntityFramework
             dbSet.Add(entity);
         }
 
-
         public virtual void Delete(TKey id)
         {
             TEntity entityToDelete = GetEntityById(id);

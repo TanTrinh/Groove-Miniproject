@@ -6,6 +6,7 @@ using AutoMapper;
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
+using Groove.AspNetCore.Common.Identity;
 using Groove.AspNetCore.UnitOfWork;
 
 namespace Domains.GoGo.Services
@@ -37,7 +38,7 @@ namespace Domains.GoGo.Services
             return _repository.GetRequestDetailAsync(id);
         }
 
-        public async Task<int> CreateAsync(RequestModel model, UserIdentity<long> issuer)
+        public async Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer)
         {
             var entity = this._mapper.Map<Request>(model);
 
@@ -45,6 +46,7 @@ namespace Domains.GoGo.Services
             entity.CreatedDate = DateTime.Now;
             entity.Code = Helper.GenerateCode(DateTime.Now, 1);
             entity.IssuerId = 77; //take from claim
+            entity.CustomerId = 77;
 
             _repository.Create(entity);
             await _uow.SaveChangesAsync();

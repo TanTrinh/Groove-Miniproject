@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, FactoryProvider, APP_INITIALIZER } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -16,9 +15,10 @@ import { AuthenticationService } from './shared/services/authentication.service'
 import { HttpClientModule } from '@angular/common/http';
 import { DlDateTimePickerDateModule } from 'angular-bootstrap-datetimepicker';
 import { InvalidTooltipModule } from 'ng-invalid-tooltip';
-import { GgmapComponent } from './ggmap/ggmap.component';
-import { AgmCoreModule, AgmDataLayer } from '@agm/core';
-import { AgmDirectionModule } from 'agm-direction';
+import { LoginComponent } from './modules/account/login/login.component';
+import { ShipmentModule } from './shipment/shipment.module';
+import { FormsModule } from '@angular/forms';
+import { AccountModule } from './modules/account/account.module';
 
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
   provide: APP_INITIALIZER,
@@ -32,18 +32,6 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
   deps: [ServiceRegistryService],
   multi: true
 };
-//const APP_INITIALIZER_PROVIDER: FactoryProvider = {
-//  provide: APP_INITIALIZER,
-//  useFactory: (ServiceRegistryService: ServiceRegistryService) => {
-
-//    // Do initing of services that is required before app loads
-//    // NOTE: this factory needs to return a function (that then returns a promise)
-//    return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
-//  },
-//  deps: [ServiceRegistryService],
-//  multi: true
-//};
-
 
 @NgModule({
   declarations: [
@@ -54,7 +42,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     HeaderComponent,
     FooterComponent,
     NavigationComponent,
-    GgmapComponent,
+    //GgmapComponent,
     LoginComponent
   ],
   imports: [
@@ -62,7 +50,15 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     AppRoutingModule,
     HttpClientModule,
     DlDateTimePickerDateModule,
-    InvalidTooltipModule
+    InvalidTooltipModule,
+    FormsModule,
+    //AgmCoreModule.forRoot({
+    //  apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
+    //}),
+    //AgmDirectionModule,
+    HttpClientModule,
+    ShipmentModule,
+    AccountModule
   ],
   providers: [
     LocalStorageService,
@@ -72,14 +68,6 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     AuthenticationService,
     FormValidationService,
     APP_INITIALIZER_PROVIDER,
-    FormsModule,
-    AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
-    }),
-    AgmDirectionModule,
-    HttpClientModule,
-    ShipmentModule
   ],
   bootstrap: [AppComponent]
 })

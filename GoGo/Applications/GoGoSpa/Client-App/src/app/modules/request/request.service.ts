@@ -10,16 +10,16 @@ export class RequestService implements ICreateFormService, IViewFormService, IUp
 
 
   edit(id: any, formData: any): Observable<any> {
-    return this._apiHttp.put(`/api/customer/request/${id}`, formData);
+    return this._apiHttp.put(`/api/request/${id}`, formData);
   }
 
   getFormData(id: any): Observable<any> {
-    return this._apiHttp.get(`/api/customer/request/${id}`);
+    return this._apiHttp.get(`/api/request/${id}`);
   }
 
   create(formData: any): Observable<any> {
     console.log(formData);
-    return this._apiHttp.post(`/api/customer/request`, formData);
+    return this._apiHttp.post(`/api/request`, formData);
   }
 
   getViewFormUrl(id: any): string {
