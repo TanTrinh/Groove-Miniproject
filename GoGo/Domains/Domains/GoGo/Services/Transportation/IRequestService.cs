@@ -14,5 +14,6 @@ namespace Domains.GoGo.Services
         Task<RequestDetailModel> GetRequestDetails(int? id);
         Task<string> ChangeStatus(int? id, string status);
         Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
+        RequestModel FindCustomerRequest(int id);
     }
 }

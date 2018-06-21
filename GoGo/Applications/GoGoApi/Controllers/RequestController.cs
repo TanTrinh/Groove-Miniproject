@@ -33,5 +33,13 @@ namespace GoGoApi.Controllers
             var result = await this._requestService.CreateCustomerRequest(model, null);
             return OkValueObject(result);
         }
+
+        [Route("{id}")]
+        [HttpGet]
+        public  IActionResult GetRequest(int id)
+        {
+            var result = _requestService.FindCustomerRequest(id);
+            return Ok(result);
+        }
     }
 }

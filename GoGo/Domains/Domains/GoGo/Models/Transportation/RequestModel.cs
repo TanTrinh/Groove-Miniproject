@@ -58,10 +58,7 @@ namespace Domains.GoGo.Models.Transportation
         public long IssuerId { get; set; }
         public int WareHouseId { get; set; }
         public long CustomerId { set; get; }
-
-        public User Customer { set; get; }
-        public User Issuer { get; set; }
-        public WareHouse WareHouse { get; set; }
+        
     }
 
     public class RequestMapper : Profile

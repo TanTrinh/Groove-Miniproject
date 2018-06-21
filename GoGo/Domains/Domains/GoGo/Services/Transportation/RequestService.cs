@@ -52,5 +52,11 @@ namespace Domains.GoGo.Services
             await _uow.SaveChangesAsync();
             return entity.Id;
         }
+
+        public RequestModel FindCustomerRequest(int id)
+        {
+            var entity = _repository.GetEntityById(id);
+            return this._mapper.Map<RequestModel>(entity);
+        }
     }
 }
