@@ -17,13 +17,11 @@ namespace Domains.GoGo.Entities
 
 		public int ShipmentId { get; set; }
 		public int RequestId { get; set; }
-		 public DateTime RequestEstimateDate { set; get; }
+		public DateTime RequestEstimateDate { set; get; }
         public DateTime RequestDeliveriedDate { set; get; }
 
 		public Shipment Shipment { get; set; }
 		public Request Request { get; set; }
 		
-
-
 	}
 }

@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using Groove.AspNetCore.DataBinding.AutoMapperExtentions;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -32,9 +34,17 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                             EndDate = p.EndDate,
                             StartDate = p.StartDate,
                             VehicleID = p.VehicleId,
-                            RequestQuality = p.RequestQuantity
+                            RequestQuality = p.RequestQuantity,
+                            Status = p.Status
                         });
             return await query.ToListAsync();
+        }
+        public async Task<int> ChangeStatus(string code, string status)
+        {
+            var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
+            shipment.Status = status;
+            this.context.Update(shipment);
+            return await this.context.SaveChangesAsync();
         }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructures.DbMigration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180619040259_init")]
+    [Migration("20180620043242_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,6 +126,8 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
+                    b.Property<long>("CustomerId");
+
                     b.Property<double>("DeliveryLatitude");
 
                     b.Property<double>("DeliveryLongitude");
@@ -152,6 +154,8 @@ namespace Infrastructures.DbMigration.Migrations
                     b.HasIndex("Code")
                         .IsUnique()
                         .HasFilter("[Code] IS NOT NULL");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("IssuerId");
 
@@ -180,6 +184,8 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<DateTime>("StartDate");
 
+                    b.Property<string>("Status");
+
                     b.Property<int>("VehicleId");
 
                     b.HasKey("Id");
@@ -203,8 +209,6 @@ namespace Infrastructures.DbMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("CustomerId");
-
                     b.Property<string>("Note")
                         .IsRequired();
 
@@ -222,8 +226,6 @@ namespace Infrastructures.DbMigration.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.HasIndex("RequestId");
 
@@ -545,6 +547,11 @@ namespace Infrastructures.DbMigration.Migrations
 
             modelBuilder.Entity("Domains.GoGo.Entities.Request", b =>
                 {
+                    b.HasOne("Domains.Identity.Entities.User", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Domains.Identity.Entities.User", "Issuer")
                         .WithMany()
                         .HasForeignKey("IssuerId")
@@ -576,11 +583,6 @@ namespace Infrastructures.DbMigration.Migrations
 
             modelBuilder.Entity("Domains.GoGo.Entities.ShipmentRequest", b =>
                 {
-                    b.HasOne("Domains.Identity.Entities.User", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Domains.GoGo.Entities.Request", "Request")
                         .WithMany()
                         .HasForeignKey("RequestId")

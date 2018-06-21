@@ -24,7 +24,12 @@ namespace Domains.GoGo.Services.Transportation
 			_mapper = mapper;
 		}
 
-		public async Task<int> CreateShipmentAsync(CreateShipmentModel model)
+        public async Task<int> ChangeStatus(string code, string status)
+        {
+            return await _repository.ChangeStatus(code, status);
+        }
+
+        public async Task<int> CreateShipmentAsync(CreateShipmentModel model)
 		{
 			var entity = _mapper.Map<Shipment>(model);
 
@@ -44,5 +49,6 @@ namespace Domains.GoGo.Services.Transportation
         {
             return _repository.GetShipmentAssignedModel(id);
         }
+
     }
 }
