@@ -85,17 +85,6 @@ export class FormError {
   }
 }
 export abstract class FormBaseComponent {
-  //test data model
-  model = {
-    PackageQuantity: '',
-    DeliveryDate: '',
-    DeliveryLatitude: '',
-    DeliveryLongitude: '',
-    IssuerId : '77',
-    WareHouseId: '1',
-    Code: '150620181439GG122',
-    Status : 'Wait'
-  }
 
   @ViewChild("mainForm") mainFormElement: FormGroup;
   protected _formMode: string;      // origin formMode as string: create, view,edit
@@ -306,7 +295,7 @@ export abstract class FormBaseComponent {
     }
     else
       if (this.isCreateFormMode) {
-        return this.createFormService.create(this.model);
+        return this.createFormService.create(this.formData);
       }
     return throwError(new FormError(`Mode not support`));
   }

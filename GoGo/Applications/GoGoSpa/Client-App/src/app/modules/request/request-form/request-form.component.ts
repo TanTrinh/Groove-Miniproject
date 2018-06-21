@@ -21,8 +21,14 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     super(route, router, notificationService, requestService, validationService);
     super.formOnInit("Request", {});
   }
-
+  public formData = {
+  PackageQuantity: '',
+  DeliveryDate: '',
+  DeliveryLatitude: '',
+  DeliveryLongitude: '',
+  WareHouseId: '',
+}
+ 
   ngOnInit() {
   }
-
 }

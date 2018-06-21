@@ -25,9 +25,7 @@ export class ServiceRegistryService {
       }
 
       // Fetch registry
-      console.log(configurationUrl);
       this.http.get(configurationUrl).subscribe((response: any) => {
-        console.log(response);
         this.registry = new ServiceRegistry();
         this.registry.apiUrl = response.api;
         observer.next(this.registry);

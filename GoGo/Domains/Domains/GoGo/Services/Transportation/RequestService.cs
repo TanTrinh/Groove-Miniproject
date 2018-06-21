@@ -35,8 +35,6 @@ namespace Domains.GoGo.Services.Transportation
             entity.IssuerId = 77; //take from claim
 
             _repository.Create(entity);
-            //_uow.GetRepository<IRequestRepository>().Create(entity);
-
             await _uow.SaveChangesAsync();
             return entity.Id;
         }

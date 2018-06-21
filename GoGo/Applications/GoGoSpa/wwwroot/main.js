@@ -445,12 +445,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_authentication_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./shared/services/authentication.service */ "./src/app/shared/services/authentication.service.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var angular_bootstrap_datetimepicker__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! angular-bootstrap-datetimepicker */ "./node_modules/angular-bootstrap-datetimepicker/esm5/angular-bootstrap-datetimepicker.js");
+/* harmony import */ var ng_invalid_tooltip__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ng-invalid-tooltip */ "./node_modules/ng-invalid-tooltip/ng-invalid-tooltip.umd.js");
+/* harmony import */ var ng_invalid_tooltip__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(ng_invalid_tooltip__WEBPACK_IMPORTED_MODULE_16__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -505,7 +508,8 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_14__["HttpClientModule"],
-                angular_bootstrap_datetimepicker__WEBPACK_IMPORTED_MODULE_15__["DlDateTimePickerDateModule"]
+                angular_bootstrap_datetimepicker__WEBPACK_IMPORTED_MODULE_15__["DlDateTimePickerDateModule"],
+                ng_invalid_tooltip__WEBPACK_IMPORTED_MODULE_16__["InvalidTooltipModule"]
             ],
             providers: [
                 _shared__WEBPACK_IMPORTED_MODULE_10__["LocalStorageService"],
@@ -1056,17 +1060,6 @@ var FormBaseComponent = /** @class */ (function () {
         this.validationService = validationService;
         this.createFormService = createFormService;
         this.editFormService = editFormService;
-        //test data model
-        this.model = {
-            PackageQuantity: '',
-            DeliveryDate: '',
-            DeliveryLatitude: '',
-            DeliveryLongitude: '',
-            IssuerId: '77',
-            WareHouseId: '1',
-            Code: '150620181439GG122',
-            Status: 'Wait'
-        };
         this.formConfiguration = new FormConfiguration();
         this.formData = {};
         this.formErrors = {};
@@ -1243,7 +1236,7 @@ var FormBaseComponent = /** @class */ (function () {
             return this.editFormService.edit(this.formId, this.formData);
         }
         else if (this.isCreateFormMode) {
-            return this.createFormService.create(this.model);
+            return this.createFormService.create(this.formData);
         }
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(new FormError("Mode not support"));
     };
@@ -1712,9 +1705,7 @@ var ServiceRegistryService = /** @class */ (function () {
                 observer.complete();
             }
             // Fetch registry
-            console.log(configurationUrl);
             _this.http.get(configurationUrl).subscribe(function (response) {
-                console.log(response);
                 _this.registry = new src_app_shared_models_service_registry__WEBPACK_IMPORTED_MODULE_4__["ServiceRegistry"]();
                 _this.registry.apiUrl = response.api;
                 observer.next(_this.registry);

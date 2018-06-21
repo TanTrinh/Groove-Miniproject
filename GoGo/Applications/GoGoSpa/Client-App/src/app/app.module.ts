@@ -15,6 +15,7 @@ import { FormValidationService } from './shared/component/form';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DlDateTimePickerDateModule } from 'angular-bootstrap-datetimepicker';
+import { InvalidTooltipModule } from 'ng-invalid-tooltip';
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
   provide: APP_INITIALIZER,
   useFactory: (ServiceRegistryService: ServiceRegistryService) => {
@@ -53,7 +54,8 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    DlDateTimePickerDateModule
+    DlDateTimePickerDateModule,
+    InvalidTooltipModule
   ],
   providers: [
     LocalStorageService,
