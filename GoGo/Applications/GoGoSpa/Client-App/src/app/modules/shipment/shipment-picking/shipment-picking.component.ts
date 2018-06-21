@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from './Location';
 import { ShipmentAssigned } from '../ShipmentAssigned/ShipmentAssigned';
-
+import { RequestDetail } from './RequestDetail'
 @Component({
   selector: 'app-shipment-picking',
   templateUrl: './shipment-picking.component.html',
@@ -19,6 +19,8 @@ export class ShipmentPickingComponent implements OnInit {
     packageQuality: '',
     status: '',
   }
+
+  requestList: RequestDetail[];
   code: string;
   httpOptions = {
     headers: new HttpHeaders({
@@ -33,19 +35,23 @@ export class ShipmentPickingComponent implements OnInit {
     longitude: 0
   }
   data: any;
-
-
+  
   ngOnInit() {
     this.code = this.route.snapshot.paramMap.get('code');
-    this.http.get('http://localhost:60012/api/Driver/shipmentPicking?code=' + this.code, this.httpOptions).subscribe(result => {
+    this.http.get('http://localhost:58976/api/Driver/shipmentPicking?code=' + this.code, this.httpOptions).subscribe(result => {
       this.data = result;
       this.locationPicking = this.data;
     });
-    this.http.get('http://localhost:60012/api/Driver/shipment?code=' + this.code, this.httpOptions).subscribe(result => {
+    this.http.get('http://localhost:58976/api/Driver/shipment?code=' + this.code, this.httpOptions).subscribe(result => {
       this.data = result;
       this.shipmentDetail = this.data;
-      console.log(this.shipmentDetail);
     });
+    this.http.get('http://localhost:58976/api/Driver/shipment/requestList?code=' + this.code, this.httpOptions).subscribe(result => {
+      this.data = result;
+      this.requestList = this.data;
+      console.log(this.requestList);
+    });
+
   }
   changeStatus(item: ShipmentAssigned, status) {
     var param = { 'code': item.code, 'status': status }
@@ -55,7 +61,7 @@ export class ShipmentPickingComponent implements OnInit {
         'ResponseType': 'Json'
       })
     };
-    this.http.post('http://localhost:60012/api/Driver/shipmentfeedback', param, httpOptions).subscribe(result => {
+    this.http.post('http://localhost:58976/api/Driver/shipmentfeedback', param, httpOptions).subscribe(result => {
       item.status = status;
       if (status == "Completed")
         this.router.navigate(['./home/assigned'])

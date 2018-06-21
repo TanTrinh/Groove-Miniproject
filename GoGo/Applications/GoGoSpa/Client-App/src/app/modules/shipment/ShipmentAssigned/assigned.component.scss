@@ -24,4 +24,14 @@ h1 {
 
 .btn {
   width: 80px;
+  margin-right: 5px;
+  border: 1.5px solid;
+}
+#picking{
+  color:$main-color;
+  font-weight:500;
+}
+#complete{
+  color:red;
+  font-weight:500;
 }

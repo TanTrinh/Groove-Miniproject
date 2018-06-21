@@ -26,6 +26,11 @@ namespace GoGoApi.Controllers.GoGo
             public string code { set; get; }
             public string status { set; get; }
         }
+        public class parameterCode
+        {
+            public string ShipmentCode { set; get; }
+            public string RequestCode { set; get; }
+        }
         [Route("detail")]
         [HttpGet]
         public async Task<IActionResult> GetRequestDetail(int? id)
@@ -68,6 +73,18 @@ namespace GoGoApi.Controllers.GoGo
         public async Task<IActionResult> GetShipment(string code)
         {
             return Ok(await _serviceShipment.GetShipmentAsync(code));
+        }
+        [Route("shipment/requestDetail")]
+        [HttpGet]
+        public async Task<IActionResult> GetRequestDetail([FromBody]parameterCode code)
+        {
+            return Ok(await _serviceShipmentRequest.GetRequestDetailModelsAsync(code.ShipmentCode,code.RequestCode));
+        }
+        [Route("shipment/requestList")]
+        [HttpGet]
+        public async Task<IActionResult> GetRequestList(string code)
+        {
+            return Ok(await _serviceShipmentRequest.GetRequestListAsync(code));
         }
     }
 }

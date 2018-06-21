@@ -18,13 +18,13 @@ $my-color: #0073e6;
 
 .yourAddress {
   border-bottom: 1px solid $main-color;
-  background-image: url("../../../assets/placeholder.svg");
+  background-image: url("/assets/placeholder.svg");
   background-repeat: no-repeat;
   padding-left: 48px;
 }
 
 .nextAddress {
-  background-image: url("../../../assets/warehouse.svg");
+  background-image: url("/assets/warehouse.svg");
   background-repeat: no-repeat;
   padding-left: 48px;
 }
@@ -74,3 +74,4 @@ $my-color: #0073e6;
   background-color: $sidebar-color;
   margin-top: 1px;
 }
+

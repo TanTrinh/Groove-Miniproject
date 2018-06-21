@@ -37,6 +37,43 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             return await query.FirstAsync();
         }
 
+        public async Task<RequestDetailModel> GetRequestDetailModelsAsync(string shipmentCode, string requestCode)
+        {
+            var query = this.dbSet
+                         .Include(p => p.Shipment)
+                         .Include(p => p.Request)
+                         .Where(p => p.Shipment.Code == shipmentCode)
+                         .Where(p=>p.Request.Code==requestCode)
+                         .Select(p => new RequestDetailModel
+                         {
+                             Code = p.Request.Code,
+                             PackageQuantity = p.Request.PackageQuantity,
+                             ReceiverName=p.Request.ReceiverName,
+                             ReceiverPhoneNumber=p.Request.ReceiverPhoneNumber,
+                             EstimateDate=p.RequestEstimateDate,
+                             Status = p.Request.Status
+                         });
+            return await query.FirstAsync();
+        }
+
+        public async Task<IEnumerable<RequestDetailModel>> GetRequestListAsync(string code)
+        {
+            var query = this.dbSet
+                           .Include(p => p.Shipment)
+                           .Include(p => p.Request)
+                           .Where(p => p.Shipment.Code == code)
+                           .Select(p => new RequestDetailModel
+                           {
+                               Code = p.Request.Code,
+                               PackageQuantity = p.Request.PackageQuantity,
+                               ReceiverName = p.Request.ReceiverName,
+                               ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
+                               EstimateDate = p.RequestEstimateDate,
+                               Status=p.Request.Status
+                           });
+            return await query.ToListAsync();
+        }
+
         public int GetTotalRequest(string code)
         {
             var sum = this.dbSet
@@ -46,5 +83,6 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                         .Sum(p => p.Request.PackageQuantity);
             return sum;
         }
+
     }
 }

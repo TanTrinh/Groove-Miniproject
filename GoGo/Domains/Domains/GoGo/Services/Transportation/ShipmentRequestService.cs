@@ -47,6 +47,16 @@ namespace Domains.GoGo.Services.Transportation
             return _repository.GetPositionPickingAsync(code);
         }
 
+        public async Task<RequestDetailModel> GetRequestDetailModelsAsync(string shipmentCode, string requestCode)
+        {
+            return await _repository.GetRequestDetailModelsAsync(shipmentCode,requestCode);
+        }
+
+        public async Task<IEnumerable<RequestDetailModel>> GetRequestListAsync(string code)
+        {
+            return await _repository.GetRequestListAsync(code);
+        }
+
         public int GetTotalRequest(string code)
         {
             return _repository.GetTotalRequest(code);

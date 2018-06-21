@@ -50,8 +50,9 @@
       <button *ngIf="shipmentDetail.status == 'Loading'" (click)="changeStatus(shipmentDetail, 'Shipping')" class="btn btn-success btn-block" id="shipping">Start to ship</button>
       <button *ngIf="shipmentDetail.status == 'Shipping'" (click)="changeStatus(shipmentDetail, 'Completed')" class="btn btn-success btn-block" id="complete">Complete the shipment</button>
     </div>
+   
   </div>
   <div class="col-md-8">
-    <app-ggmap></app-ggmap>
+    <!--<app-ggmap></app-ggmap>-->
   </div>
 </div>

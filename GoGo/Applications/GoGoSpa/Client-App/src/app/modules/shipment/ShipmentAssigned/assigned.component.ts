@@ -29,12 +29,15 @@ export class AssignedComponent implements OnInit {
         'ResponseType': 'Json'
       })
     };
-    this.http.get('http://localhost:60012/api/Driver/shipmentAssigned?id=54').subscribe(result => {
+    this.http.get('http://localhost:58976/api/Driver/shipmentAssigned?id=54').subscribe(result => {
       //this.paginators = [];
       this.data = result;
       this.shipmentAssigned = this.data;
       console.log(this.shipmentAssigned);
     });
+  }
+  goToShipmentDeatil(code) {
+    this.router.navigate(['./home/shipmentPicking',code]);
   }
   changeStatus(item: ShipmentAssigned, status) {
     var param = { 'code': item.code, 'status': status }
@@ -44,10 +47,10 @@ export class AssignedComponent implements OnInit {
         'ResponseType': 'Json'
       })
     };
-    this.http.post('http://localhost:60012/api/Driver/shipmentfeedback', param, httpOptions).subscribe(result => {
+    this.http.post('http://localhost:58976/api/Driver/shipmentfeedback', param, httpOptions).subscribe(result => {
       if (status == 'Picking') {
         item.status = status;
-        this.router.navigate(['./home/shipmentPicking', item.code]);
+        this.goToShipmentDeatil(item.code)
       }
       else
         item.status = status;

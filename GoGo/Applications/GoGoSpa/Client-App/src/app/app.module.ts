@@ -16,9 +16,10 @@ import { AgmDirectionModule } from 'agm-direction';
 
 import { LoginComponent } from './modules/account/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ShipmentModule } from './shipment/shipment.module';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
-import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
+import { ShipmentPickingComponent } from './modules/shipment/shipment-picking/shipment-picking.component';
+import { ShipmentModule } from './modules/shipment/shipment.module';
+import { RequestModule } from './modules/request/request.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-p
     NavigationComponent,
     GgmapComponent,
     LoginComponent,
-    ShipmentPickingComponent
+    ShipmentPickingComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +43,8 @@ import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-p
     }),
     AgmDirectionModule,
     HttpClientModule,
-    ShipmentModule
+    ShipmentModule,
+    RequestModule
   ],
   providers: [
     NotificationService,

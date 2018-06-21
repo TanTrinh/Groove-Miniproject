@@ -20,11 +20,15 @@
         <td>{{item.startDate | date:'short'}}</td>
         <td>{{item.endDate| date:'short'}}</td>
         <td>{{item.requestQuality}}</td>
-        <td>{{item.status}}</td>
+        <td>
+          <span *ngIf="item.status=='Pending' || item.status=='Accept' || item.status=='Reject'"> {{item.status}}</span>
+          <span *ngIf="item.status!='Pending' && item.status!='Accept' && item.status!='Reject'&& item.status!='Completed' " id="picking" (click)="goToShipmentDeatil(item.code)"> {{item.status}}</span>
+          <span *ngIf="item.status=='Completed'" id="complete"> {{item.status}}</span>
+        </td>
         <td>
           <button *ngIf="item.status == 'Pending'" class="btn btn-outline-success" (click)="changeStatus(item, 'Accept')">Accept</button>
           <button *ngIf="item.status == 'Accept'" class="btn btn-outline-primary" (click)="changeStatus(item, 'Picking')">Picking</button>
-          <button *ngIf="item.status == 'Pending'|| item.status == 'Accept'" class="btn btn-outline-danger" (click)="changeStatus(item,item.code, 'Reject')">Reject</button>
+          <button *ngIf="item.status == 'Pending'|| item.status == 'Accept'" class="btn btn-outline-danger" (click)="changeStatus(item, 'Reject')">Reject</button>
         </td>
       </tr>
     </tbody>

@@ -4,10 +4,9 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './modules/account/login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { GgmapComponent } from './ggmap/ggmap.component';
-import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.component';
 import { HomeComponent } from './home/home.component';
-import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
-
+import { AssignedComponent } from './modules/shipment/ShipmentAssigned/assigned.component';
+import { ShipmentPickingComponent } from './modules/shipment/shipment-picking/shipment-picking.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
