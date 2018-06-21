@@ -14,6 +14,7 @@ namespace Domains.GoGo.Models.Transportation
         public DateTime EndDate { set; get; }
         public int VehicleID { set; get; }
         public int RequestQuality { set; get; }
+        public string Status { set; get; }
     }
   
 }

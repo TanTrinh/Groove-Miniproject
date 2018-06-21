@@ -15,7 +15,8 @@ namespace Infrastructures.EntityConfigurations.GoGo
 
             builder.HasOne(p => p.Request).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
 			builder.HasOne(p => p.Shipment).WithMany().OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Restrict);
-		
+		    
+
 			builder.Property(p => p.ShipmentId).IsRequired();
 			builder.Property(p => p.RequestId).IsRequired();
 			builder.Property(p => p.Status).IsRequired();

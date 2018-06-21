@@ -34,7 +34,6 @@ namespace Infrastructures.SeedData
                     Console.WriteLine("Commit all seed");
                 }
             }
-
             Console.WriteLine("Seed data successful");
         }
 
@@ -67,24 +66,24 @@ namespace Infrastructures.SeedData
 
         private static async Task SeedDataAsync(ApplicationDbContext dbContext)
         {
-            //await SeedUserDataAsync(dbContext);
-            //await SeedRoleDataAsync(dbContext);
-            //await SeedAdministratortDataAsync(dbContext);
-            //await SeedCoordinatorDataAsync(dbContext);
-            //await SeedDriverDataAsync(dbContext);
-            //await SeedCustomerDataAsync(dbContext);
+            await SeedUserDataAsync(dbContext);
+            await SeedRoleDataAsync(dbContext);
+            await SeedAdministratortDataAsync(dbContext);
+            await SeedCoordinatorDataAsync(dbContext);
+            await SeedDriverDataAsync(dbContext);
+            await SeedCustomerDataAsync(dbContext);
 
-            //SeedWarehouseData(dbContext);
+            SeedWarehouseData(dbContext);
 
-            //    SeedVehicleTypeDataAsync(dbContext);
-            //  SeedVehicleData(dbContext);
-            // SeedVehicleFeatureData(dbContext);
-            //    SeedDriverAbilityData(dbContext);
-            //   SeedFeatureOfVehicleData(dbContext);
+            SeedVehicleTypeDataAsync(dbContext);
+            SeedVehicleData(dbContext);
+            SeedVehicleFeatureData(dbContext);
+            SeedDriverAbilityData(dbContext);
+            SeedFeatureOfVehicleData(dbContext);
 
-          //  SeedRequestData(dbContext);
+            SeedRequestData(dbContext);
             SeedShipmentData(dbContext);
-            //SeedShipmentRequestData(dbContext);
+            SeedShipmentRequestData(dbContext);
         }
 
         private static string ConverIntToString(int input)
@@ -123,7 +122,8 @@ namespace Infrastructures.SeedData
                     CreatedByUserName = "system",
                     UpdatedByUserId = 1,
                     UpdatedDate = DateTimeOffset.UtcNow,
-                    UpdatedByUserName = "system"
+                    UpdatedByUserName = "system",
+                    Status = "Active"
                 };
 
                 await userManagement.CreateAsync(user, "Password@1");
@@ -146,6 +146,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
@@ -179,6 +180,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
@@ -212,6 +214,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
@@ -245,6 +248,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
@@ -465,7 +469,7 @@ namespace Infrastructures.SeedData
                     DeliveryLongitude = Math.Round(longitudeBase + i * 0.0001, 6),
                     WareHouseId = i,
                     IssuerId = i + 76,
-                    Status = "Wait",
+                    Status = "Pending",
                     ReceiverName = name[ran.Next(0, 14)] + lastname[ran.Next(0, 4)],
                     ReceiverPhoneNumber = phonenumberHeader + ran.Next(100000, 999999).ToString(),
                     Address = "This is my address",
@@ -486,7 +490,7 @@ namespace Infrastructures.SeedData
                 long custormerID = (long)i + 77;
                 var shipment = new Shipment
                 {
-                    RequestQuantity = 0,
+                    RequestQuantity = i * 15,
                     CreatedDate = createdDate,
                     StartDate = createdDate,
                     EndDate = createdDate,
@@ -494,7 +498,7 @@ namespace Infrastructures.SeedData
                     DriverId = i + 53,
                     CoordinatorId = i + 28,
                     Code = GenerateCode(createdDate, i + 28),
-                    Status = "Assigned"
+                    Status = "Pending"
                 };
                 dbContext.Add(shipment);
             }
@@ -516,7 +520,7 @@ namespace Infrastructures.SeedData
                         RequestId = (i * 5) + j + 1,
                         RequestOrder = j + 1,
                         Note = "",
-                        Status = "Wait",
+                        Status = "Waiting",
                         RequestEstimateDate = RequestEstimateDate.AddDays(ran.Next(0, i % 2 + 1)),
                         RequestDeliveriedDate = RequestEstimateDate.AddDays(ran.Next(2, i % 7 + 3))
                     };
