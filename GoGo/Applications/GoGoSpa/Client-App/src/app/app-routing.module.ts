@@ -6,17 +6,19 @@ import { LayoutComponent } from './layout/layout.component';
 import { GgmapComponent } from './ggmap/ggmap.component';
 import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.component';
 import { HomeComponent } from './home/home.component';
+import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
 
 
 const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
-    { path: 'layout', component: LayoutComponent },
-    {
-      path: 'home', component: HomeComponent, children: [
-          { path: 'assigned', component: AssignedComponent }
-      ]
-    }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'layout', component: LayoutComponent },
+  {
+    path: 'home', component: HomeComponent, children: [
+      { path: 'assigned', component: AssignedComponent },
+      { path: 'shipmentPicking/:code', component: ShipmentPickingComponent }
+    ]
+  }
 ];
 
 @NgModule({

@@ -38,13 +38,13 @@ namespace GoGoSpa
 				routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
 			});
 
-			app.UseCors(builder =>
-				   builder
-				   .AllowAnyOrigin()
-				   .AllowAnyMethod()
-				   .AllowAnyHeader()
-				   .AllowCredentials()
-		   );
+			//app.UseCors(builder =>
+			//	   builder
+			//	   .AllowAnyOrigin()
+			//	   .AllowAnyMethod()
+			//	   .AllowAnyHeader()
+			//	   .AllowCredentials()
+		 //  );
 		}
 
 

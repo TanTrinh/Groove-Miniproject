@@ -6,23 +6,22 @@ $my-color: #0073e6;
 .list {
   margin-top: 10px;
   border: 0.5px solid #000205;
- 
 }
+
 #head {
   color: black;
+  border-left: 0.5px solid #000205;
   background-color: #f2f2f2;
-  
 }
-h1{
-  text-align:center;
-  color:$main-color;
-}
-#body {
- 
-}
-.btn {
-  margin-left:5px;
-  }
-.table {
+
+h1 {
   text-align: center;
+  color: $main-color;
+}
+
+#body {
+}
+
+.btn {
+  width: 80px;
 }

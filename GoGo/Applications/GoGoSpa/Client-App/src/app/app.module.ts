@@ -18,6 +18,8 @@ import { LoginComponent } from './modules/account/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ShipmentModule } from './shipment/shipment.module';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
+import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,8 @@ import { NotificationService } from 'src/app/shared/components/dialog/notificati
     FooterComponent,
     NavigationComponent,
     GgmapComponent,
-    LoginComponent
+    LoginComponent,
+    ShipmentPickingComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { NotificationService } from 'src/app/shared/components/dialog/notificati
     ShipmentModule
   ],
   providers: [
-    NotificationService
+    NotificationService,
+
   ],
   bootstrap: [AppComponent]
 })

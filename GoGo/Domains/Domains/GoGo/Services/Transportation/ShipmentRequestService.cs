@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domains.GoGo.Entities;
+using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.UnitOfWork;
 using System;
@@ -11,11 +12,11 @@ namespace Domains.GoGo.Services.Transportation
 {
 	public class ShipmentRequestService : IShipmentRequestService
 	{
-		private readonly IShipmentRepository _repository;
+		private readonly IShipmentRequestRepository _repository;
 		private readonly IUnitOfWork _uow;
 		private readonly IMapper _mapper;
 
-		public ShipmentRequestService(IShipmentRepository repository, IUnitOfWork uow, IMapper mapper)
+		public ShipmentRequestService(IShipmentRequestRepository repository, IUnitOfWork uow, IMapper mapper)
 		{
 			_repository = repository;
 			_uow = uow;
@@ -40,5 +41,15 @@ namespace Domains.GoGo.Services.Transportation
 
 			await _uow.SaveChangesAsync();
 		}
-	}
+
+        public Task<LocationModel> GetPositionPicking(string code)
+        {
+            return _repository.GetPositionPickingAsync(code);
+        }
+
+        public int GetTotalRequest(string code)
+        {
+            return _repository.GetTotalRequest(code);
+        }
+    }
 }

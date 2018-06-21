@@ -14,10 +14,12 @@ namespace GoGoApi.Controllers.GoGo
     {
         private IRequestService _serviceRequest;
         private IShipmentService _serviceShipment;
-        public DriverController(IRequestService serviceRequest, IShipmentService serviceShipment)
+        private IShipmentRequestService _serviceShipmentRequest;
+        public DriverController(IRequestService serviceRequest, IShipmentService serviceShipment, IShipmentRequestService serviceShipmentRequest)
         {
             _serviceRequest = serviceRequest;
             _serviceShipment = serviceShipment;
+            _serviceShipmentRequest = serviceShipmentRequest;
         }
         public class parameter
         {
@@ -46,7 +48,26 @@ namespace GoGoApi.Controllers.GoGo
         [HttpPost]
         public async Task<IActionResult> AcceptOrReject([FromBody]parameter p)
         {
-            return Ok(await _serviceShipment.ChangeStatus(p.code,p.status));
+            try
+            {
+                return Ok(Json(await _serviceShipment.ChangeStatus(p.code, p.status)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Route("shipmentPicking")]
+        [HttpGet]
+        public async Task<IActionResult> GetLocationPicking(string code)
+        {
+            return Ok(await _serviceShipmentRequest.GetPositionPicking(code));
+        }
+        [Route("shipment")]
+        [HttpGet]
+        public async Task<IActionResult> GetShipment(string code)
+        {
+            return Ok(await _serviceShipment.GetShipmentAsync(code));
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domains.GoGo.Entities;
+using Domains.GoGo.Models;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.Common.Identity;
@@ -24,7 +25,7 @@ namespace Domains.GoGo.Services.Transportation
 			_mapper = mapper;
 		}
 
-        public async Task<int> ChangeStatus(string code, string status)
+        public async Task<string> ChangeStatus(string code, string status)
         {
             return await _repository.ChangeStatus(code, status);
         }
@@ -45,7 +46,12 @@ namespace Domains.GoGo.Services.Transportation
 			return entity.Id;
 		}
 
-        public Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
+        public Task<ShipmentViewModel> GetShipmentAsync(string code)
+        {
+            return _repository.GetShipmentAsync(code);
+        }
+
+        public Task<IEnumerable<ShipmentViewModel>> GetShipmentAssignedModel(long? id)
         {
             return _repository.GetShipmentAssignedModel(id);
         }

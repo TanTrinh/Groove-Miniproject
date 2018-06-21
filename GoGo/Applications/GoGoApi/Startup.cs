@@ -36,6 +36,19 @@ namespace GoGoApi
             var jwtSecurityKey = Configuration.GetValue<string>("Security:Jwt:SecurityKey");
             var tokenTimeOutMinutes = Configuration.GetValue<long>("Security:Jwt:TokenTimeOutMinutes");
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(defaultConnectionString, sqlServerOptions =>
@@ -96,19 +109,14 @@ namespace GoGoApi
             return autofactServiceProvider;
         }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(builder =>
-                   builder
-                   .AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader()
-           );
+            app.UseCors("AllowAll");
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthentication();

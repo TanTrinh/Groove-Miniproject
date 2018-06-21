@@ -33,11 +33,11 @@ export class AssignedComponent implements OnInit {
       //this.paginators = [];
       this.data = result;
       this.shipmentAssigned = this.data;
-
+      console.log(this.shipmentAssigned);
     });
   }
-  changeStatus(code, status) {
-    var param = { 'code': code, 'status': status }
+  changeStatus(item: ShipmentAssigned, status) {
+    var param = { 'code': item.code, 'status': status }
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -45,8 +45,12 @@ export class AssignedComponent implements OnInit {
       })
     };
     this.http.post('http://localhost:60012/api/Driver/shipmentfeedback', param, httpOptions).subscribe(result => {
-      console.log(result);
-      this.LoadPage(1);
+      if (status == 'Picking') {
+        item.status = status;
+        this.router.navigate(['./home/shipmentPicking', item.code]);
+      }
+      else
+        item.status = status;
     });
   }
 }

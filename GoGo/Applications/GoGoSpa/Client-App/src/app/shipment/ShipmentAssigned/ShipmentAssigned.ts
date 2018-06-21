@@ -1,7 +1,9 @@
 export class ShipmentAssigned {
-  Code: string;
-  LicensePlate: string;
-  StartDate: Date;
-  EndDate: Date;
-  RequestQuality: number;
+  code: string;
+  licensePlate: string;
+  startDate: Date;
+  endDate: Date;
+  requestQuality: number;
+  status: string;
+  packageQuality: number;
 }

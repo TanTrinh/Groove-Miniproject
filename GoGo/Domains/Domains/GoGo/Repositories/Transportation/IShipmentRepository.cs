@@ -1,4 +1,5 @@
 using Domains.GoGo.Entities;
+using Domains.GoGo.Models;
 using Domains.GoGo.Models.Transportation;
 using Groove.AspNetCore.UnitOfWork;
 using System;
@@ -11,7 +12,8 @@ namespace Domains.GoGo.Repositories.Transportation
 	public interface IShipmentRepository : IGenericRepository<Shipment, int>
     {
         //Task CreateShipmentAsync(CreateShipmentModel model);
-        Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id);
-        Task<int> ChangeStatus(string code, string status);
+        Task<string> ChangeStatus(string code, string status);
+        Task<IEnumerable<ShipmentViewModel>> GetShipmentAssignedModel(long? id);
+        Task<ShipmentViewModel> GetShipmentAsync(string code);
     }
 }

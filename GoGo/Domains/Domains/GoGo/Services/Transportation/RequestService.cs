@@ -36,5 +36,10 @@ namespace Domains.GoGo.Services
         {
             return _repository.GetRequestDetailAsync(id);
         }
+
+        public Task<LocationModel> GetPositionWarehouse(string code)
+        {
+            return _repository.GetPositionWarehouseAsync(code);
+        }
     }
 }

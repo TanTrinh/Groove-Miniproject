@@ -1,12 +1,10 @@
-﻿using AutoMapper;
-using Domains.GoGo.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domains.GoGo.Models.Transportation
+namespace Domains.GoGo.Models
 {
-    public class ShipmentAssignedModel
+    public class ShipmentViewModel
     {
         public string Code { set; get; }
         public string LicensePlate { set; get; }
@@ -14,7 +12,7 @@ namespace Domains.GoGo.Models.Transportation
         public DateTime EndDate { set; get; }
         public int VehicleID { set; get; }
         public int RequestQuality { set; get; }
+        public int PackageQuality { set; get; }
         public string Status { set; get; }
     }
-  
 }

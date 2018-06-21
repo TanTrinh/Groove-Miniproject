@@ -36,5 +36,19 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             throw new NotImplementedException();
         }
+
+        public async Task<LocationModel> GetPositionWarehouseAsync(string code)
+        {
+            var query = this.dbSet
+                .Include(p => p.WareHouse)
+                .Where(p => p.Code == code)
+                .Select(p => new LocationModel
+                {
+                    Address = p.Address,
+                    Latitude=p.WareHouse.Latitude,
+                    Longitude=p.WareHouse.Longitude
+                });
+            return await query.FirstAsync();
+        }
     }
 }
