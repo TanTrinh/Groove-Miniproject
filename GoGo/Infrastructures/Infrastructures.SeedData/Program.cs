@@ -111,12 +111,12 @@ namespace Infrastructures.SeedData
             if (!await dbContext.Set<User>().AnyAsync())
             {
                 Console.WriteLine("Start to seed user info");
-
                 var userManagement = _serviceProvider.GetService<UserManager<User>>();
                 var user = new User
                 {
                     UserName = "system",
                     Email = "GoGo@groovetechnology.com",
+                    PhoneNumber = "0909123007",
                     CreatedByUserId = 1,
                     CreatedDate = DateTimeOffset.UtcNow,
                     CreatedByUserName = "system",
@@ -146,6 +146,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        PhoneNumber = "0909" + random.Next(100000,999999).ToString(),
                         Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
@@ -180,6 +181,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        PhoneNumber = "0909" + random.Next(100000, 999999).ToString(),
                         Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
@@ -214,6 +216,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        PhoneNumber = "0909" + random.Next(100000,999999).ToString(),
                         Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
@@ -248,6 +251,7 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        PhoneNumber = "0909" + random.Next(100000,999999).ToString(),
                         Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,

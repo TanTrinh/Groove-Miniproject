@@ -18,6 +18,7 @@ import { LoginComponent } from './modules/account/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ShipmentModule } from './shipment/shipment.module';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
+import { UserModule } from './modules/identity/user/user.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { NotificationService } from 'src/app/shared/components/dialog/notificati
     //}),
     //AgmDirectionModule,
     HttpClientModule,
-    ShipmentModule
+    ShipmentModule,
+    UserModule
   ],
   providers: [
     NotificationService

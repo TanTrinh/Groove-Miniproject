@@ -26,10 +26,14 @@ namespace Domains.Identity.Services
             _mapper = mapper;
         }
 
-        public async Task<UserListModel> GetUsersAsync()
+        public Task<UserReadModel> GetUserProfileAsync(long id)
         {
-            var user = await _userRepository.GetUserListAsync();
-            return _mapper.Map<UserListModel>(user);
+            return _userRepository.FindByUserIdAsync(id);
+        }
+
+        public Task<IEnumerable<UserListModel>> GetUsersAsync()
+        {
+            return _userRepository.GetUserListAsync();
         }
     }
 }

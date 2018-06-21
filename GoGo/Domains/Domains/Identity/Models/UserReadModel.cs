@@ -6,20 +6,19 @@ using System.Text;
 
 namespace Domains.Identity.Models
 {
-    public class UserListModel
+    public class UserReadModel
     {
         public long Id { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public string Status { get; set; }
     }
 
-    public class UserListModelMapper : Profile
+    public class UserReadModelMapper : Profile
     {
-        public UserListModelMapper()
+        public UserReadModelMapper()
         {
-            CreateMap<User, UserListModel>();
+            CreateMap<User, UserReadModel>();
         }
     }
 }

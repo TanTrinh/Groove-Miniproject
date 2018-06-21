@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domains.Identity.Services;
 using Groove.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,18 @@ namespace GoGoApi.Controllers.Identities
     [Route("api/user")]
     public class UserController : BaseController
     {
-        //private readonly IUserService _userService;
-        //public UserController(IUserService userService)
-        //{
-        //    _userService = userService;
-        //}
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        [Route("account")]
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
+        {
+            return Ok(await _userService.GetUsersAsync());
+        }
 
         //[Route("")]
         //[HttpPost]
@@ -46,13 +54,13 @@ namespace GoGoApi.Controllers.Identities
         //    return Ok();
         //}
 
-        //[Route("{id}")]
-        //[HttpGet]
+        [Route("get")]
+        [HttpGet]
         //[Authorize]
-        //public async Task<IActionResult> GetUser(long id)
-        //{
-        //    var result = await _userService.FindUserAsync(id);
-        //    return Ok(result);
-        //}
+        public async Task<IActionResult> GetUser()
+        {
+            //var result = await _userService.GetUserProfileAsync(GetCurrentUserId<long>());
+            return Ok(await _userService.GetUserProfileAsync(GetCurrentUserId<long>()));
+        }
     }
 }

@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
             this.http.post('http://localhost:62772/api/authentication/token', this.model, httpOptions).subscribe(result => {
                 var key = "tokenKey";
                 console.log(result);
+                $("check-valid").attr('style', 'visibility: hidden');
                 if (result) {
                     var keyValue = JSON.stringify(result);
                     localStorage.setItem(key, keyValue);

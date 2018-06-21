@@ -1,4 +1,5 @@
-﻿using Domains.Identity.Models;
+﻿using Domains.Identity.Entities;
+using Domains.Identity.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Domains.Identity.Services
 {
     public interface IUserService
     {
-        Task<UserListModel> GetUsersAsync();
+        Task<IEnumerable<UserListModel>> GetUsersAsync();
+        Task<UserReadModel> GetUserProfileAsync(long id);
     }
 }
