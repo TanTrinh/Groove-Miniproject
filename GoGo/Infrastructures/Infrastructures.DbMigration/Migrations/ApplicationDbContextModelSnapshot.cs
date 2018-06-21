@@ -389,6 +389,8 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<string>("Status");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<long>("UpdatedByUserId");

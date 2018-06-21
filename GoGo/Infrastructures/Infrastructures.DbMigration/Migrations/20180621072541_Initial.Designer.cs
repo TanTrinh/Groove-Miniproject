@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructures.DbMigration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180620081542_Initial")]
+    [Migration("20180621072541_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -390,6 +390,8 @@ namespace Infrastructures.DbMigration.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Status");
 
                     b.Property<bool>("TwoFactorEnabled");
 

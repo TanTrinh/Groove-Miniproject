@@ -17,9 +17,13 @@
         <td>{{item.code}}</td>
         <td>{{item.licensePlate}}</td>
         <td>{{item.startDate}}</td>
-        <td>{{item.endDate}}</td>
+        <td>{{item.status}}</td>
         <td>{{item.requestQuality}}</td>
-        <td><a class="btn btn-custom">Accept</a></td>
+        <td>
+          <a *ngIf="item.status == 'Pending' || item.status == 'Reject'" class="btn btn-outline-success" (click)="changeStatus(item.code, 'Accept')">Accept</a>
+          <a *ngIf="item.status == 'Pending'" class="btn btn-outline-danger" (click)="changeStatus(item.code, 'Reject')">Reject</a>
+          <a *ngIf="item.status == 'Accept'" class="btn btn-outline-primary" (click)="changeStatus(item.code, 'Picking')">Picking</a>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -45,7 +45,7 @@ namespace GoGoApi
             });
 
             services.AddGrooveMvcApi().AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<Domains.AssemplyMarker>().RegisterValidatorsFromAssemblyContaining<GoGoApi.Startup>());
-
+			services.AddCors();
             services.AddAutoMapper(typeof(Domains.AssemplyMarker));
 
             // Add UoW 

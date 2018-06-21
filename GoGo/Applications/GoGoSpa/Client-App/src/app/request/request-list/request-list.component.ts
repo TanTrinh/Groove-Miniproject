@@ -4,6 +4,7 @@ import { Http } from '@angular/http';
 import { RequestService } from '../request-service.service';
 import { PagerService } from '../../shared/sevices/pager-service.service';
 import { map } from 'rxjs/internal/operators/map';
+import { SharingService } from '../../shared/sevices/sharing-service.service';
 
 @Component({
   selector: 'app-request-list',
@@ -12,13 +13,15 @@ import { map } from 'rxjs/internal/operators/map';
 })
 export class RequestListComponent implements OnInit {
 
-  constructor(private requestService: RequestService, private router: Router, private http: Http, private pagerService: PagerService) { }
+  constructor(private requestService: RequestService, private router: Router, private http: Http, private pagerService: PagerService, private sharingService: SharingService) { }
 
   // pager object
   pager: any = {};
 
   // paged items
   pagedItems: any[];
+
+  requestIdList: any[] = new Array();
 
   ngOnInit() {
     this.setPage(1);
@@ -34,4 +37,23 @@ export class RequestListComponent implements OnInit {
       this.pager = this.pagerService.getPager(jsonObject.totalPages, page);
     });
   }
+
+  addRequestToShipment(i) {
+    this.requestIdList.push(this.pagedItems[i].code);
+  }
+
+  removeRequestFromShipment(i) {
+    const index: number = this.requestIdList.indexOf(this.pagedItems[i].code);
+
+    if (index !== -1) {
+      this.requestIdList.splice(index, 1);
+    }       
+  }
+
+  onCreateShipment()
+  {
+    this.sharingService.save(this.requestIdList);
+    this.router.navigate(['/shipment']);
+  }
+  
 }

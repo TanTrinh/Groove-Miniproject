@@ -56,7 +56,8 @@ namespace Infrastructures.DbMigration.Migrations
                     UpdatedDate = table.Column<DateTimeOffset>(nullable: false),
                     UpdatedByUserId = table.Column<long>(nullable: false),
                     UpdatedByUserName = table.Column<string>(nullable: false),
-                    RowVersion = table.Column<byte[]>(nullable: true)
+                    RowVersion = table.Column<byte[]>(nullable: true),
+                    Status = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -44,9 +44,17 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
         }
 
+<<<<<<< HEAD
+		public Task<string> ChangeStatus(int? id, string status)
+		{
+			throw new NotImplementedException();
+		}
+	}
+=======
         public Task<string> ChangeStatus(int? id, string status)
         {
             throw new NotImplementedException();
         }
     }
+>>>>>>> 2c3347003fb8a57d383be8a0ab579fcb710d087e
 }

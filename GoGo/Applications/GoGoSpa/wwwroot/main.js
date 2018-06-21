@@ -40,6 +40,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shipment/ShipmentAssigned/assigned.component */ "./src/app/shipment/ShipmentAssigned/assigned.component.ts");
 /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
 /* harmony import */ var _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./request/request-list/request-list.component */ "./src/app/request/request-list/request-list.component.ts");
+/* harmony import */ var _shipment_shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shipment/shipment-creating/shipment-creating.component */ "./src/app/shipment/shipment-creating/shipment-creating.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -53,10 +54,12 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var routes = [
     { path: 'login', component: _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
     { path: '', component: _layout_layout_component__WEBPACK_IMPORTED_MODULE_3__["LayoutComponent"], children: [
-            { path: 'request', component: _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_6__["RequestListComponent"] }
+            { path: 'request', component: _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_6__["RequestListComponent"] },
+            { path: 'shipment', component: _shipment_shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_7__["ShipmentCreatingComponent"] },
         ] },
     {
         path: 'home', component: _home_home_component__WEBPACK_IMPORTED_MODULE_5__["HomeComponent"], children: [
@@ -744,7 +747,6 @@ var LayoutComponent = /** @class */ (function () {
         this.router = router;
     }
     LayoutComponent.prototype.ngOnInit = function () {
-        this.router.navigate(['./assigned']);
     };
     LayoutComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -768,7 +770,7 @@ var LayoutComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"sidebar-container\" class=\"sidebar-expanded d-none d-md-block \">\r\n  <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->\r\n  <!-- Bootstrap List Group -->\r\n  <ul class=\"list-group \" id=\"menu\">\r\n    <!--Menu with submenu\r\n    <li>\r\n      <a href=\"#submenu1\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\" list-group-item list-group-item-action flex-column align-items-start\">\r\n        Dashboard\r\n      </a>\r\n      <div id='submenu1' class=\"collapse sidebar-submenu\">\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          1. Charts\r\n        </a>\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          2. Reports\r\n        </a>\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          3. Tables\r\n        </a>\r\n      </div>\r\n    </li>-->\r\n    <li>\r\n      <a routerLink=\"/assigned\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Assigned</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/request\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Request</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/warehouse\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Warehouse</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/delivery-status\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Delivery Status</a>\r\n    </li>\r\n  </ul><!-- List Group END-->\r\n</div><!-- sidebar-container END -->\r\n"
+module.exports = "<div id=\"sidebar-container\" class=\"sidebar-expanded d-none d-md-block \">\r\n  <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->\r\n  <!-- Bootstrap List Group -->\r\n  <ul class=\"list-group \" id=\"menu\">\r\n    <!--Menu with submenu\r\n    <li>\r\n      <a href=\"#submenu1\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\" list-group-item list-group-item-action flex-column align-items-start\">\r\n        Dashboard\r\n      </a>\r\n      <div id='submenu1' class=\"collapse sidebar-submenu\">\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          1. Charts\r\n        </a>\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          2. Reports\r\n        </a>\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          3. Tables\r\n        </a>\r\n      </div>\r\n    </li>-->\r\n    <li>\r\n      <a routerLink=\"/assigned\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Assigned</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/request\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Request</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/shipment\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Shipment</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/delivery-status\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Delivery Status</a>\r\n    </li>\r\n  </ul><!-- List Group END-->\r\n</div><!-- sidebar-container END -->\r\n"
 
 /***/ }),
 
@@ -963,7 +965,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Request Management</h1>\r\n  </div>\r\n  <div class=\"py-3\">\r\n    <button class=\"btn btn-success\" routerLink=\"/request/create\">Create Request</button>\r\n  </div>\r\n  <table class=\"table table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th>Id</th>\r\n        <th>Customer Name</th>\r\n        <th>Picking Date</th>\r\n        <th>Delivery Date</th>\r\n        <th>Delivery Address</th>\r\n        <th>Werehouse Address</th>\r\n        <th>Package Quantity</th>\r\n        <th>Status</th>\r\n        <th></th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let item of pagedItems, index as i\">\r\n        <td>{{item.id}}</td>\r\n        <td>{{item.customerName}}</td>\r\n        <td>{{item.pickingDate}}</td>\r\n        <td>{{item.deliveryDate}}</td>\r\n        <td>{{item.deliveryAddress}}</td>\r\n        <td>{{item.wereHouseAddress}}</td>\r\n        <td>{{item.packageQuantity}}</td>\r\n        <td>{{item.status}}</td>\r\n        <td>\r\n          <button class=\"btn btn-custom\" routerLink=\"/request/edit\">Edit</button> &nbsp;\r\n          <button class=\"btn btn-custom\" data-toggle=\"modal\" data-target=\"#CancelModal\">Delete</button>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n  <div>\r\n    <ul *ngIf=\"pager.pages && pager.pages.length\" class=\"pagination\">\r\n      <li [ngClass]=\"{disabled:pager.currentPage === 1}\">\r\n        <a (click)=\"setPage(1)\">First</a>\r\n      </li>\r\n      <li [ngClass]=\"{disabled:pager.currentPage === 1}\">\r\n        <a (click)=\"setPage(pager.currentPage - 1)\">Previous</a>\r\n      </li>\r\n      <li *ngFor=\"let page of pager.pages\" [ngClass]=\"{active:pager.currentPage === page}\">\r\n        <a (click)=\"setPage(page)\">{{page}}</a>\r\n      </li>\r\n      <li [ngClass]=\"{disabled:pager.currentPage === pager.totalPages}\">\r\n        <a (click)=\"setPage(pager.currentPage + 1)\">Next</a>\r\n      </li>\r\n      <li [ngClass]=\"{disabled:pager.currentPage === pager.totalPages}\">\r\n        <a (click)=\"setPage(pager.totalPages)\">Last</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n\r\n\r\n  <!--Cancel Modal-->\r\n  <div class=\"modal fade\" id=\"CancelModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"CancelModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\" role=\"document\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <h5 class=\"modal-title\" id=\"CancelModalLabel\">Cancel</h5>\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          Are you sure?\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"button\" class=\"btn btn-primary\">Confirm</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Request Management</h1>\r\n  </div>\r\n  <div class=\"py-3\">\r\n    <button class=\"btn btn-success\" (click)=\"onCreateShipment()\">Create Shipment</button>\r\n  </div>\r\n  <table class=\"table table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th>Code</th>\r\n        <th>Customer Name</th>\r\n        <th>Picking Date</th>\r\n        <th>Delivery Date</th>\r\n        <th>Delivery Address</th>\r\n        <th>Werehouse Address</th>\r\n        <th>Package Quantity</th>\r\n        <th></th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let item of pagedItems, index as i\">\r\n        <td>{{item.code}}</td>\r\n        <td>{{item.customerName}}</td>\r\n        <td>{{item.pickingDate}}</td>\r\n        <td>{{item.deliveryDate}}</td>\r\n        <td>{{item.deliveryAddress}}</td>\r\n        <td>{{item.wereHouseAddress}}</td>\r\n        <td>{{item.packageQuantity}}</td>\r\n        <td>\r\n          <button class=\"btn btn-custom\" (click)=\"addRequestToShipment(i)\">Add To Shipment</button> &nbsp;\r\n          <button class=\"btn btn-custom\" (click)=\"removeRequestFromShipment(i)\">Undo</button>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n  <div>\r\n    <ul *ngIf=\"pager.pages && pager.pages.length\" class=\"pagination\">\r\n      <li [ngClass]=\"{disabled:pager.currentPage === 1}\">\r\n        <a (click)=\"setPage(1)\">First</a>\r\n      </li>\r\n      <li [ngClass]=\"{disabled:pager.currentPage === 1}\">\r\n        <a (click)=\"setPage(pager.currentPage - 1)\">Previous</a>\r\n      </li>\r\n      <li *ngFor=\"let page of pager.pages\" [ngClass]=\"{active:pager.currentPage === page}\">\r\n        <a (click)=\"setPage(page)\">{{page}}</a>\r\n      </li>\r\n      <li [ngClass]=\"{disabled:pager.currentPage === pager.totalPages}\">\r\n        <a (click)=\"setPage(pager.currentPage + 1)\">Next</a>\r\n      </li>\r\n      <li [ngClass]=\"{disabled:pager.currentPage === pager.totalPages}\">\r\n        <a (click)=\"setPage(pager.totalPages)\">Last</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n\r\n\r\n  <!--Cancel Modal-->\r\n  <div class=\"modal fade\" id=\"CancelModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"CancelModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\" role=\"document\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <h5 class=\"modal-title\" id=\"CancelModalLabel\">Cancel</h5>\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          Are you sure?\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"button\" class=\"btn btn-primary\">Confirm</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -995,6 +997,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/sevices/pager-service.service */ "./src/app/shared/sevices/pager-service.service.ts");
 /* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/internal/operators/map */ "./node_modules/rxjs/internal/operators/map.js");
 /* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _shared_sevices_sharing_service_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../shared/sevices/sharing-service.service */ "./src/app/shared/sevices/sharing-service.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1010,14 +1013,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var RequestListComponent = /** @class */ (function () {
-    function RequestListComponent(requestService, router, http, pagerService) {
+    function RequestListComponent(requestService, router, http, pagerService, sharingService) {
         this.requestService = requestService;
         this.router = router;
         this.http = http;
         this.pagerService = pagerService;
+        this.sharingService = sharingService;
         // pager object
         this.pager = {};
+        this.requestIdList = new Array();
     }
     RequestListComponent.prototype.ngOnInit = function () {
         this.setPage(1);
@@ -1031,13 +1037,26 @@ var RequestListComponent = /** @class */ (function () {
             _this.pager = _this.pagerService.getPager(jsonObject.totalPages, page);
         });
     };
+    RequestListComponent.prototype.addRequestToShipment = function (i) {
+        this.requestIdList.push(this.pagedItems[i].code);
+    };
+    RequestListComponent.prototype.removeRequestFromShipment = function (i) {
+        var index = this.requestIdList.indexOf(this.pagedItems[i].code);
+        if (index !== -1) {
+            this.requestIdList.splice(index, 1);
+        }
+    };
+    RequestListComponent.prototype.onCreateShipment = function () {
+        this.sharingService.save(this.requestIdList);
+        this.router.navigate(['/shipment']);
+    };
     RequestListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-request-list',
             template: __webpack_require__(/*! ./request-list.component.html */ "./src/app/request/request-list/request-list.component.html"),
             styles: [__webpack_require__(/*! ./request-list.component.scss */ "./src/app/request/request-list/request-list.component.scss")]
         }),
-        __metadata("design:paramtypes", [_request_service_service__WEBPACK_IMPORTED_MODULE_3__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_4__["PagerService"]])
+        __metadata("design:paramtypes", [_request_service_service__WEBPACK_IMPORTED_MODULE_3__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_4__["PagerService"], _shared_sevices_sharing_service_service__WEBPACK_IMPORTED_MODULE_6__["SharingService"]])
     ], RequestListComponent);
     return RequestListComponent;
 }());
@@ -1243,6 +1262,50 @@ var PagerService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/sevices/sharing-service.service.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/shared/sevices/sharing-service.service.ts ***!
+  \***********************************************************/
+/*! exports provided: SharingService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharingService", function() { return SharingService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var SharingService = /** @class */ (function () {
+    function SharingService() {
+        this.array = [];
+    }
+    SharingService.prototype.save = function (array) {
+        this.array = array;
+    };
+    SharingService.prototype.fetch = function () {
+        return this.array;
+    };
+    SharingService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], SharingService);
+    return SharingService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/shared.module.ts":
 /*!*****************************************!*\
   !*** ./src/app/shared/shared.module.ts ***!
@@ -1288,7 +1351,7 @@ var SharedModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>List shipment</h1>\r\n<div class=\"list\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>ShipmentCode</th>\r\n        <th>License plate</th>\r\n        <th>StartDate</th>\r\n        <th>EndDate</th>\r\n        <th>RequestQuality</th>\r\n        <th>Assign</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let item of shipmentAssigned\">\r\n        <td>{{item.code}}</td>\r\n        <td>{{item.licensePlate}}</td>\r\n        <td>{{item.startDate}}</td>\r\n        <td>{{item.endDate}}</td>\r\n        <td>{{item.requestQuality}}</td>\r\n        <td><a class=\"btn btn-custom\">Accept</a></td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
+module.exports = "<h1>List shipment</h1>\r\n<div class=\"list\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>ShipmentCode</th>\r\n        <th>License plate</th>\r\n        <th>StartDate</th>\r\n        <th>EndDate</th>\r\n        <th>RequestQuality</th>\r\n        <th>Assign</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let item of shipmentAssigned\">\r\n        <td>{{item.code}}</td>\r\n        <td>{{item.licensePlate}}</td>\r\n        <td>{{item.startDate}}</td>\r\n        <td>{{item.status}}</td>\r\n        <td>{{item.requestQuality}}</td>\r\n        <td>\r\n          <a *ngIf=\"item.status == 'Pending' || item.status == 'Reject'\" class=\"btn btn-outline-success\" (click)=\"changeStatus(item.code, 'Accept')\">Accept</a>\r\n          <a *ngIf=\"item.status == 'Pending'\" class=\"btn btn-outline-danger\" (click)=\"changeStatus(item.code, 'Reject')\">Reject</a>\r\n          <a *ngIf=\"item.status == 'Accept'\" class=\"btn btn-outline-primary\" (click)=\"changeStatus(item.code, 'Picking')\">Picking</a>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1299,7 +1362,7 @@ module.exports = "<h1>List shipment</h1>\r\n<div class=\"list\">\r\n  <table cla
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".list {\n  margin-top: 10px;\n  border: 0.5px solid #000205; }\n\n#head {\n  color: black;\n  background-color: #f2f2f2; }\n\nh1 {\n  text-align: center;\n  color: #0073e6; }\n\n.btn-custom {\n  border-style: solid;\n  border-color: #0073e6;\n  background-color: white;\n  color: aqua; }\n\n.table {\n  text-align: center; }\n"
+module.exports = ".list {\n  margin-top: 10px;\n  border: 0.5px solid #000205; }\n\n#head {\n  color: black;\n  background-color: #f2f2f2; }\n\nh1 {\n  text-align: center;\n  color: #0073e6; }\n\n.btn {\n  margin-left: 5px; }\n\n.table {\n  text-align: center; }\n"
 
 /***/ }),
 
@@ -1346,14 +1409,24 @@ var AssignedComponent = /** @class */ (function () {
                 'ResponseType': 'Json'
             })
         };
-        this.http.get('http://localhost:60012/api/Request/shipmentAssigned?id=54').subscribe(function (result) {
+        this.http.get('http://localhost:60012/api/Driver/shipmentAssigned?id=54').subscribe(function (result) {
             //this.paginators = [];
             _this.data = result;
-            console.log(_this.data);
             _this.shipmentAssigned = _this.data;
-            console.log(_this.shipmentAssigned);
-            //this.paginators = this.data.totalPage;
-            //this.currentpage = page;
+        });
+    };
+    AssignedComponent.prototype.changeStatus = function (code, status) {
+        var _this = this;
+        var param = { 'code': code, 'status': status };
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'ResponseType': 'Json'
+            })
+        };
+        this.http.post('http://localhost:60012/api/Driver/shipmentfeedback', param, httpOptions).subscribe(function (result) {
+            console.log(result);
+            _this.LoadPage(1);
         });
     };
     AssignedComponent = __decorate([
@@ -1365,6 +1438,86 @@ var AssignedComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], AssignedComponent);
     return AssignedComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment-creating/shipment-creating.component.html":
+/*!*****************************************************************************!*\
+  !*** ./src/app/shipment/shipment-creating/shipment-creating.component.html ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Create Shipment</h1>\r\n  </div>\r\n  <div class=\"py-3\">\r\n    <button class=\"btn btn-success\" (click)=\"onCreateShipment()\">Create Shipment</button>\r\n  </div>\r\n  <table class=\"table table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th>Code</th>\r\n        <th>Customer Name</th>\r\n        <th>Picking Date</th>\r\n        <th>Delivery Date</th>\r\n        <th>Delivery Address</th>\r\n        <th>Werehouse Address</th>\r\n        <th>Package Quantity</th>\r\n        <th></th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let item of pagedItems, index as i\">\r\n        <td>{{item}}</td>\r\n        <td>{{item.customerName}}</td>\r\n        <td>{{item.pickingDate}}</td>\r\n        <td>{{item.deliveryDate}}</td>\r\n        <td>{{item.deliveryAddress}}</td>\r\n        <td>{{item.wereHouseAddress}}</td>\r\n        <td>{{item.packageQuantity}}</td>\r\n        <td>\r\n          <button class=\"btn btn-custom\" (click)=\"removeRequestFromShipment(i)\">Remove</button>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  </div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment-creating/shipment-creating.component.scss":
+/*!*****************************************************************************!*\
+  !*** ./src/app/shipment/shipment-creating/shipment-creating.component.scss ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment-creating/shipment-creating.component.ts":
+/*!***************************************************************************!*\
+  !*** ./src/app/shipment/shipment-creating/shipment-creating.component.ts ***!
+  \***************************************************************************/
+/*! exports provided: ShipmentCreatingComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentCreatingComponent", function() { return ShipmentCreatingComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _shared_sevices_sharing_service_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/sevices/sharing-service.service */ "./src/app/shared/sevices/sharing-service.service.ts");
+/* harmony import */ var _request_request_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../request/request-service.service */ "./src/app/request/request-service.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/sevices/pager-service.service */ "./src/app/shared/sevices/pager-service.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var ShipmentCreatingComponent = /** @class */ (function () {
+    function ShipmentCreatingComponent(sharingService, requestService, router, http, pagerService) {
+        this.sharingService = sharingService;
+        this.requestService = requestService;
+        this.router = router;
+        this.http = http;
+        this.pagerService = pagerService;
+        this.requestIdList = this.sharingService.fetch();
+    }
+    ShipmentCreatingComponent.prototype.ngOnInit = function () {
+        console.log(this.requestIdList);
+    };
+    ShipmentCreatingComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-shipment-creating',
+            template: __webpack_require__(/*! ./shipment-creating.component.html */ "./src/app/shipment/shipment-creating/shipment-creating.component.html"),
+            styles: [__webpack_require__(/*! ./shipment-creating.component.scss */ "./src/app/shipment/shipment-creating/shipment-creating.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_shared_sevices_sharing_service_service__WEBPACK_IMPORTED_MODULE_1__["SharingService"], _request_request_service_service__WEBPACK_IMPORTED_MODULE_2__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _angular_http__WEBPACK_IMPORTED_MODULE_4__["Http"], _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_5__["PagerService"]])
+    ], ShipmentCreatingComponent);
+    return ShipmentCreatingComponent;
 }());
 
 
@@ -1384,12 +1537,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShipmentAssigned/assigned.component */ "./src/app/shipment/ShipmentAssigned/assigned.component.ts");
+/* harmony import */ var _shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shipment-creating/shipment-creating.component */ "./src/app/shipment/shipment-creating/shipment-creating.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1403,6 +1558,7 @@ var ShipmentModule = /** @class */ (function () {
             ],
             declarations: [
                 _ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_2__["AssignedComponent"],
+                _shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_3__["ShipmentCreatingComponent"],
             ]
         })
     ], ShipmentModule);

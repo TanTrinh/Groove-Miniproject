@@ -32,8 +32,8 @@ namespace GoGoApi.Controllers
 		[HttpGet]
 		public IActionResult GetAllAsync(int pageNumber)
 		{
-			var userIdentity = GetCurrentIdentity<int>();
-			var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).ToList();
+			//var userIdentity = GetCurrentIdentity<int>();
+			//var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).ToList();
 
 			//if (roles.Any("coordinator", true))
 			//{
