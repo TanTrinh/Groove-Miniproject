@@ -1,3 +1,13 @@
-<p>
-  home works!
-</p>
+<div class="container-fluid clearfix">
+    <app-header></app-header>
+    <div class="row" id="body-row">
+        <app-navigation></app-navigation>
+        <main class="main-section col">
+            <!--BODY BEGIN-->
+            <router-outlet></router-outlet>
+            <p>home works!</p>
+            <!--BODY END-->
+        </main>
+    </div>
+    <app-footer></app-footer>
+</div>
