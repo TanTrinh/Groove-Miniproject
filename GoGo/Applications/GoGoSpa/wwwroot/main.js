@@ -673,7 +673,7 @@ var HomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  footer works!\r\n</p>\r\n"
+module.exports = "<div class=\"footer\">\r\n  <h1>\r\n    footer works!\r\n  </h1>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -684,7 +684,7 @@ module.exports = "<p>\r\n  footer works!\r\n</p>\r\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "p {\n  background-color: black; }\n"
+module.exports = ".footer {\n  background-color: black; }\n"
 
 /***/ }),
 
@@ -806,7 +806,7 @@ var HeaderComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid clearfix\">\r\n  <app-header></app-header>\r\n  <div class=\"row\" id=\"body-row\">\r\n    <app-navigation></app-navigation>\r\n    <main class=\"main-section col\">\r\n      <!--BODY BEGIN-->\r\n      <router-outlet></router-outlet>\r\n\r\n      <!--BODY END-->\r\n\r\n    </main>\r\n  </div>\r\n  <app-footer></app-footer>\r\n</div>\r\n"
+module.exports = "<div class=\"container-fluid clearfix\">\r\n  <app-header></app-header>\r\n  <div class=\"row\" id=\"body-row\">\r\n    <app-navigation></app-navigation>\r\n    <main class=\"main-section col\">\r\n      <!--BODY BEGIN-->\r\n      <router-outlet></router-outlet>\r\n\r\n      <!--BODY END-->\r\n\r\n    </main>\r\n  </div>\r\n  <app-footer class=\"pt-1\"></app-footer>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1330,7 +1330,7 @@ var FormBaseComponent = /** @class */ (function () {
         else {
             this.formData = this._defaultFormData;
             this.formConfiguration.events.onAfterInitFormData(this.formData);
-            this.constructorForFormDataSource();
+            // this.constructorForFormDataSource();
         }
     };
     FormBaseComponent.prototype.constructorForFormDataSource = function () {
@@ -1357,6 +1357,7 @@ var FormBaseComponent = /** @class */ (function () {
         };
         var this_1 = this;
         // Data source data
+        //console.log(this.formConfiguration.dataSourceMapper.getMap());
         for (var _i = 0, _a = this.formConfiguration.dataSourceMapper.getMap(); _i < _a.length; _i++) {
             var map = _a[_i];
             _loop_1(map);

@@ -3,6 +3,7 @@ import { FormBaseComponent, FormValidationService } from '../../../shared/compon
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../../shared/component/dialog/notification.service';
 import { RequestService } from '../request.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-request-form',
@@ -20,18 +21,13 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   ) {
     super(route, router, notificationService, requestService, validationService);
     super.formOnInit("Request", {});
+    this.formConfiguration.events.onAfterInitFormData = function (data) {
+    }
+    
+    this.formConfiguration.dataSourceMapper.add('role', requestService);
+    // this.formDataSource.role = 
   }
-  public formData = {
-    PackageQuantity: '',
-    ExpectedDate: '',
-    Address: '',
-    ReceiverName: '',
-    ReceiverPhoneNumber: '',
-    PickingDate: '',
-    DeliveryLatitude: '',
-    DeliveryLongitude: '',
-    WareHouseId: '',
-  }
+ 
  
   ngOnInit() {
   }

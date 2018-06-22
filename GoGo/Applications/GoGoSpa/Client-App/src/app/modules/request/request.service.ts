@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ICreateFormService, IViewFormService, IUpdateFormService } from '../../shared/component/form';
+import { ICreateFormService, IViewFormService, IUpdateFormService, IDataSourceService } from '../../shared/component/form';
 import { Observable } from 'rxjs';
 import { AuthHttpService } from '../../shared';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RequestService implements ICreateFormService, IViewFormService, IUpdateFormService {
-
-
+export class RequestService implements ICreateFormService, IViewFormService, IUpdateFormService, IDataSourceService {
+  
+  getDataSource(): Observable<any> {
+    return this._apiHttp.get(`/api/warehouse/customer/77`); //get id from claim
+  }
   edit(id: any, formData: any): Observable<any> {
     return this._apiHttp.put(`/api/request/${id}`, formData);
   }
@@ -24,7 +26,6 @@ export class RequestService implements ICreateFormService, IViewFormService, IUp
 
   getViewFormUrl(id: any): string {
     return `/request/form/view/${id}`;
-    //return `/request/form/view/${id}`;
   }
 
   getListPageUrl(): string {

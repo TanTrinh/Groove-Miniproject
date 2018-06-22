@@ -73,6 +73,7 @@ export class FormDataSourceMapper {
 export class FormConfiguration {
   public events: FormEvent = new FormEvent();
   public dataSourceMapper: FormDataSourceMapper = new FormDataSourceMapper();
+
 }
 
 export class FormError {
@@ -150,6 +151,9 @@ export abstract class FormBaseComponent {
     this.isViewFormMode = false;
     this.isCreateFormMode = false;
     this.isUpdateFormMode = false;
+
+    
+
     switch (this._formMode) {
       case "create":
         this.isCreateFormMode = true;
@@ -172,6 +176,7 @@ export abstract class FormBaseComponent {
       default:
         throw new Error(`Form mode = <${_formMode}> is not valid.`);
     }
+
     this.formLinks.listPageUrl = this.getListPageUrl();
     this.formLinks.viewFormUrl = this.getViewFormUrl(this.formId);
   }
@@ -194,13 +199,15 @@ export abstract class FormBaseComponent {
     } else {
       this.formData = this._defaultFormData;
       this.formConfiguration.events.onAfterInitFormData(this.formData);
-      this.constructorForFormDataSource();
+      // this.constructorForFormDataSource();
     }
   }
 
   private constructorForFormDataSource() {
     // Data source data
+    //console.log(this.formConfiguration.dataSourceMapper.getMap());
     for (let map of this.formConfiguration.dataSourceMapper.getMap()) {
+
       let mapDataSourceObs: Observable<any>;
       if ((map.formMode & this._formModeCode) !== this._formModeCode) {
         // Ignore if user is in  diff context
