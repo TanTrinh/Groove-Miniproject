@@ -11,7 +11,8 @@ namespace Domains.GoGo.Services.Transportation
 		Task CreateShipmentRequestAsync(List<int> requestIdList, int shipmentId);
         Task<LocationModel> GetPositionPicking(string code);
         int GetTotalRequest(string code);
-        Task<RequestDetailModel> GetRequestDetailModelsAsync(string shipmentCode, string requestCode);
+        RequestDetailModel GetRequestDetailModel(string code);
         Task<IEnumerable<RequestDetailModel>> GetRequestListAsync(string code);
+        Task<string> ChangeStatusRequestAsync(string code, string status);
     }
 }

@@ -38,8 +38,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/account/login/login.component */ "./src/app/modules/account/login/login.component.ts");
 /* harmony import */ var _layout_layout_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./layout/layout.component */ "./src/app/layout/layout.component.ts");
 /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
-/* harmony import */ var _modules_shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/shipment/ShipmentAssigned/assigned.component */ "./src/app/modules/shipment/ShipmentAssigned/assigned.component.ts");
-/* harmony import */ var _modules_shipment_shipment_picking_shipment_picking_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/shipment/shipment-picking/shipment-picking.component */ "./src/app/modules/shipment/shipment-picking/shipment-picking.component.ts");
+/* harmony import */ var _shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./shipment/ShipmentAssigned/assigned.component */ "./src/app/shipment/ShipmentAssigned/assigned.component.ts");
+/* harmony import */ var _shipment_shipment_picking_shipment_picking_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./shipment/shipment-picking/shipment-picking.component */ "./src/app/shipment/shipment-picking/shipment-picking.component.ts");
+/* harmony import */ var _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./request/request-list/request-list.component */ "./src/app/request/request-list/request-list.component.ts");
+/* harmony import */ var _request_current_request_current_request_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./request/current-request/current-request.component */ "./src/app/request/current-request/current-request.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -53,14 +55,21 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
     { path: 'layout', component: _layout_layout_component__WEBPACK_IMPORTED_MODULE_3__["LayoutComponent"] },
     {
         path: 'home', component: _home_home_component__WEBPACK_IMPORTED_MODULE_4__["HomeComponent"], children: [
-            { path: 'assigned', component: _modules_shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_5__["AssignedComponent"] },
-            { path: 'shipmentPicking/:code', component: _modules_shipment_shipment_picking_shipment_picking_component__WEBPACK_IMPORTED_MODULE_6__["ShipmentPickingComponent"] }
+            { path: 'assigned', component: _shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_5__["AssignedComponent"] },
+            {
+                path: 'shipmentPicking/:code', component: _shipment_shipment_picking_shipment_picking_component__WEBPACK_IMPORTED_MODULE_6__["ShipmentPickingComponent"], children: [
+                    { path: 'currentRequest', component: _request_current_request_current_request_component__WEBPACK_IMPORTED_MODULE_8__["CurrentRequestComponent"] },
+                    { path: 'list', component: _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_7__["RequestListComponent"] }
+                ]
+            }
         ]
     }
 ];
@@ -167,15 +176,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/account/login/login.component */ "./src/app/modules/account/login/login.component.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
-/* harmony import */ var _modules_shipment_shipment_picking_shipment_picking_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./modules/shipment/shipment-picking/shipment-picking.component */ "./src/app/modules/shipment/shipment-picking/shipment-picking.component.ts");
-/* harmony import */ var _modules_shipment_shipment_module__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./modules/shipment/shipment.module */ "./src/app/modules/shipment/shipment.module.ts");
-/* harmony import */ var _modules_request_request_module__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./modules/request/request.module */ "./src/app/modules/request/request.module.ts");
+/* harmony import */ var _shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./shipment/ShipmentAssigned/assigned.component */ "./src/app/shipment/ShipmentAssigned/assigned.component.ts");
+/* harmony import */ var _shipment_shipment_picking_shipment_picking_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./shipment/shipment-picking/shipment-picking.component */ "./src/app/shipment/shipment-picking/shipment-picking.component.ts");
+/* harmony import */ var _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./request/request-list/request-list.component */ "./src/app/request/request-list/request-list.component.ts");
+/* harmony import */ var _request_request_detail_request_detail_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./request/request-detail/request-detail.component */ "./src/app/request/request-detail/request-detail.component.ts");
+/* harmony import */ var _shared_service_save_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./shared/service/save.service */ "./src/app/shared/service/save.service.ts");
+/* harmony import */ var _request_current_request_current_request_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./request/current-request/current-request.component */ "./src/app/request/current-request/current-request.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -211,7 +226,11 @@ var AppModule = /** @class */ (function () {
                 _layout_navigation_navigation_component__WEBPACK_IMPORTED_MODULE_10__["NavigationComponent"],
                 _ggmap_ggmap_component__WEBPACK_IMPORTED_MODULE_11__["GgmapComponent"],
                 _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_14__["LoginComponent"],
-                _modules_shipment_shipment_picking_shipment_picking_component__WEBPACK_IMPORTED_MODULE_17__["ShipmentPickingComponent"],
+                _shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_17__["AssignedComponent"],
+                _shipment_shipment_picking_shipment_picking_component__WEBPACK_IMPORTED_MODULE_18__["ShipmentPickingComponent"],
+                _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_19__["RequestListComponent"],
+                _request_request_detail_request_detail_component__WEBPACK_IMPORTED_MODULE_20__["RequestDetailComponent"],
+                _request_current_request_current_request_component__WEBPACK_IMPORTED_MODULE_22__["CurrentRequestComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -221,12 +240,11 @@ var AppModule = /** @class */ (function () {
                     apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
                 }),
                 agm_direction__WEBPACK_IMPORTED_MODULE_13__["AgmDirectionModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HttpClientModule"],
-                _modules_shipment_shipment_module__WEBPACK_IMPORTED_MODULE_18__["ShipmentModule"],
-                _modules_request_request_module__WEBPACK_IMPORTED_MODULE_19__["RequestModule"]
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HttpClientModule"]
             ],
             providers: [
                 src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_16__["NotificationService"],
+                _shared_service_save_service__WEBPACK_IMPORTED_MODULE_21__["SaveService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
         })
@@ -944,32 +962,179 @@ var LoginComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/request/request-list/request-list.component.html":
-/*!**************************************************************************!*\
-  !*** ./src/app/modules/request/request-list/request-list.component.html ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"request\">\r\n  <table class=\"table table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th>Request code</th>\r\n        <th>Estimate date</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let item of requestList\">\r\n        <td><span *ngIf=\"item.status=='Pending'\" style=\"color:red\">{{item.code}}</span></td>\r\n        <td><span *ngIf=\"item.status=='Pending'\" style=\"color:red\">{{item.estimateDate | date:'short'}}</span></td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "./src/app/modules/request/request-list/request-list.component.scss":
-/*!**************************************************************************!*\
-  !*** ./src/app/modules/request/request-list/request-list.component.scss ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".request {\n  margin-top: 5px;\n  border: 1px solid #0073e6; }\n"
-
-/***/ }),
-
-/***/ "./src/app/modules/request/request-list/request-list.component.ts":
+/***/ "./src/app/request/current-request/current-request.component.html":
 /*!************************************************************************!*\
-  !*** ./src/app/modules/request/request-list/request-list.component.ts ***!
+  !*** ./src/app/request/current-request/current-request.component.html ***!
   \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container detail\">\r\n  <table class=\"table table-hover\">\r\n    <tbody>\r\n      <tr>\r\n        <td>Request code</td>\r\n        <td>{{currentRequest.code}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Total Package</td>\r\n        <td>{{currentRequest.packageQuantity}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Estimate date</td>\r\n        <td>{{currentRequest.estimateDate | date:'short'}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Address</td>\r\n        <td>{{currentRequest.address}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Receiver</td>\r\n        <td>{{currentRequest.receiverName}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>PhoneNumber</td>\r\n        <td>{{currentRequest.receiverPhoneNumber}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Status</td>\r\n        <td>{{currentRequest.status}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n  <div>\r\n    <button *ngIf=\"statusShipment == 'Shipping'\" class=\"btn btn-success btn-block\" id=\"loading\">Start to ship</button>\r\n    <button *ngIf=\"statusShipment != 'Shipping'\" disabled class=\"btn btn-success btn-block\" id=\"loading\">Start to ship</button>\r\n    <!--<button *ngIf=\"shipmentDetail.status == 'Shipping'\" class=\"btn btn-success btn-block\" id=\"shipping\">Start to ship</button>\r\n  <button *ngIf=\"shipmentDetail.status == 'Unloading'\" class=\"btn btn-success btn-block\" id=\"complete\">Complete the shipment</button>\r\n  <button *ngIf=\"shipmentDetail.status == 'Complete'\" class=\"btn btn-success btn-block\" id=\"complete\">Complete the shipment</button>-->\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/request/current-request/current-request.component.scss":
+/*!************************************************************************!*\
+  !*** ./src/app/request/current-request/current-request.component.scss ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".btn {\n  margin-bottom: 10px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/request/current-request/current-request.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/request/current-request/current-request.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: CurrentRequestComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrentRequestComponent", function() { return CurrentRequestComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _shared_service_save_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/service/save.service */ "./src/app/shared/service/save.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var CurrentRequestComponent = /** @class */ (function () {
+    function CurrentRequestComponent(http, router, save) {
+        this.http = http;
+        this.router = router;
+        this.save = save;
+        this.statusShipment = {};
+        this.data = {};
+        this.currentRequest = this.data;
+    }
+    CurrentRequestComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.http.get('http://localhost:60012/api/Driver/shipment/requestDetail?code=' + this.save.getCode()).subscribe(function (result) {
+            _this.data = result;
+            _this.currentRequest = _this.data;
+        });
+        this.statusShipment = this.save.getStatusShipment();
+        console.log(this.statusShipment);
+    };
+    CurrentRequestComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-current-request',
+            template: __webpack_require__(/*! ./current-request.component.html */ "./src/app/request/current-request/current-request.component.html"),
+            styles: [__webpack_require__(/*! ./current-request.component.scss */ "./src/app/request/current-request/current-request.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _shared_service_save_service__WEBPACK_IMPORTED_MODULE_2__["SaveService"]])
+    ], CurrentRequestComponent);
+    return CurrentRequestComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/request/request-detail/request-detail.component.html":
+/*!**********************************************************************!*\
+  !*** ./src/app/request/request-detail/request-detail.component.html ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/request/request-detail/request-detail.component.scss":
+/*!**********************************************************************!*\
+  !*** ./src/app/request/request-detail/request-detail.component.scss ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/request/request-detail/request-detail.component.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/request/request-detail/request-detail.component.ts ***!
+  \********************************************************************/
+/*! exports provided: RequestDetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestDetailComponent", function() { return RequestDetailComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var RequestDetailComponent = /** @class */ (function () {
+    function RequestDetailComponent() {
+    }
+    RequestDetailComponent.prototype.ngOnInit = function () {
+    };
+    RequestDetailComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-request-detail',
+            template: __webpack_require__(/*! ./request-detail.component.html */ "./src/app/request/request-detail/request-detail.component.html"),
+            styles: [__webpack_require__(/*! ./request-detail.component.scss */ "./src/app/request/request-detail/request-detail.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], RequestDetailComponent);
+    return RequestDetailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/request/request-list/request-list.component.html":
+/*!******************************************************************!*\
+  !*** ./src/app/request/request-list/request-list.component.html ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"request\">\r\n  <table class=\"table table-hover\">\r\n \r\n    <tbody>\r\n      <tr *ngFor=\"let item of requestList\">\r\n        <td>\r\n          <span>{{item.code}}</span><br />\r\n          <span>{{item.address}}</span>\r\n        </td>\r\n\r\n        <td>\r\n          <span>{{item.estimateDate | date:'short'}}</span>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/request/request-list/request-list.component.scss":
+/*!******************************************************************!*\
+  !*** ./src/app/request/request-list/request-list.component.scss ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".request {\n  font-size: 13px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/request/request-list/request-list.component.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/request/request-list/request-list.component.ts ***!
+  \****************************************************************/
 /*! exports provided: RequestListComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -977,6 +1142,9 @@ module.exports = ".request {\n  margin-top: 5px;\n  border: 1px solid #0073e6; }
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestListComponent", function() { return RequestListComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _shared_service_save_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/service/save.service */ "./src/app/shared/service/save.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -987,331 +1155,33 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
 var RequestListComponent = /** @class */ (function () {
-    function RequestListComponent() {
+    function RequestListComponent(http, route, save) {
+        this.http = http;
+        this.route = route;
+        this.save = save;
     }
     RequestListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.http.get('http://localhost:60012/api/Driver/shipment/requestList?code=' + this.save.getCode()).subscribe(function (result) {
+            _this.data = result;
+            _this.requestList = _this.data;
+        });
     };
     RequestListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-request-list',
-            template: __webpack_require__(/*! ./request-list.component.html */ "./src/app/modules/request/request-list/request-list.component.html"),
-            styles: [__webpack_require__(/*! ./request-list.component.scss */ "./src/app/modules/request/request-list/request-list.component.scss")]
+            template: __webpack_require__(/*! ./request-list.component.html */ "./src/app/request/request-list/request-list.component.html"),
+            styles: [__webpack_require__(/*! ./request-list.component.scss */ "./src/app/request/request-list/request-list.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _shared_service_save_service__WEBPACK_IMPORTED_MODULE_3__["SaveService"]])
     ], RequestListComponent);
     return RequestListComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/modules/request/request.module.ts":
-/*!***************************************************!*\
-  !*** ./src/app/modules/request/request.module.ts ***!
-  \***************************************************/
-/*! exports provided: RequestModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestModule", function() { return RequestModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _request_list_request_list_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./request-list/request-list.component */ "./src/app/modules/request/request-list/request-list.component.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var RequestModule = /** @class */ (function () {
-    function RequestModule() {
-    }
-    RequestModule = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
-            ],
-            declarations: [
-                _request_list_request_list_component__WEBPACK_IMPORTED_MODULE_2__["RequestListComponent"]
-            ]
-        })
-    ], RequestModule);
-    return RequestModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/modules/shipment/ShipmentAssigned/assigned.component.html":
-/*!***************************************************************************!*\
-  !*** ./src/app/modules/shipment/ShipmentAssigned/assigned.component.html ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<h1>List shipment</h1>\r\n<div class=\"list\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>Shipment Code</th>\r\n        <th>License plate</th>\r\n        <th>Start date</th>\r\n        <th>End date</th>\r\n        <th>Total request</th>\r\n        <th>Status</th>\r\n        <th>Assign</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let item of shipmentAssigned\">\r\n        <td>{{item.code}}</td>\r\n        <td>{{item.licensePlate}}</td>\r\n        <td>{{item.startDate | date:'short'}}</td>\r\n        <td>{{item.endDate| date:'short'}}</td>\r\n        <td>{{item.requestQuality}}</td>\r\n        <td>\r\n          <span *ngIf=\"item.status=='Pending' || item.status=='Accept' || item.status=='Reject'\"> {{item.status}}</span>\r\n          <span *ngIf=\"item.status!='Pending' && item.status!='Accept' && item.status!='Reject'&& item.status!='Completed' \" id=\"picking\" (click)=\"goToShipmentDeatil(item.code)\"> {{item.status}}</span>\r\n          <span *ngIf=\"item.status=='Completed'\" id=\"complete\"> {{item.status}}</span>\r\n        </td>\r\n        <td>\r\n          <button *ngIf=\"item.status == 'Pending'\" class=\"btn btn-outline-success\" (click)=\"changeStatus(item, 'Accept')\">Accept</button>\r\n          <button *ngIf=\"item.status == 'Accept'\" class=\"btn btn-outline-primary\" (click)=\"changeStatus(item, 'Picking')\">Picking</button>\r\n          <button *ngIf=\"item.status == 'Pending'|| item.status == 'Accept'\" class=\"btn btn-outline-danger\" (click)=\"changeStatus(item, 'Reject')\">Reject</button>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "./src/app/modules/shipment/ShipmentAssigned/assigned.component.scss":
-/*!***************************************************************************!*\
-  !*** ./src/app/modules/shipment/ShipmentAssigned/assigned.component.scss ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".list {\n  margin-top: 10px;\n  border: 0.5px solid #000205; }\n\n#head {\n  color: black;\n  border-left: 0.5px solid #000205;\n  background-color: #f2f2f2; }\n\nh1 {\n  text-align: center;\n  color: #0073e6; }\n\n.btn {\n  width: 80px;\n  margin-right: 5px;\n  border: 1.5px solid; }\n\n#picking {\n  color: #0073e6;\n  font-weight: 500; }\n\n#complete {\n  color: red;\n  font-weight: 500; }\n"
-
-/***/ }),
-
-/***/ "./src/app/modules/shipment/ShipmentAssigned/assigned.component.ts":
-/*!*************************************************************************!*\
-  !*** ./src/app/modules/shipment/ShipmentAssigned/assigned.component.ts ***!
-  \*************************************************************************/
-/*! exports provided: AssignedComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AssignedComponent", function() { return AssignedComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var AssignedComponent = /** @class */ (function () {
-    function AssignedComponent(http, router) {
-        this.http = http;
-        this.router = router;
-        this.data = {};
-        this.paginators = [];
-    }
-    AssignedComponent.prototype.ngOnInit = function () {
-        this.LoadPage(1);
-    };
-    AssignedComponent.prototype.LoadPage = function (page) {
-        var _this = this;
-        var httpOptions = {
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
-                'Content-Type': 'application/json',
-                'ResponseType': 'Json'
-            })
-        };
-        this.http.get('http://localhost:58976/api/Driver/shipmentAssigned?id=54').subscribe(function (result) {
-            //this.paginators = [];
-            _this.data = result;
-            _this.shipmentAssigned = _this.data;
-            console.log(_this.shipmentAssigned);
-        });
-    };
-    AssignedComponent.prototype.goToShipmentDeatil = function (code) {
-        this.router.navigate(['./home/shipmentPicking', code]);
-    };
-    AssignedComponent.prototype.changeStatus = function (item, status) {
-        var _this = this;
-        var param = { 'code': item.code, 'status': status };
-        var httpOptions = {
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
-                'Content-Type': 'application/json',
-                'ResponseType': 'Json'
-            })
-        };
-        this.http.post('http://localhost:58976/api/Driver/shipmentfeedback', param, httpOptions).subscribe(function (result) {
-            if (status == 'Picking') {
-                item.status = status;
-                _this.goToShipmentDeatil(item.code);
-            }
-            else
-                item.status = status;
-        });
-    };
-    AssignedComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-assigned',
-            template: __webpack_require__(/*! ./assigned.component.html */ "./src/app/modules/shipment/ShipmentAssigned/assigned.component.html"),
-            styles: [__webpack_require__(/*! ./assigned.component.scss */ "./src/app/modules/shipment/ShipmentAssigned/assigned.component.scss")]
-        }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
-    ], AssignedComponent);
-    return AssignedComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/modules/shipment/shipment-picking/shipment-picking.component.html":
-/*!***********************************************************************************!*\
-  !*** ./src/app/modules/shipment/shipment-picking/shipment-picking.component.html ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-4\">\r\n    <div class=\"tille\">\r\n      <span id=\"header\">SHIPMENT</span>\r\n      <img src=\"../../assets/support.svg\" class=\"rounded-circle float-right\" id=\"support\" width=\"60\" height=\"60\" />\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-sm-12\">\r\n        <input type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value=\"132 Hàm Nghi, Phường Bến Thành, Quận 1, Hồ Chí Minh, Vietnam\">\r\n      </div>\r\n    </div>\r\n    <div class=\"form-group row\">\r\n      <div class=\"col-sm-12\">\r\n        <input type=\"text\" class=\"form-control-plaintext nextAddress\" readonly value={{locationPicking.address}}>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"container detail\">\r\n      <table class=\"table table-hover\">\r\n        <tbody>\r\n          <tr>\r\n            <td>Shipment code</td>\r\n            <td>{{shipmentDetail.code}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Total Package</td>\r\n            <td>{{shipmentDetail.packageQuality}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Start date</td>\r\n            <td style=\"color:red\">{{shipmentDetail.startDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>End date</td>\r\n            <td>{{shipmentDetail.endDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Status</td>\r\n            <td>{{shipmentDetail.status}}</td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n\r\n    <div class=\"status\">\r\n      <button *ngIf=\"shipmentDetail.status == 'Picking'\" (click)=\"changeStatus(shipmentDetail, 'Loading')\" class=\"btn btn-success btn-block\" id=\"loading\">Start to load</button>\r\n      <button *ngIf=\"shipmentDetail.status == 'Loading'\" (click)=\"changeStatus(shipmentDetail, 'Shipping')\" class=\"btn btn-success btn-block\" id=\"shipping\">Start to ship</button>\r\n      <button *ngIf=\"shipmentDetail.status == 'Shipping'\" (click)=\"changeStatus(shipmentDetail, 'Completed')\" class=\"btn btn-success btn-block\" id=\"complete\">Complete the shipment</button>\r\n    </div>\r\n   \r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <!--<app-ggmap></app-ggmap>-->\r\n  </div>\r\n</div>\r\n"
-
-/***/ }),
-
-/***/ "./src/app/modules/shipment/shipment-picking/shipment-picking.component.scss":
-/*!***********************************************************************************!*\
-  !*** ./src/app/modules/shipment/shipment-picking/shipment-picking.component.scss ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".row {\n  margin-top: 5px;\n  margin-right: 2px; }\n\n.tille {\n  text-align: center; }\n\n#header {\n  font-size: 40px;\n  color: #0073e6; }\n\n.yourAddress {\n  border-bottom: 1px solid #0073e6;\n  background-image: url(\"/assets/placeholder.svg\");\n  background-repeat: no-repeat;\n  padding-left: 48px; }\n\n.nextAddress {\n  background-image: url(\"/assets/warehouse.svg\");\n  background-repeat: no-repeat;\n  padding-left: 48px; }\n\n#completed {\n  margin-top: 10px; }\n\n#tracffic {\n  border: 10px; }\n\n#noti {\n  border: 3px; }\n\n#inf {\n  margin-top: 10px;\n  border: 1px solid #0073e6; }\n\n.nav {\n  border-bottom: 1px solid #0073e6;\n  color: black; }\n\n.nav-item a.hold {\n  background-color: #e6e6ff;\n  color: #0073e6;\n  font-weight: 500;\n  border-bottom: solid;\n  border-bottom-color: #0073e6; }\n\n/* Sidebar */\n\n#sidebar-container {\n  margin-top: 10px;\n  min-height: 460px;\n  padding: 0;\n  border-bottom-color: #0073e6;\n  font-weight: 500; }\n\n#support {\n  border: 2px solid #55E0DE;\n  background-color: #e6e6ff;\n  margin-top: 1px; }\n"
-
-/***/ }),
-
-/***/ "./src/app/modules/shipment/shipment-picking/shipment-picking.component.ts":
-/*!*********************************************************************************!*\
-  !*** ./src/app/modules/shipment/shipment-picking/shipment-picking.component.ts ***!
-  \*********************************************************************************/
-/*! exports provided: ShipmentPickingComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentPickingComponent", function() { return ShipmentPickingComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var ShipmentPickingComponent = /** @class */ (function () {
-    function ShipmentPickingComponent(http, route, router) {
-        this.http = http;
-        this.route = route;
-        this.router = router;
-        this.shipmentDetail = {
-            code: '',
-            endDate: '',
-            startDate: '',
-            licensePlate: '',
-            packageQuality: '',
-            status: '',
-        };
-        this.httpOptions = {
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
-                'Content-Type': 'application/json',
-                'ResponseType': 'Json'
-            })
-        };
-        this.locationPicking = {
-            address: '',
-            latitude: 0,
-            longitude: 0
-        };
-    }
-    ShipmentPickingComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.code = this.route.snapshot.paramMap.get('code');
-        this.http.get('http://localhost:58976/api/Driver/shipmentPicking?code=' + this.code, this.httpOptions).subscribe(function (result) {
-            _this.data = result;
-            _this.locationPicking = _this.data;
-        });
-        this.http.get('http://localhost:58976/api/Driver/shipment?code=' + this.code, this.httpOptions).subscribe(function (result) {
-            _this.data = result;
-            _this.shipmentDetail = _this.data;
-        });
-        this.http.get('http://localhost:58976/api/Driver/shipment/requestList?code=' + this.code, this.httpOptions).subscribe(function (result) {
-            _this.data = result;
-            _this.requestList = _this.data;
-            console.log(_this.requestList);
-        });
-    };
-    ShipmentPickingComponent.prototype.changeStatus = function (item, status) {
-        var _this = this;
-        var param = { 'code': item.code, 'status': status };
-        var httpOptions = {
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
-                'Content-Type': 'application/json',
-                'ResponseType': 'Json'
-            })
-        };
-        this.http.post('http://localhost:58976/api/Driver/shipmentfeedback', param, httpOptions).subscribe(function (result) {
-            item.status = status;
-            if (status == "Completed")
-                _this.router.navigate(['./home/assigned']);
-        });
-    };
-    ShipmentPickingComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-shipment-picking',
-            template: __webpack_require__(/*! ./shipment-picking.component.html */ "./src/app/modules/shipment/shipment-picking/shipment-picking.component.html"),
-            styles: [__webpack_require__(/*! ./shipment-picking.component.scss */ "./src/app/modules/shipment/shipment-picking/shipment-picking.component.scss")]
-        }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
-    ], ShipmentPickingComponent);
-    return ShipmentPickingComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/modules/shipment/shipment.module.ts":
-/*!*****************************************************!*\
-  !*** ./src/app/modules/shipment/shipment.module.ts ***!
-  \*****************************************************/
-/*! exports provided: ShipmentModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentModule", function() { return ShipmentModule; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShipmentAssigned/assigned.component */ "./src/app/modules/shipment/ShipmentAssigned/assigned.component.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-var ShipmentModule = /** @class */ (function () {
-    function ShipmentModule() {
-    }
-    ShipmentModule = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
-            ],
-            declarations: [
-                _ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_2__["AssignedComponent"],
-            ]
-        })
-    ], ShipmentModule);
-    return ShipmentModule;
 }());
 
 
@@ -1352,6 +1222,289 @@ var NotificationService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
     ], NotificationService);
     return NotificationService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/service/save.service.ts":
+/*!************************************************!*\
+  !*** ./src/app/shared/service/save.service.ts ***!
+  \************************************************/
+/*! exports provided: SaveService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SaveService", function() { return SaveService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var SaveService = /** @class */ (function () {
+    function SaveService() {
+    }
+    SaveService.prototype.saveCode = function (code) {
+        this.code = code;
+    };
+    SaveService.prototype.getCode = function () {
+        return this.code;
+    };
+    SaveService.prototype.saveStatus = function (status) {
+        this.statusShipment = status;
+    };
+    SaveService.prototype.getStatusShipment = function () {
+        return this.statusShipment;
+    };
+    SaveService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], SaveService);
+    return SaveService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shipment/ShipmentAssigned/assigned.component.html":
+/*!*******************************************************************!*\
+  !*** ./src/app/shipment/ShipmentAssigned/assigned.component.html ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h1>List shipment</h1>\r\n<div class=\"list\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>Shipment Code</th>\r\n        <th>License plate</th>\r\n        <th>Start date</th>\r\n        <th>End date</th>\r\n        <th>Total request</th>\r\n        <th>Status</th>\r\n        <th>Assign</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let item of shipmentAssigned\">\r\n        <td>{{item.code}}</td>\r\n        <td>{{item.licensePlate}}</td>\r\n        <td>{{item.startDate | date:'short'}}</td>\r\n        <td>{{item.endDate| date:'short'}}</td>\r\n        <td>{{item.requestQuality}}</td>\r\n        <td>\r\n          <span *ngIf=\"item.status=='Pending' || item.status=='Accept' || item.status=='Reject'\"> {{item.status}}</span>\r\n          <span *ngIf=\"item.status!='Pending' && item.status!='Accept' && item.status!='Reject'&& item.status!='Completed' \" id=\"picking\" (click)=\"goToShipmentDeatil(item.code)\"> {{item.status}}</span>\r\n          <span *ngIf=\"item.status=='Completed'\" id=\"complete\"> {{item.status}}</span>\r\n        </td>\r\n        <td>\r\n          <button *ngIf=\"item.status == 'Pending'\" class=\"btn btn-outline-success\" (click)=\"changeStatus(item, 'Accept')\">Accept</button>\r\n          <button *ngIf=\"item.status == 'Accept'\" class=\"btn btn-outline-primary\" (click)=\"changeStatus(item, 'Picking')\">Picking</button>\r\n          <button *ngIf=\"item.status == 'Pending'|| item.status == 'Accept'\" class=\"btn btn-outline-danger\" (click)=\"changeStatus(item, 'Reject')\">Reject</button>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shipment/ShipmentAssigned/assigned.component.scss":
+/*!*******************************************************************!*\
+  !*** ./src/app/shipment/ShipmentAssigned/assigned.component.scss ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".list {\n  margin-top: 10px;\n  border: 0.5px solid #000205; }\n\n#head {\n  color: black;\n  border-left: 0.5px solid #000205;\n  background-color: #f2f2f2; }\n\nh1 {\n  text-align: center;\n  color: #0073e6; }\n\n.btn {\n  width: 80px;\n  margin-right: 5px;\n  border: 1.5px solid; }\n\n#picking {\n  color: #0073e6;\n  font-weight: 500; }\n\n#complete {\n  color: red;\n  font-weight: 500; }\n"
+
+/***/ }),
+
+/***/ "./src/app/shipment/ShipmentAssigned/assigned.component.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/shipment/ShipmentAssigned/assigned.component.ts ***!
+  \*****************************************************************/
+/*! exports provided: AssignedComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AssignedComponent", function() { return AssignedComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AssignedComponent = /** @class */ (function () {
+    function AssignedComponent(http, router) {
+        this.http = http;
+        this.router = router;
+        this.data = {};
+        this.paginators = [];
+    }
+    AssignedComponent.prototype.ngOnInit = function () {
+        this.LoadPage(1);
+    };
+    AssignedComponent.prototype.LoadPage = function (page) {
+        var _this = this;
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'ResponseType': 'Json'
+            })
+        };
+        this.http.get('http://localhost:60012/api/Driver/shipmentAssigned?id=54').subscribe(function (result) {
+            _this.data = result;
+            _this.shipmentAssigned = _this.data;
+            console.log(_this.shipmentAssigned);
+        });
+    };
+    AssignedComponent.prototype.goToShipmentDeatil = function (code) {
+        this.router.navigate(['./home/shipmentPicking', code]);
+    };
+    AssignedComponent.prototype.changeStatus = function (item, status) {
+        var _this = this;
+        var param = { 'code': item.code, 'status': status };
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'ResponseType': 'Json'
+            })
+        };
+        this.http.post('http://localhost:60012/api/Driver/shipmentfeedback', param, httpOptions).subscribe(function (result) {
+            if (status == 'Picking') {
+                item.status = status;
+                _this.goToShipmentDeatil(item.code);
+            }
+            else
+                item.status = status;
+        });
+    };
+    AssignedComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-assigned',
+            template: __webpack_require__(/*! ./assigned.component.html */ "./src/app/shipment/ShipmentAssigned/assigned.component.html"),
+            styles: [__webpack_require__(/*! ./assigned.component.scss */ "./src/app/shipment/ShipmentAssigned/assigned.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], AssignedComponent);
+    return AssignedComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment-picking/shipment-picking.component.html":
+/*!***************************************************************************!*\
+  !*** ./src/app/shipment/shipment-picking/shipment-picking.component.html ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-4\">\r\n    <div class=\"tille\">\r\n      <span id=\"header\">SHIPMENT</span>\r\n      <img src=\"../../assets/support.svg\" class=\"rounded-circle float-right\" id=\"support\" width=\"60\" height=\"60\" />\r\n    </div>\r\n\r\n      <div class=\"col-sm-12\">\r\n        <input type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{locationPicking.address}}>\r\n      </div>\r\n    \r\n    <div class=\"container detail\">\r\n      <table class=\"table table-hover\">\r\n        <tbody>\r\n          <tr>\r\n            <td>Shipment code</td>\r\n            <td>{{shipmentDetail.code}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Total Package</td>\r\n            <td>{{shipmentDetail.packageQuality}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Start date</td>\r\n            <td style=\"color:red\">{{shipmentDetail.startDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>End date</td>\r\n            <td>{{shipmentDetail.endDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Status</td>\r\n            <td>{{shipmentDetail.status}}</td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n\r\n    <div class=\"status\">\r\n      <button *ngIf=\"shipmentDetail.status == 'Picking'\" (click)=\"feedback(shipmentDetail, 'Loading')\" class=\"btn btn-success btn-block\" id=\"loading\">Start to load</button>\r\n      <button *ngIf=\"shipmentDetail.status == 'Loading'\" (click)=\"feedback(shipmentDetail, 'Shipping')\" class=\"btn btn-success btn-block\" id=\"shipping\">Complete loading</button>\r\n       <button *ngIf=\"shipmentDetail.status == 'Shipping'\" disabled class=\"btn btn-success btn-block\" id=\"complete\">Complete the shipment</button>\r\n\r\n    </div>\r\n\r\n    <div>\r\n      <div id=\"inf\">\r\n        <ul class=\"nav nav-tabs\">\r\n\r\n           <li class=\"nav-item\">\r\n            <a class=\"nav-link \" routerLink=\"./currentRequest\" routerLinkActive=\"hold\" id=\"detail\">Current request</a>\r\n          </li>\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link \" routerLink=\"./list\" routerLinkActive=\"hold\" id=\"listrequest\">List request</a>\r\n          </li>\r\n\r\n        </ul>\r\n        <div id=\"router\">\r\n          <router-outlet></router-outlet>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <app-ggmap></app-ggmap>\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment-picking/shipment-picking.component.scss":
+/*!***************************************************************************!*\
+  !*** ./src/app/shipment/shipment-picking/shipment-picking.component.scss ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".row {\n  margin-top: 5px;\n  margin-right: 2px; }\n\n.tille {\n  text-align: center; }\n\n#header {\n  font-size: 40px;\n  color: #0073e6; }\n\n.yourAddress {\n  border-bottom: 1px solid #0073e6;\n  background-image: url(\"/assets/placeholder.svg\");\n  background-repeat: no-repeat;\n  padding-left: 48px; }\n\n#completed {\n  margin-top: 10px; }\n\n#tracffic {\n  border: 10px; }\n\n#noti {\n  border: 3px; }\n\n#inf {\n  margin-top: 10px;\n  border: 1px solid #0073e6; }\n\n.nav {\n  border-bottom: 1px solid #0073e6;\n  color: black; }\n\n.nav-item a.hold {\n  background-color: #e6e6ff;\n  color: #0073e6;\n  font-weight: 500;\n  border-bottom: solid;\n  border-bottom-color: #0073e6; }\n\n/* Sidebar */\n\n#sidebar-container {\n  margin-top: 10px;\n  min-height: 460px;\n  padding: 0;\n  border-bottom-color: #0073e6;\n  font-weight: 500; }\n\n#support {\n  border: 2px solid #55E0DE;\n  background-color: #e6e6ff;\n  margin-top: 1px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment-picking/shipment-picking.component.ts":
+/*!*************************************************************************!*\
+  !*** ./src/app/shipment/shipment-picking/shipment-picking.component.ts ***!
+  \*************************************************************************/
+/*! exports provided: ShipmentPickingComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentPickingComponent", function() { return ShipmentPickingComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _shared_service_save_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/service/save.service */ "./src/app/shared/service/save.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ShipmentPickingComponent = /** @class */ (function () {
+    function ShipmentPickingComponent(http, route, router, save) {
+        this.http = http;
+        this.route = route;
+        this.router = router;
+        this.save = save;
+        this.data = {};
+        this.shipmentDetail = this.data;
+        this.firstRequest = this.data;
+        this.httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'ResponseType': 'Json'
+            })
+        };
+        this.locationPicking = {
+            address: '',
+            latitude: 0,
+            longitude: 0
+        };
+    }
+    ShipmentPickingComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.code = this.route.snapshot.paramMap.get('code');
+        this.save.saveCode(this.code);
+        this.http.get('http://localhost:60012/api/Driver/shipmentPicking?code=' + this.code, this.httpOptions).subscribe(function (result) {
+            _this.data = result;
+            _this.locationPicking = _this.data;
+        });
+        this.http.get('http://localhost:60012/api/Driver/shipment?code=' + this.code, this.httpOptions).subscribe(function (result) {
+            _this.data = result;
+            _this.shipmentDetail = _this.data;
+            _this.save.saveStatus(_this.shipmentDetail.status);
+            console.log(_this.shipmentDetail.status);
+        });
+        //this.http.get('http://localhost:60012/api/Driver/shipment/requestDetail?code=' + this.code, this.httpOptions).subscribe(result => {
+        //  this.data = result;
+        //  this.firstRequest = this.data;
+        //  console.log(this.firstRequest);
+        //});
+        // this.router.navigate([`./home/shipmentPicking/${this.code}/currentRequest`]);
+    };
+    ShipmentPickingComponent.prototype.feedback = function (item, status) {
+        var _this = this;
+        var param = { 'code': item.code, 'status': status };
+        var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                'Content-Type': 'application/json',
+                'ResponseType': 'Json'
+            })
+        };
+        this.http.post('http://localhost:60012/api/Driver/shipmentfeedback', param, httpOptions).subscribe(function (result) {
+            item.status = status;
+            _this.save.saveStatus(status);
+            if (status == 'Shipping')
+                if (status == "Completed")
+                    _this.router.navigate(['./home/assigned']);
+        });
+    };
+    ShipmentPickingComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-shipment-picking',
+            template: __webpack_require__(/*! ./shipment-picking.component.html */ "./src/app/shipment/shipment-picking/shipment-picking.component.html"),
+            styles: [__webpack_require__(/*! ./shipment-picking.component.scss */ "./src/app/shipment/shipment-picking/shipment-picking.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _shared_service_save_service__WEBPACK_IMPORTED_MODULE_3__["SaveService"]])
+    ], ShipmentPickingComponent);
+    return ShipmentPickingComponent;
 }());
 
 
@@ -1418,7 +1571,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\GoGo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\intern01\DEV\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

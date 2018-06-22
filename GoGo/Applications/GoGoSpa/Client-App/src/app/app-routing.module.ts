@@ -5,8 +5,12 @@ import { LoginComponent } from './modules/account/login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { GgmapComponent } from './ggmap/ggmap.component';
 import { HomeComponent } from './home/home.component';
-import { AssignedComponent } from './modules/shipment/ShipmentAssigned/assigned.component';
-import { ShipmentPickingComponent } from './modules/shipment/shipment-picking/shipment-picking.component';
+import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.component';
+import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
+import { RequestListComponent } from './request/request-list/request-list.component';
+import { RequestDetail } from './request/RequestDetail';
+import { RequestDetailComponent } from './request/request-detail/request-detail.component';
+import { CurrentRequestComponent } from './request/current-request/current-request.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,7 +19,12 @@ const routes: Routes = [
   {
     path: 'home', component: HomeComponent, children: [
       { path: 'assigned', component: AssignedComponent },
-      { path: 'shipmentPicking/:code', component: ShipmentPickingComponent }
+      {
+        path: 'shipmentPicking/:code', component: ShipmentPickingComponent, children: [
+          { path: 'currentRequest', component: CurrentRequestComponent },
+          { path: 'list', component: RequestListComponent }
+        ]
+      }
     ]
   }
 ];

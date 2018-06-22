@@ -37,11 +37,24 @@ namespace GoGoApi.Controllers.GoGo
         {
             return Ok(await _serviceRequest.GetRequestDetails(id));
         }
+        //[Route("changeStatus")]
+        //[HttpPost]
+        //public async Task<IActionResult> ChangeStatus(int? id, string status)
+        //{
+        //    return Ok(await _serviceRequest.ChangeStatus(id, status));
+        //}
         [Route("changeStatus")]
         [HttpPost]
-        public async Task<IActionResult> ChangeStatus(int? id, string status)
+        public async Task<IActionResult> changeStatus([FromBody]parameter p)
         {
-            return Ok(await _serviceRequest.ChangeStatus(id, status));
+            try
+            {
+                return Ok(Json(await _serviceShipmentRequest.ChangeStatusRequestAsync(p.code, p.status)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [Route("shipmentAssigned")]
         [HttpGet]
@@ -76,15 +89,28 @@ namespace GoGoApi.Controllers.GoGo
         }
         [Route("shipment/requestDetail")]
         [HttpGet]
-        public async Task<IActionResult> GetRequestDetail([FromBody]parameterCode code)
+        public IActionResult GetRequestDetail(string code)
         {
-            return Ok(await _serviceShipmentRequest.GetRequestDetailModelsAsync(code.ShipmentCode,code.RequestCode));
+            return Ok(_serviceShipmentRequest.GetRequestDetailModel(code));
         }
+
+
         [Route("shipment/requestList")]
         [HttpGet]
         public async Task<IActionResult> GetRequestList(string code)
         {
-            return Ok(await _serviceShipmentRequest.GetRequestListAsync(code));
+            IEnumerable<RequestDetailModel> list = await _serviceShipmentRequest.GetRequestListAsync(code);
+            foreach (var item in list)
+            {
+                item.Address = item.Address.Replace("Thanh pho", "TP. ");
+                item.Address = item.Address.Replace("Phường", "P.");
+                item.Address = item.Address.Replace("Quận", "Q.");
+                item.Address = item.Address.Replace("Thanh pho", "TP. ");
+                item.Address = item.Address.Replace("Vietnam", "VN");
+                item.Address = item.Address.Replace("Ho Chi Minh", "HCM");
+                item.Address = item.Address.Replace("Hồ Chí Minh", "HCM");
+            }
+            return Ok(list);
         }
     }
 }

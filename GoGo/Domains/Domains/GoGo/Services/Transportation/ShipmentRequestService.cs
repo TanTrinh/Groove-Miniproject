@@ -23,7 +23,12 @@ namespace Domains.GoGo.Services.Transportation
 			_mapper = mapper;
 		}
 
-		public async Task CreateShipmentRequestAsync(List<int> requestIdList, int shipmentId)
+        public async Task<string> ChangeStatusRequestAsync(string code, string status)
+        {
+            return await _repository.ChangeStatusRequestAsync(code, status);
+        }
+
+        public async Task CreateShipmentRequestAsync(List<int> requestIdList, int shipmentId)
 		{
 			int i = 1;
 			foreach (int requestId in requestIdList)
@@ -41,15 +46,15 @@ namespace Domains.GoGo.Services.Transportation
 
 			await _uow.SaveChangesAsync();
 		}
-
+        
         public Task<LocationModel> GetPositionPicking(string code)
         {
             return _repository.GetPositionPickingAsync(code);
         }
 
-        public async Task<RequestDetailModel> GetRequestDetailModelsAsync(string shipmentCode, string requestCode)
+        public RequestDetailModel GetRequestDetailModel(string code)
         {
-            return await _repository.GetRequestDetailModelsAsync(shipmentCode,requestCode);
+            return _repository.GetRequestDetailModel(code);
         }
 
         public async Task<IEnumerable<RequestDetailModel>> GetRequestListAsync(string code)

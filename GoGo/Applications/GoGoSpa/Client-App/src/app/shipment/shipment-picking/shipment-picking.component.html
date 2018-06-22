@@ -1,0 +1,69 @@
+
+<div class="row">
+
+  <div class="col-md-4">
+    <div class="tille">
+      <span id="header">SHIPMENT</span>
+      <img src="../../assets/support.svg" class="rounded-circle float-right" id="support" width="60" height="60" />
+    </div>
+
+      <div class="col-sm-12">
+        <input type="text" class="form-control-plaintext yourAddress" readonly value={{locationPicking.address}}>
+      </div>
+    
+    <div class="container detail">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <td>Shipment code</td>
+            <td>{{shipmentDetail.code}}</td>
+          </tr>
+          <tr>
+            <td>Total Package</td>
+            <td>{{shipmentDetail.packageQuality}}</td>
+          </tr>
+          <tr>
+            <td>Start date</td>
+            <td style="color:red">{{shipmentDetail.startDate | date:'short'}}</td>
+          </tr>
+          <tr>
+            <td>End date</td>
+            <td>{{shipmentDetail.endDate | date:'short'}}</td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td>{{shipmentDetail.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="status">
+      <button *ngIf="shipmentDetail.status == 'Picking'" (click)="feedback(shipmentDetail, 'Loading')" class="btn btn-success btn-block" id="loading">Start to load</button>
+      <button *ngIf="shipmentDetail.status == 'Loading'" (click)="feedback(shipmentDetail, 'Shipping')" class="btn btn-success btn-block" id="shipping">Complete loading</button>
+       <button *ngIf="shipmentDetail.status == 'Shipping'" disabled class="btn btn-success btn-block" id="complete">Complete the shipment</button>
+
+    </div>
+
+    <div>
+      <div id="inf">
+        <ul class="nav nav-tabs">
+
+           <li class="nav-item">
+            <a class="nav-link " routerLink="./currentRequest" routerLinkActive="hold" id="detail">Current request</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " routerLink="./list" routerLinkActive="hold" id="listrequest">List request</a>
+          </li>
+
+        </ul>
+        <div id="router">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <app-ggmap></app-ggmap>
+  </div>
+</div>

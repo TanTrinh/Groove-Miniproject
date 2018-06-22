@@ -1,0 +1,42 @@
+<div class="container detail">
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+        <td>Request code</td>
+        <td>{{currentRequest.code}}</td>
+      </tr>
+      <tr>
+        <td>Total Package</td>
+        <td>{{currentRequest.packageQuantity}}</td>
+      </tr>
+      <tr>
+        <td>Estimate date</td>
+        <td>{{currentRequest.estimateDate | date:'short'}}</td>
+      </tr>
+      <tr>
+        <td>Address</td>
+        <td>{{currentRequest.address}}</td>
+      </tr>
+      <tr>
+        <td>Receiver</td>
+        <td>{{currentRequest.receiverName}}</td>
+      </tr>
+      <tr>
+        <td>PhoneNumber</td>
+        <td>{{currentRequest.receiverPhoneNumber}}</td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>{{currentRequest.status}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <button *ngIf="statusShipment == 'Shipping'" class="btn btn-success btn-block" id="loading">Start to ship</button>
+    <button *ngIf="statusShipment != 'Shipping'" disabled class="btn btn-success btn-block" id="loading">Start to ship</button>
+    <!--<button *ngIf="shipmentDetail.status == 'Shipping'" class="btn btn-success btn-block" id="shipping">Start to ship</button>
+  <button *ngIf="shipmentDetail.status == 'Unloading'" class="btn btn-success btn-block" id="complete">Complete the shipment</button>
+  <button *ngIf="shipmentDetail.status == 'Complete'" class="btn btn-success btn-block" id="complete">Complete the shipment</button>-->
+  </div>
+</div>

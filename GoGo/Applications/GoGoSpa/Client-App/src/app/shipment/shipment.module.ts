@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AssignedComponent } from './ShipmentAssigned/assigned.component';
 import { ShipmentPickingComponent } from './shipment-picking/shipment-picking.component';
+import { AssignedComponent } from './ShipmentAssigned/assigned.component';
 @NgModule({
   imports: [
-    CommonModule
+
+    CommonModule,
   ],
   declarations: [
-    AssignedComponent,
-    ShipmentPickingComponent
+    
   ]
 })
 export class ShipmentModule { }

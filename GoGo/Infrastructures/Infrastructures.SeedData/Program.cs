@@ -101,6 +101,7 @@ namespace Infrastructures.SeedData
             string month = ConverIntToString(dateTime.Month);
             string hour = ConverIntToString(dateTime.Hour);
             string minute = ConverIntToString(dateTime.Minute);
+
             string code = day + month + dateTime.Year.ToString() + hour + minute + "GG" + id.ToString();
             return code;
         }

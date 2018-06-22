@@ -3,6 +3,7 @@ import { ShipmentAssigned } from './ShipmentAssigned';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpParamsOptions, HttpParams } from '@angular/common/http/src/params';
+import { SaveService } from '../../shared/service/save.service';
 @Component({
   selector: 'app-assigned',
   templateUrl: './assigned.component.html',
@@ -16,7 +17,10 @@ export class AssignedComponent implements OnInit {
 
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) { }
 
   paginators = [];
   ngOnInit() {
@@ -29,15 +33,14 @@ export class AssignedComponent implements OnInit {
         'ResponseType': 'Json'
       })
     };
-    this.http.get('http://localhost:58976/api/Driver/shipmentAssigned?id=54').subscribe(result => {
-      //this.paginators = [];
+    this.http.get('http://localhost:60012/api/Driver/shipmentAssigned?id=54').subscribe(result => {
       this.data = result;
       this.shipmentAssigned = this.data;
       console.log(this.shipmentAssigned);
     });
   }
   goToShipmentDeatil(code) {
-    this.router.navigate(['./home/shipmentPicking',code]);
+    this.router.navigate(['./home/shipmentPicking', code]);
   }
   changeStatus(item: ShipmentAssigned, status) {
     var param = { 'code': item.code, 'status': status }
@@ -47,7 +50,7 @@ export class AssignedComponent implements OnInit {
         'ResponseType': 'Json'
       })
     };
-    this.http.post('http://localhost:58976/api/Driver/shipmentfeedback', param, httpOptions).subscribe(result => {
+    this.http.post('http://localhost:60012/api/Driver/shipmentfeedback', param, httpOptions).subscribe(result => {
       if (status == 'Picking') {
         item.status = status;
         this.goToShipmentDeatil(item.code)

@@ -17,9 +17,16 @@ import { AgmDirectionModule } from 'agm-direction';
 import { LoginComponent } from './modules/account/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
-import { ShipmentPickingComponent } from './modules/shipment/shipment-picking/shipment-picking.component';
-import { ShipmentModule } from './modules/shipment/shipment.module';
-import { RequestModule } from './modules/request/request.module';
+import { ShipmentModule } from './shipment/shipment.module';
+import { RequestModule } from './request/request.module';
+import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.component';
+import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
+import { RequestListComponent } from './request/request-list/request-list.component';
+import { RequestDetailComponent } from './request/request-detail/request-detail.component';
+import { SaveService } from './shared/service/save.service';
+import { CurrentRequestComponent } from './request/current-request/current-request.component';
+
+
 
 @NgModule({
   declarations: [
@@ -32,7 +39,11 @@ import { RequestModule } from './modules/request/request.module';
     NavigationComponent,
     GgmapComponent,
     LoginComponent,
+    AssignedComponent,
     ShipmentPickingComponent,
+    RequestListComponent,
+    RequestDetailComponent,
+    CurrentRequestComponent
   ],
   imports: [
     BrowserModule,
@@ -42,13 +53,11 @@ import { RequestModule } from './modules/request/request.module';
       apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
     }),
     AgmDirectionModule,
-    HttpClientModule,
-    ShipmentModule,
-    RequestModule
+    HttpClientModule
   ],
   providers: [
     NotificationService,
-
+    SaveService
   ],
   bootstrap: [AppComponent]
 })
