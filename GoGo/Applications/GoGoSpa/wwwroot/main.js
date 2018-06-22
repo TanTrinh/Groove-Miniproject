@@ -41,6 +41,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
 /* harmony import */ var _modules_identity_user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/identity/user/user-list/user-list.component */ "./src/app/modules/identity/user/user-list/user-list.component.ts");
 /* harmony import */ var _modules_identity_user_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/identity/user/user-profile/user-profile.component */ "./src/app/modules/identity/user/user-profile/user-profile.component.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -52,6 +53,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 //import { GgmapComponent } from './ggmap/ggmap.component';
+
 
 
 
@@ -73,7 +75,7 @@ var AppRoutingModule = /** @class */ (function () {
     }
     AppRoutingModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes), _angular_forms__WEBPACK_IMPORTED_MODULE_8__["FormsModule"]],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]],
             declarations: []
         })
@@ -348,7 +350,7 @@ var HomeComponent = /** @class */ (function () {
         this.route = route;
     }
     HomeComponent.prototype.ngOnInit = function () {
-        this.route.navigate(['./home/assigned']);
+        this.route.navigate(['./home/account']);
     };
     HomeComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -768,7 +770,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>List account</h1>\r\n<div class=\"list\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>ID</th>\r\n        <th>User Name</th>\r\n        <th>Email</th>\r\n        <th>Phone Number</th>\r\n        <th>Status</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let user of userList\">\r\n        <td>{{user.id}}</td>\r\n        <td>{{user.userName}}</td>\r\n        <td>{{user.email}}</td>\r\n        <td>{{user.phoneNumber}}</td>\r\n        <td>{{user.status}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
+module.exports = "<h1>List account</h1>\r\n<!--<button class=\"btn btn-primary\" (click)=\"loadList(1)\">Customer</button>\r\n<button class=\"btn btn-primary\" (click)=\"loadList(2)\">Driver</button>\r\n<button class=\"btn btn-primary\" (click)=\"loadList(3)\">Coordinator</button>\r\n<button class=\"btn btn-primary\" (click)=\"loadList(4)\">Administrator</button>-->\r\n<div>\r\n  <select class=\"float-right\" [(ngModel)]=\"selectOption\" (ngModelChange)=\"loadList()\">\r\n    <option value=\"Customer\">Customer</option>\r\n    <option value=\"Driver\">Driver</option>\r\n    <option value=\"Coordinator\">Coordinator</option>\r\n    <option value=\"Administrator\">Administrator</option>\r\n  </select>\r\n</div>\r\n<div class=\"list clear\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>ID</th>\r\n        <th>User Name</th>\r\n        <th>Email</th>\r\n        <th>Phone Number</th>\r\n        <th>Status</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let user of userList\">\r\n        <td>{{user.id}}</td>\r\n        <td>{{user.userName}}</td>\r\n        <td>{{user.email}}</td>\r\n        <td>{{user.phoneNumber}}</td>\r\n        <td>{{user.status}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -779,7 +781,7 @@ module.exports = "<h1>List account</h1>\r\n<div class=\"list\">\r\n  <table clas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".list {\n  margin-top: 10px;\n  border: 0.5px solid #000205; }\n\n#head {\n  color: black;\n  background-color: #f2f2f2; }\n\nh1 {\n  text-align: center;\n  color: #0073e6; }\n\n.btn {\n  margin-left: 5px; }\n"
+module.exports = ".list {\n  margin-top: 10px;\n  border: 0.5px solid #000205; }\n\n#head {\n  color: black;\n  background-color: #f2f2f2; }\n\nh1 {\n  text-align: center;\n  color: #0073e6; }\n\n#mySelect {\n  margin-left: 1025px; }\n\n.btn {\n  margin-left: 5px; }\n"
 
 /***/ }),
 
@@ -813,14 +815,48 @@ var UserListComponent = /** @class */ (function () {
         this.http = http;
         this.router = router;
         this.data = {};
+        this.selectOption = "";
         this.paginators = [];
     }
     UserListComponent.prototype.ngOnInit = function () {
+        this.loadList();
+    };
+    UserListComponent.prototype.loadList = function () {
         var _this = this;
-        this.http.get('http://localhost:62772/api/user/account').subscribe(function (result) {
-            _this.data = result;
-            _this.userList = _this.data;
-        });
+        //var selectOption = $('#mySelect').val();
+        console.log(this.selectOption);
+        if (this.selectOption == 'Customer') {
+            this.id = 1;
+            this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id).subscribe(function (result) {
+                _this.data = result;
+                _this.userList = _this.data;
+            });
+        }
+        else if (this.selectOption == 'Driver') {
+            this.id = 2;
+            this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id).subscribe(function (result) {
+                _this.data = result;
+                _this.userList = _this.data;
+            });
+        }
+        else if (this.selectOption == 'Coordinator') {
+            this.id = 3;
+            this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id).subscribe(function (result) {
+                _this.data = result;
+                _this.userList = _this.data;
+            });
+        }
+        else {
+            this.id = 4;
+            this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id).subscribe(function (result) {
+                _this.data = result;
+                _this.userList = _this.data;
+            });
+        }
+        //this.http.get('http://localhost:62772/api/user/userroles?id=' + id).subscribe(result => {
+        //  this.data = result;
+        //  this.userList = this.data;
+        //});
     };
     UserListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -844,7 +880,7 @@ var UserListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  user-profile works!\n</p>\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Profile</h1>\r\n  </div>\r\n  <div class=\"container pt-2\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3 col-lg-3 \" align=\"center\">\r\n        <img alt=\"User Pic\" src=\"https://image.flaticon.com/icons/svg/3/3641.svg\" class=\"img-circle\">\r\n\r\n        <div class=\"d-flex justify-content-center pt-3\">\r\n          <input style=\"display: none\"\r\n                 type=\"file\" (change)=\"onFileChanged($event)\"\r\n                 #fileInput>\r\n          <button class=\"btn btn-primary\" (click)=\"fileInput.click()\" id=\"AUpload\">Upload your photo</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-9 col-lg-9\">\r\n        <table class=\"table\">\r\n          <tbody>\r\n            <tr>\r\n              <th>Full name:</th>\r\n              <td>{{userProfile.userName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Date of birth:</th>\r\n              <td>06/09/1996</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Email:</th>\r\n              <td>{{userProfile.email}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Phone number:</th>\r\n              <td>{{userProfile.phoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Address:</th>\r\n              <td>132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Join date:</th>\r\n              <td>{{userProfile.createdDate | date:'medium'}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n        <div class=\"row justify-content-center\">\r\n          <!--<a href=\"#\" class=\"btn btn-primary btn-space\">Edit User</a>-->\r\n          <button class=\"btn btn-primary\" routerLink=\"/profile/edit\">Edit</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#ChangePWDModal\">Change Password</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#DeactivateModal\">Deactivate</button>&nbsp;\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n<!--Deactivate Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <p>Please fill your password to comfirm.</p>\r\n          <input class=\"form-control\" type=\"password\" id=\"Password\" name=\"Password\" placeholder=\"Password\" />\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#DeactivateMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Deactivate Message Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateMessageLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-danger\">You have 7 days remain before your account being deactivate!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"ChangePWDModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <div class=\"form-group\">\r\n            <label for=\"CurrentPassword\">Current Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"CurrentPassword\" id=\"CurrentPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"NewPassword\">New Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"NewPassword\" id=\"NewPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"RePassword\">Re-Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"RePassword\" id=\"RePassword\">\r\n          </div>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#ChangePWDMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Message Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title \" id=\"ChangePWDMessageLabel\">Password changed!</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-success\">Your password has been changed successfully!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -886,6 +922,7 @@ var UserProfileComponent = /** @class */ (function () {
     function UserProfileComponent(http) {
         this.http = http;
         this.data = {};
+        this.userProfile = this.data;
         this.lStorage = localStorage.length;
     }
     UserProfileComponent.prototype.ngOnInit = function () {
@@ -902,7 +939,6 @@ var UserProfileComponent = /** @class */ (function () {
             this.http.get('http://localhost:62772/api/user/get', httpOptions).subscribe(function (result) {
                 _this.data = result;
                 _this.userProfile = _this.data;
-                console.log(_this.userProfile);
             });
         }
     };
@@ -935,6 +971,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _user_list_user_list_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user-list/user-list.component */ "./src/app/modules/identity/user/user-list/user-list.component.ts");
 /* harmony import */ var _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user-profile/user-profile.component */ "./src/app/modules/identity/user/user-profile/user-profile.component.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -945,13 +982,15 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var UserModule = /** @class */ (function () {
     function UserModule() {
     }
     UserModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"]
             ],
             declarations: [_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_2__["UserListComponent"], _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__["UserProfileComponent"]]
         })

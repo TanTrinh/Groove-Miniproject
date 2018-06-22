@@ -42,9 +42,21 @@ namespace Infrastructures.Repositories.Identity
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<UserReadModel>(_mapper).FirstAsync();
         }
 
-        public async Task<IEnumerable<UserListModel>> GetUserListAsync()
+        public async Task<IEnumerable<UserListModel>> GetUserListAsync(long? id)
         {
-            return await _userManager.Users.MapQueryTo<UserListModel>(_mapper).ToListAsync();
+            // Get all user ID in table userroles
+            var userIds = _dbContext.UserRoles
+                            .Where(a => a.RoleId == id)
+                            .ToList();
+
+            // Find all users with specific role
+            return await _dbContext.Users
+                            .Where(a => userIds.Any(c => c.UserId == a.Id))
+                            .MapQueryTo<UserListModel>(_mapper)
+                            .ToListAsync();
+
+            // Get all users use below code
+            //return await _userManager.Users.MapQueryTo<UserListModel>(_mapper).ToListAsync();
         }
 
         

@@ -3,4 +3,5 @@ export class UserProfile {
   userName: string;
   email: string;
   phoneNumber: string;
+  createdDate: Date;
 }

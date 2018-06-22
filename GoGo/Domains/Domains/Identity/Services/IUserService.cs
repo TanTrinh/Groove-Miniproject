@@ -9,7 +9,7 @@ namespace Domains.Identity.Services
 {
     public interface IUserService
     {
-        Task<IEnumerable<UserListModel>> GetUsersAsync();
+        Task<IEnumerable<UserListModel>> GetUsersAsync(long? id);
         Task<UserReadModel> GetUserProfileAsync(long id);
     }
 }

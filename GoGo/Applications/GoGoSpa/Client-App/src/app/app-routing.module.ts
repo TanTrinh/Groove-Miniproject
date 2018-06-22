@@ -8,7 +8,7 @@ import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.componen
 import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './modules/identity/user/user-list/user-list.component';
 import { UserProfileComponent } from './modules/identity/user/user-profile/user-profile.component';
-
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -24,7 +24,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), FormsModule],
   exports: [RouterModule],
   declarations: []
 })

@@ -9,7 +9,7 @@ import { UserProfile } from './UserProfile';
 })
 export class UserProfileComponent implements OnInit {
   data: any = {};
-  userProfile: UserProfile;
+  public userProfile: UserProfile = this.data;
   public lStorage = localStorage.length;
 
   constructor(
@@ -30,7 +30,6 @@ export class UserProfileComponent implements OnInit {
       this.http.get('http://localhost:62772/api/user/get', httpOptions).subscribe(result => {
         this.data = result;
         this.userProfile = this.data;
-        console.log(this.userProfile);
       });
     }
     

@@ -11,7 +11,7 @@ namespace Domains.Identity.Repositories
 	public interface IUserRepository : IGenericRepository<User,long>
 	{
 		Task<User> FindByUserNameAsync(string userName);
-        Task<IEnumerable<UserListModel>> GetUserListAsync();
+        Task<IEnumerable<UserListModel>> GetUserListAsync(long? id);
         Task<UserReadModel> FindByUserIdAsync(long id);
 	}
 }

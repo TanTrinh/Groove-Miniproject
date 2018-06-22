@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domains.Identity.Services;
 using Groove.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.Identities
@@ -17,11 +18,11 @@ namespace GoGoApi.Controllers.Identities
             _userService = userService;
         }
 
-        [Route("account")]
+        [Route("userroles")]
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers(long? id)
         {
-            return Ok(await _userService.GetUsersAsync());
+            return Ok(await _userService.GetUsersAsync(id));
         }
 
         //[Route("")]
@@ -56,7 +57,7 @@ namespace GoGoApi.Controllers.Identities
 
         [Route("get")]
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetUser()
         {
             //var result = await _userService.GetUserProfileAsync(GetCurrentUserId<long>());

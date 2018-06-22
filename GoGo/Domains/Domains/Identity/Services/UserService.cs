@@ -31,9 +31,9 @@ namespace Domains.Identity.Services
             return _userRepository.FindByUserIdAsync(id);
         }
 
-        public Task<IEnumerable<UserListModel>> GetUsersAsync()
+        public Task<IEnumerable<UserListModel>> GetUsersAsync(long? id)
         {
-            return _userRepository.GetUserListAsync();
+            return _userRepository.GetUserListAsync(id);
         }
     }
 }
