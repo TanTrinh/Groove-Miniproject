@@ -11,6 +11,8 @@ using AutoMapper;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Domains.GoGo.Models.Transportation;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -23,14 +25,14 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             _mapper = mapper;
         }
 
-		public IEnumerable<WaitingRequestModel> GetWaitingRequestAsync(int pageNumber, int pageSize)
+		public IEnumerable<RequestModel> GetWaitingRequestAsync(int pageNumber, int pageSize)
 		{
 			return this.dbSet.Include(p => p.WareHouse)
 							.Where(p => p.WareHouse.Id == p.WareHouseId)
 							.Where(p => p.Status == "Pending")
 							.Skip(pageSize * (pageNumber - 1))
 							.Take(pageSize)
-							.MapQueryTo<WaitingRequestModel>(_mapper)
+							.MapQueryTo<RequestModel>(_mapper)
 							.ToList();
 	}
 
@@ -48,5 +50,10 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             throw new NotImplementedException();
         }
-    }
+
+		public DataSourceResult GetAllAsync([DataSourceRequest] DataSourceRequest request)
+		{
+			return this.dbSet.MapQueryTo<RequestModel>(_mapper).ToDataSourceResult(request);
+		}
+	}
 }

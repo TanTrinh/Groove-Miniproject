@@ -1,5 +1,6 @@
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,8 @@ namespace Domains.GoGo.Repositories.Transportation
 {
     public interface IRequestRepository
     {
-		IEnumerable<WaitingRequestModel> GetWaitingRequestAsync(int pageNumber, int pageSize);
+		IEnumerable<RequestModel> GetWaitingRequestAsync(int pageNumber, int pageSize);
+		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
 		int GetWaitingRequestQuantity();
 
 		Task<RequestDetailModel> GetRequestDetailAsync(int? id);

@@ -1,3 +1,6 @@
+
+@import "~@progress/kendo-theme-default/scss/panelbar";
+@import "~@progress/kendo-theme-default/scss/grid";
 $sidebar-color: #e6e6ff;
 $main-color: #0073e6;
 $btn-thead-color: #3399ff;
@@ -18,7 +21,7 @@ h1 {
   color: darkslategrey;
 }
 
-thead {
+thead .a{
   background-color: #3399ff;
   color: white;
 }

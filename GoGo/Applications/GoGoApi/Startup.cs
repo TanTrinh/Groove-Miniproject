@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
 
 namespace GoGoApi
 {
@@ -48,8 +49,16 @@ namespace GoGoApi
 			services.AddCors();
             services.AddAutoMapper(typeof(Domains.AssemplyMarker));
 
-            // Add UoW 
-            services.AddUnitOfWork<ApplicationDbContext>();
+			services.AddMvc()
+					.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+			services.AddKendo();
+
+			// Add Kendo UI services to the services container
+			services.AddKendo();
+
+			// Add UoW 
+			services.AddUnitOfWork<ApplicationDbContext>();
 
             // Add Identity
             services.AddIdentity<User, Role>()
@@ -112,7 +121,10 @@ namespace GoGoApi
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseMvc();
+#pragma warning disable CS0618 // Type or member is obsolete
+			app.UseKendo(env);
+#pragma warning restore CS0618 // Type or member is obsolete
+			app.UseMvc();
         }
     }
 }

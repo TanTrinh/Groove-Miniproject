@@ -4,21 +4,20 @@ import { RequestService } from '../../request/request-service.service';
 import { Router } from '@angular/router';
 import { Http, Request } from '@angular/http';
 import { PagerService } from '../../shared/sevices/pager-service.service';
+import { Observable } from 'rxjs-compat/Observable';
+import { ShipmentService } from '../shipment.service';
 
 @Component({
   selector: 'app-shipment-creating',
   templateUrl: './shipment-creating.component.html',
   styleUrls: ['./shipment-creating.component.scss']
 })
-export class ShipmentCreatingComponent implements OnInit {
+export class ShipmentCreatingComponent{
+  private view: Observable<any>;
 
-  constructor(private sharingService: SharingService, private requestService: RequestService, private router: Router, private http: Http, private pagerService: PagerService) { }
-
-  private requestIdList = this.sharingService.fetch();
-
-  ngOnInit() {
-    console.log(this.requestIdList);
+  constructor(private service: ShipmentService) {
+      this.view = service;
+      this.service.query();
   }
-
 
 }

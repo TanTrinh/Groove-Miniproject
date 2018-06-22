@@ -8,13 +8,20 @@ import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.componen
 import { HomeComponent } from './home/home.component';
 import { RequestListComponent } from './request/request-list/request-list.component';
 import { ShipmentCreatingComponent } from './shipment/shipment-creating/shipment-creating.component';
+import { ShipmentComponent } from './shipment/shipment/shipment.component';
+import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.component';
 
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: '', component: LayoutComponent, children: [
       { path: 'request', component: RequestListComponent },
-      { path: 'shipment', component: ShipmentCreatingComponent },
+      {
+        path: 'shipment', component: ShipmentComponent, children: [
+          { path: 'create', component: ShipmentCreatingComponent },
+          { path: '', component: ShipmentListComponent }
+        ]
+      },
      ]},
     {
       path: 'home', component: HomeComponent, children: [

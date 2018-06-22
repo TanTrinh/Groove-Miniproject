@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -46,5 +48,10 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             this.context.Update(shipment);
             return await this.context.SaveChangesAsync();
         }
-    }
+
+		public DataSourceResult GetAllAsync(DataSourceRequest request)
+		{
+			return this.dbSet.ToDataSourceResult(request);
+		}
+	}
 }

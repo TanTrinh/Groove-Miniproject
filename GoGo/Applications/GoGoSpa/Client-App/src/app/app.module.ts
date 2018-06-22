@@ -13,9 +13,9 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
 import { GgmapComponent } from './ggmap/ggmap.component';
 import { AgmCoreModule, AgmDataLayer } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
-
+import { GridModule } from '@progress/kendo-angular-grid';
 import { LoginComponent } from './modules/account/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ShipmentModule } from './shipment/shipment.module';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
 import { ConfigService } from './shared/sevices/config-service.service';
@@ -25,6 +25,16 @@ import { SharedModule } from './shared/shared.module';
 import { RequestListComponent } from './request/request-list/request-list.component';
 import { Request, HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
+// Import the Animations module
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Import the ButtonsModule
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { ShipmentCreatingComponent } from './shipment/shipment-creating/shipment-creating.component';
+import { ShipmentComponent } from './shipment/shipment/shipment.component';
+import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.component';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +47,10 @@ import { CommonModule } from '@angular/common';
     GgmapComponent,
     LoginComponent,
     RequestListComponent,
+    ShipmentCreatingComponent,
+    ShipmentComponent,
+    ShipmentListComponent,
+   
  
   ],
   imports: [
@@ -49,7 +63,12 @@ import { CommonModule } from '@angular/common';
     ShipmentModule,
     CommonModule,
     HttpModule,
- 
+    GridModule,
+    BrowserAnimationsModule,
+    ButtonsModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
+    DropDownsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
     }),

@@ -1,5 +1,7 @@
 using Domains.GoGo.Models.Transportation;
 using Domains.Helpers;
+using Kendo.Mvc.UI;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Domains.GoGo.Services
@@ -9,7 +11,10 @@ namespace Domains.GoGo.Services
 		Task<RequestDetailModel> GetRequestDetails(int? id);
 
         Task<string> ChangeStatus(int? id, string status);
-		PagedData<WaitingRequestModel> GetWaitingRequest(int pageNumber);
+
+
+		PagedData<RequestModel> GetWaitingRequest(int pageNumber);
+		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
 
 		//int? assignedTo = null
 	}

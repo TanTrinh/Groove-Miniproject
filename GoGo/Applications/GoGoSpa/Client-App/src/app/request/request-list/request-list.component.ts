@@ -5,55 +5,33 @@ import { RequestService } from '../request-service.service';
 import { PagerService } from '../../shared/sevices/pager-service.service';
 import { map } from 'rxjs/internal/operators/map';
 import { SharingService } from '../../shared/sevices/sharing-service.service';
+import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { translateDataSourceResultGroups, toDataSourceRequestString, DataSourceRequestState, DataResult } from '@progress/kendo-data-query';
+import { Observable } from 'rxjs-compat/Observable';
 
 @Component({
   selector: 'app-request-list',
   templateUrl: './request-list.component.html',
   styleUrls: ['./request-list.component.scss']
 })
-export class RequestListComponent implements OnInit {
+export class RequestListComponent {
 
-  constructor(private requestService: RequestService, private router: Router, private http: Http, private pagerService: PagerService, private sharingService: SharingService) { }
+  public requests: GridDataResult;
 
-  // pager object
-  pager: any = {};
+  public state: DataSourceRequestState = {
+    skip: 0,
+    take: 5
+  };
 
-  // paged items
-  pagedItems: any[];
-
-  requestIdList: any[] = new Array();
-
-  ngOnInit() {
-    this.setPage(1);
-  }
-
-  setPage(page) {
-
-    this.requestService.getWaitingRequestList(page).pipe(map(response => response.json())).subscribe(jsonObject => {
-      // get current page of items
-      this.pagedItems = jsonObject.data;
-
-      // get pager object from service
-      this.pager = this.pagerService.getPager(jsonObject.totalPages, page);
-    });
-  }
-
-  addRequestToShipment(i) {
-    this.requestIdList.push(this.pagedItems[i].code);
-  }
-
-  removeRequestFromShipment(i) {
-    const index: number = this.requestIdList.indexOf(this.pagedItems[i].code);
-
-    if (index !== -1) {
-      this.requestIdList.splice(index, 1);
-    }       
-  }
-
-  onCreateShipment()
+  constructor(private requestService: RequestService, private router: Router,)
   {
-    this.sharingService.save(this.requestIdList);
-    this.router.navigate(['/shipment']);
+    this.requestService.fetch(this.state).subscribe(response => this.requests = response);
+
   }
-  
+
+  public dataStateChange(state: DataStateChangeEvent): void {
+    this.state = state;
+    this.requestService.fetch(state)
+      .subscribe(response => this.requests = response);
+  }
 }

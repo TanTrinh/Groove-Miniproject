@@ -9,6 +9,7 @@ using Domains.GoGo.Repositories.Transportation;
 using Domains.Helpers;
 using Groove.AspNetCore.Common.Identity;
 using Groove.AspNetCore.UnitOfWork;
+using Kendo.Mvc.UI;
 
 namespace Domains.GoGo.Services.Transportation
 {
@@ -46,7 +47,12 @@ namespace Domains.GoGo.Services.Transportation
 			return entity.Id;
 		}
 
-        public Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
+		public DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request)
+		{
+			return _repository.GetAllAsync(request);
+		}
+
+		public Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
         {
             return _repository.GetShipmentAssignedModel(id);
         }

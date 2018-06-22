@@ -41,6 +41,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home_home_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./home/home.component */ "./src/app/home/home.component.ts");
 /* harmony import */ var _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./request/request-list/request-list.component */ "./src/app/request/request-list/request-list.component.ts");
 /* harmony import */ var _shipment_shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shipment/shipment-creating/shipment-creating.component */ "./src/app/shipment/shipment-creating/shipment-creating.component.ts");
+/* harmony import */ var _shipment_shipment_shipment_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./shipment/shipment/shipment.component */ "./src/app/shipment/shipment/shipment.component.ts");
+/* harmony import */ var _shipment_shipment_list_shipment_list_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./shipment/shipment-list/shipment-list.component */ "./src/app/shipment/shipment-list/shipment-list.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -55,11 +57,18 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var routes = [
     { path: 'login', component: _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
     { path: '', component: _layout_layout_component__WEBPACK_IMPORTED_MODULE_3__["LayoutComponent"], children: [
             { path: 'request', component: _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_6__["RequestListComponent"] },
-            { path: 'shipment', component: _shipment_shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_7__["ShipmentCreatingComponent"] },
+            {
+                path: 'shipment', component: _shipment_shipment_shipment_component__WEBPACK_IMPORTED_MODULE_8__["ShipmentComponent"], children: [
+                    { path: 'create', component: _shipment_shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_7__["ShipmentCreatingComponent"] },
+                    { path: '', component: _shipment_shipment_list_shipment_list_component__WEBPACK_IMPORTED_MODULE_9__["ShipmentListComponent"] }
+                ]
+            },
         ] },
     {
         path: 'home', component: _home_home_component__WEBPACK_IMPORTED_MODULE_5__["HomeComponent"], children: [
@@ -167,17 +176,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _agm_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @agm/core */ "./node_modules/@agm/core/index.js");
 /* harmony import */ var agm_direction__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! agm-direction */ "./node_modules/agm-direction/agm-direction.umd.js");
 /* harmony import */ var agm_direction__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(agm_direction__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./modules/account/login/login.component */ "./src/app/modules/account/login/login.component.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _shipment_shipment_module__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./shipment/shipment.module */ "./src/app/shipment/shipment.module.ts");
-/* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
-/* harmony import */ var _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./shared/sevices/config-service.service */ "./src/app/shared/sevices/config-service.service.ts");
-/* harmony import */ var _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/sevices/pager-service.service */ "./src/app/shared/sevices/pager-service.service.ts");
-/* harmony import */ var _request_request_service_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./request/request-service.service */ "./src/app/request/request-service.service.ts");
-/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./shared/shared.module */ "./src/app/shared/shared.module.ts");
-/* harmony import */ var _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./request/request-list/request-list.component */ "./src/app/request/request-list/request-list.component.ts");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _progress_kendo_angular_grid__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @progress/kendo-angular-grid */ "./node_modules/@progress/kendo-angular-grid/dist/es/index.js");
+/* harmony import */ var _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./modules/account/login/login.component */ "./src/app/modules/account/login/login.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _shipment_shipment_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./shipment/shipment.module */ "./src/app/shipment/shipment.module.ts");
+/* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
+/* harmony import */ var _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/sevices/config-service.service */ "./src/app/shared/sevices/config-service.service.ts");
+/* harmony import */ var _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./shared/sevices/pager-service.service */ "./src/app/shared/sevices/pager-service.service.ts");
+/* harmony import */ var _request_request_service_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./request/request-service.service */ "./src/app/request/request-service.service.ts");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./request/request-list/request-list.component */ "./src/app/request/request-list/request-list.component.ts");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _progress_kendo_angular_buttons__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @progress/kendo-angular-buttons */ "./node_modules/@progress/kendo-angular-buttons/dist/es/index.js");
+/* harmony import */ var _shipment_shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./shipment/shipment-creating/shipment-creating.component */ "./src/app/shipment/shipment-creating/shipment-creating.component.ts");
+/* harmony import */ var _shipment_shipment_shipment_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./shipment/shipment/shipment.component */ "./src/app/shipment/shipment/shipment.component.ts");
+/* harmony import */ var _shipment_shipment_list_shipment_list_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./shipment/shipment-list/shipment-list.component */ "./src/app/shipment/shipment-list/shipment-list.component.ts");
+/* harmony import */ var _progress_kendo_angular_dropdowns__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @progress/kendo-angular-dropdowns */ "./node_modules/@progress/kendo-angular-dropdowns/dist/es/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -209,6 +225,15 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+// Import the Animations module
+
+// Import the ButtonsModule
+
+
+
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -223,25 +248,34 @@ var AppModule = /** @class */ (function () {
                 _layout_footer_footer_component__WEBPACK_IMPORTED_MODULE_9__["FooterComponent"],
                 _layout_navigation_navigation_component__WEBPACK_IMPORTED_MODULE_10__["NavigationComponent"],
                 _ggmap_ggmap_component__WEBPACK_IMPORTED_MODULE_11__["GgmapComponent"],
-                _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_14__["LoginComponent"],
-                _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_22__["RequestListComponent"],
+                _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_15__["LoginComponent"],
+                _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_23__["RequestListComponent"],
+                _shipment_shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_28__["ShipmentCreatingComponent"],
+                _shipment_shipment_shipment_component__WEBPACK_IMPORTED_MODULE_29__["ShipmentComponent"],
+                _shipment_shipment_list_shipment_list_component__WEBPACK_IMPORTED_MODULE_30__["ShipmentListComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
-                _shared_shared_module__WEBPACK_IMPORTED_MODULE_21__["SharedModule"],
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_22__["SharedModule"],
                 agm_direction__WEBPACK_IMPORTED_MODULE_13__["AgmDirectionModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_15__["HttpClientModule"],
-                _shipment_shipment_module__WEBPACK_IMPORTED_MODULE_16__["ShipmentModule"],
-                _angular_common__WEBPACK_IMPORTED_MODULE_24__["CommonModule"],
-                _angular_http__WEBPACK_IMPORTED_MODULE_23__["HttpModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientModule"],
+                _shipment_shipment_module__WEBPACK_IMPORTED_MODULE_17__["ShipmentModule"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_25__["CommonModule"],
+                _angular_http__WEBPACK_IMPORTED_MODULE_24__["HttpModule"],
+                _progress_kendo_angular_grid__WEBPACK_IMPORTED_MODULE_14__["GridModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_26__["BrowserAnimationsModule"],
+                _progress_kendo_angular_buttons__WEBPACK_IMPORTED_MODULE_27__["ButtonsModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientJsonpModule"],
+                _progress_kendo_angular_dropdowns__WEBPACK_IMPORTED_MODULE_31__["DropDownsModule"],
                 _agm_core__WEBPACK_IMPORTED_MODULE_12__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
                 }),
             ],
             providers: [
-                src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_17__["NotificationService"], _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_18__["ConfigService"], _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_19__["PagerService"], _request_request_service_service__WEBPACK_IMPORTED_MODULE_20__["RequestService"]
+                src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_18__["NotificationService"], _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_19__["ConfigService"], _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_20__["PagerService"], _request_request_service_service__WEBPACK_IMPORTED_MODULE_21__["RequestService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
         })
@@ -704,7 +738,7 @@ var HeaderComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid clearfix\">\r\n  <app-header></app-header>\r\n  <div class=\"row\" id=\"body-row\">\r\n    <app-navigation></app-navigation>\r\n    <main class=\"main-section col\">\r\n      <!--BODY BEGIN-->\r\n      <router-outlet></router-outlet>\r\n\r\n      <!--BODY END-->\r\n\r\n    </main>\r\n  </div>\r\n  <app-footer></app-footer>\r\n</div>\r\n"
+module.exports = "<div class=\"container-fluid clearfix\">\r\n  <app-header></app-header>\r\n  <div class=\"row\" id=\"body-row\">\r\n    <app-navigation></app-navigation>\r\n    <main class=\"main-section col\">\r\n      <!--BODY BEGIN-->\r\n      <router-outlet></router-outlet>\r\n\r\n      <!--BODY END-->\r\n\r\n    </main>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -965,7 +999,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Request Management</h1>\r\n  </div>\r\n  <div class=\"py-3\">\r\n    <button class=\"btn btn-success\" (click)=\"onCreateShipment()\">Create Shipment</button>\r\n  </div>\r\n  <table class=\"table table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th>Code</th>\r\n        <th>Customer Name</th>\r\n        <th>Picking Date</th>\r\n        <th>Delivery Date</th>\r\n        <th>Delivery Address</th>\r\n        <th>Werehouse Address</th>\r\n        <th>Package Quantity</th>\r\n        <th></th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let item of pagedItems, index as i\">\r\n        <td>{{item.code}}</td>\r\n        <td>{{item.customerName}}</td>\r\n        <td>{{item.pickingDate}}</td>\r\n        <td>{{item.deliveryDate}}</td>\r\n        <td>{{item.deliveryAddress}}</td>\r\n        <td>{{item.wereHouseAddress}}</td>\r\n        <td>{{item.packageQuantity}}</td>\r\n        <td>\r\n          <button class=\"btn btn-custom\" (click)=\"addRequestToShipment(i)\">Add To Shipment</button> &nbsp;\r\n          <button class=\"btn btn-custom\" (click)=\"removeRequestFromShipment(i)\">Undo</button>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n  <div>\r\n    <ul *ngIf=\"pager.pages && pager.pages.length\" class=\"pagination\">\r\n      <li [ngClass]=\"{disabled:pager.currentPage === 1}\">\r\n        <a (click)=\"setPage(1)\">First</a>\r\n      </li>\r\n      <li [ngClass]=\"{disabled:pager.currentPage === 1}\">\r\n        <a (click)=\"setPage(pager.currentPage - 1)\">Previous</a>\r\n      </li>\r\n      <li *ngFor=\"let page of pager.pages\" [ngClass]=\"{active:pager.currentPage === page}\">\r\n        <a (click)=\"setPage(page)\">{{page}}</a>\r\n      </li>\r\n      <li [ngClass]=\"{disabled:pager.currentPage === pager.totalPages}\">\r\n        <a (click)=\"setPage(pager.currentPage + 1)\">Next</a>\r\n      </li>\r\n      <li [ngClass]=\"{disabled:pager.currentPage === pager.totalPages}\">\r\n        <a (click)=\"setPage(pager.totalPages)\">Last</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n\r\n\r\n  <!--Cancel Modal-->\r\n  <div class=\"modal fade\" id=\"CancelModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"CancelModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\" role=\"document\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <h5 class=\"modal-title\" id=\"CancelModalLabel\">Cancel</h5>\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          Are you sure?\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"button\" class=\"btn btn-primary\">Confirm</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Request Management</h1>\r\n  </div>\r\n  <div class=\"py-3\">\r\n    <button class=\"btn btn-success\" (click)=\"onCreateShipment()\">Create Shipment</button>\r\n  </div>\r\n\r\n  <kendo-grid [data]=\"requests\"\r\n              [pageSize]=\"state.take\"\r\n              [skip]=\"state.skip\"\r\n              [sort]=\"state.sort\"\r\n              [sortable]=\"true\"\r\n              [pageable]=\"true\"\r\n              [scrollable]=\"'scrollable'\"\r\n              [group]=\"state.group\"\r\n              [filterable]=\"true\"\r\n              [filter]=\"state.filter\"\r\n              (dataStateChange)=\"dataStateChange($event)\"\r\n              [height]=\"370\">\r\n\r\n    <kendo-grid-column field=\"Code\" title=\"Code\">\r\n    </kendo-grid-column>\r\n    <kendo-grid-column field=\"CustomerName\" title=\"Customer Name\">\r\n    </kendo-grid-column>\r\n    <kendo-grid-column field=\"PickingDate\" title=\"Picking Date\">\r\n    </kendo-grid-column>\r\n    <kendo-grid-column field=\"ExpectedDate\" title=\"Delivery Date\">\r\n    </kendo-grid-column>\r\n    <kendo-grid-column field=\"PackageQuantity\" title=\"Package Quantity\">\r\n    </kendo-grid-column>\r\n    <kendo-grid-column field=\"WereHouseAddress\" title=\"WereHouse Address\"></kendo-grid-column>\r\n  </kendo-grid>\r\n\r\n\r\n  <div class=\"modal fade\" id=\"CancelModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"CancelModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\" role=\"document\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <h5 class=\"modal-title\" id=\"CancelModalLabel\">Cancel</h5>\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          Are you sure?\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"button\" class=\"btn btn-primary\">Confirm</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -992,12 +1026,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestListComponent", function() { return RequestListComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
-/* harmony import */ var _request_service_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../request-service.service */ "./src/app/request/request-service.service.ts");
-/* harmony import */ var _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/sevices/pager-service.service */ "./src/app/shared/sevices/pager-service.service.ts");
-/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/internal/operators/map */ "./node_modules/rxjs/internal/operators/map.js");
-/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _shared_sevices_sharing_service_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../shared/sevices/sharing-service.service */ "./src/app/shared/sevices/sharing-service.service.ts");
+/* harmony import */ var _request_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../request-service.service */ "./src/app/request/request-service.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1010,45 +1039,22 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
-
-
-
 var RequestListComponent = /** @class */ (function () {
-    function RequestListComponent(requestService, router, http, pagerService, sharingService) {
+    function RequestListComponent(requestService, router) {
+        var _this = this;
         this.requestService = requestService;
         this.router = router;
-        this.http = http;
-        this.pagerService = pagerService;
-        this.sharingService = sharingService;
-        // pager object
-        this.pager = {};
-        this.requestIdList = new Array();
+        this.state = {
+            skip: 0,
+            take: 5
+        };
+        this.requestService.fetch(this.state).subscribe(function (response) { return _this.requests = response; });
     }
-    RequestListComponent.prototype.ngOnInit = function () {
-        this.setPage(1);
-    };
-    RequestListComponent.prototype.setPage = function (page) {
+    RequestListComponent.prototype.dataStateChange = function (state) {
         var _this = this;
-        this.requestService.getWaitingRequestList(page).pipe(Object(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_5__["map"])(function (response) { return response.json(); })).subscribe(function (jsonObject) {
-            // get current page of items
-            _this.pagedItems = jsonObject.data;
-            // get pager object from service
-            _this.pager = _this.pagerService.getPager(jsonObject.totalPages, page);
-        });
-    };
-    RequestListComponent.prototype.addRequestToShipment = function (i) {
-        this.requestIdList.push(this.pagedItems[i].code);
-    };
-    RequestListComponent.prototype.removeRequestFromShipment = function (i) {
-        var index = this.requestIdList.indexOf(this.pagedItems[i].code);
-        if (index !== -1) {
-            this.requestIdList.splice(index, 1);
-        }
-    };
-    RequestListComponent.prototype.onCreateShipment = function () {
-        this.sharingService.save(this.requestIdList);
-        this.router.navigate(['/shipment']);
+        this.state = state;
+        this.requestService.fetch(state)
+            .subscribe(function (response) { return _this.requests = response; });
     };
     RequestListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1056,7 +1062,7 @@ var RequestListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./request-list.component.html */ "./src/app/request/request-list/request-list.component.html"),
             styles: [__webpack_require__(/*! ./request-list.component.scss */ "./src/app/request/request-list/request-list.component.scss")]
         }),
-        __metadata("design:paramtypes", [_request_service_service__WEBPACK_IMPORTED_MODULE_3__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _angular_http__WEBPACK_IMPORTED_MODULE_2__["Http"], _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_4__["PagerService"], _shared_sevices_sharing_service_service__WEBPACK_IMPORTED_MODULE_6__["SharingService"]])
+        __metadata("design:paramtypes", [_request_service_service__WEBPACK_IMPORTED_MODULE_2__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], RequestListComponent);
     return RequestListComponent;
 }());
@@ -1078,6 +1084,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/sevices/config-service.service */ "./src/app/shared/sevices/config-service.service.ts");
+/* harmony import */ var _progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @progress/kendo-data-query */ "./node_modules/@progress/kendo-data-query/dist/es/main.js");
+/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/internal/operators/map */ "./node_modules/rxjs/internal/operators/map.js");
+/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1090,22 +1100,32 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var RequestService = /** @class */ (function () {
-    function RequestService(http, configService) {
-        this.http = http;
+    function RequestService(https, configService, http) {
+        this.https = https;
         this.configService = configService;
+        this.http = http;
+        this.BASE_URL = 'http://localhost:54520/api/Requests/RequestList';
         this.baseUrl = '';
         this.baseUrl = configService.getApiURI();
     }
-    RequestService.prototype.getWaitingRequestList = function (page) {
-        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]();
-        return this.http.get(this.baseUrl + '/Coordinator/WaitingRequest?pageNumber=' + page, { headers: headers });
+    RequestService.prototype.fetch = function (state) {
+        var queryStr = "" + Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__["toDataSourceRequestString"])(state);
+        var hasGroups = state.group && state.group.length;
+        return this.http
+            .get(this.BASE_URL + "?" + queryStr).pipe(Object(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_4__["map"])(function (response) { return ({
+            data: response['Data'],
+            total: parseInt(response['Total'], 10)
+        }); }));
     };
     RequestService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_1__["Http"], _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_2__["ConfigService"]])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_1__["Http"], _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_2__["ConfigService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClient"]])
     ], RequestService);
     return RequestService;
 }());
@@ -1262,50 +1282,6 @@ var PagerService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/shared/sevices/sharing-service.service.ts":
-/*!***********************************************************!*\
-  !*** ./src/app/shared/sevices/sharing-service.service.ts ***!
-  \***********************************************************/
-/*! exports provided: SharingService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharingService", function() { return SharingService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var SharingService = /** @class */ (function () {
-    function SharingService() {
-        this.array = [];
-    }
-    SharingService.prototype.save = function (array) {
-        this.array = array;
-    };
-    SharingService.prototype.fetch = function () {
-        return this.array;
-    };
-    SharingService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
-            providedIn: 'root'
-        }),
-        __metadata("design:paramtypes", [])
-    ], SharingService);
-    return SharingService;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/shared/shared.module.ts":
 /*!*****************************************!*\
   !*** ./src/app/shared/shared.module.ts ***!
@@ -1451,7 +1427,7 @@ var AssignedComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Create Shipment</h1>\r\n  </div>\r\n  <div class=\"py-3\">\r\n    <button class=\"btn btn-success\" (click)=\"onCreateShipment()\">Create Shipment</button>\r\n  </div>\r\n  <table class=\"table table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th>Code</th>\r\n        <th>Customer Name</th>\r\n        <th>Picking Date</th>\r\n        <th>Delivery Date</th>\r\n        <th>Delivery Address</th>\r\n        <th>Werehouse Address</th>\r\n        <th>Package Quantity</th>\r\n        <th></th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr *ngFor=\"let item of pagedItems, index as i\">\r\n        <td>{{item}}</td>\r\n        <td>{{item.customerName}}</td>\r\n        <td>{{item.pickingDate}}</td>\r\n        <td>{{item.deliveryDate}}</td>\r\n        <td>{{item.deliveryAddress}}</td>\r\n        <td>{{item.wereHouseAddress}}</td>\r\n        <td>{{item.packageQuantity}}</td>\r\n        <td>\r\n          <button class=\"btn btn-custom\" (click)=\"removeRequestFromShipment(i)\">Remove</button>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  </div>\r\n"
+module.exports = "<kendo-autocomplete [data]=\"view | async\"\r\n                    [valueField]=\"'Code'\">\r\n</kendo-autocomplete>\r\n"
 
 /***/ }),
 
@@ -1477,11 +1453,7 @@ module.exports = ""
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentCreatingComponent", function() { return ShipmentCreatingComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _shared_sevices_sharing_service_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/sevices/sharing-service.service */ "./src/app/shared/sevices/sharing-service.service.ts");
-/* harmony import */ var _request_request_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../request/request-service.service */ "./src/app/request/request-service.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
-/* harmony import */ var _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/sevices/pager-service.service */ "./src/app/shared/sevices/pager-service.service.ts");
+/* harmony import */ var _shipment_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shipment.service */ "./src/app/shipment/shipment.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1493,31 +1465,84 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-
-
-
-
 var ShipmentCreatingComponent = /** @class */ (function () {
-    function ShipmentCreatingComponent(sharingService, requestService, router, http, pagerService) {
-        this.sharingService = sharingService;
-        this.requestService = requestService;
-        this.router = router;
-        this.http = http;
-        this.pagerService = pagerService;
-        this.requestIdList = this.sharingService.fetch();
+    function ShipmentCreatingComponent(service) {
+        this.service = service;
+        this.view = service;
+        this.service.query();
     }
-    ShipmentCreatingComponent.prototype.ngOnInit = function () {
-        console.log(this.requestIdList);
-    };
     ShipmentCreatingComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-shipment-creating',
             template: __webpack_require__(/*! ./shipment-creating.component.html */ "./src/app/shipment/shipment-creating/shipment-creating.component.html"),
             styles: [__webpack_require__(/*! ./shipment-creating.component.scss */ "./src/app/shipment/shipment-creating/shipment-creating.component.scss")]
         }),
-        __metadata("design:paramtypes", [_shared_sevices_sharing_service_service__WEBPACK_IMPORTED_MODULE_1__["SharingService"], _request_request_service_service__WEBPACK_IMPORTED_MODULE_2__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _angular_http__WEBPACK_IMPORTED_MODULE_4__["Http"], _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_5__["PagerService"]])
+        __metadata("design:paramtypes", [_shipment_service__WEBPACK_IMPORTED_MODULE_1__["ShipmentService"]])
     ], ShipmentCreatingComponent);
     return ShipmentCreatingComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment-list/shipment-list.component.html":
+/*!*********************************************************************!*\
+  !*** ./src/app/shipment/shipment-list/shipment-list.component.html ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"py-3\">\r\n  <button class=\"btn btn-success\" routerLink=\"/shipment/create\">Create Shipment</button>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment-list/shipment-list.component.scss":
+/*!*********************************************************************!*\
+  !*** ./src/app/shipment/shipment-list/shipment-list.component.scss ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment-list/shipment-list.component.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/shipment/shipment-list/shipment-list.component.ts ***!
+  \*******************************************************************/
+/*! exports provided: ShipmentListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentListComponent", function() { return ShipmentListComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ShipmentListComponent = /** @class */ (function () {
+    function ShipmentListComponent() {
+    }
+    ShipmentListComponent.prototype.ngOnInit = function () {
+    };
+    ShipmentListComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-shipment-list',
+            template: __webpack_require__(/*! ./shipment-list.component.html */ "./src/app/shipment/shipment-list/shipment-list.component.html"),
+            styles: [__webpack_require__(/*! ./shipment-list.component.scss */ "./src/app/shipment/shipment-list/shipment-list.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ShipmentListComponent);
+    return ShipmentListComponent;
 }());
 
 
@@ -1537,14 +1562,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShipmentAssigned/assigned.component */ "./src/app/shipment/ShipmentAssigned/assigned.component.ts");
-/* harmony import */ var _shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shipment-creating/shipment-creating.component */ "./src/app/shipment/shipment-creating/shipment-creating.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -1558,11 +1581,145 @@ var ShipmentModule = /** @class */ (function () {
             ],
             declarations: [
                 _ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_2__["AssignedComponent"],
-                _shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_3__["ShipmentCreatingComponent"],
             ]
         })
     ], ShipmentModule);
     return ShipmentModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/shipment/shipment.service.ts ***!
+  \**********************************************/
+/*! exports provided: ShipmentService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentService", function() { return ShipmentService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/internal/operators/map */ "./node_modules/rxjs/internal/operators/map.js");
+/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ShipmentService = /** @class */ (function (_super) {
+    __extends(ShipmentService, _super);
+    function ShipmentService(http) {
+        var _this = _super.call(this, null) || this;
+        _this.http = http;
+        _this.BASE_URL = 'http://localhost:54520/api/Shipments/ShipmentList';
+        return _this;
+    }
+    ShipmentService.prototype.fetch = function () {
+        var queryStr = "$skip=0&$count=true";
+        return this.http
+            .get(this.BASE_URL + "?" + queryStr).pipe(Object(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return response['Data']; }));
+    };
+    ShipmentService.prototype.query = function () {
+        var _this = this;
+        this.fetch()
+            .subscribe(function (x) { return _super.prototype.next.call(_this, x); });
+    };
+    ShipmentService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], ShipmentService);
+    return ShipmentService;
+}(rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment/shipment.component.html":
+/*!***********************************************************!*\
+  !*** ./src/app/shipment/shipment/shipment.component.html ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Shipment Management</h1>\r\n  </div>\r\n  <router-outlet></router-outlet>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment/shipment.component.scss":
+/*!***********************************************************!*\
+  !*** ./src/app/shipment/shipment/shipment.component.scss ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/shipment/shipment/shipment.component.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/shipment/shipment/shipment.component.ts ***!
+  \*********************************************************/
+/*! exports provided: ShipmentComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentComponent", function() { return ShipmentComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ShipmentComponent = /** @class */ (function () {
+    function ShipmentComponent(router) {
+        this.router = router;
+    }
+    ShipmentComponent.prototype.ngOnInit = function () {
+    };
+    ShipmentComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-shipment',
+            template: __webpack_require__(/*! ./shipment.component.html */ "./src/app/shipment/shipment/shipment.component.html"),
+            styles: [__webpack_require__(/*! ./shipment.component.scss */ "./src/app/shipment/shipment/shipment.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], ShipmentComponent);
+    return ShipmentComponent;
 }());
 
 

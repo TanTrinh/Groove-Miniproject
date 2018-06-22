@@ -7,6 +7,7 @@ using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
 using Domains.Helpers;
 using Groove.AspNetCore.UnitOfWork;
+using Kendo.Mvc.UI;
 
 namespace Domains.GoGo.Services
 {
@@ -25,9 +26,9 @@ namespace Domains.GoGo.Services
             _mapper = mapper;
         }
 
-		public PagedData<WaitingRequestModel> GetWaitingRequest(int pageNumber )
+		public PagedData<RequestModel> GetWaitingRequest(int pageNumber )
 		{
-			IEnumerable<WaitingRequestModel> WaitingRequestList = _repository.GetWaitingRequestAsync(pageNumber, pageSize);
+			IEnumerable<RequestModel> WaitingRequestList = _repository.GetWaitingRequestAsync(pageNumber, pageSize);
 
 			var totalPage = _repository.GetWaitingRequestQuantity();
 
@@ -35,6 +36,11 @@ namespace Domains.GoGo.Services
 			
 			return pagedData;
 
+		}
+
+		public DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request)
+		{
+			return _repository.GetAllAsync(request);
 		}
 
 
