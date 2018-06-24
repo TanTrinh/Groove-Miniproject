@@ -3,7 +3,6 @@ import { UserList } from './UserList';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpParamsOptions, HttpParams } from '@angular/common/http/src/params';
-import * as $ from 'jquery';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -27,7 +26,6 @@ export class UserListComponent implements OnInit {
   }
 
   loadList() {
-    //var selectOption = $('#mySelect').val();
     console.log(this.selectOption );
     if (this.selectOption == 'Customer') {
       this.id = 1;
@@ -63,4 +61,11 @@ export class UserListComponent implements OnInit {
     //});
   }
 
+  loadDetail(id) {
+    this.router.navigate(['home/detail', id]);
+  }
+
+  create() {
+    this.router.navigate(['home/create']);
+  }
 }

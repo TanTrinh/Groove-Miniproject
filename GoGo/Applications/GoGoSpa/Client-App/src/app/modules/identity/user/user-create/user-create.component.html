@@ -1,0 +1,86 @@
+<form #myForm="ngForm" (ngSubmit)="onCreate()" name="myForm">
+  <div class="form-group col-md-4">
+    <label for="username">Username*</label>
+    <input type="text" class="form-control" id="username" [(ngModel)]="model.username" name="username" #username="ngModel" required minlength="3" autofocus>
+    <div *ngIf="username.invalid && (username.dirty || username.touched)">
+
+      <div *ngIf="username.errors.required" style="color:red">
+        Username is required.
+      </div>
+      <div *ngIf="username.errors.minlength" style="color:red">
+        Username must be at least 3 characters long.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group col-md-4">
+    <div ngModelGroup="passwords" #passwords="ngModelGroup" appCheckPassword>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password*</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" #passwordA="ngModel" name="passwordA"
+               [(ngModel)]="model.password" required>
+      </div>
+      <!--{{model.password}}-->
+      <div *ngIf="passwordA.invalid && (passwordA.dirty || passwordA.touched)">
+
+        <div *ngIf="passwordA.errors.required" style="color:red">
+          Password is required.
+        </div>
+      </div>
+      <div class="form-group mt-1">
+        <label for="exampleInputPassword2">Re-Password*</label>
+        <input type="password" class="form-control" id="exampleInputPassword2" #passwordB="ngModel" name="passwordB"
+               [(ngModel)]="model.repassword" required>
+      </div>
+      <!--{{model.repassword}}-->
+    </div>
+
+    <div *ngIf="passwords.errors?.passwordCheck && (passwordB.dirty || passwordB.touched)" style="color:red">
+      <div *ngIf="passwordB.errors.required" style="color:red">
+        Re-Password is required.
+      </div>
+      Passwords do not match.
+    </div>
+  </div>
+
+  <div class="form-group col-md-4">
+    <label for="email">Email*</label>
+    <input type="email" class="form-control" id="email" [(ngModel)]="model.email" name="email" #email="ngModel" required validateEmail="email">
+    <div *ngIf="email.invalid && (email.dirty || email.touched)">
+
+      <div *ngIf="email.errors.required" style="color:red">
+        Email is required.
+      </div>
+      <div *ngIf="email.errors.validateEmail" style="color:red">
+        Email format should be <i>tan@gmail.com</i>.
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="phonenumber">Phone Number*</label>
+    <input type="text" class="form-control" id="phonenumber" [(ngModel)]="model.phonenumber" name="phonenumber">
+  </div>
+  <div class="form-group col-md-4">
+    <label for="role">Role*</label>
+    <select type="text" class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
+      <option>Customer</option>
+      <option>Driver</option>
+      <option>Coordinator</option>
+      <option>Administrator</option>
+    </select>
+    <div *ngIf="role.invalid && (role.dirty || role.touched)">
+
+      <div *ngIf="role.errors.required" style="color:red">
+        Role is required.
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <p style="color:red">{{message}}</p>
+    <button type="submit" class="btn btn-success active" [disabled]="myForm.invalid">Create</button>
+    <button class="btn btn-primary active" (click)="back()">Back</button>
+  </div>
+  <!--<div class="form-group col-md-4">
+    <button class="btn btn-primary active" (click)="Back()">Back</button>
+  </div>-->
+</form>

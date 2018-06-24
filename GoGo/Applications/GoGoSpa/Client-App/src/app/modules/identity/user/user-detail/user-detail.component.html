@@ -1,25 +1,18 @@
 <div class="container-fluid">
   <div class="border-custom">
-    <h1>Profile</h1>
+    <h1>User Detail</h1>
   </div>
   <div class="container pt-2">
     <div class="row">
       <div class="col-md-3 col-lg-3 " align="center">
         <img alt="User Pic" src="https://image.flaticon.com/icons/svg/3/3641.svg" class="img-circle">
-
-        <div class="d-flex justify-content-center pt-3">
-          <input style="display: none"
-                 type="file" (change)="onFileChanged($event)"
-                 #fileInput>
-          <button class="btn btn-primary" (click)="fileInput.click()" id="AUpload">Upload your photo</button>
-        </div>
       </div>
       <div class="col-md-9 col-lg-9">
         <table class="table">
           <tbody>
             <tr>
               <th>Full name:</th>
-              <td>{{userProfile.userName}}</td>
+              <td>{{userDetail.userName}}</td>
             </tr>
             <tr>
               <th>Date of birth:</th>
@@ -27,11 +20,11 @@
             </tr>
             <tr>
               <th>Email:</th>
-              <td>{{userProfile.email}}</td>
+              <td>{{userDetail.email}}</td>
             </tr>
             <tr>
               <th>Phone number:</th>
-              <td>{{userProfile.phoneNumber}}</td>
+              <td>{{userDetail.phoneNumber}}</td>
             </tr>
             <tr>
               <th>Address:</th>
@@ -39,7 +32,7 @@
             </tr>
             <tr>
               <th>Join date:</th>
-              <td>{{userProfile.createdDate | date:'medium'}}</td>
+              <td>{{userDetail.createdDate | date:'medium'}}</td>
             </tr>
           </tbody>
         </table>
@@ -147,3 +140,4 @@
     </div>
   </div>
 </div>
+

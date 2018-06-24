@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domains.Identity.Models;
 using Domains.Identity.Services;
 using Groove.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -25,20 +26,20 @@ namespace GoGoApi.Controllers.Identities
             return Ok(await _userService.GetUsersAsync(id));
         }
 
-        //[Route("")]
-        //[HttpPost]
-        //[Authorize]
-        //public async Task<IActionResult> CreateUser([FromBody]UserCreateModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [Route("create")]
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CreateUser([FromBody]UserCreateModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    var userId = await _userService.CreateUserAsync(model, GetCurrentIdentity<long>());
+            var userId = await _userService.CreateUserAsync(model, GetCurrentIdentity<long>());
 
-        //    return OkValueObject(userId);
-        //}
+            return OkValueObject(userId);
+        }
 
         //[Route("{id}")]
         //[HttpPut]
@@ -55,13 +56,21 @@ namespace GoGoApi.Controllers.Identities
         //    return Ok();
         //}
 
-        [Route("get")]
+        [Route("profile")]
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetUser()
+        public async Task<IActionResult> GetUserProfile()
         {
             //var result = await _userService.GetUserProfileAsync(GetCurrentUserId<long>());
             return Ok(await _userService.GetUserProfileAsync(GetCurrentUserId<long>()));
+        }
+
+        [Route("detail")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetUserDetail(long? id)
+        {
+            return Ok(await _userService.GetUserDetailAsync(id));
         }
     }
 }

@@ -1,8 +1,5 @@
 <h1>List account</h1>
-<!--<button class="btn btn-primary" (click)="loadList(1)">Customer</button>
-<button class="btn btn-primary" (click)="loadList(2)">Driver</button>
-<button class="btn btn-primary" (click)="loadList(3)">Coordinator</button>
-<button class="btn btn-primary" (click)="loadList(4)">Administrator</button>-->
+<button class="btn btn-success" (click)="create()">Create User</button>
 <div>
   <select class="float-right" [(ngModel)]="selectOption" (ngModelChange)="loadList()">
     <option value="Customer">Customer</option>
@@ -20,6 +17,7 @@
         <th>Email</th>
         <th>Phone Number</th>
         <th>Status</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -30,6 +28,7 @@
         <td>{{user.email}}</td>
         <td>{{user.phoneNumber}}</td>
         <td>{{user.status}}</td>
+        <td><button class="btn btn-default" (click)="loadDetail(user.id)">Detail</button></td>
       </tr>
     </tbody>
   </table>

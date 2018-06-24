@@ -1,24 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserProfile } from './UserProfile';
+import { Router } from "@angular/router";
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  selector: 'app-user-create',
+  templateUrl: './user-create.component.html',
+  styleUrls: ['./user-create.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class UserCreateComponent implements OnInit {
+
   data: any = {};
-  public userProfile: UserProfile = this.data;
+  public model = {
+    username: '',
+    password: '',
+    repassword: '',
+    email: '',
+    phonenumber: '',
+    role: ''
+  };
   public lStorage = localStorage.length;
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private location: Location
   ) { }
 
   ngOnInit() {
+  }
+
+  onCreate() {
     var key = localStorage.getItem('tokenKey');
     var currentKey = JSON.parse(key);
     if (this.lStorage != 0) {
@@ -29,16 +41,14 @@ export class UserProfileComponent implements OnInit {
         })
       };
 
-      this.http.get('http://localhost:62772/api/user/profile', httpOptions).subscribe(result => {
+      this.http.post('http://localhost:62772/api/user/create', this.model, httpOptions).subscribe(result => {
         this.data = result;
-        this.userProfile = this.data;
+        this.router.navigate(['home/detail', this.data.value]);
       });
     }
-    
   }
 
-  pageBack() {
+  back() {
     this.location.back();
   }
-
 }

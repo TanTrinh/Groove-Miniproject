@@ -42,6 +42,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_identity_user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/identity/user/user-list/user-list.component */ "./src/app/modules/identity/user/user-list/user-list.component.ts");
 /* harmony import */ var _modules_identity_user_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/identity/user/user-profile/user-profile.component */ "./src/app/modules/identity/user/user-profile/user-profile.component.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _modules_identity_user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/identity/user/user-detail/user-detail.component */ "./src/app/modules/identity/user/user-detail/user-detail.component.ts");
+/* harmony import */ var _modules_identity_user_user_create_user_create_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/identity/user/user-create/user-create.component */ "./src/app/modules/identity/user/user-create/user-create.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58,6 +60,8 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
@@ -66,9 +70,11 @@ var routes = [
         path: 'home', component: _home_home_component__WEBPACK_IMPORTED_MODULE_5__["HomeComponent"], children: [
             { path: 'assigned', component: _shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_4__["AssignedComponent"] },
             { path: 'account', component: _modules_identity_user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_6__["UserListComponent"] },
-            { path: 'profile', component: _modules_identity_user_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_7__["UserProfileComponent"] }
+            { path: 'create', component: _modules_identity_user_user_create_user_create_component__WEBPACK_IMPORTED_MODULE_10__["UserCreateComponent"] },
+            { path: 'profile', component: _modules_identity_user_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_7__["UserProfileComponent"] },
+            { path: 'detail/:id', component: _modules_identity_user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_9__["UserDetailComponent"] }
         ]
-    }
+    },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -651,7 +657,7 @@ module.exports = "<div class=\"centered-form\">\r\n    <div class=\"centered-for
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".centered-form {\n  display: flex;\n  align-items: center;\n  height: 100vh;\n  width: 100vw;\n  justify-content: center;\n  /*background: url(https://images.unsplash.com/photo-1519003722824-194d4455a60c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=df15ce8f5d3c650a1f5507b2f6603841&auto=format&fit=crop&w=1355&q=80);*/\n  background: url(\"/assets/pictures/photo-1519003722824-194d4455a60c.jpeg\");\n  background-size: cover;\n  background-position: center; }\n\n.centered-form__form {\n  background: rgba(250, 250, 250, 0.9);\n  border: 1px solid #e1e1e1;\n  border-radius: 5px;\n  padding: 0px 20px;\n  margin: 20px;\n  height: 560px;\n  width: 400px; }\n\nh1 {\n  font-weight: 600;\n  text-align: center;\n  font-size: 2.0rem;\n  color: #418cf4; }\n\nh3 {\n  font-weight: 600;\n  text-align: center;\n  font-size: 1.5rem; }\n\n#forgot {\n  margin-left: 105px; }\n\n.form-field {\n  margin: 20px 0 20px 0; }\n\n.form-field > * {\n  width: 100%; }\n\n.form-field label {\n  display: block;\n  margin-bottom: 7px; }\n\n.form-field input, .form-field select {\n  border: 1px solid #e1e1e1;\n  padding: 10px; }\n\nbutton {\n  margin: 15px 0; }\n"
+module.exports = ".centered-form {\n  display: flex;\n  align-items: center;\n  height: 100vh;\n  width: 100vw;\n  justify-content: center;\n  /*background: url(https://images.unsplash.com/photo-1519003722824-194d4455a60c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=df15ce8f5d3c650a1f5507b2f6603841&auto=format&fit=crop&w=1355&q=80);*/\n  background: url(\"/assets/pictures/photo-1519003722824-194d4455a60c.jpg\");\n  background-size: cover;\n  background-position: center; }\n\n.centered-form__form {\n  background: rgba(250, 250, 250, 0.9);\n  border: 1px solid #e1e1e1;\n  border-radius: 5px;\n  padding: 0px 20px;\n  margin: 20px;\n  height: 560px;\n  width: 400px; }\n\nh1 {\n  font-weight: 600;\n  text-align: center;\n  font-size: 2.0rem;\n  color: #418cf4; }\n\nh3 {\n  font-weight: 600;\n  text-align: center;\n  font-size: 1.5rem; }\n\n#forgot {\n  margin-left: 105px; }\n\n.form-field {\n  margin: 20px 0 20px 0; }\n\n.form-field > * {\n  width: 100%; }\n\n.form-field label {\n  display: block;\n  margin-bottom: 7px; }\n\n.form-field input, .form-field select {\n  border: 1px solid #e1e1e1;\n  padding: 10px; }\n\nbutton {\n  margin: 15px 0; }\n"
 
 /***/ }),
 
@@ -763,6 +769,205 @@ var LoginComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/modules/identity/user/user-create/user-create.component.html":
+/*!******************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-create/user-create.component.html ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<form #myForm=\"ngForm\" (ngSubmit)=\"onCreate()\" name=\"myForm\">\r\n  <div class=\"form-group col-md-4\">\r\n    <label for=\"username\">Username*</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"username\" [(ngModel)]=\"model.username\" name=\"username\" #username=\"ngModel\" required minlength=\"3\" autofocus>\r\n    <div *ngIf=\"username.invalid && (username.dirty || username.touched)\">\r\n\r\n      <div *ngIf=\"username.errors.required\" style=\"color:red\">\r\n        Username is required.\r\n      </div>\r\n      <div *ngIf=\"username.errors.minlength\" style=\"color:red\">\r\n        Username must be at least 3 characters long.\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-4\">\r\n    <div ngModelGroup=\"passwords\" #passwords=\"ngModelGroup\" appCheckPassword>\r\n      <div class=\"form-group\">\r\n        <label for=\"exampleInputPassword1\">Password*</label>\r\n        <input type=\"password\" class=\"form-control\" id=\"exampleInputPassword1\" #passwordA=\"ngModel\" name=\"passwordA\"\r\n               [(ngModel)]=\"model.password\" required>\r\n      </div>\r\n      <!--{{model.password}}-->\r\n      <div *ngIf=\"passwordA.invalid && (passwordA.dirty || passwordA.touched)\">\r\n\r\n        <div *ngIf=\"passwordA.errors.required\" style=\"color:red\">\r\n          Password is required.\r\n        </div>\r\n      </div>\r\n      <div class=\"form-group mt-1\">\r\n        <label for=\"exampleInputPassword2\">Re-Password*</label>\r\n        <input type=\"password\" class=\"form-control\" id=\"exampleInputPassword2\" #passwordB=\"ngModel\" name=\"passwordB\"\r\n               [(ngModel)]=\"model.repassword\" required>\r\n      </div>\r\n      <!--{{model.repassword}}-->\r\n    </div>\r\n\r\n    <div *ngIf=\"passwords.errors?.passwordCheck && (passwordB.dirty || passwordB.touched)\" style=\"color:red\">\r\n      <div *ngIf=\"passwordB.errors.required\" style=\"color:red\">\r\n        Re-Password is required.\r\n      </div>\r\n      Passwords do not match.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-4\">\r\n    <label for=\"email\">Email*</label>\r\n    <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"model.email\" name=\"email\" #email=\"ngModel\" required validateEmail=\"email\">\r\n    <div *ngIf=\"email.invalid && (email.dirty || email.touched)\">\r\n\r\n      <div *ngIf=\"email.errors.required\" style=\"color:red\">\r\n        Email is required.\r\n      </div>\r\n      <div *ngIf=\"email.errors.validateEmail\" style=\"color:red\">\r\n        Email format should be <i>tan@gmail.com</i>.\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"form-group col-md-4\">\r\n    <label for=\"phonenumber\">Phone Number*</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"model.phonenumber\" name=\"phonenumber\">\r\n  </div>\r\n  <div class=\"form-group col-md-4\">\r\n    <label for=\"role\">Role*</label>\r\n    <select type=\"text\" class=\"form-control\" id=\"role\" [(ngModel)]=\"model.role\" name=\"role\" #role=\"ngModel\" required>\r\n      <option>Customer</option>\r\n      <option>Driver</option>\r\n      <option>Coordinator</option>\r\n      <option>Administrator</option>\r\n    </select>\r\n    <div *ngIf=\"role.invalid && (role.dirty || role.touched)\">\r\n\r\n      <div *ngIf=\"role.errors.required\" style=\"color:red\">\r\n        Role is required.\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"form-group col-md-4\">\r\n    <p style=\"color:red\">{{message}}</p>\r\n    <button type=\"submit\" class=\"btn btn-success active\" [disabled]=\"myForm.invalid\">Create</button>\r\n    <button class=\"btn btn-primary active\" (click)=\"back()\">Back</button>\r\n  </div>\r\n  <!--<div class=\"form-group col-md-4\">\r\n    <button class=\"btn btn-primary active\" (click)=\"Back()\">Back</button>\r\n  </div>-->\r\n</form>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/identity/user/user-create/user-create.component.scss":
+/*!******************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-create/user-create.component.scss ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/modules/identity/user/user-create/user-create.component.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-create/user-create.component.ts ***!
+  \****************************************************************************/
+/*! exports provided: UserCreateComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateComponent", function() { return UserCreateComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var UserCreateComponent = /** @class */ (function () {
+    function UserCreateComponent(http, router, location) {
+        this.http = http;
+        this.router = router;
+        this.location = location;
+        this.data = {};
+        this.model = {
+            username: '',
+            password: '',
+            repassword: '',
+            email: '',
+            phonenumber: '',
+            role: ''
+        };
+        this.lStorage = localStorage.length;
+    }
+    UserCreateComponent.prototype.ngOnInit = function () {
+    };
+    UserCreateComponent.prototype.onCreate = function () {
+        var _this = this;
+        var key = localStorage.getItem('tokenKey');
+        var currentKey = JSON.parse(key);
+        if (this.lStorage != 0) {
+            var httpOptions = {
+                headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentKey.access_token
+                })
+            };
+            this.http.post('http://localhost:62772/api/user/create', this.model, httpOptions).subscribe(function (result) {
+                _this.data = result;
+                _this.router.navigate(['home/detail', _this.data.value]);
+            });
+        }
+    };
+    UserCreateComponent.prototype.back = function () {
+        this.location.back();
+    };
+    UserCreateComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-user-create',
+            template: __webpack_require__(/*! ./user-create.component.html */ "./src/app/modules/identity/user/user-create/user-create.component.html"),
+            styles: [__webpack_require__(/*! ./user-create.component.scss */ "./src/app/modules/identity/user/user-create/user-create.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_3__["Location"]])
+    ], UserCreateComponent);
+    return UserCreateComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/identity/user/user-detail/user-detail.component.html":
+/*!******************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-detail/user-detail.component.html ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>User Detail</h1>\r\n  </div>\r\n  <div class=\"container pt-2\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3 col-lg-3 \" align=\"center\">\r\n        <img alt=\"User Pic\" src=\"https://image.flaticon.com/icons/svg/3/3641.svg\" class=\"img-circle\">\r\n      </div>\r\n      <div class=\"col-md-9 col-lg-9\">\r\n        <table class=\"table\">\r\n          <tbody>\r\n            <tr>\r\n              <th>Full name:</th>\r\n              <td>{{userDetail.userName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Date of birth:</th>\r\n              <td>06/09/1996</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Email:</th>\r\n              <td>{{userDetail.email}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Phone number:</th>\r\n              <td>{{userDetail.phoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Address:</th>\r\n              <td>132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Join date:</th>\r\n              <td>{{userDetail.createdDate | date:'medium'}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n        <div class=\"row justify-content-center\">\r\n          <!--<a href=\"#\" class=\"btn btn-primary btn-space\">Edit User</a>-->\r\n          <button class=\"btn btn-primary\" routerLink=\"/profile/edit\">Edit</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#ChangePWDModal\">Change Password</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#DeactivateModal\">Deactivate</button>&nbsp;\r\n          <button class=\"btn btn-primary\" (click)=\"pageBack()\">Back</button>&nbsp;\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n<!--Deactivate Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <p>Please fill your password to comfirm.</p>\r\n          <input class=\"form-control\" type=\"password\" id=\"Password\" name=\"Password\" placeholder=\"Password\" />\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#DeactivateMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Deactivate Message Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateMessageLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-danger\">You have 7 days remain before your account being deactivate!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"ChangePWDModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <div class=\"form-group\">\r\n            <label for=\"CurrentPassword\">Current Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"CurrentPassword\" id=\"CurrentPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"NewPassword\">New Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"NewPassword\" id=\"NewPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"RePassword\">Re-Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"RePassword\" id=\"RePassword\">\r\n          </div>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#ChangePWDMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Message Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title \" id=\"ChangePWDMessageLabel\">Password changed!</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-success\">Your password has been changed successfully!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/identity/user/user-detail/user-detail.component.scss":
+/*!******************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-detail/user-detail.component.scss ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/modules/identity/user/user-detail/user-detail.component.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-detail/user-detail.component.ts ***!
+  \****************************************************************************/
+/*! exports provided: UserDetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserDetailComponent", function() { return UserDetailComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var UserDetailComponent = /** @class */ (function () {
+    function UserDetailComponent(http, router, route) {
+        this.http = http;
+        this.router = router;
+        this.route = route;
+        this.data = {};
+        this.userDetail = this.data;
+        this.lStorage = localStorage.length;
+    }
+    UserDetailComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var key = localStorage.getItem('tokenKey');
+        var currentKey = JSON.parse(key);
+        if (this.lStorage != 0) {
+            var httpOptions = {
+                headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentKey.access_token
+                })
+            };
+            this.id = this.route.snapshot.paramMap.get('id');
+            this.http.get('http://localhost:62772/api/user/detail?id=' + this.id, httpOptions).subscribe(function (result) {
+                console.log(result);
+                _this.data = result;
+                _this.userDetail = _this.data;
+            });
+        }
+    };
+    UserDetailComponent.prototype.pageBack = function () {
+        this.router.navigate(['home/account']);
+    };
+    UserDetailComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-user-detail',
+            template: __webpack_require__(/*! ./user-detail.component.html */ "./src/app/modules/identity/user/user-detail/user-detail.component.html"),
+            styles: [__webpack_require__(/*! ./user-detail.component.scss */ "./src/app/modules/identity/user/user-detail/user-detail.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], UserDetailComponent);
+    return UserDetailComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/modules/identity/user/user-list/user-list.component.html":
 /*!**************************************************************************!*\
   !*** ./src/app/modules/identity/user/user-list/user-list.component.html ***!
@@ -770,7 +975,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>List account</h1>\r\n<!--<button class=\"btn btn-primary\" (click)=\"loadList(1)\">Customer</button>\r\n<button class=\"btn btn-primary\" (click)=\"loadList(2)\">Driver</button>\r\n<button class=\"btn btn-primary\" (click)=\"loadList(3)\">Coordinator</button>\r\n<button class=\"btn btn-primary\" (click)=\"loadList(4)\">Administrator</button>-->\r\n<div>\r\n  <select class=\"float-right\" [(ngModel)]=\"selectOption\" (ngModelChange)=\"loadList()\">\r\n    <option value=\"Customer\">Customer</option>\r\n    <option value=\"Driver\">Driver</option>\r\n    <option value=\"Coordinator\">Coordinator</option>\r\n    <option value=\"Administrator\">Administrator</option>\r\n  </select>\r\n</div>\r\n<div class=\"list clear\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>ID</th>\r\n        <th>User Name</th>\r\n        <th>Email</th>\r\n        <th>Phone Number</th>\r\n        <th>Status</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let user of userList\">\r\n        <td>{{user.id}}</td>\r\n        <td>{{user.userName}}</td>\r\n        <td>{{user.email}}</td>\r\n        <td>{{user.phoneNumber}}</td>\r\n        <td>{{user.status}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
+module.exports = "<h1>List account</h1>\r\n<button class=\"btn btn-success\" (click)=\"create()\">Create User</button>\r\n<div>\r\n  <select class=\"float-right\" [(ngModel)]=\"selectOption\" (ngModelChange)=\"loadList()\">\r\n    <option value=\"Customer\">Customer</option>\r\n    <option value=\"Driver\">Driver</option>\r\n    <option value=\"Coordinator\">Coordinator</option>\r\n    <option value=\"Administrator\">Administrator</option>\r\n  </select>\r\n</div>\r\n<div class=\"list clear\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>ID</th>\r\n        <th>User Name</th>\r\n        <th>Email</th>\r\n        <th>Phone Number</th>\r\n        <th>Status</th>\r\n        <th>Actions</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let user of userList\">\r\n        <td>{{user.id}}</td>\r\n        <td>{{user.userName}}</td>\r\n        <td>{{user.email}}</td>\r\n        <td>{{user.phoneNumber}}</td>\r\n        <td>{{user.status}}</td>\r\n        <td><button class=\"btn btn-default\" (click)=\"loadDetail(user.id)\">Detail</button></td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -823,7 +1028,6 @@ var UserListComponent = /** @class */ (function () {
     };
     UserListComponent.prototype.loadList = function () {
         var _this = this;
-        //var selectOption = $('#mySelect').val();
         console.log(this.selectOption);
         if (this.selectOption == 'Customer') {
             this.id = 1;
@@ -858,6 +1062,12 @@ var UserListComponent = /** @class */ (function () {
         //  this.userList = this.data;
         //});
     };
+    UserListComponent.prototype.loadDetail = function (id) {
+        this.router.navigate(['home/detail', id]);
+    };
+    UserListComponent.prototype.create = function () {
+        this.router.navigate(['home/create']);
+    };
     UserListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-user-list',
@@ -880,7 +1090,7 @@ var UserListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Profile</h1>\r\n  </div>\r\n  <div class=\"container pt-2\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3 col-lg-3 \" align=\"center\">\r\n        <img alt=\"User Pic\" src=\"https://image.flaticon.com/icons/svg/3/3641.svg\" class=\"img-circle\">\r\n\r\n        <div class=\"d-flex justify-content-center pt-3\">\r\n          <input style=\"display: none\"\r\n                 type=\"file\" (change)=\"onFileChanged($event)\"\r\n                 #fileInput>\r\n          <button class=\"btn btn-primary\" (click)=\"fileInput.click()\" id=\"AUpload\">Upload your photo</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-9 col-lg-9\">\r\n        <table class=\"table\">\r\n          <tbody>\r\n            <tr>\r\n              <th>Full name:</th>\r\n              <td>{{userProfile.userName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Date of birth:</th>\r\n              <td>06/09/1996</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Email:</th>\r\n              <td>{{userProfile.email}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Phone number:</th>\r\n              <td>{{userProfile.phoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Address:</th>\r\n              <td>132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Join date:</th>\r\n              <td>{{userProfile.createdDate | date:'medium'}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n        <div class=\"row justify-content-center\">\r\n          <!--<a href=\"#\" class=\"btn btn-primary btn-space\">Edit User</a>-->\r\n          <button class=\"btn btn-primary\" routerLink=\"/profile/edit\">Edit</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#ChangePWDModal\">Change Password</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#DeactivateModal\">Deactivate</button>&nbsp;\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n<!--Deactivate Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <p>Please fill your password to comfirm.</p>\r\n          <input class=\"form-control\" type=\"password\" id=\"Password\" name=\"Password\" placeholder=\"Password\" />\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#DeactivateMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Deactivate Message Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateMessageLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-danger\">You have 7 days remain before your account being deactivate!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"ChangePWDModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <div class=\"form-group\">\r\n            <label for=\"CurrentPassword\">Current Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"CurrentPassword\" id=\"CurrentPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"NewPassword\">New Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"NewPassword\" id=\"NewPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"RePassword\">Re-Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"RePassword\" id=\"RePassword\">\r\n          </div>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#ChangePWDMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Message Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title \" id=\"ChangePWDMessageLabel\">Password changed!</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-success\">Your password has been changed successfully!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Profile</h1>\r\n  </div>\r\n  <div class=\"container pt-2\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3 col-lg-3 \" align=\"center\">\r\n        <img alt=\"User Pic\" src=\"https://image.flaticon.com/icons/svg/3/3641.svg\" class=\"img-circle\">\r\n\r\n        <div class=\"d-flex justify-content-center pt-3\">\r\n          <input style=\"display: none\"\r\n                 type=\"file\" (change)=\"onFileChanged($event)\"\r\n                 #fileInput>\r\n          <button class=\"btn btn-primary\" (click)=\"fileInput.click()\" id=\"AUpload\">Upload your photo</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-9 col-lg-9\">\r\n        <table class=\"table\">\r\n          <tbody>\r\n            <tr>\r\n              <th>Full name:</th>\r\n              <td>{{userProfile.userName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Date of birth:</th>\r\n              <td>06/09/1996</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Email:</th>\r\n              <td>{{userProfile.email}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Phone number:</th>\r\n              <td>{{userProfile.phoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Address:</th>\r\n              <td>132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Join date:</th>\r\n              <td>{{userProfile.createdDate | date:'medium'}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n        <div class=\"row justify-content-center\">\r\n          <!--<a href=\"#\" class=\"btn btn-primary btn-space\">Edit User</a>-->\r\n          <button class=\"btn btn-primary\" routerLink=\"/profile/edit\">Edit</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#ChangePWDModal\">Change Password</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#DeactivateModal\">Deactivate</button>&nbsp;\r\n          <button class=\"btn btn-primary\" (click)=\"pageBack()\">Back</button>&nbsp;\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n<!--Deactivate Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <p>Please fill your password to comfirm.</p>\r\n          <input class=\"form-control\" type=\"password\" id=\"Password\" name=\"Password\" placeholder=\"Password\" />\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#DeactivateMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Deactivate Message Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateMessageLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-danger\">You have 7 days remain before your account being deactivate!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"ChangePWDModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <div class=\"form-group\">\r\n            <label for=\"CurrentPassword\">Current Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"CurrentPassword\" id=\"CurrentPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"NewPassword\">New Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"NewPassword\" id=\"NewPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"RePassword\">Re-Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"RePassword\" id=\"RePassword\">\r\n          </div>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#ChangePWDMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Message Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title \" id=\"ChangePWDMessageLabel\">Password changed!</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-success\">Your password has been changed successfully!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -907,6 +1117,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfileComponent", function() { return UserProfileComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -918,9 +1129,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var UserProfileComponent = /** @class */ (function () {
-    function UserProfileComponent(http) {
+    function UserProfileComponent(http, location) {
         this.http = http;
+        this.location = location;
         this.data = {};
         this.userProfile = this.data;
         this.lStorage = localStorage.length;
@@ -936,11 +1149,14 @@ var UserProfileComponent = /** @class */ (function () {
                     'Authorization': 'Bearer ' + currentKey.access_token
                 })
             };
-            this.http.get('http://localhost:62772/api/user/get', httpOptions).subscribe(function (result) {
+            this.http.get('http://localhost:62772/api/user/profile', httpOptions).subscribe(function (result) {
                 _this.data = result;
                 _this.userProfile = _this.data;
             });
         }
+    };
+    UserProfileComponent.prototype.pageBack = function () {
+        this.location.back();
     };
     UserProfileComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -948,7 +1164,8 @@ var UserProfileComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./user-profile.component.html */ "./src/app/modules/identity/user/user-profile/user-profile.component.html"),
             styles: [__webpack_require__(/*! ./user-profile.component.scss */ "./src/app/modules/identity/user/user-profile/user-profile.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["Location"]])
     ], UserProfileComponent);
     return UserProfileComponent;
 }());
@@ -972,12 +1189,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _user_list_user_list_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user-list/user-list.component */ "./src/app/modules/identity/user/user-list/user-list.component.ts");
 /* harmony import */ var _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user-profile/user-profile.component */ "./src/app/modules/identity/user/user-profile/user-profile.component.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./user-detail/user-detail.component */ "./src/app/modules/identity/user/user-detail/user-detail.component.ts");
+/* harmony import */ var _user_create_user_create_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user-create/user-create.component */ "./src/app/modules/identity/user/user-create/user-create.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -992,7 +1213,7 @@ var UserModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"]
             ],
-            declarations: [_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_2__["UserListComponent"], _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__["UserProfileComponent"]]
+            declarations: [_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_2__["UserListComponent"], _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__["UserProfileComponent"], _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__["UserDetailComponent"], _user_create_user_create_component__WEBPACK_IMPORTED_MODULE_6__["UserCreateComponent"]]
         })
     ], UserModule);
     return UserModule;
@@ -1244,7 +1465,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\intern02\MiniProject\ForkMiniProject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\MyData\GrooveIntern\MiniProject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

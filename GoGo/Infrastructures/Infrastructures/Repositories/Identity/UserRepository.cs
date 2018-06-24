@@ -36,7 +36,7 @@ namespace Infrastructures.Repositories.Identity
 			return await _userManager.FindByNameAsync(userName);
 		}
 
-        public async Task<UserReadModel> FindByUserIdAsync(long id)
+        public async Task<UserReadModel> FindByUserIdAsync(long? id)
         {
             //return await _userManager.FindByIdAsync(id);
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<UserReadModel>(_mapper).FirstAsync();
