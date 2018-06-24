@@ -194,6 +194,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shipment_shipment_shipment_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./shipment/shipment/shipment.component */ "./src/app/shipment/shipment/shipment.component.ts");
 /* harmony import */ var _shipment_shipment_list_shipment_list_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./shipment/shipment-list/shipment-list.component */ "./src/app/shipment/shipment-list/shipment-list.component.ts");
 /* harmony import */ var _progress_kendo_angular_dropdowns__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @progress/kendo-angular-dropdowns */ "./node_modules/@progress/kendo-angular-dropdowns/dist/es/index.js");
+/* harmony import */ var _progress_kendo_angular_dialog__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @progress/kendo-angular-dialog */ "./node_modules/@progress/kendo-angular-dialog/dist/es/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -229,6 +230,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 // Import the Animations module
 
 // Import the ButtonsModule
+
 
 
 
@@ -270,6 +272,7 @@ var AppModule = /** @class */ (function () {
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientJsonpModule"],
                 _progress_kendo_angular_dropdowns__WEBPACK_IMPORTED_MODULE_31__["DropDownsModule"],
+                _progress_kendo_angular_dialog__WEBPACK_IMPORTED_MODULE_32__["DialogModule"],
                 _agm_core__WEBPACK_IMPORTED_MODULE_12__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
                 }),
@@ -1174,6 +1177,26 @@ var NotificationService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/models/request.ts":
+/*!******************************************!*\
+  !*** ./src/app/shared/models/request.ts ***!
+  \******************************************/
+/*! exports provided: Request */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Request", function() { return Request; });
+var Request = /** @class */ (function () {
+    function Request() {
+    }
+    return Request;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/sevices/config-service.service.ts":
 /*!**********************************************************!*\
   !*** ./src/app/shared/sevices/config-service.service.ts ***!
@@ -1420,6 +1443,69 @@ var AssignedComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shipment/edit-form/edit-form.component.html":
+/*!*************************************************************!*\
+  !*** ./src/app/shipment/edit-form/edit-form.component.html ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  edit-form works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/shipment/edit-form/edit-form.component.scss":
+/*!*************************************************************!*\
+  !*** ./src/app/shipment/edit-form/edit-form.component.scss ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/shipment/edit-form/edit-form.component.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/shipment/edit-form/edit-form.component.ts ***!
+  \***********************************************************/
+/*! exports provided: EditFormComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditFormComponent", function() { return EditFormComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var EditFormComponent = /** @class */ (function () {
+    function EditFormComponent() {
+    }
+    EditFormComponent.prototype.ngOnInit = function () {
+    };
+    EditFormComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-edit-form',
+            template: __webpack_require__(/*! ./edit-form.component.html */ "./src/app/shipment/edit-form/edit-form.component.html"),
+            styles: [__webpack_require__(/*! ./edit-form.component.scss */ "./src/app/shipment/edit-form/edit-form.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], EditFormComponent);
+    return EditFormComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shipment/shipment-creating/shipment-creating.component.html":
 /*!*****************************************************************************!*\
   !*** ./src/app/shipment/shipment-creating/shipment-creating.component.html ***!
@@ -1427,7 +1513,7 @@ var AssignedComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<kendo-autocomplete [data]=\"view | async\"\r\n                    [valueField]=\"'Code'\">\r\n</kendo-autocomplete>\r\n"
+module.exports = "<div class=\"\">\r\n  <button (click)=\"CreateShipment()\" primary=\"true\">Save</button>\r\n  <div>\r\n    <kendo-grid [data]=\"gridData\"\r\n                [pageSize]=\"state.take\"\r\n                [skip]=\"state.skip\"\r\n                [sort]=\"state.sort\"\r\n                [sortable]=\"true\"\r\n                [pageable]=\"true\"\r\n                (dataStateChange)=\"dataStateChange($event)\"\r\n                (add)=\"addHandler($event)\"\r\n                (remove)=\"removeHandler($event)\"\r\n                [height]=\"370\">\r\n\r\n      <ng-template kendoGridToolbarTemplate>\r\n        <button kendoGridAddCommand>Add new</button>\r\n      </ng-template>\r\n      <kendo-grid-column field=\"Code\" title=\"Code\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"CustomerName\" title=\"Customer Name\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PickingDate\" title=\"Picking Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"ExpectedDate\" title=\"Delivery Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PackageQuantity\" title=\"Package Quantity\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"WereHouseAddress\" title=\"WereHouse Address\"></kendo-grid-column>\r\n      <kendo-grid-command-column title=\"command\" width=\"220\">\r\n        <ng-template kendoGridCellTemplate>\r\n          <button kendoGridRemoveCommand [primary]=\"true\">Delete</button>\r\n        </ng-template>\r\n      </kendo-grid-command-column>\r\n    </kendo-grid>\r\n  </div>\r\n\r\n  <div>\r\n    <kendo-dialog title=\"Add More Request\" *ngIf=\"active\" [minWidth]=\"250\" [width]=\"700\" (close)=\"action('no')\">\r\n      <p style=\"margin: 5px; text-align: center;\">Please enter the request code</p>\r\n      <div class=\"text-center\">\r\n        <kendo-combobox name=\"request\" [data]=\"view | async\"\r\n                        [(ngModel)]=\"request\"\r\n                        [valueField]=\"'Code'\"\r\n                        [textField]=\"'Code'\"\r\n                        [filterable]=\"true\"\r\n                        (filterChange)=\"handleFilter($event)\">\r\n        </kendo-combobox>\r\n\r\n        <div class=\"card\" style=\"margin: 10px;\">\r\n          <div class=\"card-block\">\r\n            <form class=\"k-form-inline\">\r\n              <label class=\"k-form-field\">\r\n                <span>Customer Name</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.CustomerName\" disabled name=\"Customer Name\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Package Quantity</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.PackageQuantity\" disabled name=\"Package Quantity\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Expected picking date</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.PickingDate\" disabled name=\"Expected picking date\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Expected delivery date</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.ExpectedDate\" disabled name=\"Expected delivery date\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Werehouse Address</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.WereHouseAddress\" disabled name=\"Werehouse Address\" />\r\n              </label>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div>\r\n      </div>\r\n      <kendo-dialog-actions>\r\n        <button kendoButton (click)=\"action('no')\">Back</button>\r\n        <button kendoButton (click)=\"action('yes')\" primary=\"true\">Add To Shipment</button>\r\n      </kendo-dialog-actions>\r\n    </kendo-dialog>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1454,6 +1540,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentCreatingComponent", function() { return ShipmentCreatingComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shipment_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shipment.service */ "./src/app/shipment/shipment.service.ts");
+/* harmony import */ var _shared_models_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/models/request */ "./src/app/shared/models/request.ts");
+/* harmony import */ var _progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @progress/kendo-data-query */ "./node_modules/@progress/kendo-data-query/dist/es/main.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1465,19 +1555,86 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
+
+
 var ShipmentCreatingComponent = /** @class */ (function () {
-    function ShipmentCreatingComponent(service) {
+    function ShipmentCreatingComponent(service, router, http) {
         this.service = service;
+        this.router = router;
+        this.http = http;
+        this.toggleText = 'Hide';
+        this.show = true;
+        //@ViewChild(TooltipDirective)
+        //public tooltipDir: TooltipDirective;
+        this.state = {
+            skip: 0,
+            take: 5
+        };
+        //Table
+        this.requestList = new Array();
+        this.requestIdList = new Array();
+        this.gridData = Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__["process"])(this.requestList, this.state);
         this.view = service;
-        this.service.query();
     }
+    ShipmentCreatingComponent.prototype.handleFilter = function (state) {
+        this.state = state;
+        this.service.query(state);
+        this.addSucess = false;
+    };
+    ShipmentCreatingComponent.prototype.pushRequest = function () {
+        if (this.requestList.indexOf(this.request) != -1 || this.requestIdList.indexOf(this.request.Id) != -1) {
+            this.addSucess = false;
+        }
+        else {
+            this.requestList.push(this.request);
+            this.requestIdList.push(this.request.Id);
+            this.refreshGrid();
+        }
+        this.addSucess = true;
+    };
+    ShipmentCreatingComponent.prototype.refreshGrid = function () {
+        this.gridData = Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__["process"])(this.requestList, this.state);
+    };
+    ShipmentCreatingComponent.prototype.addHandler = function () {
+        this.request = new _shared_models_request__WEBPACK_IMPORTED_MODULE_2__["Request"]();
+        this.active = true;
+        this.refreshGrid();
+    };
+    ShipmentCreatingComponent.prototype.action = function (status) {
+        if (status == 'no') {
+            this.active = false;
+        }
+        else {
+            this.pushRequest();
+        }
+    };
+    ShipmentCreatingComponent.prototype.removeHandler = function (_a) {
+        var request = _a.request;
+        var index = this.requestList.indexOf(request);
+        this.requestList.splice(index, 1);
+        this.requestIdList.splice(index, 1);
+        this.refreshGrid();
+    };
+    ShipmentCreatingComponent.prototype.register = function (requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId) {
+        var body = JSON.stringify({ requestIdList: requestIdList, requestQuantity: requestQuantity, startDate: startDate, endDate: endDate, vehicleId: vehicleId, driverId: driverId, coordinatorId: coordinatorId });
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_5__["Headers"]({ 'Content-Type': 'application/json' });
+        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_5__["RequestOptions"]({ headers: headers });
+        return this.http.post("http://localhost:54520/api/Shipments/Create", body, options);
+    };
+    ShipmentCreatingComponent.prototype.CreateShipment = function () {
+        this.errors = '';
+        this.register(this.requestIdList, '20', "2018-06-26T15:28:00Z", "2018-06-26T15:28:00Z", '2', '2', '3')
+            .subscribe();
+    };
     ShipmentCreatingComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-shipment-creating',
             template: __webpack_require__(/*! ./shipment-creating.component.html */ "./src/app/shipment/shipment-creating/shipment-creating.component.html"),
             styles: [__webpack_require__(/*! ./shipment-creating.component.scss */ "./src/app/shipment/shipment-creating/shipment-creating.component.scss")]
         }),
-        __metadata("design:paramtypes", [_shipment_service__WEBPACK_IMPORTED_MODULE_1__["ShipmentService"]])
+        __metadata("design:paramtypes", [_shipment_service__WEBPACK_IMPORTED_MODULE_1__["ShipmentService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _angular_http__WEBPACK_IMPORTED_MODULE_5__["Http"]])
     ], ShipmentCreatingComponent);
     return ShipmentCreatingComponent;
 }());
@@ -1493,7 +1650,7 @@ var ShipmentCreatingComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"py-3\">\r\n  <button class=\"btn btn-success\" routerLink=\"/shipment/create\">Create Shipment</button>\r\n</div>\r\n"
+module.exports = "<div class=\"py-3\">\r\n  <button class=\"btn btn-success\" routerLink=\"/shipment/create\">Create Shipment</button>\r\n</div>\r\n\r\n<kendo-grid [kendoGridBinding]=\"gridData\"\r\n            [pageSize]=\"10\"\r\n            [pageable]=\"true\"\r\n            [sortable]=\"true\"\r\n            [filterable]=\"true\"\r\n            [groupable]=\"true\"\r\n            [height]=\"510\">\r\n  <kendo-grid-column field=\"CompanyName\" [width]=\"140\"></kendo-grid-column>\r\n  <kendo-grid-column field=\"ContactName\" [width]=\"120\"></kendo-grid-column>\r\n  <kendo-grid-column field=\"City\" [width]=\"100\"></kendo-grid-column>\r\n  <kendo-grid-column field=\"ContactTitle\" [width]=\"130\"></kendo-grid-column>\r\n</kendo-grid>\r\n"
 
 /***/ }),
 
@@ -1525,12 +1682,15 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 
 var ShipmentListComponent = /** @class */ (function () {
     function ShipmentListComponent() {
+        this.BASE_URL = 'http://localhost:54520/api/Requests/RequestList';
+        this.gridState = {
+            sort: [],
+            skip: 0,
+            take: 10
+        };
     }
     ShipmentListComponent.prototype.ngOnInit = function () {
     };
@@ -1539,8 +1699,7 @@ var ShipmentListComponent = /** @class */ (function () {
             selector: 'app-shipment-list',
             template: __webpack_require__(/*! ./shipment-list.component.html */ "./src/app/shipment/shipment-list/shipment-list.component.html"),
             styles: [__webpack_require__(/*! ./shipment-list.component.scss */ "./src/app/shipment/shipment-list/shipment-list.component.scss")]
-        }),
-        __metadata("design:paramtypes", [])
+        })
     ], ShipmentListComponent);
     return ShipmentListComponent;
 }());
@@ -1562,12 +1721,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShipmentAssigned/assigned.component */ "./src/app/shipment/ShipmentAssigned/assigned.component.ts");
+/* harmony import */ var _edit_form_edit_form_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit-form/edit-form.component */ "./src/app/shipment/edit-form/edit-form.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1581,6 +1742,7 @@ var ShipmentModule = /** @class */ (function () {
             ],
             declarations: [
                 _ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_2__["AssignedComponent"],
+                _edit_form_edit_form_component__WEBPACK_IMPORTED_MODULE_3__["EditFormComponent"],
             ]
         })
     ], ShipmentModule);
@@ -1603,9 +1765,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentService", function() { return ShipmentService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/internal/operators/map */ "./node_modules/rxjs/internal/operators/map.js");
-/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @progress/kendo-data-query */ "./node_modules/@progress/kendo-data-query/dist/es/main.js");
+/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/internal/operators/map */ "./node_modules/rxjs/internal/operators/map.js");
+/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1629,22 +1792,23 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ShipmentService = /** @class */ (function (_super) {
     __extends(ShipmentService, _super);
     function ShipmentService(http) {
         var _this = _super.call(this, null) || this;
         _this.http = http;
-        _this.BASE_URL = 'http://localhost:54520/api/Shipments/ShipmentList';
+        _this.BASE_URL = 'http://localhost:54520/api/Requests/RequestList';
         return _this;
     }
-    ShipmentService.prototype.fetch = function () {
-        var queryStr = "$skip=0&$count=true";
+    ShipmentService.prototype.fetch = function (state) {
+        var queryStr = "" + Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_2__["toDataSourceRequestString"])(state);
         return this.http
-            .get(this.BASE_URL + "?" + queryStr).pipe(Object(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return response['Data']; }));
+            .get(this.BASE_URL + "?" + queryStr).pipe(Object(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response['Data']; }));
     };
-    ShipmentService.prototype.query = function () {
+    ShipmentService.prototype.query = function (state) {
         var _this = this;
-        this.fetch()
+        this.fetch(state)
             .subscribe(function (x) { return _super.prototype.next.call(_this, x); });
     };
     ShipmentService = __decorate([
@@ -1654,7 +1818,7 @@ var ShipmentService = /** @class */ (function (_super) {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], ShipmentService);
     return ShipmentService;
-}(rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]));
+}(rxjs__WEBPACK_IMPORTED_MODULE_4__["BehaviorSubject"]));
 
 
 
@@ -1786,7 +1950,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\intern08\Documents\Groove\gogogo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\sweet_\Documents\New folder\gogogo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

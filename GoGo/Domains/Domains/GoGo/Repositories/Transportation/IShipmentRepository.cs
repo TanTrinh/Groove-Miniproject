@@ -1,4 +1,5 @@
 using Domains.GoGo.Entities;
+using Domains.GoGo.Models.Fleet_management;
 using Domains.GoGo.Models.Transportation;
 using Groove.AspNetCore.UnitOfWork;
 using Kendo.Mvc.UI;
@@ -16,5 +17,7 @@ namespace Domains.GoGo.Repositories.Transportation
         Task<int> ChangeStatus(string code, string status);
 
 		DataSourceResult GetAllAsync(DataSourceRequest request);
-	}
+
+        IEnumerable<DriverModel> GetAllAssignedDriver();
+    }
 }

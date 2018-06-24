@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
+using Domains.GoGo.Models.Fleet_management;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -47,6 +48,11 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             shipment.Status = status;
             this.context.Update(shipment);
             return await this.context.SaveChangesAsync();
+        }
+
+        public IEnumerable<DriverModel> GetAllAssignedDriver()
+        {
+            return this.dbSet.MapQueryTo<DriverModel>(_mapper).ToList();
         }
 
 		public DataSourceResult GetAllAsync(DataSourceRequest request)

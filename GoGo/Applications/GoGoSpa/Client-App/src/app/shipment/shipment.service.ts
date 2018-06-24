@@ -11,21 +11,21 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ShipmentService extends BehaviorSubject<any>  {
 
-  public fetch(): any {
-    const queryStr = `$skip=0&$count=true`;
+  public fetch(state: DataSourceRequestState): any {
+    const queryStr = `${toDataSourceRequestString(state)}`;
     return this.http
       .get(`${this.BASE_URL}?${queryStr}`).pipe(map(response => response['Data']));
   }
 
 
-  private BASE_URL = 'http://localhost:54520/api/Shipments/ShipmentList';
+  private BASE_URL = 'http://localhost:54520/api/Requests/RequestList';
  
   constructor(private http: HttpClient) {
     super(null);
   }
 
-  public query(): void {
-    this.fetch()
+  public query(state: DataSourceRequestState): void {
+    this.fetch(state)
       .subscribe(x => super.next(x));
   }
 

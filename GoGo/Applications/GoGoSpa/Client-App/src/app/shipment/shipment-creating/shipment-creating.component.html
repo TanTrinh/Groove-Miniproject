@@ -1,3 +1,84 @@
-<kendo-autocomplete [data]="view | async"
-                    [valueField]="'Code'">
-</kendo-autocomplete>
+<div class="">
+  <button (click)="CreateShipment()" primary="true">Save</button>
+  <div>
+    <kendo-grid [data]="gridData"
+                [pageSize]="state.take"
+                [skip]="state.skip"
+                [sort]="state.sort"
+                [sortable]="true"
+                [pageable]="true"
+                (dataStateChange)="dataStateChange($event)"
+                (add)="addHandler($event)"
+                (remove)="removeHandler($event)"
+                [height]="370">
+
+      <ng-template kendoGridToolbarTemplate>
+        <button kendoGridAddCommand>Add new</button>
+      </ng-template>
+      <kendo-grid-column field="Code" title="Code">
+      </kendo-grid-column>
+      <kendo-grid-column field="CustomerName" title="Customer Name">
+      </kendo-grid-column>
+      <kendo-grid-column field="PickingDate" title="Picking Date">
+      </kendo-grid-column>
+      <kendo-grid-column field="ExpectedDate" title="Delivery Date">
+      </kendo-grid-column>
+      <kendo-grid-column field="PackageQuantity" title="Package Quantity">
+      </kendo-grid-column>
+      <kendo-grid-column field="WereHouseAddress" title="WereHouse Address"></kendo-grid-column>
+      <kendo-grid-command-column title="command" width="220">
+        <ng-template kendoGridCellTemplate>
+          <button kendoGridRemoveCommand [primary]="true">Delete</button>
+        </ng-template>
+      </kendo-grid-command-column>
+    </kendo-grid>
+  </div>
+
+  <div>
+    <kendo-dialog title="Add More Request" *ngIf="active" [minWidth]="250" [width]="700" (close)="action('no')">
+      <p style="margin: 5px; text-align: center;">Please enter the request code</p>
+      <div class="text-center">
+        <kendo-combobox name="request" [data]="view | async"
+                        [(ngModel)]="request"
+                        [valueField]="'Code'"
+                        [textField]="'Code'"
+                        [filterable]="true"
+                        (filterChange)="handleFilter($event)">
+        </kendo-combobox>
+
+        <div class="card" style="margin: 10px;">
+          <div class="card-block">
+            <form class="k-form-inline">
+              <label class="k-form-field">
+                <span>Customer Name</span>
+                <input class="k-textbox" [(ngModel)]="request.CustomerName" disabled name="Customer Name" />
+              </label>
+              <label class="k-form-field">
+                <span>Package Quantity</span>
+                <input class="k-textbox" [(ngModel)]="request.PackageQuantity" disabled name="Package Quantity" />
+              </label>
+              <label class="k-form-field">
+                <span>Expected picking date</span>
+                <input class="k-textbox" [(ngModel)]="request.PickingDate" disabled name="Expected picking date" />
+              </label>
+              <label class="k-form-field">
+                <span>Expected delivery date</span>
+                <input class="k-textbox" [(ngModel)]="request.ExpectedDate" disabled name="Expected delivery date" />
+              </label>
+              <label class="k-form-field">
+                <span>Werehouse Address</span>
+                <input class="k-textbox" [(ngModel)]="request.WereHouseAddress" disabled name="Werehouse Address" />
+              </label>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div>
+      </div>
+      <kendo-dialog-actions>
+        <button kendoButton (click)="action('no')">Back</button>
+        <button kendoButton (click)="action('yes')" primary="true">Add To Shipment</button>
+      </kendo-dialog-actions>
+    </kendo-dialog>
+  </div>
+</div>
