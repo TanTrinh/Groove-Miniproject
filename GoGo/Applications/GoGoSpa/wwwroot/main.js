@@ -1021,6 +1021,7 @@ var UserListComponent = /** @class */ (function () {
         this.router = router;
         this.data = {};
         this.selectOption = "";
+        this.lStorage = localStorage.length;
         this.paginators = [];
     }
     UserListComponent.prototype.ngOnInit = function () {
@@ -1028,34 +1029,44 @@ var UserListComponent = /** @class */ (function () {
     };
     UserListComponent.prototype.loadList = function () {
         var _this = this;
-        console.log(this.selectOption);
-        if (this.selectOption == 'Customer') {
-            this.id = 1;
-            this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id).subscribe(function (result) {
-                _this.data = result;
-                _this.userList = _this.data;
-            });
-        }
-        else if (this.selectOption == 'Driver') {
-            this.id = 2;
-            this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id).subscribe(function (result) {
-                _this.data = result;
-                _this.userList = _this.data;
-            });
-        }
-        else if (this.selectOption == 'Coordinator') {
-            this.id = 3;
-            this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id).subscribe(function (result) {
-                _this.data = result;
-                _this.userList = _this.data;
-            });
-        }
-        else {
-            this.id = 4;
-            this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id).subscribe(function (result) {
-                _this.data = result;
-                _this.userList = _this.data;
-            });
+        var key = localStorage.getItem('tokenKey');
+        var currentKey = JSON.parse(key);
+        if (this.lStorage != 0) {
+            var httpOptions = {
+                headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentKey.access_token
+                })
+            };
+            console.log(this.selectOption);
+            if (this.selectOption == 'Customer') {
+                this.id = 1;
+                this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(function (result) {
+                    _this.data = result;
+                    _this.userList = _this.data;
+                });
+            }
+            else if (this.selectOption == 'Driver') {
+                this.id = 2;
+                this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(function (result) {
+                    _this.data = result;
+                    _this.userList = _this.data;
+                });
+            }
+            else if (this.selectOption == 'Coordinator') {
+                this.id = 3;
+                this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(function (result) {
+                    _this.data = result;
+                    _this.userList = _this.data;
+                });
+            }
+            else {
+                this.id = 4;
+                this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(function (result) {
+                    _this.data = result;
+                    _this.userList = _this.data;
+                });
+            }
         }
         //this.http.get('http://localhost:62772/api/user/userroles?id=' + id).subscribe(result => {
         //  this.data = result;

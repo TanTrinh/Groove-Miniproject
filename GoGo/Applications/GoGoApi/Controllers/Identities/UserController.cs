@@ -21,6 +21,7 @@ namespace GoGoApi.Controllers.Identities
 
         [Route("userroles")]
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetUsers(long? id)
         {
             return Ok(await _userService.GetUsersAsync(id));
