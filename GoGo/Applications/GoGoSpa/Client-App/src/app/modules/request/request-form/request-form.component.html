@@ -68,8 +68,8 @@
           <div class="form-group" *ngIf="!isViewFormMode">
             <label for="wareHouseId">Warehouse</label>
             <select class="form-control" [(ngModel)]="formData.wareHouseId" name="wareHouseId" #wareHouseId="ngModel" [disabled]="isViewFormMode" required>
-              <option>1</option>
-              <option>2</option>
+              <option selected hidden>Choose here...</option>
+              <option *ngFor="let item of formDataSource.WarehouseList" value="{{item.id}}">{{item.nameWarehouse}}</option>
             </select>
             <div *ngIf="wareHouseId.invalid && (wareHouseId.dirty || wareHouseId.touched)"
                  class="alert alert-danger">

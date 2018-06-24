@@ -53,6 +53,14 @@ namespace Domains.GoGo.Services
             return entity.Id;
         }
 
+        public async Task<int> UpdateCustomerRequest(RequestModel model, UserIdentity<long> issuer)
+        {
+            var entity = this._mapper.Map<Request>(model);
+            _repository.Update(entity);
+            await _uow.SaveChangesAsync();
+            return entity.Id;
+        }
+
         public RequestModel FindCustomerRequest(int id)
         {
             var entity = _repository.GetEntityById(id);

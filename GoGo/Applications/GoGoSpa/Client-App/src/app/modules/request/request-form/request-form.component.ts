@@ -11,7 +11,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./request-form.component.scss']
 })
 export class RequestFormComponent extends FormBaseComponent implements OnInit {
-
+  public WarehouseList: {id: '', nameWarehouse: ''};
   constructor(protected route: ActivatedRoute,
     protected router: Router,
     protected requestService: RequestService,
@@ -20,15 +20,11 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     private _notificationService: NotificationService,
   ) {
     super(route, router, notificationService, requestService, validationService);
+    this.formConfiguration.dataSourceMapper.add('WarehouseList', requestService);
     super.formOnInit("Request", {});
-    this.formConfiguration.events.onAfterInitFormData = function (data) {
-    }
-    
-    this.formConfiguration.dataSourceMapper.add('role', requestService);
-    // this.formDataSource.role = 
   }
  
- 
   ngOnInit() {
+    
   }
 }

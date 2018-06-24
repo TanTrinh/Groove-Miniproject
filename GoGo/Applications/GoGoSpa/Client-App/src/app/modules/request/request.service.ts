@@ -8,14 +8,14 @@ import { AuthHttpService } from '../../shared';
 })
 export class RequestService implements ICreateFormService, IViewFormService, IUpdateFormService, IDataSourceService {
   
-  getDataSource(): Observable<any> {
+  getDataSource(): Observable<any> { // warehouseList
     return this._apiHttp.get(`/api/warehouse/customer/77`); //get id from claim
   }
   edit(id: any, formData: any): Observable<any> {
     return this._apiHttp.put(`/api/request/${id}`, formData);
   }
 
-  getFormData(id: any): Observable<any> {
+  getFormData(id: any): Observable<any> { // for view
     return this._apiHttp.get(`/api/request/${id}`);
   }
 

@@ -199,13 +199,13 @@ export abstract class FormBaseComponent {
     } else {
       this.formData = this._defaultFormData;
       this.formConfiguration.events.onAfterInitFormData(this.formData);
-      // this.constructorForFormDataSource();
+      console.log(1);
+      this.constructorForFormDataSource();
     }
   }
 
   private constructorForFormDataSource() {
     // Data source data
-    //console.log(this.formConfiguration.dataSourceMapper.getMap());
     for (let map of this.formConfiguration.dataSourceMapper.getMap()) {
 
       let mapDataSourceObs: Observable<any>;
