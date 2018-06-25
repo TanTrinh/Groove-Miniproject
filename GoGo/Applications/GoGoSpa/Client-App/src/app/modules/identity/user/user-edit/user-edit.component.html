@@ -1,0 +1,40 @@
+<form #myForm="ngForm" name="myForm">
+  <div class="form-group col-md-4">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" [(ngModel)]="model.email" name="email" #email="ngModel" required validateEmail="email">
+    <div *ngIf="email.invalid && (email.dirty || email.touched)">
+
+      <div *ngIf="email.errors.required" style="color:red">
+        Email is required.
+      </div>
+      <div *ngIf="email.errors.validateEmail" style="color:red">
+        Email format should be <i>tan@gmail.com</i>.
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <label for="phonenumber">Phone Number</label>
+    <input type="text" class="form-control" id="phonenumber" [(ngModel)]="model.phoneNumber" name="phonenumber">
+  </div>
+  <div class="form-group col-md-4">
+    <label for="role">Role</label>
+    <!--<input type="text" class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required />-->
+    <select class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
+      <option value="Customer">Customer</option>
+      <option value="Driver">Driver</option>
+      <option value="Coordinator">Coordinator</option>
+      <option value="Administrator">Administrator</option>
+    </select>
+    <div *ngIf="role.invalid && (role.dirty || role.touched)">
+
+      <div *ngIf="role.errors.required" style="color:red">
+        Role is required.
+      </div>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <p style="color:red">{{message}}</p>
+    <button class="btn btn-success" (click)="save(model.id)" [disabled]="myForm.invalid">Save</button>
+    <button class="btn btn-primary" (click)="back()">Back</button>
+  </div>
+</form>

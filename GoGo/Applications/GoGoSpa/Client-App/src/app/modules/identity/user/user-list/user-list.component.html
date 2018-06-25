@@ -28,7 +28,11 @@
         <td>{{user.email}}</td>
         <td>{{user.phoneNumber}}</td>
         <td>{{user.status}}</td>
-        <td><button class="btn btn-default" (click)="loadDetail(user.id)">Detail</button></td>
+        <td>
+          <button class="btn btn-default" (click)="loadDetail(user.id)">Detail</button>
+          <span> </span>
+          <button class="btn btn-default" (click)="loadUpdate(user.id)">Edit</button>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -11,8 +11,10 @@ namespace Domains.Identity.Services
     public interface IUserService
     {
         Task<long> CreateUserAsync(UserCreateModel model, UserIdentity<long> issuer);
+        Task<long> UpdateUserAsync(long id, UserUpdateModel model, UserIdentity<long> issuer);
         Task<IEnumerable<UserListModel>> GetUsersAsync(long? id);
         Task<UserReadModel> GetUserProfileAsync(long? id);
         Task<UserReadModel> GetUserDetailAsync(long? id);
+        Task<UserViewUpdateModel> GetUserUpdateAsync(long? id);
     }
 }

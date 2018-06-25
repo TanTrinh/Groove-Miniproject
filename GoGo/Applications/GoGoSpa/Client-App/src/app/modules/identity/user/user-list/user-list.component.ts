@@ -23,6 +23,7 @@ export class UserListComponent implements OnInit {
 
   paginators = [];
   ngOnInit() {
+    this.selectOption = 'Customer';
     this.loadList();
   }
 
@@ -76,6 +77,10 @@ export class UserListComponent implements OnInit {
 
   loadDetail(id) {
     this.router.navigate(['home/detail', id]);
+  }
+
+  loadUpdate(id) {
+    this.router.navigate(['home/edit', id])
   }
 
   create() {

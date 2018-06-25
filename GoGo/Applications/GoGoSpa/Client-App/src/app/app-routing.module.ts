@@ -11,6 +11,7 @@ import { UserProfileComponent } from './modules/identity/user/user-profile/user-
 import { FormsModule } from '@angular/forms';
 import { UserDetailComponent } from './modules/identity/user/user-detail/user-detail.component';
 import { UserCreateComponent } from './modules/identity/user/user-create/user-create.component';
+import { UserEditComponent } from './modules/identity/user/user-edit/user-edit.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,7 +23,8 @@ const routes: Routes = [
         { path: 'account', component: UserListComponent },
         { path: 'create', component: UserCreateComponent },
         { path: 'profile', component: UserProfileComponent },
-        { path: 'detail/:id', component: UserDetailComponent }
+        { path: 'detail/:id', component: UserDetailComponent },
+        { path: 'edit/:id', component: UserEditComponent }
       ]
     },
     //{ path: 'detail/:id', component: UserDetailComponent }

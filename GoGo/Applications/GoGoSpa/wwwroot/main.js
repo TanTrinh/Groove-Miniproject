@@ -44,6 +44,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _modules_identity_user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/identity/user/user-detail/user-detail.component */ "./src/app/modules/identity/user/user-detail/user-detail.component.ts");
 /* harmony import */ var _modules_identity_user_user_create_user_create_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/identity/user/user-create/user-create.component */ "./src/app/modules/identity/user/user-create/user-create.component.ts");
+/* harmony import */ var _modules_identity_user_user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/identity/user/user-edit/user-edit.component */ "./src/app/modules/identity/user/user-edit/user-edit.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -62,6 +63,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
@@ -72,7 +74,8 @@ var routes = [
             { path: 'account', component: _modules_identity_user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_6__["UserListComponent"] },
             { path: 'create', component: _modules_identity_user_user_create_user_create_component__WEBPACK_IMPORTED_MODULE_10__["UserCreateComponent"] },
             { path: 'profile', component: _modules_identity_user_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_7__["UserProfileComponent"] },
-            { path: 'detail/:id', component: _modules_identity_user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_9__["UserDetailComponent"] }
+            { path: 'detail/:id', component: _modules_identity_user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_9__["UserDetailComponent"] },
+            { path: 'edit/:id', component: _modules_identity_user_user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_11__["UserEditComponent"] }
         ]
     },
 ];
@@ -873,6 +876,26 @@ var UserCreateComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/modules/identity/user/user-detail/UserDetail.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-detail/UserDetail.ts ***!
+  \*****************************************************************/
+/*! exports provided: UserDetail */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserDetail", function() { return UserDetail; });
+var UserDetail = /** @class */ (function () {
+    function UserDetail() {
+    }
+    return UserDetail;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/modules/identity/user/user-detail/user-detail.component.html":
 /*!******************************************************************************!*\
   !*** ./src/app/modules/identity/user/user-detail/user-detail.component.html ***!
@@ -908,6 +931,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _UserDetail__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UserDetail */ "./src/app/modules/identity/user/user-detail/UserDetail.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -920,13 +944,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UserDetailComponent = /** @class */ (function () {
     function UserDetailComponent(http, router, route) {
         this.http = http;
         this.router = router;
         this.route = route;
         this.data = {};
-        this.userDetail = this.data;
+        this.userDetail = new _UserDetail__WEBPACK_IMPORTED_MODULE_3__["UserDetail"]();
         this.lStorage = localStorage.length;
     }
     UserDetailComponent.prototype.ngOnInit = function () {
@@ -968,6 +993,134 @@ var UserDetailComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/modules/identity/user/user-edit/user-edit.component.html":
+/*!**************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-edit/user-edit.component.html ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<form #myForm=\"ngForm\" name=\"myForm\">\r\n  <div class=\"form-group col-md-4\">\r\n    <label for=\"email\">Email</label>\r\n    <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"model.email\" name=\"email\" #email=\"ngModel\" required validateEmail=\"email\">\r\n    <div *ngIf=\"email.invalid && (email.dirty || email.touched)\">\r\n\r\n      <div *ngIf=\"email.errors.required\" style=\"color:red\">\r\n        Email is required.\r\n      </div>\r\n      <div *ngIf=\"email.errors.validateEmail\" style=\"color:red\">\r\n        Email format should be <i>tan@gmail.com</i>.\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"form-group col-md-4\">\r\n    <label for=\"phonenumber\">Phone Number</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"model.phoneNumber\" name=\"phonenumber\">\r\n  </div>\r\n  <div class=\"form-group col-md-4\">\r\n    <label for=\"role\">Role</label>\r\n    <!--<input type=\"text\" class=\"form-control\" id=\"role\" [(ngModel)]=\"model.role\" name=\"role\" #role=\"ngModel\" required />-->\r\n    <select class=\"form-control\" id=\"role\" [(ngModel)]=\"model.role\" name=\"role\" #role=\"ngModel\" required>\r\n      <option value=\"Customer\">Customer</option>\r\n      <option value=\"Driver\">Driver</option>\r\n      <option value=\"Coordinator\">Coordinator</option>\r\n      <option value=\"Administrator\">Administrator</option>\r\n    </select>\r\n    <div *ngIf=\"role.invalid && (role.dirty || role.touched)\">\r\n\r\n      <div *ngIf=\"role.errors.required\" style=\"color:red\">\r\n        Role is required.\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"form-group col-md-4\">\r\n    <p style=\"color:red\">{{message}}</p>\r\n    <button class=\"btn btn-success\" (click)=\"save(model.id)\" [disabled]=\"myForm.invalid\">Save</button>\r\n    <button class=\"btn btn-primary\" (click)=\"back()\">Back</button>\r\n  </div>\r\n</form>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/identity/user/user-edit/user-edit.component.scss":
+/*!**************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-edit/user-edit.component.scss ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/modules/identity/user/user-edit/user-edit.component.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-edit/user-edit.component.ts ***!
+  \************************************************************************/
+/*! exports provided: UserEditComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserEditComponent", function() { return UserEditComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var UserEditComponent = /** @class */ (function () {
+    function UserEditComponent(http, router, route, location) {
+        this.http = http;
+        this.router = router;
+        this.route = route;
+        this.location = location;
+        this.model = {
+            email: '',
+            phoneNumber: '',
+            role: ''
+        };
+        this.data = {};
+        this.id = {};
+        this.lStorage = localStorage.length;
+    }
+    UserEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var key = localStorage.getItem('tokenKey');
+        var currentKey = JSON.parse(key);
+        if (this.lStorage != 0) {
+            var httpOptions = {
+                headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentKey.access_token
+                })
+            };
+            this.id = this.route.snapshot.paramMap.get('id');
+            this.http.get('http://localhost:62772/api/user/edit?id=' + this.id, httpOptions).subscribe(function (result) {
+                if (result) {
+                    console.log(result);
+                    _this.model = result;
+                }
+            });
+        }
+    };
+    UserEditComponent.prototype.save = function (id) {
+        var _this = this;
+        var key = localStorage.getItem('tokenKey');
+        var currentKey = JSON.parse(key);
+        if (this.lStorage != 0) {
+            var httpOptions = {
+                headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentKey.access_token
+                })
+            };
+            id = this.route.snapshot.paramMap.get('id');
+            this.http.put('http://localhost:62772/api/user/edit?id=' + id, this.model, httpOptions).subscribe(function (result) {
+                if (result) {
+                    _this.data = result;
+                    console.log(_this.data);
+                    _this.router.navigate(['home/detail', _this.data.value]);
+                }
+            }, function (e) {
+                console.log(e);
+            });
+        }
+    };
+    UserEditComponent.prototype.back = function () {
+        this.location.back();
+    };
+    UserEditComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-user-edit',
+            template: __webpack_require__(/*! ./user-edit.component.html */ "./src/app/modules/identity/user/user-edit/user-edit.component.html"),
+            styles: [__webpack_require__(/*! ./user-edit.component.scss */ "./src/app/modules/identity/user/user-edit/user-edit.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_3__["Location"]])
+    ], UserEditComponent);
+    return UserEditComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/modules/identity/user/user-list/user-list.component.html":
 /*!**************************************************************************!*\
   !*** ./src/app/modules/identity/user/user-list/user-list.component.html ***!
@@ -975,7 +1128,7 @@ var UserDetailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>List account</h1>\r\n<button class=\"btn btn-success\" (click)=\"create()\">Create User</button>\r\n<div>\r\n  <select class=\"float-right\" [(ngModel)]=\"selectOption\" (ngModelChange)=\"loadList()\">\r\n    <option value=\"Customer\">Customer</option>\r\n    <option value=\"Driver\">Driver</option>\r\n    <option value=\"Coordinator\">Coordinator</option>\r\n    <option value=\"Administrator\">Administrator</option>\r\n  </select>\r\n</div>\r\n<div class=\"list clear\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>ID</th>\r\n        <th>User Name</th>\r\n        <th>Email</th>\r\n        <th>Phone Number</th>\r\n        <th>Status</th>\r\n        <th>Actions</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let user of userList\">\r\n        <td>{{user.id}}</td>\r\n        <td>{{user.userName}}</td>\r\n        <td>{{user.email}}</td>\r\n        <td>{{user.phoneNumber}}</td>\r\n        <td>{{user.status}}</td>\r\n        <td><button class=\"btn btn-default\" (click)=\"loadDetail(user.id)\">Detail</button></td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
+module.exports = "<h1>List account</h1>\r\n<button class=\"btn btn-success\" (click)=\"create()\">Create User</button>\r\n<div>\r\n  <select class=\"float-right\" [(ngModel)]=\"selectOption\" (ngModelChange)=\"loadList()\">\r\n    <option value=\"Customer\">Customer</option>\r\n    <option value=\"Driver\">Driver</option>\r\n    <option value=\"Coordinator\">Coordinator</option>\r\n    <option value=\"Administrator\">Administrator</option>\r\n  </select>\r\n</div>\r\n<div class=\"list clear\">\r\n  <table class=\"table table-hover\">\r\n    <thead id=\"head\">\r\n      <tr>\r\n        <th>ID</th>\r\n        <th>User Name</th>\r\n        <th>Email</th>\r\n        <th>Phone Number</th>\r\n        <th>Status</th>\r\n        <th>Actions</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n      <tr *ngFor=\"let user of userList\">\r\n        <td>{{user.id}}</td>\r\n        <td>{{user.userName}}</td>\r\n        <td>{{user.email}}</td>\r\n        <td>{{user.phoneNumber}}</td>\r\n        <td>{{user.status}}</td>\r\n        <td>\r\n          <button class=\"btn btn-default\" (click)=\"loadDetail(user.id)\">Detail</button>\r\n          <span> </span>\r\n          <button class=\"btn btn-default\" (click)=\"loadUpdate(user.id)\">Edit</button>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1025,6 +1178,7 @@ var UserListComponent = /** @class */ (function () {
         this.paginators = [];
     }
     UserListComponent.prototype.ngOnInit = function () {
+        this.selectOption = 'Customer';
         this.loadList();
     };
     UserListComponent.prototype.loadList = function () {
@@ -1076,6 +1230,9 @@ var UserListComponent = /** @class */ (function () {
     UserListComponent.prototype.loadDetail = function (id) {
         this.router.navigate(['home/detail', id]);
     };
+    UserListComponent.prototype.loadUpdate = function (id) {
+        this.router.navigate(['home/edit', id]);
+    };
     UserListComponent.prototype.create = function () {
         this.router.navigate(['home/create']);
     };
@@ -1088,6 +1245,26 @@ var UserListComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], UserListComponent);
     return UserListComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/identity/user/user-profile/UserProfile.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-profile/UserProfile.ts ***!
+  \*******************************************************************/
+/*! exports provided: UserProfile */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfile", function() { return UserProfile; });
+var UserProfile = /** @class */ (function () {
+    function UserProfile() {
+    }
+    return UserProfile;
 }());
 
 
@@ -1128,7 +1305,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfileComponent", function() { return UserProfileComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _UserProfile__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UserProfile */ "./src/app/modules/identity/user/user-profile/UserProfile.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1141,12 +1319,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UserProfileComponent = /** @class */ (function () {
     function UserProfileComponent(http, location) {
         this.http = http;
         this.location = location;
         this.data = {};
-        this.userProfile = this.data;
+        this.userProfile = new _UserProfile__WEBPACK_IMPORTED_MODULE_2__["UserProfile"]();
         this.lStorage = localStorage.length;
     }
     UserProfileComponent.prototype.ngOnInit = function () {
@@ -1176,7 +1355,7 @@ var UserProfileComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./user-profile.component.scss */ "./src/app/modules/identity/user/user-profile/user-profile.component.scss")]
         }),
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
-            _angular_common__WEBPACK_IMPORTED_MODULE_2__["Location"]])
+            _angular_common__WEBPACK_IMPORTED_MODULE_3__["Location"]])
     ], UserProfileComponent);
     return UserProfileComponent;
 }());
@@ -1202,12 +1381,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./user-detail/user-detail.component */ "./src/app/modules/identity/user/user-detail/user-detail.component.ts");
 /* harmony import */ var _user_create_user_create_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user-create/user-create.component */ "./src/app/modules/identity/user/user-create/user-create.component.ts");
+/* harmony import */ var _user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./user-edit/user-edit.component */ "./src/app/modules/identity/user/user-edit/user-edit.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1224,7 +1405,7 @@ var UserModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"]
             ],
-            declarations: [_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_2__["UserListComponent"], _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__["UserProfileComponent"], _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__["UserDetailComponent"], _user_create_user_create_component__WEBPACK_IMPORTED_MODULE_6__["UserCreateComponent"]]
+            declarations: [_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_2__["UserListComponent"], _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__["UserProfileComponent"], _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__["UserDetailComponent"], _user_create_user_create_component__WEBPACK_IMPORTED_MODULE_6__["UserCreateComponent"], _user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_7__["UserEditComponent"]]
         })
     ], UserModule);
     return UserModule;
@@ -1476,7 +1657,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\MyData\GrooveIntern\MiniProject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\intern02\MiniProject\ForkMiniProject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

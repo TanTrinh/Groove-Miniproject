@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 })
 export class UserProfileComponent implements OnInit {
   data: any = {};
-  public userProfile: UserProfile = this.data;
+  public userProfile = new UserProfile();
   public lStorage = localStorage.length;
 
   constructor(

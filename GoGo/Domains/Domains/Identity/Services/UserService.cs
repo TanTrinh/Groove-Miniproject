@@ -5,6 +5,7 @@ using Domains.Identity.Repositories;
 using Groove.AspNetCore.Common.Exceptions;
 using Groove.AspNetCore.Common.Identity;
 using Groove.AspNetCore.Common.Messages;
+using Groove.AspNetCore.UnitOfWork;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -19,15 +20,18 @@ namespace Domains.Identity.Services
         private readonly UserManager<User> _userManagement;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _uow;
 
         public UserService(
             IMapper mapper,
             IUserRepository userRepository,
-            UserManager<User> userManagement)
+            UserManager<User> userManagement,
+            IUnitOfWork uow)
         {
             _userManagement = userManagement;
             _userRepository = userRepository;
             _mapper = mapper;
+            _uow = uow;
         }
         
         public async Task<long> CreateUserAsync(UserCreateModel model, UserIdentity<long> issuer)
@@ -47,6 +51,31 @@ namespace Domains.Identity.Services
             return user.Id;
         }
 
+        public async Task<long> UpdateUserAsync(long id, UserUpdateModel model, UserIdentity<long> issuer)
+        {
+            var user = _userRepository.GetEntityById(id);
+            var role = await _userManagement.GetRolesAsync(user);
+
+            _mapper.Map(model, user);
+            user.UpdateBy(issuer);
+
+            if (role[0] != model.Role)
+            {
+                var identityResult = await _userManagement.RemoveFromRolesAsync(user, role);
+                if (identityResult.Succeeded)
+                {
+                    await _userManagement.AddToRoleAsync(user, model.Role);
+                }
+            }
+            _userRepository.Update(user);
+            //await _userManagement.UpdateAsync(user);
+            
+
+            await _uow.SaveChangesAsync();
+
+            return user.Id;
+        }
+
         //Get the user profile
         public Task<UserReadModel> GetUserProfileAsync(long? id)
         {
@@ -57,6 +86,12 @@ namespace Domains.Identity.Services
         public Task<UserReadModel> GetUserDetailAsync(long? id)
         {
             return _userRepository.FindByUserIdAsync(id);
+        }
+
+        //Get the value of user need to edit
+        public Task<UserViewUpdateModel> GetUserUpdateAsync(long? id)
+        {
+            return _userRepository.GetUserUpdateByIdAsync(id);
         }
 
         //Get list of user with specific role by role id

@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Groove.AspNetCore.UnitOfWork.EntityFramework
 {
-    public class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey>
+    public abstract class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey>
         where TEntity : class, IEntity<TKey>
     {
         protected DbContext context;
         protected DbSet<TEntity> dbSet;
 
-        public GenericRepository(IUnitOfWorkContext uoWContext)
+        public GenericRepository(DbContext dbContext)
         {
-            this.context = uoWContext.GetUnitOfWorkContext() as DbContext;
+            this.context = dbContext;
             this.dbSet = context.Set<TEntity>();
         }
 

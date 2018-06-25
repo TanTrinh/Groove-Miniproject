@@ -40,6 +40,7 @@ namespace Domains.Identity.Models
             RuleFor(p => p.Password).MinimumLength(8);
             RuleFor(p => p.Password).RequireDigit();
             RuleFor(p => p.Password).RequireUppercase();
+            RuleFor(p => p.Role).NotEmpty();
         }
     }
 }

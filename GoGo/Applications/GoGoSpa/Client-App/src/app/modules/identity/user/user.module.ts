@@ -5,12 +5,13 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { FormsModule } from '@angular/forms';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserCreateComponent } from './user-create/user-create.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule
   ],
-  declarations: [UserListComponent, UserProfileComponent, UserDetailComponent, UserCreateComponent]
+  declarations: [UserListComponent, UserProfileComponent, UserDetailComponent, UserCreateComponent, UserEditComponent]
 })
 export class UserModule { }

@@ -10,10 +10,9 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtentions
     {
-        public static void AddUnitOfWork<TDbContext>(this IServiceCollection services) where TDbContext : DbContext, IUnitOfWorkContext
+        public static void AddUnitOfWork<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
         {
-            services.AddScoped<IUnitOfWorkContext, TDbContext>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork<TDbContext>>();
         }
 
     }

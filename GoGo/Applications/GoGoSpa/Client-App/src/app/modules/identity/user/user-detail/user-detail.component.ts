@@ -11,7 +11,7 @@ import { UserDetail } from './UserDetail';
 export class UserDetailComponent implements OnInit {
   id: string;
   data: any = {};
-  public userDetail: UserDetail = this.data;
+  public userDetail = new UserDetail();
   public lStorage = localStorage.length;
 
   constructor(

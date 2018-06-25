@@ -13,5 +13,6 @@ namespace Domains.Identity.Repositories
 		Task<User> FindByUserNameAsync(string userName);
         Task<IEnumerable<UserListModel>> GetUserListAsync(long? id);
         Task<UserReadModel> FindByUserIdAsync(long? id);
+        Task<UserViewUpdateModel> GetUserUpdateByIdAsync(long? id);
 	}
 }

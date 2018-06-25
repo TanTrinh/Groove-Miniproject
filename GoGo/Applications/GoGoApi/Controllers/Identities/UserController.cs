@@ -42,20 +42,29 @@ namespace GoGoApi.Controllers.Identities
             return OkValueObject(userId);
         }
 
-        //[Route("{id}")]
-        //[HttpPut]
-        //[Authorize]
-        //public async Task<IActionResult> UpdateUser(long id, [FromBody]UserUpdateModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [Route("edit")]
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> UpdateUser(long id, [FromBody]UserUpdateModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    await _userService.UpdateUserAsync(id, model, GetCurrentIdentity<long>());
+            var userId = await _userService.UpdateUserAsync(id, model, GetCurrentIdentity<long>());
 
-        //    return Ok();
-        //}
+            return OkValueObject(userId);
+        }
+
+        //Get the value of user need to update
+        [Route("edit")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> ViewUserUpdate(long id)
+        {
+            return Ok(await _userService.GetUserUpdateAsync(id));
+        }
 
         [Route("profile")]
         [HttpGet]
