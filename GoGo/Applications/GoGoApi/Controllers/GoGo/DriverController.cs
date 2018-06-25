@@ -31,30 +31,13 @@ namespace GoGoApi.Controllers.GoGo
             public string ShipmentCode { set; get; }
             public string RequestCode { set; get; }
         }
-        [Route("detail")]
-        [HttpGet]
-        public async Task<IActionResult> GetRequestDetail(int? id)
-        {
-            return Ok(await _serviceRequest.GetRequestDetails(id));
-        }
-        //[Route("changeStatus")]
-        //[HttpPost]
-        //public async Task<IActionResult> ChangeStatus(int? id, string status)
-        //{
-        //    return Ok(await _serviceRequest.ChangeStatus(id, status));
-        //}
+       
         [Route("changeStatus")]
         [HttpPost]
         public async Task<IActionResult> changeStatus([FromBody]parameter p)
         {
-            try
-            {
-                return Ok(Json(await _serviceShipmentRequest.ChangeStatusRequestAsync(p.code, p.status)));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            string code = await _serviceShipmentRequest.ChangeStatusRequestAsync(p.code, p.status);
+            return Ok(await _serviceShipmentRequest.GetCurrentRequestAsync(code));
         }
         [Route("shipmentAssigned")]
         [HttpGet]
@@ -62,36 +45,30 @@ namespace GoGoApi.Controllers.GoGo
         {
             return Ok(await _serviceShipment.GetShipmentAssignedModel(id));
         }
-        [Route("shipmentfeedback")]
+        [Route("shipmentFeedback")]
         [HttpPost]
-        public async Task<IActionResult> AcceptOrReject([FromBody]parameter p)
+        public async Task<IActionResult> ShipmentFeedback([FromBody]parameter p)
         {
-            try
-            {
-                return Ok(Json(await _serviceShipment.ChangeStatus(p.code, p.status)));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            string code = await _serviceShipment.ChangeStatus(p.code, p.status);
+            return Ok(await _serviceShipment.GetShipmentAsync(code));
         }
-        [Route("shipmentPicking")]
+        [Route("getLocationPicking")]
         [HttpGet]
         public async Task<IActionResult> GetLocationPicking(string code)
         {
             return Ok(await _serviceShipmentRequest.GetPositionPicking(code));
         }
-        [Route("shipment")]
+        [Route("shipmentDetail")]
         [HttpGet]
         public async Task<IActionResult> GetShipment(string code)
         {
             return Ok(await _serviceShipment.GetShipmentAsync(code));
         }
-        [Route("shipment/requestDetail")]
+        [Route("shipment/currentRequest")]
         [HttpGet]
-        public IActionResult GetRequestDetail(string code)
+        public async Task<IActionResult> GetRequestDetailAsync(string code)
         {
-            return Ok(_serviceShipmentRequest.GetRequestDetailModel(code));
+             return Ok(await _serviceShipmentRequest.GetCurrentRequestAsync(code));
         }
 
 

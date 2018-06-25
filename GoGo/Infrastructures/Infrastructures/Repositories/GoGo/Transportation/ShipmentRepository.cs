@@ -26,18 +26,11 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         }
         public async Task<string> ChangeStatus(string code, string status)
         {
-            try
-            {
-                var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
-                shipment.Status = status;
-                this.context.Update(shipment);
-                await this.context.SaveChangesAsync();
-                return shipment.Status;
-            }
-            catch (Exception ex)
-            {
-                return ex.Message.ToString();
-            }
+            var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
+            shipment.Status = status;
+            this.context.Update(shipment);
+            await this.context.SaveChangesAsync();
+            return shipment.Code;
         }
         public async Task<IEnumerable<ShipmentViewModel>> GetShipmentAssignedModel(long? id)
         {
@@ -62,6 +55,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         public async Task<ShipmentViewModel> GetShipmentAsync(string code)
         {
             int totalPackage = _shipmentRequestRepository.GetTotalRequest(code);
+            string firstRequestCode = await _shipmentRequestRepository.GetFirstRequestCode(code);
             var query = this.dbSet
                         .Include(p => p.Vehicle)
                         .Where(p => p.Code == code)
@@ -73,7 +67,8 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                             Status = p.Status,
                             RequestQuality = p.RequestQuantity,
                             LicensePlate = p.Vehicle.LicensePlate,
-                            PackageQuality = totalPackage
+                            PackageQuality = totalPackage,
+                            CurrentRequest=firstRequestCode
                         });
             return await query.FirstAsync();
         }

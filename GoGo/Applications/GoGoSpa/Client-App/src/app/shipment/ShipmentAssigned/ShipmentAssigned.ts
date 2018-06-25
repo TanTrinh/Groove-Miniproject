@@ -6,4 +6,5 @@ export class ShipmentAssigned {
   requestQuality: number;
   status: string;
   packageQuality: number;
+  currentRequest: string;
 }

@@ -14,5 +14,6 @@ namespace Domains.GoGo.Models
         public int RequestQuality { set; get; }
         public int PackageQuality { set; get; }
         public string Status { set; get; }
+        public string CurrentRequest { set; get; }
     }
 }

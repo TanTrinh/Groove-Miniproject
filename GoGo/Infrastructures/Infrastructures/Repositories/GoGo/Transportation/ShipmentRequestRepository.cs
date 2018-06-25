@@ -24,20 +24,13 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
         public async Task<string> ChangeStatusRequestAsync(string code, string status)
         {
-            try
-            {
-                var shipment = await this.dbSet
-                                        .Include(p => p.Request)
-                                        .Where(p => p.Request.Code == code).FirstAsync();
-                shipment.Status = status;
-                this.context.Update(shipment);
-                this.context.SaveChanges();
-                return shipment.Status;
-            }
-            catch (Exception ex)
-            {
-                return ex.Message.ToString();
-            }
+            var shipment = await this.dbSet
+                                    .Include(p => p.Request)
+                                    .Where(p => p.Request.Code == code).FirstAsync();
+            shipment.Status = status;
+            this.context.Update(shipment);
+            this.context.SaveChanges();
+            return shipment.Request.Code;
         }
 
         public async Task<LocationModel> GetPositionPickingAsync(string code)
@@ -61,7 +54,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                          .Include(p => p.Shipment)
                          .Include(p => p.Request)
                          .Where(p => p.Shipment.Code == code)
-                         .Where(p=>p.Status=="Waiting")
+                         .Where(p => p.Status == "Waiting")
                          .Select(p => new RequestDetailModel
                          {
                              Code = p.Request.Code,
@@ -75,7 +68,41 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             return query.First();
         }
 
+        public async Task<string> GetFirstRequestCode(string shipmentCode)
+        {
 
+            int total = this.dbSet.Include(p => p.Shipment)
+                        .Where(p => p.Shipment.Code == shipmentCode)
+                        .Count(p => p.Status == "Waiting");
+            if (total == 0)
+                return "";
+            var query = this.dbSet
+                        .Include(p => p.Shipment)
+                        .Include(p => p.Request)
+                        .Where(p => p.Shipment.Code == shipmentCode)
+                        .Where(p => p.Status == "Waiting")
+                        .Select(p => p.Request.Code);
+            return await query.FirstAsync();
+        }
+
+        public async Task<RequestDetailModel> GetCurrentRequestAsync(string requestCode)
+        {
+            var query = this.dbSet
+                         .Include(p => p.Shipment)
+                         .Include(p => p.Request)
+                         .Where(p => p.Request.Code == requestCode)
+                         .Select(p => new RequestDetailModel
+                         {
+                             Code = p.Request.Code,
+                             PackageQuantity = p.Request.PackageQuantity,
+                             ReceiverName = p.Request.ReceiverName,
+                             ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
+                             EstimateDate = p.RequestEstimateDate,
+                             Status = p.Status,
+                             Address = p.Request.Address
+                         });
+            return await query.FirstAsync();
+        }
 
         public async Task<IEnumerable<RequestDetailModel>> GetRequestListAsync(string code)
         {

@@ -5,6 +5,8 @@ import { Location } from './Location';
 import { ShipmentAssigned } from '../ShipmentAssigned/ShipmentAssigned';
 import { SaveService } from '../../shared/service/save.service';
 import { RequestDetail } from '../../request/RequestDetail';
+import { ShipmentService } from '../shipment.service';
+import { error } from 'util';
 @Component({
   selector: 'app-shipment-picking',
   templateUrl: './shipment-picking.component.html',
@@ -12,9 +14,9 @@ import { RequestDetail } from '../../request/RequestDetail';
 })
 export class ShipmentPickingComponent implements OnInit {
   data: any = {};
-  shipmentDetail: ShipmentAssigned = this.data;
-  firstRequest: RequestDetail = this.data;
-  status: string;
+  shipmentDetail = new ShipmentAssigned();
+  firstRequest = new RequestDetail();
+  status='Waiting';
   code: string;
   httpOptions = {
     headers: new HttpHeaders({
@@ -26,7 +28,8 @@ export class ShipmentPickingComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private save: SaveService
+    private save: SaveService,
+    private service: ShipmentService
   ) { }
   locationPicking: Location = {
     address: '',
@@ -38,40 +41,46 @@ export class ShipmentPickingComponent implements OnInit {
   ngOnInit() {
     this.code = this.route.snapshot.paramMap.get('code');
     this.save.saveCode(this.code);
-    this.http.get('http://localhost:60012/api/Driver/shipmentPicking?code=' + this.code, this.httpOptions).subscribe(result => {
-      this.data = result;
-      this.locationPicking = this.data;
-    });
-    this.http.get('http://localhost:60012/api/Driver/shipment?code=' + this.code, this.httpOptions).subscribe(result => {
-      this.data = result;
-      this.shipmentDetail = this.data;
-      this.save.saveStatus(this.shipmentDetail.status);
-      console.log(this.shipmentDetail.status);
-    });
-   
-   
-    //this.http.get('http://localhost:60012/api/Driver/shipment/requestDetail?code=' + this.code, this.httpOptions).subscribe(result => {
-    //  this.data = result;
-    //  this.firstRequest = this.data;
-    //  console.log(this.firstRequest);
-      
-    //});
-   // this.router.navigate([`./home/shipmentPicking/${this.code}/currentRequest`]);
+    this.service.getLocationPicking(this.code).subscribe(data => {
+      this.locationPicking = data;
+    })
+    this.refeshShipment(this.code);
   }
+  refeshShipment(code: string) {
+    this.service.getShipmentDetail(this.code).subscribe(data => {
+      this.shipmentDetail = data;
+      console.log(this.shipmentDetail);
+      if (this.shipmentDetail.currentRequest == "") {
+        this.feedback(this.shipmentDetail, 'Completed');
+      }
+      else {
+        this.service.getCurrentRequest(this.shipmentDetail.currentRequest).subscribe(data => {
+          this.firstRequest = data;
+        })
+      }
+    })
+  }
+
   feedback(item: ShipmentAssigned, status) {
     var param = { 'code': item.code, 'status': status }
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'ResponseType': 'Json'
-      })
-    };
-    this.http.post('http://localhost:60012/api/Driver/shipmentfeedback', param, httpOptions).subscribe(result => {
-      item.status = status;
-      this.save.saveStatus(status);
-      if (status == 'Shipping')
-      if (status == "Completed")
-        this.router.navigate(['./home/assigned'])
-    });
+    console.log(this.status)
+    this.service.changeStatusShipment(param).subscribe(data => {
+      this.shipmentDetail = data;
+      console.log(this.shipmentDetail);
+    })
+  }
+
+  changeStatus(item: ShipmentAssigned, status) {
+    var param = { 'code': item.currentRequest, 'status': status }
+    this.service.changeStatusRequest(param).subscribe(data => {
+      this.firstRequest = data;
+    })
+    if (status == "Completed") {
+      this.refeshShipment(this.code);
+    }
+  }
+
+  returnList() {
+    this.router.navigate(['./home/assigned']);
   }
 }

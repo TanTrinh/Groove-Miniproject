@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class SaveService {
   private code: any;
   private statusShipment: string;
-  constructor() { }
+  constructor(public http:HttpClient) { }
 
   saveCode(code: any) {
     this.code = code;
@@ -20,4 +22,9 @@ export class SaveService {
   getStatusShipment() {
     return this.statusShipment;
   }
+
+  getShipmentDetail(shipmentId: number): Observable<any> {
+    return this.http.get(`http://localhost:60012/api/Driver/shipment/${shipmentId}`);
+  }
 }
+

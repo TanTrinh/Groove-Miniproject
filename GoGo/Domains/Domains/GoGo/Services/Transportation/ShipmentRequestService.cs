@@ -56,6 +56,14 @@ namespace Domains.GoGo.Services.Transportation
         {
             return _repository.GetRequestDetailModel(code);
         }
+        public async Task<string> GetFirstRequestCode(string shipmentCode)
+        {
+            return await _repository.GetFirstRequestCode(shipmentCode);
+        }
+        public async Task<RequestDetailModel> GetCurrentRequestAsync(string requestCode)
+        {
+            return await _repository.GetCurrentRequestAsync(requestCode);
+        }
 
         public async Task<IEnumerable<RequestDetailModel>> GetRequestListAsync(string code)
         {

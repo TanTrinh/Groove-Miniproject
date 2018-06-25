@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpParamsOptions, HttpParams } from '@angular/common/http/src/params';
 import { SaveService } from '../../shared/service/save.service';
+import { ShipmentService } from '../shipment.service';
 @Component({
   selector: 'app-assigned',
   templateUrl: './assigned.component.html',
@@ -20,11 +21,14 @@ export class AssignedComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private service: ShipmentService
   ) { }
 
   paginators = [];
   ngOnInit() {
+   
     this.LoadPage(1);
+    console.log(this.shipmentAssigned);
   }
   LoadPage(page) {
     var httpOptions = {
@@ -33,11 +37,10 @@ export class AssignedComponent implements OnInit {
         'ResponseType': 'Json'
       })
     };
-    this.http.get('http://localhost:60012/api/Driver/shipmentAssigned?id=54').subscribe(result => {
-      this.data = result;
-      this.shipmentAssigned = this.data;
-      console.log(this.shipmentAssigned);
-    });
+    this.service.getListShipmentAssigned(54).subscribe(data => {
+      console.log(data);
+      this.shipmentAssigned = data;
+    })
   }
   goToShipmentDeatil(code) {
     this.router.navigate(['./home/shipmentPicking', code]);
@@ -58,6 +61,10 @@ export class AssignedComponent implements OnInit {
       else
         item.status = status;
     });
+  }
+
+  goToPageDetail(code) {
+    this.router.navigate(['./home/shipmentPicking', code]);
   }
 }
 
