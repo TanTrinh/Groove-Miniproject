@@ -43,7 +43,7 @@ namespace Domains.GoGo.Services.Transportation
 			_uow.GetRepository<IShipmentRepository>().Create(entity);
 
 			await _uow.SaveChangesAsync();
-
+			
 			return entity.Id;
 		}
 

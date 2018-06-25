@@ -33,5 +33,14 @@ namespace GoGoApi.Controllers.GoGo
 			
 			return Ok(_service.GetAllAsync(request));
 		}
+
+		[Route("datasource")]
+		[HttpGet]
+		public async Task<IActionResult> GetDataSource(string value)
+		{
+
+			return Ok(await _service.GetDataSource(value));
+		}
+
 	}
 }

@@ -1,3 +1,4 @@
+using Domains.Core;
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
 using Kendo.Mvc.UI;
@@ -16,5 +17,6 @@ namespace Domains.GoGo.Repositories.Transportation
 
 		Task<RequestDetailModel> GetRequestDetailAsync(int? id);
         Task<string> ChangeStatus(int? id, string status);
-    }
+		Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value);
+	}
 }

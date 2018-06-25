@@ -40,13 +40,13 @@
       <div class="text-center">
         <kendo-combobox name="request" [data]="view | async"
                         [(ngModel)]="request"
-                        [valueField]="'Code'"
-                        [textField]="'Code'"
+                        [valueField]="'Value'"
+                        [textField]="'DisplayName'"
                         [filterable]="true"
                         (filterChange)="handleFilter($event)">
         </kendo-combobox>
 
-        <div class="card" style="margin: 10px;">
+        <!--<div class="card" style="margin: 10px;">
           <div class="card-block">
             <form class="k-form-inline">
               <label class="k-form-field">
@@ -71,7 +71,7 @@
               </label>
             </form>
           </div>
-        </div>
+        </div>-->
       </div>
       <div>
       </div>

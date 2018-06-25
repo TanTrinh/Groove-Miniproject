@@ -1450,7 +1450,7 @@ var AssignedComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  edit-form works!\n</p>\n"
+module.exports = "<p>\r\n  edit-form works!\r\n</p>\r\n"
 
 /***/ }),
 
@@ -1513,7 +1513,7 @@ var EditFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"\">\r\n  <button (click)=\"CreateShipment()\" primary=\"true\">Save</button>\r\n  <div>\r\n    <kendo-grid [data]=\"gridData\"\r\n                [pageSize]=\"state.take\"\r\n                [skip]=\"state.skip\"\r\n                [sort]=\"state.sort\"\r\n                [sortable]=\"true\"\r\n                [pageable]=\"true\"\r\n                (dataStateChange)=\"dataStateChange($event)\"\r\n                (add)=\"addHandler($event)\"\r\n                (remove)=\"removeHandler($event)\"\r\n                [height]=\"370\">\r\n\r\n      <ng-template kendoGridToolbarTemplate>\r\n        <button kendoGridAddCommand>Add new</button>\r\n      </ng-template>\r\n      <kendo-grid-column field=\"Code\" title=\"Code\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"CustomerName\" title=\"Customer Name\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PickingDate\" title=\"Picking Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"ExpectedDate\" title=\"Delivery Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PackageQuantity\" title=\"Package Quantity\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"WereHouseAddress\" title=\"WereHouse Address\"></kendo-grid-column>\r\n      <kendo-grid-command-column title=\"command\" width=\"220\">\r\n        <ng-template kendoGridCellTemplate>\r\n          <button kendoGridRemoveCommand [primary]=\"true\">Delete</button>\r\n        </ng-template>\r\n      </kendo-grid-command-column>\r\n    </kendo-grid>\r\n  </div>\r\n\r\n  <div>\r\n    <kendo-dialog title=\"Add More Request\" *ngIf=\"active\" [minWidth]=\"250\" [width]=\"700\" (close)=\"action('no')\">\r\n      <p style=\"margin: 5px; text-align: center;\">Please enter the request code</p>\r\n      <div class=\"text-center\">\r\n        <kendo-combobox name=\"request\" [data]=\"view | async\"\r\n                        [(ngModel)]=\"request\"\r\n                        [valueField]=\"'Code'\"\r\n                        [textField]=\"'Code'\"\r\n                        [filterable]=\"true\"\r\n                        (filterChange)=\"handleFilter($event)\">\r\n        </kendo-combobox>\r\n\r\n        <div class=\"card\" style=\"margin: 10px;\">\r\n          <div class=\"card-block\">\r\n            <form class=\"k-form-inline\">\r\n              <label class=\"k-form-field\">\r\n                <span>Customer Name</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.CustomerName\" disabled name=\"Customer Name\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Package Quantity</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.PackageQuantity\" disabled name=\"Package Quantity\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Expected picking date</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.PickingDate\" disabled name=\"Expected picking date\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Expected delivery date</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.ExpectedDate\" disabled name=\"Expected delivery date\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Werehouse Address</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.WereHouseAddress\" disabled name=\"Werehouse Address\" />\r\n              </label>\r\n            </form>\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <div>\r\n      </div>\r\n      <kendo-dialog-actions>\r\n        <button kendoButton (click)=\"action('no')\">Back</button>\r\n        <button kendoButton (click)=\"action('yes')\" primary=\"true\">Add To Shipment</button>\r\n      </kendo-dialog-actions>\r\n    </kendo-dialog>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"\">\r\n  <button (click)=\"CreateShipment()\" primary=\"true\">Save</button>\r\n  <div>\r\n    <kendo-grid [data]=\"gridData\"\r\n                [pageSize]=\"state.take\"\r\n                [skip]=\"state.skip\"\r\n                [sort]=\"state.sort\"\r\n                [sortable]=\"true\"\r\n                [pageable]=\"true\"\r\n                (dataStateChange)=\"dataStateChange($event)\"\r\n                (add)=\"addHandler($event)\"\r\n                (remove)=\"removeHandler($event)\"\r\n                [height]=\"370\">\r\n\r\n      <ng-template kendoGridToolbarTemplate>\r\n        <button kendoGridAddCommand>Add new</button>\r\n      </ng-template>\r\n      <kendo-grid-column field=\"Code\" title=\"Code\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"CustomerName\" title=\"Customer Name\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PickingDate\" title=\"Picking Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"ExpectedDate\" title=\"Delivery Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PackageQuantity\" title=\"Package Quantity\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"WereHouseAddress\" title=\"WereHouse Address\"></kendo-grid-column>\r\n      <kendo-grid-command-column title=\"command\" width=\"220\">\r\n        <ng-template kendoGridCellTemplate>\r\n          <button kendoGridRemoveCommand [primary]=\"true\">Delete</button>\r\n        </ng-template>\r\n      </kendo-grid-command-column>\r\n    </kendo-grid>\r\n  </div>\r\n\r\n  <div>\r\n    <kendo-dialog title=\"Add More Request\" *ngIf=\"active\" [minWidth]=\"250\" [width]=\"700\" (close)=\"action('no')\">\r\n      <p style=\"margin: 5px; text-align: center;\">Please enter the request code</p>\r\n      <div class=\"text-center\">\r\n        <kendo-combobox name=\"request\" [data]=\"view | async\"\r\n                        [(ngModel)]=\"request\"\r\n                        [valueField]=\"'Value'\"\r\n                        [textField]=\"'DisplayName'\"\r\n                        [filterable]=\"true\"\r\n                        (filterChange)=\"handleFilter($event)\">\r\n        </kendo-combobox>\r\n\r\n        <!--<div class=\"card\" style=\"margin: 10px;\">\r\n          <div class=\"card-block\">\r\n            <form class=\"k-form-inline\">\r\n              <label class=\"k-form-field\">\r\n                <span>Customer Name</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.CustomerName\" disabled name=\"Customer Name\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Package Quantity</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.PackageQuantity\" disabled name=\"Package Quantity\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Expected picking date</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.PickingDate\" disabled name=\"Expected picking date\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Expected delivery date</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.ExpectedDate\" disabled name=\"Expected delivery date\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Werehouse Address</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.WereHouseAddress\" disabled name=\"Werehouse Address\" />\r\n              </label>\r\n            </form>\r\n          </div>\r\n        </div>-->\r\n      </div>\r\n      <div>\r\n      </div>\r\n      <kendo-dialog-actions>\r\n        <button kendoButton (click)=\"action('no')\">Back</button>\r\n        <button kendoButton (click)=\"action('yes')\" primary=\"true\">Add To Shipment</button>\r\n      </kendo-dialog-actions>\r\n    </kendo-dialog>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1578,11 +1578,16 @@ var ShipmentCreatingComponent = /** @class */ (function () {
         this.gridData = Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__["process"])(this.requestList, this.state);
         this.view = service;
     }
-    ShipmentCreatingComponent.prototype.handleFilter = function (state) {
-        this.state = state;
-        this.service.query(state);
+    ShipmentCreatingComponent.prototype.handleFilter = function (value) {
+        var _this = this;
+        //this.state = state;
+        this.service.getDataSource(value).subscribe(function (data) {
+            _this.request = data;
+            console.log(_this.request);
+        });
         this.addSucess = false;
     };
+    ////////////////////////////////////////////
     ShipmentCreatingComponent.prototype.pushRequest = function () {
         if (this.requestList.indexOf(this.request) != -1 || this.requestIdList.indexOf(this.request.Id) != -1) {
             this.addSucess = false;
@@ -1765,10 +1770,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentService", function() { return ShipmentService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @progress/kendo-data-query */ "./node_modules/@progress/kendo-data-query/dist/es/main.js");
-/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/internal/operators/map */ "./node_modules/rxjs/internal/operators/map.js");
-/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1791,25 +1793,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
-
 var ShipmentService = /** @class */ (function (_super) {
     __extends(ShipmentService, _super);
     function ShipmentService(http) {
         var _this = _super.call(this, null) || this;
         _this.http = http;
-        _this.BASE_URL = 'http://localhost:54520/api/Requests/RequestList';
+        _this.BASE_URL = 'http://localhost:54520/api/Requests/dataSource';
         return _this;
     }
-    ShipmentService.prototype.fetch = function (state) {
-        var queryStr = "" + Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_2__["toDataSourceRequestString"])(state);
-        return this.http
-            .get(this.BASE_URL + "?" + queryStr).pipe(Object(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return response['Data']; }));
-    };
-    ShipmentService.prototype.query = function (state) {
-        var _this = this;
-        this.fetch(state)
-            .subscribe(function (x) { return _super.prototype.next.call(_this, x); });
+    ShipmentService.prototype.getDataSource = function (value) {
+        return this.http.get("http://localhost:54520/api/Requests/dataSource?value=" + value);
     };
     ShipmentService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1818,7 +1811,7 @@ var ShipmentService = /** @class */ (function (_super) {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], ShipmentService);
     return ShipmentService;
-}(rxjs__WEBPACK_IMPORTED_MODULE_4__["BehaviorSubject"]));
+}(rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]));
 
 
 
@@ -1950,7 +1943,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\sweet_\Documents\New folder\gogogo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\intern08\Documents\Groove\gogogo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

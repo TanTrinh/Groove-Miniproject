@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Domains.Core;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
 using Domains.Helpers;
@@ -53,5 +54,10 @@ namespace Domains.GoGo.Services
         {
             return _repository.GetRequestDetailAsync(id);
         }
-    }
+
+		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value)
+		{
+			return await _repository.GetDataSource(value);
+		}
+	}
 }

@@ -1,3 +1,4 @@
+using Domains.Core;
 using Domains.GoGo.Models.Transportation;
 using Domains.Helpers;
 using Kendo.Mvc.UI;
@@ -12,6 +13,7 @@ namespace Domains.GoGo.Services
 
         Task<string> ChangeStatus(int? id, string status);
 
+		Task<IEnumerable<DataSourceValue<int>>>  GetDataSource(string value);
 
 		PagedData<RequestModel> GetWaitingRequest(int pageNumber);
 		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);

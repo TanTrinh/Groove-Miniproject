@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Domains.GoGo.Models.Transportation;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
+using Domains.Core;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -54,6 +55,15 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		public DataSourceResult GetAllAsync([DataSourceRequest] DataSourceRequest request)
 		{
 			return this.dbSet.MapQueryTo<RequestModel>(_mapper).ToDataSourceResult(request);
+		}
+
+		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value)
+		{
+			return await this.dbSet.Where(p => p.Code.Contains(value)).Select(p => new DataSourceValue<int>
+			{
+				Value = p.Id,
+				DisplayName = p.Code
+			}).ToListAsync();
 		}
 	}
 }

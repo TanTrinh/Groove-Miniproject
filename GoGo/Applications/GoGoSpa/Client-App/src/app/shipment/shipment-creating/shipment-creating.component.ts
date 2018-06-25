@@ -54,12 +54,17 @@ export class ShipmentCreatingComponent{
       this.view = service;
   }
 
-  public handleFilter(state: DataStateChangeEvent) {
-    this.state = state;
-    this.service.query(state);
+  public handleFilter(value) {
+    //this.state = state;
+    this.service.getDataSource(value).subscribe(data => {
+      this.request = data;
+      console.log(this.request);
+    });
     this.addSucess = false;
   }
 
+
+  ////////////////////////////////////////////
   pushRequest()
   {
     if (this.requestList.indexOf(this.request) != -1 || this.requestIdList.indexOf(this.request.Id) != -1) {

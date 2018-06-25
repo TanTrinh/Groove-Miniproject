@@ -13,7 +13,7 @@ namespace Domains.GoGo.Services.Fleet_management
     public class DriverService : IDriverService
     {
         private readonly IShipmentRepository _shipmentRepository;
-        private readonly IUserRepository _userRepository;
+        
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 

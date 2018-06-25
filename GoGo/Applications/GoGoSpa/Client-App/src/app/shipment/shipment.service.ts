@@ -11,22 +11,15 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ShipmentService extends BehaviorSubject<any>  {
 
-  public fetch(state: DataSourceRequestState): any {
-    const queryStr = `${toDataSourceRequestString(state)}`;
-    return this.http
-      .get(`${this.BASE_URL}?${queryStr}`).pipe(map(response => response['Data']));
-  }
 
-
-  private BASE_URL = 'http://localhost:54520/api/Requests/RequestList';
+  private BASE_URL = 'http://localhost:54520/api/Requests/dataSource';
  
   constructor(private http: HttpClient) {
     super(null);
   }
 
-  public query(state: DataSourceRequestState): void {
-    this.fetch(state)
-      .subscribe(x => super.next(x));
+  public getDataSource(value): Observable<any>  {
+    return this.http.get(`http://localhost:54520/api/Requests/dataSource?value=${value}`);
   }
 
 }
