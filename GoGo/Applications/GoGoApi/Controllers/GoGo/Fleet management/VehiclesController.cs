@@ -4,37 +4,36 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domains.GoGo.Services.Fleet_management;
 using Groove.AspNetCore.Mvc;
-using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers
 {
-    [Route("api/Drivers")]
+    [Route("api/Vehicles")]
     [ApiController]
-    public class DriversController : BaseController
+    public class VehiclesController : BaseController
     {
-        private readonly IDriverService _service;
+        private readonly IVehicleService _service;
 
-        public DriversController(IDriverService service)
+        public VehiclesController(IVehicleService service)
         {
             _service = service;
         }
 
         [Route("datasource")]
         [HttpGet]
-        public async Task<IActionResult> GetDataSource(string driverName)
+        public async Task<IActionResult> GetDataSource(string licensePlate)
         {
 
-            return Ok(await _service.GetDataSource(driverName));
+            return Ok(await _service.GetDataSource(licensePlate));
         }
 
         [Route("GetDetail")]
         [HttpGet]
-        public async Task<IActionResult> GetRequestDetailAsync(string Id)
+        public async Task<IActionResult> GetRequestDetailAsync(int Id)
         {
 
-            return Ok(await _service.GetDriverDetail(Id));
+            return Ok(await _service.GetVehicleDetailAsync(Id));
         }
     }
 }

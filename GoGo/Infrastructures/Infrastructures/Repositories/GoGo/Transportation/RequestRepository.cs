@@ -26,22 +26,6 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             _mapper = mapper;
         }
 
-		public IEnumerable<RequestModel> GetWaitingRequestAsync(int pageNumber, int pageSize)
-		{
-			return this.dbSet.Include(p => p.WareHouse)
-							.Where(p => p.WareHouse.Id == p.WareHouseId)
-							.Where(p => p.Status == "Pending")
-							.Skip(pageSize * (pageNumber - 1))
-							.Take(pageSize)
-							.MapQueryTo<RequestModel>(_mapper)
-							.ToList();
-	}
-
-		public int GetWaitingRequestQuantity()
-		{
-			return this.dbSet.Where(p => p.Status == "Pending").Count();
-		}
-
 		public async Task<RequestDetailModel> GetRequestDetailAsync(int? id)
         {
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
@@ -65,5 +49,10 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 				DisplayName = p.Code
 			}).ToListAsync();
 		}
-	}
+
+        public async Task<RequestModel> GetRequestDetailAsync(string code)
+        {
+            return await this.dbSet.Where(p => p.Code == code).MapQueryTo<RequestModel>(_mapper).FirstAsync();
+        }
+    }
 }

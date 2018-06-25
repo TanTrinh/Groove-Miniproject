@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharingService } from '../../shared/sevices/sharing-service.service';
-import { RequestService } from '../../request/request-service.service';
+import { RequestService } from '../../request/request.service';
 import { PagerService } from '../../shared/sevices/pager-service.service';
 import { Observable } from 'rxjs-compat/Observable';
 import { ShipmentService } from '../shipment.service';
@@ -14,6 +14,7 @@ import { Validators } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -22,24 +23,26 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
   styleUrls: ['./shipment-creating.component.scss']
 })
 export class ShipmentCreatingComponent{
+
+  //Combobox
   private toggleText = 'Hide';
-
   private show = true;
-
   private view: Observable<any>;
+  public request: any = {
+  };
 
-  public request: any;
+  private vehicleView: Observable<any>;
+  public vehicle: any = {
+  };
 
-  public requestTemp: any;
+  //Grid
+  private requestDetail: any;
+
+  public requestTemp: Request;
 
   public addSucess: boolean;
 
-  //@ViewChild(TooltipDirective)
-  //public tooltipDir: TooltipDirective;
-
   public state: DataSourceRequestState = {
-    skip: 0,
-    take: 5
   };
 
   public active: boolean;
@@ -47,79 +50,66 @@ export class ShipmentCreatingComponent{
   //Table
   public requestList: any[] = new Array();
   public requestIdList: any[] = new Array();
-
   public gridData: any = process(this.requestList, this.state);
 
-  constructor(private service: ShipmentService, private router: Router, private http: Http) {
-      this.view = service;
+  constructor(private service: ShipmentService, private router: Router, private http: Http, private requestService: RequestService) {
+    this.view = requestService;
+    this.vehicleView = service;
   }
 
+  CreateShipment() {
+    this.service.CreateShipment(this.requestIdList, '20', "2020-06-26T15:28:00Z", "2020-06-26T15:28:00Z", '2', '2', '3')
+      .subscribe()
+  }
+
+  //Vehicles code filter
+  public handleVehicleFilter(value) {
+    this.service.query(value)
+  }
+
+  //Add Vehicles Tolist
+  GetVehicleDetail() {
+    this.service.getVehicleDetail(this.vehicle.Value).pipe(map(res => res.json()))
+      .subscribe(result => {
+        console.log(result)
+      });
+  }
+
+
+  //Request code filter
   public handleFilter(value) {
-    //this.state = state;
-    this.service.getDataSource(value).subscribe(data => {
-      this.request = data;
-      console.log(this.request);
-    });
-    this.addSucess = false;
+    this.requestService.query(value)
   }
 
-
-  ////////////////////////////////////////////
+  //Add Request Tolist
+  AddRequestToList() {
+    this.requestService.getRequestDetail(this.request.DisplayName).pipe(map(res => res.json()))
+      .subscribe(result => {
+        this.requestDetail = result
+        this.pushRequest()
+      });
+  }
+  
   pushRequest()
   {
-    if (this.requestList.indexOf(this.request) != -1 || this.requestIdList.indexOf(this.request.Id) != -1) {
-      this.addSucess = false;
+    if (this.requestList.indexOf(this.requestDetail) != -1 || this.requestIdList.indexOf(this.requestDetail.Id) != -1) {
     } else {
-      this.requestList.push(this.request);
-      this.requestIdList.push(this.request.Id);
+      this.requestList.push(this.requestDetail);
+      this.requestIdList.push(this.requestDetail.Id);
       this.refreshGrid()
     }
-    this.addSucess = true;
   }
 
   public refreshGrid() {
     this.gridData = process(this.requestList, this.state)
   }
 
-  public addHandler() {
-    this.request = new Request();
-    this.active = true;
-    this.refreshGrid();
-  }
-
-  public action(status) {
-
-    if (status == 'no') {
-      this.active = false;
-    } else {
-      this.pushRequest();
-    }
-  }
-
-  public removeHandler({ request }) {
-    var index = this.requestList.indexOf(request);
+  public removeHandler({ requestDetail }) {
+    var index = this.requestList.indexOf(requestDetail);
     this.requestList.splice(index, 1);
     this.requestIdList.splice(index, 1);
     this.refreshGrid();
   }
-  register(requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId): any {
 
-    let body = JSON.stringify({ requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId });
-
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.post("http://localhost:54520/api/Shipments/Create", body, options);
-  }
-  
-  public errors: string;
-
-  CreateShipment() {
-    this.errors = '';
-
-    
-      this.register(this.requestIdList,'20', "2018-06-26T15:28:00Z","2018-06-26T15:28:00Z", '2', '2','3')
-        .subscribe()
-   
-  }  
+ 
 }

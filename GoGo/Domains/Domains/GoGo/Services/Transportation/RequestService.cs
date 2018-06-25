@@ -27,17 +27,6 @@ namespace Domains.GoGo.Services
             _mapper = mapper;
         }
 
-		public PagedData<RequestModel> GetWaitingRequest(int pageNumber )
-		{
-			IEnumerable<RequestModel> WaitingRequestList = _repository.GetWaitingRequestAsync(pageNumber, pageSize);
-
-			var totalPage = _repository.GetWaitingRequestQuantity();
-
-			var pagedData = Pagination.PagedResult(WaitingRequestList, pageNumber, totalPage, pageSize);
-			
-			return pagedData;
-
-		}
 
 		public DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request)
 		{
@@ -59,5 +48,10 @@ namespace Domains.GoGo.Services
 		{
 			return await _repository.GetDataSource(value);
 		}
-	}
+
+        public Task<RequestModel> GetRequestDetailAsync(string code)
+        {
+            return _repository.GetRequestDetailAsync(code);
+        }
+    }
 }

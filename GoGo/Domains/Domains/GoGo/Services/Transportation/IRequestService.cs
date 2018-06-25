@@ -15,10 +15,9 @@ namespace Domains.GoGo.Services
 
 		Task<IEnumerable<DataSourceValue<int>>>  GetDataSource(string value);
 
-		PagedData<RequestModel> GetWaitingRequest(int pageNumber);
 		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
-
-		//int? assignedTo = null
-	}
+        Task<RequestModel> GetRequestDetailAsync(string code);
+    
+    }
 }
 	

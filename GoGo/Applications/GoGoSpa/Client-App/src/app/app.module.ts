@@ -20,7 +20,7 @@ import { ShipmentModule } from './shipment/shipment.module';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
 import { ConfigService } from './shared/sevices/config-service.service';
 import { PagerService } from './shared/sevices/pager-service.service';
-import { RequestService } from './request/request-service.service';
+import { RequestService } from './request/request.service';
 import { SharedModule } from './shared/shared.module';
 import { RequestListComponent } from './request/request-list/request-list.component';
 import { Request, HttpModule } from '@angular/http';

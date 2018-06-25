@@ -183,7 +183,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
 /* harmony import */ var _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/sevices/config-service.service */ "./src/app/shared/sevices/config-service.service.ts");
 /* harmony import */ var _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./shared/sevices/pager-service.service */ "./src/app/shared/sevices/pager-service.service.ts");
-/* harmony import */ var _request_request_service_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./request/request-service.service */ "./src/app/request/request-service.service.ts");
+/* harmony import */ var _request_request_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./request/request.service */ "./src/app/request/request.service.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./request/request-list/request-list.component */ "./src/app/request/request-list/request-list.component.ts");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
@@ -278,7 +278,7 @@ var AppModule = /** @class */ (function () {
                 }),
             ],
             providers: [
-                src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_18__["NotificationService"], _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_19__["ConfigService"], _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_20__["PagerService"], _request_request_service_service__WEBPACK_IMPORTED_MODULE_21__["RequestService"]
+                src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_18__["NotificationService"], _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_19__["ConfigService"], _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_20__["PagerService"], _request_request_service__WEBPACK_IMPORTED_MODULE_21__["RequestService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
         })
@@ -1029,7 +1029,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestListComponent", function() { return RequestListComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _request_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../request-service.service */ "./src/app/request/request-service.service.ts");
+/* harmony import */ var _request_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../request.service */ "./src/app/request/request.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1065,7 +1065,7 @@ var RequestListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./request-list.component.html */ "./src/app/request/request-list/request-list.component.html"),
             styles: [__webpack_require__(/*! ./request-list.component.scss */ "./src/app/request/request-list/request-list.component.scss")]
         }),
-        __metadata("design:paramtypes", [_request_service_service__WEBPACK_IMPORTED_MODULE_2__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_request_service__WEBPACK_IMPORTED_MODULE_2__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], RequestListComponent);
     return RequestListComponent;
 }());
@@ -1074,10 +1074,10 @@ var RequestListComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/request/request-service.service.ts":
-/*!****************************************************!*\
-  !*** ./src/app/request/request-service.service.ts ***!
-  \****************************************************/
+/***/ "./src/app/request/request.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/request/request.service.ts ***!
+  \********************************************/
 /*! exports provided: RequestService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1091,6 +1091,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/internal/operators/map */ "./node_modules/rxjs/internal/operators/map.js");
 /* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1106,23 +1117,42 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var RequestService = /** @class */ (function () {
-    function RequestService(https, configService, http) {
-        this.https = https;
-        this.configService = configService;
-        this.http = http;
-        this.BASE_URL = 'http://localhost:54520/api/Requests/RequestList';
-        this.baseUrl = '';
-        this.baseUrl = configService.getApiURI();
+
+var RequestService = /** @class */ (function (_super) {
+    __extends(RequestService, _super);
+    function RequestService(http, configService, https) {
+        var _this = _super.call(this, null) || this;
+        _this.http = http;
+        _this.configService = configService;
+        _this.https = https;
+        _this.BASE_URL = 'http://localhost:54520/api/Requests/RequestList';
+        _this.baseUrl = '';
+        _this.baseUrl = configService.getApiURI();
+        return _this;
     }
+    //Request List Api
     RequestService.prototype.fetch = function (state) {
         var queryStr = "" + Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__["toDataSourceRequestString"])(state);
         var hasGroups = state.group && state.group.length;
-        return this.http
+        return this.https
             .get(this.BASE_URL + "?" + queryStr).pipe(Object(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_4__["map"])(function (response) { return ({
             data: response['Data'],
             total: parseInt(response['Total'], 10)
         }); }));
+    };
+    //Request filter Api
+    RequestService.prototype.query = function (value) {
+        var _this = this;
+        this.getdatasource(value).subscribe(function (x) { return _super.prototype.next.call(_this, x); });
+    };
+    RequestService.prototype.getdatasource = function (value) {
+        return this.https.get(this.baseUrl + ("/Requests/dataSource?value=" + value));
+    };
+    //Request Detail Api
+    RequestService.prototype.getRequestDetail = function (code) {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]({ 'Content-Type': 'application/json' });
+        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["RequestOptions"]({ headers: headers });
+        return this.http.get(this.baseUrl + '/Requests/getDetail?code=' + code, options);
     };
     RequestService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1131,7 +1161,7 @@ var RequestService = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_1__["Http"], _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_2__["ConfigService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClient"]])
     ], RequestService);
     return RequestService;
-}());
+}(rxjs__WEBPACK_IMPORTED_MODULE_6__["BehaviorSubject"]));
 
 
 
@@ -1171,26 +1201,6 @@ var NotificationService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
     ], NotificationService);
     return NotificationService;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/shared/models/request.ts":
-/*!******************************************!*\
-  !*** ./src/app/shared/models/request.ts ***!
-  \******************************************/
-/*! exports provided: Request */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Request", function() { return Request; });
-var Request = /** @class */ (function () {
-    function Request() {
-    }
-    return Request;
 }());
 
 
@@ -1450,7 +1460,7 @@ var AssignedComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  edit-form works!\r\n</p>\r\n"
+module.exports = "<p>\n  edit-form works!\n</p>\n"
 
 /***/ }),
 
@@ -1513,7 +1523,7 @@ var EditFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"\">\r\n  <button (click)=\"CreateShipment()\" primary=\"true\">Save</button>\r\n  <div>\r\n    <kendo-grid [data]=\"gridData\"\r\n                [pageSize]=\"state.take\"\r\n                [skip]=\"state.skip\"\r\n                [sort]=\"state.sort\"\r\n                [sortable]=\"true\"\r\n                [pageable]=\"true\"\r\n                (dataStateChange)=\"dataStateChange($event)\"\r\n                (add)=\"addHandler($event)\"\r\n                (remove)=\"removeHandler($event)\"\r\n                [height]=\"370\">\r\n\r\n      <ng-template kendoGridToolbarTemplate>\r\n        <button kendoGridAddCommand>Add new</button>\r\n      </ng-template>\r\n      <kendo-grid-column field=\"Code\" title=\"Code\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"CustomerName\" title=\"Customer Name\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PickingDate\" title=\"Picking Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"ExpectedDate\" title=\"Delivery Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PackageQuantity\" title=\"Package Quantity\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"WereHouseAddress\" title=\"WereHouse Address\"></kendo-grid-column>\r\n      <kendo-grid-command-column title=\"command\" width=\"220\">\r\n        <ng-template kendoGridCellTemplate>\r\n          <button kendoGridRemoveCommand [primary]=\"true\">Delete</button>\r\n        </ng-template>\r\n      </kendo-grid-command-column>\r\n    </kendo-grid>\r\n  </div>\r\n\r\n  <div>\r\n    <kendo-dialog title=\"Add More Request\" *ngIf=\"active\" [minWidth]=\"250\" [width]=\"700\" (close)=\"action('no')\">\r\n      <p style=\"margin: 5px; text-align: center;\">Please enter the request code</p>\r\n      <div class=\"text-center\">\r\n        <kendo-combobox name=\"request\" [data]=\"view | async\"\r\n                        [(ngModel)]=\"request\"\r\n                        [valueField]=\"'Value'\"\r\n                        [textField]=\"'DisplayName'\"\r\n                        [filterable]=\"true\"\r\n                        (filterChange)=\"handleFilter($event)\">\r\n        </kendo-combobox>\r\n\r\n        <!--<div class=\"card\" style=\"margin: 10px;\">\r\n          <div class=\"card-block\">\r\n            <form class=\"k-form-inline\">\r\n              <label class=\"k-form-field\">\r\n                <span>Customer Name</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.CustomerName\" disabled name=\"Customer Name\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Package Quantity</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.PackageQuantity\" disabled name=\"Package Quantity\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Expected picking date</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.PickingDate\" disabled name=\"Expected picking date\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Expected delivery date</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.ExpectedDate\" disabled name=\"Expected delivery date\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Werehouse Address</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"request.WereHouseAddress\" disabled name=\"Werehouse Address\" />\r\n              </label>\r\n            </form>\r\n          </div>\r\n        </div>-->\r\n      </div>\r\n      <div>\r\n      </div>\r\n      <kendo-dialog-actions>\r\n        <button kendoButton (click)=\"action('no')\">Back</button>\r\n        <button kendoButton (click)=\"action('yes')\" primary=\"true\">Add To Shipment</button>\r\n      </kendo-dialog-actions>\r\n    </kendo-dialog>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div>\r\n\r\n  <div>\r\n    <kendo-grid [data]=\"gridData\"\r\n                [style.maxHeight.px]=\"700\"\r\n                (remove)=\"removeHandler($event)\"\r\n                [height]=\"370\">\r\n\r\n      <kendo-grid-column field=\"Code\" title=\"Code\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"CustomerName\" title=\"Customer Name\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PickingDate\" title=\"Picking Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"ExpectedDate\" title=\"Delivery Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PackageQuantity\" title=\"Package Quantity\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"WereHouseAddress\" title=\"WereHouse Address\"></kendo-grid-column>\r\n      <kendo-grid-command-column title=\"command\" width=\"220\">\r\n        <ng-template kendoGridCellTemplate>\r\n          <button kendoGridRemoveCommand [primary]=\"true\">Delete</button>\r\n        </ng-template>\r\n      </kendo-grid-command-column>\r\n    </kendo-grid>\r\n  </div>\r\n  <div>\r\n    <button (click)=\"CreateShipment()\" primary=\"true\">Save</button>\r\n  </div>\r\n  <div>\r\n    <button (click)=\"AddRequestToList()\" primary=\"true\">Add</button>\r\n  </div>\r\n\r\n  <div>\r\n    <kendo-combobox name=\"request\"\r\n                    [data]=\"view | async\"\r\n                    [(ngModel)]=\"request\"\r\n                    [valueField]=\"'Value'\"\r\n                    [textField]=\"'DisplayName'\"\r\n                    [filterable]=\"true\"\r\n                    (filterChange)=\"handleFilter($event)\">\r\n    </kendo-combobox>\r\n  </div>\r\n\r\n  <div>\r\n    <kendo-combobox name=\"vehicle\"\r\n                    [data]=\"vehicleView | async\"\r\n                    [(ngModel)]=\"vehicle\"\r\n                    [valueField]=\"'value'\"\r\n                    [textField]=\"'DisplayName'\"\r\n                    [filterable]=\"true\"\r\n                    (filterChange)=\"handleVehicleFilter($event)\">\r\n    </kendo-combobox>\r\n  </div>\r\n  <div>\r\n    <button (click)=\"GetVehicleDetail()\" primary=\"true\">Add BC</button>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n<!--<div>\r\n  <kendo-dialog title=\"Add More Request\" *ngIf=\"active\" [minWidth]=\"250\" [width]=\"700\" (close)=\"action('no')\">\r\n    <p style=\"margin: 5px; text-align: center;\">Please enter the request code</p>\r\n    <div class=\"text-center\">\r\n      <kendo-combobox name=\"request\"\r\n                      [data]=\"view | async\"\r\n                      [(ngModel)]=\"request\"\r\n                      [valueField]=\"'Value'\"\r\n                      [textField]=\"'DisplayName'\"\r\n                      [filterable]=\"true\"\r\n                      (filterChange)=\"handleFilter($event)\">\r\n      </kendo-combobox>\r\n\r\n      <div class=\"card\" style=\"margin: 10px;\">\r\n        <div class=\"card-block\">\r\n          <form class=\"k-form-inline\">\r\n            <label class=\"k-form-field\">\r\n              <span>Customer Name</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"request.CustomerName\" disabled name=\"Customer Name\" />\r\n            </label>\r\n            <label class=\"k-form-field\">\r\n              <span>Package Quantity</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"request.PackageQuantity\" disabled name=\"Package Quantity\" />\r\n            </label>\r\n            <label class=\"k-form-field\">\r\n              <span>Expected picking date</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"request.PickingDate\" disabled name=\"Expected picking date\" />\r\n            </label>\r\n            <label class=\"k-form-field\">\r\n              <span>Expected delivery date</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"request.ExpectedDate\" disabled name=\"Expected delivery date\" />\r\n            </label>\r\n            <label class=\"k-form-field\">\r\n              <span>Werehouse Address</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"request.WereHouseAddress\" disabled name=\"Werehouse Address\" />\r\n            </label>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div>\r\n    </div>\r\n    <kendo-dialog-actions>\r\n      <button kendoButton (click)=\"action('no')\">Back</button>\r\n      <button kendoButton (click)=\"action('yes')\" primary=\"true\">Add To Shipment</button>\r\n    </kendo-dialog-actions>\r\n  </kendo-dialog>\r\n</div>-->\r\n"
 
 /***/ }),
 
@@ -1524,7 +1534,7 @@ module.exports = "<div class=\"\">\r\n  <button (click)=\"CreateShipment()\" pri
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "div {\n  margin-bottom: 5px; }\n"
 
 /***/ }),
 
@@ -1539,11 +1549,12 @@ module.exports = ""
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentCreatingComponent", function() { return ShipmentCreatingComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _shipment_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shipment.service */ "./src/app/shipment/shipment.service.ts");
-/* harmony import */ var _shared_models_request__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/models/request */ "./src/app/shared/models/request.ts");
+/* harmony import */ var _request_request_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../request/request.service */ "./src/app/request/request.service.ts");
+/* harmony import */ var _shipment_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shipment.service */ "./src/app/shipment/shipment.service.ts");
 /* harmony import */ var _progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @progress/kendo-data-query */ "./node_modules/@progress/kendo-data-query/dist/es/main.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1559,79 +1570,72 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ShipmentCreatingComponent = /** @class */ (function () {
-    function ShipmentCreatingComponent(service, router, http) {
+    function ShipmentCreatingComponent(service, router, http, requestService) {
         this.service = service;
         this.router = router;
         this.http = http;
+        this.requestService = requestService;
+        //Combobox
         this.toggleText = 'Hide';
         this.show = true;
-        //@ViewChild(TooltipDirective)
-        //public tooltipDir: TooltipDirective;
-        this.state = {
-            skip: 0,
-            take: 5
-        };
+        this.request = {};
+        this.vehicle = {};
+        this.state = {};
         //Table
         this.requestList = new Array();
         this.requestIdList = new Array();
         this.gridData = Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__["process"])(this.requestList, this.state);
-        this.view = service;
+        this.view = requestService;
+        this.vehicleView = service;
     }
-    ShipmentCreatingComponent.prototype.handleFilter = function (value) {
-        var _this = this;
-        //this.state = state;
-        this.service.getDataSource(value).subscribe(function (data) {
-            _this.request = data;
-            console.log(_this.request);
-        });
-        this.addSucess = false;
+    ShipmentCreatingComponent.prototype.CreateShipment = function () {
+        this.service.CreateShipment(this.requestIdList, '20', "2020-06-26T15:28:00Z", "2020-06-26T15:28:00Z", '2', '2', '3')
+            .subscribe();
     };
-    ////////////////////////////////////////////
+    //Vehicles code filter
+    ShipmentCreatingComponent.prototype.handleVehicleFilter = function (value) {
+        this.service.query(value);
+    };
+    //Add Vehicles Tolist
+    ShipmentCreatingComponent.prototype.GetVehicleDetail = function () {
+        this.service.getVehicleDetail(this.vehicle.Value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.json(); }))
+            .subscribe(function (result) {
+            console.log(result);
+        });
+    };
+    //Request code filter
+    ShipmentCreatingComponent.prototype.handleFilter = function (value) {
+        this.requestService.query(value);
+    };
+    //Add Request Tolist
+    ShipmentCreatingComponent.prototype.AddRequestToList = function () {
+        var _this = this;
+        this.requestService.getRequestDetail(this.request.DisplayName).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.json(); }))
+            .subscribe(function (result) {
+            _this.requestDetail = result;
+            _this.pushRequest();
+        });
+    };
     ShipmentCreatingComponent.prototype.pushRequest = function () {
-        if (this.requestList.indexOf(this.request) != -1 || this.requestIdList.indexOf(this.request.Id) != -1) {
-            this.addSucess = false;
+        if (this.requestList.indexOf(this.requestDetail) != -1 || this.requestIdList.indexOf(this.requestDetail.Id) != -1) {
         }
         else {
-            this.requestList.push(this.request);
-            this.requestIdList.push(this.request.Id);
+            this.requestList.push(this.requestDetail);
+            this.requestIdList.push(this.requestDetail.Id);
             this.refreshGrid();
         }
-        this.addSucess = true;
     };
     ShipmentCreatingComponent.prototype.refreshGrid = function () {
         this.gridData = Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__["process"])(this.requestList, this.state);
     };
-    ShipmentCreatingComponent.prototype.addHandler = function () {
-        this.request = new _shared_models_request__WEBPACK_IMPORTED_MODULE_2__["Request"]();
-        this.active = true;
-        this.refreshGrid();
-    };
-    ShipmentCreatingComponent.prototype.action = function (status) {
-        if (status == 'no') {
-            this.active = false;
-        }
-        else {
-            this.pushRequest();
-        }
-    };
     ShipmentCreatingComponent.prototype.removeHandler = function (_a) {
-        var request = _a.request;
-        var index = this.requestList.indexOf(request);
+        var requestDetail = _a.requestDetail;
+        var index = this.requestList.indexOf(requestDetail);
         this.requestList.splice(index, 1);
         this.requestIdList.splice(index, 1);
         this.refreshGrid();
-    };
-    ShipmentCreatingComponent.prototype.register = function (requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId) {
-        var body = JSON.stringify({ requestIdList: requestIdList, requestQuantity: requestQuantity, startDate: startDate, endDate: endDate, vehicleId: vehicleId, driverId: driverId, coordinatorId: coordinatorId });
-        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_5__["Headers"]({ 'Content-Type': 'application/json' });
-        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_5__["RequestOptions"]({ headers: headers });
-        return this.http.post("http://localhost:54520/api/Shipments/Create", body, options);
-    };
-    ShipmentCreatingComponent.prototype.CreateShipment = function () {
-        this.errors = '';
-        this.register(this.requestIdList, '20', "2018-06-26T15:28:00Z", "2018-06-26T15:28:00Z", '2', '2', '3')
-            .subscribe();
     };
     ShipmentCreatingComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1639,7 +1643,7 @@ var ShipmentCreatingComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./shipment-creating.component.html */ "./src/app/shipment/shipment-creating/shipment-creating.component.html"),
             styles: [__webpack_require__(/*! ./shipment-creating.component.scss */ "./src/app/shipment/shipment-creating/shipment-creating.component.scss")]
         }),
-        __metadata("design:paramtypes", [_shipment_service__WEBPACK_IMPORTED_MODULE_1__["ShipmentService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _angular_http__WEBPACK_IMPORTED_MODULE_5__["Http"]])
+        __metadata("design:paramtypes", [_shipment_service__WEBPACK_IMPORTED_MODULE_2__["ShipmentService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _angular_http__WEBPACK_IMPORTED_MODULE_5__["Http"], _request_request_service__WEBPACK_IMPORTED_MODULE_1__["RequestService"]])
     ], ShipmentCreatingComponent);
     return ShipmentCreatingComponent;
 }());
@@ -1771,6 +1775,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var src_app_shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/sevices/config-service.service */ "./src/app/shared/sevices/config-service.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1793,22 +1799,44 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var ShipmentService = /** @class */ (function (_super) {
     __extends(ShipmentService, _super);
-    function ShipmentService(http) {
+    function ShipmentService(http, configService, https) {
         var _this = _super.call(this, null) || this;
         _this.http = http;
-        _this.BASE_URL = 'http://localhost:54520/api/Requests/dataSource';
+        _this.configService = configService;
+        _this.https = https;
+        _this.baseUrl = '';
+        _this.baseUrl = configService.getApiURI();
         return _this;
     }
-    ShipmentService.prototype.getDataSource = function (value) {
-        return this.http.get("http://localhost:54520/api/Requests/dataSource?value=" + value);
+    ShipmentService.prototype.CreateShipment = function (requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId) {
+        var body = JSON.stringify({ requestIdList: requestIdList, requestQuantity: requestQuantity, startDate: startDate, endDate: endDate, vehicleId: vehicleId, driverId: driverId, coordinatorId: coordinatorId });
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["Headers"]({ 'Content-Type': 'application/json' });
+        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["RequestOptions"]({ headers: headers });
+        return this.http.post(this.baseUrl + '/Shipments/Create', body, options);
+    };
+    //Vehicles filter Api
+    ShipmentService.prototype.query = function (licensePlate) {
+        var _this = this;
+        this.getdatasource(licensePlate).subscribe(function (x) { return _super.prototype.next.call(_this, x); });
+    };
+    ShipmentService.prototype.getdatasource = function (licensePlate) {
+        return this.https.get(this.baseUrl + ("/Vehicles/dataSource?licensePlate=" + licensePlate));
+    };
+    //Vehicles Detail Api
+    ShipmentService.prototype.getVehicleDetail = function (Id) {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["Headers"]({ 'Content-Type': 'application/json' });
+        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["RequestOptions"]({ headers: headers });
+        return this.http.get(this.baseUrl + '/Vehicles/getDetail?Id=' + Id, options);
     };
     ShipmentService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_3__["Http"], src_app_shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_4__["ConfigService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], ShipmentService);
     return ShipmentService;
 }(rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]));
@@ -1835,7 +1863,7 @@ module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custo
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "div {\n  margin-bottom: 10px; }\n"
 
 /***/ }),
 
@@ -1943,7 +1971,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\intern08\Documents\Groove\gogogo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\sweet_\Documents\New folder\gogogo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })
