@@ -32,7 +32,19 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
         }
 
-        public Task<string> ChangeStatus(int? id, string status)
+    //    return await this.dbSet
+    //                         .Include(p => p.WareHouse)
+    //                         .Where(p => p.Id == id)
+    //                          .Select(p => new RequestDetailModel
+    //                          {
+    //                              Code = p.Code,
+    //                              PackageQuantity=p.PackageQuantity,
+    //                               ReceiverName=p.ReceiverName,
+    //                               ReceiverPhoneNumber=p.ReceiverPhoneNumber,
+    //                               WarehouseName=p.WareHouse.NameWarehouse
+    //}).FirstAsync();
+
+    public Task<string> ChangeStatus(int? id, string status)
         {
             throw new NotImplementedException();
         }

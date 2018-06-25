@@ -580,8 +580,8 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\gogo\GoGo\Applications\GoGoSpa\Client-App\node_modules\bootstrap\dist\css\bootstrap.css */"./node_modules/bootstrap/dist/css/bootstrap.css");
-module.exports = __webpack_require__(/*! D:\gogo\GoGo\Applications\GoGoSpa\Client-App\src\styles.scss */"./src/styles.scss");
+__webpack_require__(/*! C:\Users\intern05\Documents\gogoproject\GoGo\Applications\GoGoSpa\Client-App\node_modules\bootstrap\dist\css\bootstrap.css */"./node_modules/bootstrap/dist/css/bootstrap.css");
+module.exports = __webpack_require__(/*! C:\Users\intern05\Documents\gogoproject\GoGo\Applications\GoGoSpa\Client-App\src\styles.scss */"./src/styles.scss");
 
 
 /***/ })

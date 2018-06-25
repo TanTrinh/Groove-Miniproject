@@ -40,7 +40,7 @@ namespace Domains.GoGo.Models.Transportation
         //Customer add 
         public DateTime PickingDate { get; set; }
         public DateTime ExpectedDate { set; get; }
-
+        //public string WarehouseName { set; get; }
 
 
         public double DeliveryLatitude { get; set; }

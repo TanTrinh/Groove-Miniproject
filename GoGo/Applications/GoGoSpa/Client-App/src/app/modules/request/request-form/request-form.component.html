@@ -45,7 +45,7 @@
 
           <div class="form-group">
             <label for="pickingDate">Picking Date</label>
-            <input class="form-control" [(ngModel)]="formData.pickingDate" name="pickingDate" #pickingDate="ngModel" required [disabled]="isViewFormMode">
+            <input class="form-control" [(ngModel)]="formData.pickingDate" name="pickingDate" #pickingDate="ngModel" required [disabled]="isViewFormMode" type="datetime-local">
             <div *ngIf="pickingDate.invalid && (pickingDate.dirty || pickingDate.touched)"
                  class="alert alert-danger">
               <div *ngIf="pickingDate.errors.required">
@@ -56,7 +56,7 @@
 
           <div class="form-group">
             <label for="DeliveryDate">Expected Date</label>
-            <input class="form-control" [(ngModel)]="formData.expectedDate" name="expectedDate" #expectedDate="ngModel" required [disabled]="isViewFormMode">
+            <input class="form-control" [(ngModel)]="formData.expectedDate" name="expectedDate" #expectedDate="ngModel" required [disabled]="isViewFormMode" type="datetime-local">
             <div *ngIf="expectedDate.invalid && (expectedDate.dirty || expectedDate.touched)"
                  class="alert alert-danger">
               <div *ngIf="expectedDate.errors.required">
@@ -68,7 +68,7 @@
           <div class="form-group" *ngIf="!isViewFormMode">
             <label for="wareHouseId">Warehouse</label>
             <select class="form-control" [(ngModel)]="formData.wareHouseId" name="wareHouseId" #wareHouseId="ngModel" [disabled]="isViewFormMode" required>
-              <option selected hidden>Choose here...</option>
+              <option value="{{formData.wareHouseId}}" selected hidden>{{formDataSource.CurrentWarehouse}}</option>
               <option *ngFor="let item of formDataSource.WarehouseList" value="{{item.id}}">{{item.nameWarehouse}}</option>
             </select>
             <div *ngIf="wareHouseId.invalid && (wareHouseId.dirty || wareHouseId.touched)"
@@ -78,10 +78,9 @@
               </div>
             </div>
           </div>
-
           <div class="form-group" *ngIf="isViewFormMode">
             <label for="address">Warehouse</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.wareHouseId" name="wareHouseId" #wareHouseId="ngModel" required [disabled]="true">
+            <input type="text" class="form-control" [(ngModel)]="formDataSource.CurrentWarehouse" [ngModelOptions]="{standalone: true}" [disabled]="true">
           </div>
 
           <div class="form-group">

@@ -192,14 +192,12 @@ export abstract class FormBaseComponent {
     } else if (this.isUpdateFormMode) {
       this.viewFormService.getFormData(this.formId).subscribe(data => {
         this.formData = data;
-        this.formConfiguration.events.onAfterInitFormData(this.formData);
+        this.formConfiguration.events.onAfterInitFormData();
         this.constructorForFormDataSource();
-
       });
     } else {
       this.formData = this._defaultFormData;
       this.formConfiguration.events.onAfterInitFormData(this.formData);
-      console.log(1);
       this.constructorForFormDataSource();
     }
   }
@@ -220,7 +218,7 @@ export abstract class FormBaseComponent {
       }
       mapDataSourceObs.subscribe(res => {
         if (map.onAfterGetData !== undefined && map.onAfterGetData !== null) {
-          this.formDataSource[map.name] = map.onAfterGetData(res);
+          this.formDataSource[map.name] = map.onAfterGetData(res, this.formData);
         } else {
           this.formDataSource[map.name] = res;
         }

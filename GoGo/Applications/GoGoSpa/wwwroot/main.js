@@ -200,7 +200,7 @@ var APP_INITIALIZER_PROVIDER = {
     useFactory: function (ServiceRegistryService) {
         // Do initing of services that is required before app loads
         // NOTE: this factory needs to return a function (that then returns a promise)
-        return function () { return ServiceRegistryService.load('http://localhost:50269/configuration/serviceRegistry').toPromise(); };
+        return function () { return ServiceRegistryService.load('http://localhost:49946/configuration/serviceRegistry').toPromise(); };
     },
     deps: [_shared__WEBPACK_IMPORTED_MODULE_10__["ServiceRegistryService"]],
     multi: true
@@ -1036,14 +1036,13 @@ var FormBaseComponent = /** @class */ (function () {
         else if (this.isUpdateFormMode) {
             this.viewFormService.getFormData(this.formId).subscribe(function (data) {
                 _this.formData = data;
-                _this.formConfiguration.events.onAfterInitFormData(_this.formData);
+                _this.formConfiguration.events.onAfterInitFormData();
                 _this.constructorForFormDataSource();
             });
         }
         else {
             this.formData = this._defaultFormData;
             this.formConfiguration.events.onAfterInitFormData(this.formData);
-            console.log(1);
             this.constructorForFormDataSource();
         }
     };
@@ -1062,7 +1061,7 @@ var FormBaseComponent = /** @class */ (function () {
             }
             mapDataSourceObs.subscribe(function (res) {
                 if (map.onAfterGetData !== undefined && map.onAfterGetData !== null) {
-                    _this.formDataSource[map.name] = map.onAfterGetData(res);
+                    _this.formDataSource[map.name] = map.onAfterGetData(res, _this.formData);
                 }
                 else {
                     _this.formDataSource[map.name] = res;
@@ -1829,7 +1828,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\gogo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\intern05\Documents\gogoproject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

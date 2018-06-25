@@ -35,7 +35,8 @@
         <td>Nguyễn Văn Tư</td>
         <td>...</td>
         <td>
-          <button class="btn btn-custom" routerLink="/request/edit">Edit</button> &nbsp;
+          <button class="btn btn-custom" (onClick)="onClickActivate()">Activate</button> &nbsp;
+          <button class="btn btn-custom" (onClick)="onClickDeactivate()">Deactivate</button> &nbsp;
           <button class="btn btn-custom" data-toggle="modal" data-target="#CancelModal">Delete</button>
         </td>
       </tr>

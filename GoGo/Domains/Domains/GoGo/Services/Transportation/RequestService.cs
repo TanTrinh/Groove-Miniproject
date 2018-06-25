@@ -47,7 +47,6 @@ namespace Domains.GoGo.Services
             entity.Code = Helper.GenerateCode(DateTime.Now, 1);
             entity.IssuerId = 77; //take from claim
             entity.CustomerId = 77;
-
             _repository.Create(entity);
             await _uow.SaveChangesAsync();
             return entity.Id;
