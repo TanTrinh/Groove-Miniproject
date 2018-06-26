@@ -236,6 +236,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -273,6 +274,7 @@ var AppModule = /** @class */ (function () {
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientJsonpModule"],
                 _progress_kendo_angular_dropdowns__WEBPACK_IMPORTED_MODULE_31__["DropDownsModule"],
                 _progress_kendo_angular_dialog__WEBPACK_IMPORTED_MODULE_32__["DialogModule"],
+                _progress_kendo_angular_buttons__WEBPACK_IMPORTED_MODULE_27__["ButtonGroupModule"],
                 _agm_core__WEBPACK_IMPORTED_MODULE_12__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
                 }),
@@ -1453,69 +1455,6 @@ var AssignedComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/shipment/edit-form/edit-form.component.html":
-/*!*************************************************************!*\
-  !*** ./src/app/shipment/edit-form/edit-form.component.html ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<p>\n  edit-form works!\n</p>\n"
-
-/***/ }),
-
-/***/ "./src/app/shipment/edit-form/edit-form.component.scss":
-/*!*************************************************************!*\
-  !*** ./src/app/shipment/edit-form/edit-form.component.scss ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
-/***/ "./src/app/shipment/edit-form/edit-form.component.ts":
-/*!***********************************************************!*\
-  !*** ./src/app/shipment/edit-form/edit-form.component.ts ***!
-  \***********************************************************/
-/*! exports provided: EditFormComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditFormComponent", function() { return EditFormComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var EditFormComponent = /** @class */ (function () {
-    function EditFormComponent() {
-    }
-    EditFormComponent.prototype.ngOnInit = function () {
-    };
-    EditFormComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-edit-form',
-            template: __webpack_require__(/*! ./edit-form.component.html */ "./src/app/shipment/edit-form/edit-form.component.html"),
-            styles: [__webpack_require__(/*! ./edit-form.component.scss */ "./src/app/shipment/edit-form/edit-form.component.scss")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], EditFormComponent);
-    return EditFormComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/shipment/shipment-creating/shipment-creating.component.html":
 /*!*****************************************************************************!*\
   !*** ./src/app/shipment/shipment-creating/shipment-creating.component.html ***!
@@ -1523,7 +1462,7 @@ var EditFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n\r\n  <div>\r\n    <kendo-grid [data]=\"gridData\"\r\n                [style.maxHeight.px]=\"700\"\r\n                (remove)=\"removeHandler($event)\"\r\n                [height]=\"370\">\r\n\r\n      <kendo-grid-column field=\"Code\" title=\"Code\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"CustomerName\" title=\"Customer Name\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PickingDate\" title=\"Picking Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"ExpectedDate\" title=\"Delivery Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PackageQuantity\" title=\"Package Quantity\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"WereHouseAddress\" title=\"WereHouse Address\"></kendo-grid-column>\r\n      <kendo-grid-command-column title=\"command\" width=\"220\">\r\n        <ng-template kendoGridCellTemplate>\r\n          <button kendoGridRemoveCommand [primary]=\"true\">Delete</button>\r\n        </ng-template>\r\n      </kendo-grid-command-column>\r\n    </kendo-grid>\r\n  </div>\r\n  <div>\r\n    <button (click)=\"CreateShipment()\" primary=\"true\">Save</button>\r\n  </div>\r\n  <div>\r\n    <button (click)=\"AddRequestToList()\" primary=\"true\">Add</button>\r\n  </div>\r\n\r\n  <div>\r\n    <kendo-combobox name=\"request\"\r\n                    [data]=\"view | async\"\r\n                    [(ngModel)]=\"request\"\r\n                    [valueField]=\"'Value'\"\r\n                    [textField]=\"'DisplayName'\"\r\n                    [filterable]=\"true\"\r\n                    (filterChange)=\"handleFilter($event)\">\r\n    </kendo-combobox>\r\n  </div>\r\n\r\n  <div>\r\n    <kendo-combobox name=\"vehicle\"\r\n                    [data]=\"vehicleView | async\"\r\n                    [(ngModel)]=\"vehicle\"\r\n                    [valueField]=\"'value'\"\r\n                    [textField]=\"'DisplayName'\"\r\n                    [filterable]=\"true\"\r\n                    (filterChange)=\"handleVehicleFilter($event)\">\r\n    </kendo-combobox>\r\n  </div>\r\n  <div>\r\n    <button (click)=\"GetVehicleDetail()\" primary=\"true\">Add BC</button>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n<!--<div>\r\n  <kendo-dialog title=\"Add More Request\" *ngIf=\"active\" [minWidth]=\"250\" [width]=\"700\" (close)=\"action('no')\">\r\n    <p style=\"margin: 5px; text-align: center;\">Please enter the request code</p>\r\n    <div class=\"text-center\">\r\n      <kendo-combobox name=\"request\"\r\n                      [data]=\"view | async\"\r\n                      [(ngModel)]=\"request\"\r\n                      [valueField]=\"'Value'\"\r\n                      [textField]=\"'DisplayName'\"\r\n                      [filterable]=\"true\"\r\n                      (filterChange)=\"handleFilter($event)\">\r\n      </kendo-combobox>\r\n\r\n      <div class=\"card\" style=\"margin: 10px;\">\r\n        <div class=\"card-block\">\r\n          <form class=\"k-form-inline\">\r\n            <label class=\"k-form-field\">\r\n              <span>Customer Name</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"request.CustomerName\" disabled name=\"Customer Name\" />\r\n            </label>\r\n            <label class=\"k-form-field\">\r\n              <span>Package Quantity</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"request.PackageQuantity\" disabled name=\"Package Quantity\" />\r\n            </label>\r\n            <label class=\"k-form-field\">\r\n              <span>Expected picking date</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"request.PickingDate\" disabled name=\"Expected picking date\" />\r\n            </label>\r\n            <label class=\"k-form-field\">\r\n              <span>Expected delivery date</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"request.ExpectedDate\" disabled name=\"Expected delivery date\" />\r\n            </label>\r\n            <label class=\"k-form-field\">\r\n              <span>Werehouse Address</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"request.WereHouseAddress\" disabled name=\"Werehouse Address\" />\r\n            </label>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div>\r\n    </div>\r\n    <kendo-dialog-actions>\r\n      <button kendoButton (click)=\"action('no')\">Back</button>\r\n      <button kendoButton (click)=\"action('yes')\" primary=\"true\">Add To Shipment</button>\r\n    </kendo-dialog-actions>\r\n  </kendo-dialog>\r\n</div>-->\r\n"
+module.exports = "<div class=\"card\">\r\n  <div class=\"row\">\r\n    <div class=\"col-6 col-md-4 example-col\">\r\n      <div class=\"\">\r\n        <div class=\"\">\r\n          <form class=\"k-form\">\r\n            <fieldset>\r\n              <legend>Add Request</legend>\r\n              <div>\r\n                <span>Request Search Box </span>\r\n                <div class=\"input-group\">\r\n                  <kendo-combobox name=\"request\"\r\n                                  [data]=\"view | async\"\r\n                                  [(ngModel)]=\"request\"\r\n                                  [valueField]=\"'Value'\"\r\n                                  [textField]=\"'DisplayName'\"\r\n                                  [filterable]=\"true\"\r\n                                  (filterChange)=\"handleFilter($event)\">\r\n                  </kendo-combobox>\r\n                  <span class=\"input-group-btn\">\r\n                    &nbsp;\r\n                    <button class=\"btn btn-primary\" (click)=\"AddRequestToList()\" primary=\"true\">Add To Shipment</button>\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </fieldset>\r\n          </form>\r\n        </div>\r\n        <div>\r\n          <form class=\"k-form\">\r\n            <fieldset>\r\n              <legend>Vehicle Details</legend>\r\n              <div>\r\n                <span>Choose Vehicle </span>\r\n                <div class=\"input-group\">\r\n                  <kendo-combobox name=\"vehicle\"\r\n                                  [data]=\"vehicleView | async\"\r\n                                  [(ngModel)]=\"vehicle\"\r\n                                  [valueField]=\"'Value'\"\r\n                                  [textField]=\"'DisplayName'\"\r\n                                  [filterable]=\"true\"\r\n                                  (filterChange)=\"handleVehicleFilter($event)\">\r\n                  </kendo-combobox>\r\n                  <span class=\"input-group-btn\">\r\n                    &nbsp;\r\n                    <button class=\"btn btn-primary\" (click)=\"GetVehicleDetail()\" primary=\"true\">Add To Shipment</button>\r\n                  </span>\r\n                </div>\r\n              </div>\r\n              <label class=\"k-form-field\">\r\n                <span>License Plate</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"vehicleDetail.LicensePlate\" name=\"LicensePlate\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Vehicle Type</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"vehicleDetail.VehicleFeatureType\" name=\"VehicleFeatureType\" />\r\n              </label>\r\n            </fieldset>\r\n\r\n            <fieldset>\r\n              <legend>Driver Details</legend>\r\n              <div>\r\n                <span>Choose Vehicle </span>\r\n                <div class=\"input-group\">\r\n                  <kendo-combobox name=\"driver\"\r\n                                  [data]=\"driverView | async\"\r\n                                  [(ngModel)]=\"driver\"\r\n                                  [valueField]=\"'Value'\"\r\n                                  [textField]=\"'DisplayName'\"\r\n                                  [filterable]=\"true\"\r\n                                  (filterChange)=\"handleDriverFilter($event)\">\r\n                  </kendo-combobox>\r\n                  <span class=\"input-group-btn\">\r\n                    &nbsp;\r\n                    <button class=\"btn btn-primary\" (click)=\"GetDriverDetail()\" primary=\"true\">Add To Shipment</button>\r\n                  </span>\r\n                </div>\r\n              </div>\r\n              <label class=\"k-form-field\">\r\n                <span>Driver Name</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"driverDetail.UserName\" name=\"UserName\" />\r\n              </label>\r\n              <label class=\"k-form-field\">\r\n                <span>Phone Number</span>\r\n                <input class=\"k-textbox\" [(ngModel)]=\"driverDetail.PhoneNumber\" name=\"PhoneNumber\" />\r\n              </label>\r\n            </fieldset>\r\n          </form>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"col-12 col-md-8 example-col\">\r\n      <div class=\"\">\r\n        <div class=\"\">\r\n          <div>\r\n            <kendo-grid [data]=\"gridData\"\r\n                        [style.maxHeight.px]=\"700\"\r\n                        (remove)=\"removeHandler($event)\"\r\n                        [height]=\"700\">\r\n\r\n              <kendo-grid-column field=\"Code\" title=\"Code\">\r\n              </kendo-grid-column>\r\n              <kendo-grid-column field=\"CustomerName\" title=\"Customer Name\">\r\n              </kendo-grid-column>\r\n              <kendo-grid-column field=\"PickingDate\" title=\"Picking Date\">\r\n              </kendo-grid-column>\r\n              <kendo-grid-column field=\"ExpectedDate\" title=\"Delivery Date\">\r\n              </kendo-grid-column>\r\n              <kendo-grid-column field=\"PackageQuantity\" title=\"Package Quantity\">\r\n              </kendo-grid-column>\r\n              <kendo-grid-column field=\"WereHouseAddress\" title=\"WereHouse Address\"></kendo-grid-column>\r\n              <kendo-grid-command-column title=\"command\">\r\n                <ng-template kendoGridCellTemplate>\r\n                  <button kendoGridRemoveCommand [primary]=\"true\">Delete</button>\r\n                </ng-template>\r\n              </kendo-grid-command-column>\r\n            </kendo-grid>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"container\">\r\n    <button (click)=\"CreateShipment()\" primary=\"true\">Save</button>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1534,7 +1473,7 @@ module.exports = "<div>\r\n\r\n  <div>\r\n    <kendo-grid [data]=\"gridData\"\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "div {\n  margin-bottom: 5px; }\n"
+module.exports = "div {\n  margin-bottom: 5px; }\n\nfieldset {\n  margin-bottom: 10px;\n  margin-top: 15px; }\n\nlabel {\n  margin-bottom: 2px;\n  margin-top: 2px; }\n\n.btn-space {\n  margin-left: 5px; }\n"
 
 /***/ }),
 
@@ -1582,6 +1521,9 @@ var ShipmentCreatingComponent = /** @class */ (function () {
         this.show = true;
         this.request = {};
         this.vehicle = {};
+        this.driver = {};
+        this.vehicleDetail = {};
+        this.driverDetail = {};
         this.state = {};
         //Table
         this.requestList = new Array();
@@ -1589,20 +1531,34 @@ var ShipmentCreatingComponent = /** @class */ (function () {
         this.gridData = Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__["process"])(this.requestList, this.state);
         this.view = requestService;
         this.vehicleView = service;
+        this.driverView = service;
     }
     ShipmentCreatingComponent.prototype.CreateShipment = function () {
         this.service.CreateShipment(this.requestIdList, '20', "2020-06-26T15:28:00Z", "2020-06-26T15:28:00Z", '2', '2', '3')
             .subscribe();
     };
+    //Driver code filter
+    ShipmentCreatingComponent.prototype.handleDriverFilter = function (value) {
+        this.service.queryData(value);
+    };
+    //get Driver Detail
+    ShipmentCreatingComponent.prototype.GetDriverDetail = function () {
+        var _this = this;
+        this.service.getDriverDetail(this.driver.Value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.json(); }))
+            .subscribe(function (result) {
+            _this.driverDetail = result;
+        });
+    };
     //Vehicles code filter
     ShipmentCreatingComponent.prototype.handleVehicleFilter = function (value) {
         this.service.query(value);
     };
-    //Add Vehicles Tolist
+    //get Vehicles Detail
     ShipmentCreatingComponent.prototype.GetVehicleDetail = function () {
+        var _this = this;
         this.service.getVehicleDetail(this.vehicle.Value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.json(); }))
             .subscribe(function (result) {
-            console.log(result);
+            _this.vehicleDetail = result;
         });
     };
     //Request code filter
@@ -1730,14 +1686,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ShipmentAssigned/assigned.component */ "./src/app/shipment/ShipmentAssigned/assigned.component.ts");
-/* harmony import */ var _edit_form_edit_form_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit-form/edit-form.component */ "./src/app/shipment/edit-form/edit-form.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -1751,7 +1705,6 @@ var ShipmentModule = /** @class */ (function () {
             ],
             declarations: [
                 _ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_2__["AssignedComponent"],
-                _edit_form_edit_form_component__WEBPACK_IMPORTED_MODULE_3__["EditFormComponent"],
             ]
         })
     ], ShipmentModule);
@@ -1831,6 +1784,20 @@ var ShipmentService = /** @class */ (function (_super) {
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["Headers"]({ 'Content-Type': 'application/json' });
         var options = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["RequestOptions"]({ headers: headers });
         return this.http.get(this.baseUrl + '/Vehicles/getDetail?Id=' + Id, options);
+    };
+    //Driver filter Api
+    ShipmentService.prototype.queryData = function (driverName) {
+        var _this = this;
+        this.getDatasource(driverName).subscribe(function (x) { return _super.prototype.next.call(_this, x); });
+    };
+    ShipmentService.prototype.getDatasource = function (driverName) {
+        return this.https.get(this.baseUrl + ("/MasterData/Drivers/dataSource?driverName=" + driverName));
+    };
+    //Driver filter Api
+    ShipmentService.prototype.getDriverDetail = function (Id) {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["Headers"]({ 'Content-Type': 'application/json' });
+        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["RequestOptions"]({ headers: headers });
+        return this.http.get(this.baseUrl + '/MasterData/Drivers/getDetail?Id=' + Id, options);
     };
     ShipmentService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1971,7 +1938,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\sweet_\Documents\New folder\gogogo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\intern08\Documents\Groove\New folder (2)\gogogo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

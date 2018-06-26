@@ -49,4 +49,21 @@ export class ShipmentService extends BehaviorSubject<any>  {
 
     return this.http.get(this.baseUrl + '/Vehicles/getDetail?Id=' + Id, options);
   }
+
+  //Driver filter Api
+  public queryData(driverName): void {
+    this.getDatasource(driverName).subscribe(x => super.next(x));
+  }
+
+  public getDatasource(driverName): Observable<any> {
+    return this.https.get(this.baseUrl + `/MasterData/Drivers/dataSource?driverName=${driverName}`);
+  }
+
+ //Driver filter Api
+  public getDriverDetail(Id: string): Observable<any> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(this.baseUrl + '/MasterData/Drivers/getDetail?Id=' + Id, options);
+  }
 }

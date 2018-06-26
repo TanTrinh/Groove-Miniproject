@@ -35,10 +35,14 @@ export class ShipmentCreatingComponent{
   public vehicle: any = {
   };
 
+  private driverView: Observable<any>;
+  public driver: any = {
+  };
+
   //Grid
   private requestDetail: any;
-
-  public requestTemp: Request;
+  private vehicleDetail: any = {};
+  private driverDetail: any = {};
 
   public addSucess: boolean;
 
@@ -55,6 +59,7 @@ export class ShipmentCreatingComponent{
   constructor(private service: ShipmentService, private router: Router, private http: Http, private requestService: RequestService) {
     this.view = requestService;
     this.vehicleView = service;
+    this.driverView = service;
   }
 
   CreateShipment() {
@@ -62,16 +67,29 @@ export class ShipmentCreatingComponent{
       .subscribe()
   }
 
+  //Driver code filter
+  public handleDriverFilter(value) {
+    this.service.queryData(value)
+  }
+
+  //get Driver Detail
+  GetDriverDetail() {
+    this.service.getDriverDetail(this.driver.Value).pipe(map(res => res.json()))
+      .subscribe(result => {
+        this.driverDetail = result
+      });
+  }
+
   //Vehicles code filter
   public handleVehicleFilter(value) {
     this.service.query(value)
   }
 
-  //Add Vehicles Tolist
+  //get Vehicles Detail
   GetVehicleDetail() {
     this.service.getVehicleDetail(this.vehicle.Value).pipe(map(res => res.json()))
       .subscribe(result => {
-        console.log(result)
+        this.vehicleDetail = result
       });
   }
 

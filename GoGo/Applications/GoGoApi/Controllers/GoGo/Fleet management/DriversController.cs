@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers
 {
-    [Route("api/Drivers")]
+    [Route("api/MasterData/Drivers")]
     [ApiController]
     public class DriversController : BaseController
     {

@@ -39,12 +39,31 @@ namespace Infrastructures.Repositories.GoGo.Fleet_management
         }
 
         public async Task<IEnumerable<DataSourceValue<long>>> GetDataSource(string userName)
-        { 
-            return await this.dbSet.Where(p => p.UserName.Contains(userName)).Select(p => new DataSourceValue<long>
-            {
-                DisplayName = p.UserName,
-                Value = p.Id
-            }).ToListAsync();
-        }
+        {
+			var query = (from uRole in _dbContext.UserRoles
+						 from user in dbSet
+						 from role in _dbContext.Roles
+						 where uRole.UserId == user.Id && role.Id == uRole.RoleId
+						 && user.UserName.Contains(userName)
+						 && role.Name == "Driver"
+						 select new DataSourceValue<long>
+						 {
+							 DisplayName = user.UserName,
+							 Value = user.Id
+						 });
+
+			return await query.ToListAsync();
+
+
+			//(from uRole in _dbContext.UserRoles
+			// join user in dbSet on uRole.UserId equals user.Id
+			// join role in _dbContext.Roles on uRole.RoleId equals role.Id
+			// where user.UserName.Contains(userName) && role.Name == "Driver"
+			// select new DataSourceValue<long>
+			// {
+			//	 DisplayName = user.UserName,
+			//	 Value = user.Id
+			// });
+		}
     }
 }

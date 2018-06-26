@@ -124,6 +124,7 @@ namespace Infrastructures.SeedData
                     UpdatedByUserId = 1,
                     UpdatedDate = DateTimeOffset.UtcNow,
                     UpdatedByUserName = "system",
+					PhoneNumber = "0909009909",
                     Status = "Active"
                 };
 
@@ -167,6 +168,7 @@ namespace Infrastructures.SeedData
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
                         UpdatedDate = DateTimeOffset.UtcNow,
+						PhoneNumber = "0909009909",
                         UpdatedByUserName = "system"
                     };
                     IdentityResult rs = await userManagement.CreateAsync(user, "P@ssword123");
@@ -201,7 +203,8 @@ namespace Infrastructures.SeedData
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
                         UpdatedDate = DateTimeOffset.UtcNow,
-                        UpdatedByUserName = "system"
+						PhoneNumber = "0909009909",
+						UpdatedByUserName = "system"
                     };
                     IdentityResult rs = await userManagement.CreateAsync(user, "P@ssword123");
                     if (rs.Succeeded)
@@ -234,7 +237,8 @@ namespace Infrastructures.SeedData
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
-                        UpdatedDate = DateTimeOffset.UtcNow,
+						PhoneNumber = "0909009909",
+						UpdatedDate = DateTimeOffset.UtcNow,
                         UpdatedByUserName = "system"
                     };
                     IdentityResult rs = await userManagement.CreateAsync(user, "P@ssword123");
@@ -268,7 +272,8 @@ namespace Infrastructures.SeedData
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
-                        UpdatedDate = DateTimeOffset.UtcNow,
+						PhoneNumber = "0909009909",
+						UpdatedDate = DateTimeOffset.UtcNow,
                         UpdatedByUserName = "system"
                     };
                     IdentityResult rs = await userManagement.CreateAsync(user, "P@ssword123");

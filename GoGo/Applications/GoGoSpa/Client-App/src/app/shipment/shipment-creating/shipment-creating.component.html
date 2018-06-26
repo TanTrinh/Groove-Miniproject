@@ -1,109 +1,129 @@
-<div>
+<div class="card">
+  <div class="row">
+    <div class="col-6 col-md-4 example-col">
+      <div class="">
+        <div class="">
+          <form class="k-form">
+            <fieldset>
+              <legend>Add Request</legend>
+              <div>
+                <span>Request Search Box </span>
+                <div class="input-group">
+                  <kendo-combobox name="request"
+                                  [data]="view | async"
+                                  [(ngModel)]="request"
+                                  [valueField]="'Value'"
+                                  [textField]="'DisplayName'"
+                                  [filterable]="true"
+                                  (filterChange)="handleFilter($event)">
+                  </kendo-combobox>
+                  <span class="input-group-btn">
+                    &nbsp;
+                    <button class="btn btn-primary" (click)="AddRequestToList()" primary="true">Add To Shipment</button>
+                  </span>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div>
+          <form class="k-form">
+            <fieldset>
+              <legend>Vehicle Details</legend>
+              <div>
+                <span>Choose Vehicle </span>
+                <div class="input-group">
+                  <kendo-combobox name="vehicle"
+                                  [data]="vehicleView | async"
+                                  [(ngModel)]="vehicle"
+                                  [valueField]="'Value'"
+                                  [textField]="'DisplayName'"
+                                  [filterable]="true"
+                                  (filterChange)="handleVehicleFilter($event)">
+                  </kendo-combobox>
+                  <span class="input-group-btn">
+                    &nbsp;
+                    <button class="btn btn-primary" (click)="GetVehicleDetail()" primary="true">Add To Shipment</button>
+                  </span>
+                </div>
+              </div>
+              <label class="k-form-field">
+                <span>License Plate</span>
+                <input class="k-textbox" [(ngModel)]="vehicleDetail.LicensePlate" name="LicensePlate" />
+              </label>
+              <label class="k-form-field">
+                <span>Vehicle Type</span>
+                <input class="k-textbox" [(ngModel)]="vehicleDetail.VehicleFeatureType" name="VehicleFeatureType" />
+              </label>
+            </fieldset>
 
-  <div>
-    <kendo-grid [data]="gridData"
-                [style.maxHeight.px]="700"
-                (remove)="removeHandler($event)"
-                [height]="370">
-
-      <kendo-grid-column field="Code" title="Code">
-      </kendo-grid-column>
-      <kendo-grid-column field="CustomerName" title="Customer Name">
-      </kendo-grid-column>
-      <kendo-grid-column field="PickingDate" title="Picking Date">
-      </kendo-grid-column>
-      <kendo-grid-column field="ExpectedDate" title="Delivery Date">
-      </kendo-grid-column>
-      <kendo-grid-column field="PackageQuantity" title="Package Quantity">
-      </kendo-grid-column>
-      <kendo-grid-column field="WereHouseAddress" title="WereHouse Address"></kendo-grid-column>
-      <kendo-grid-command-column title="command" width="220">
-        <ng-template kendoGridCellTemplate>
-          <button kendoGridRemoveCommand [primary]="true">Delete</button>
-        </ng-template>
-      </kendo-grid-command-column>
-    </kendo-grid>
-  </div>
-  <div>
-    <button (click)="CreateShipment()" primary="true">Save</button>
-  </div>
-  <div>
-    <button (click)="AddRequestToList()" primary="true">Add</button>
-  </div>
-
-  <div>
-    <kendo-combobox name="request"
-                    [data]="view | async"
-                    [(ngModel)]="request"
-                    [valueField]="'Value'"
-                    [textField]="'DisplayName'"
-                    [filterable]="true"
-                    (filterChange)="handleFilter($event)">
-    </kendo-combobox>
-  </div>
-
-  <div>
-    <kendo-combobox name="vehicle"
-                    [data]="vehicleView | async"
-                    [(ngModel)]="vehicle"
-                    [valueField]="'value'"
-                    [textField]="'DisplayName'"
-                    [filterable]="true"
-                    (filterChange)="handleVehicleFilter($event)">
-    </kendo-combobox>
-  </div>
-  <div>
-    <button (click)="GetVehicleDetail()" primary="true">Add BC</button>
-  </div>
-</div>
-
-
-
-<!--<div>
-  <kendo-dialog title="Add More Request" *ngIf="active" [minWidth]="250" [width]="700" (close)="action('no')">
-    <p style="margin: 5px; text-align: center;">Please enter the request code</p>
-    <div class="text-center">
-      <kendo-combobox name="request"
-                      [data]="view | async"
-                      [(ngModel)]="request"
-                      [valueField]="'Value'"
-                      [textField]="'DisplayName'"
-                      [filterable]="true"
-                      (filterChange)="handleFilter($event)">
-      </kendo-combobox>
-
-      <div class="card" style="margin: 10px;">
-        <div class="card-block">
-          <form class="k-form-inline">
-            <label class="k-form-field">
-              <span>Customer Name</span>
-              <input class="k-textbox" [(ngModel)]="request.CustomerName" disabled name="Customer Name" />
-            </label>
-            <label class="k-form-field">
-              <span>Package Quantity</span>
-              <input class="k-textbox" [(ngModel)]="request.PackageQuantity" disabled name="Package Quantity" />
-            </label>
-            <label class="k-form-field">
-              <span>Expected picking date</span>
-              <input class="k-textbox" [(ngModel)]="request.PickingDate" disabled name="Expected picking date" />
-            </label>
-            <label class="k-form-field">
-              <span>Expected delivery date</span>
-              <input class="k-textbox" [(ngModel)]="request.ExpectedDate" disabled name="Expected delivery date" />
-            </label>
-            <label class="k-form-field">
-              <span>Werehouse Address</span>
-              <input class="k-textbox" [(ngModel)]="request.WereHouseAddress" disabled name="Werehouse Address" />
-            </label>
+            <fieldset>
+              <legend>Driver Details</legend>
+              <div>
+                <span>Choose Vehicle </span>
+                <div class="input-group">
+                  <kendo-combobox name="driver"
+                                  [data]="driverView | async"
+                                  [(ngModel)]="driver"
+                                  [valueField]="'Value'"
+                                  [textField]="'DisplayName'"
+                                  [filterable]="true"
+                                  (filterChange)="handleDriverFilter($event)">
+                  </kendo-combobox>
+                  <span class="input-group-btn">
+                    &nbsp;
+                    <button class="btn btn-primary" (click)="GetDriverDetail()" primary="true">Add To Shipment</button>
+                  </span>
+                </div>
+              </div>
+              <label class="k-form-field">
+                <span>Driver Name</span>
+                <input class="k-textbox" [(ngModel)]="driverDetail.UserName" name="UserName" />
+              </label>
+              <label class="k-form-field">
+                <span>Phone Number</span>
+                <input class="k-textbox" [(ngModel)]="driverDetail.PhoneNumber" name="PhoneNumber" />
+              </label>
+            </fieldset>
           </form>
         </div>
       </div>
     </div>
-    <div>
+    <div class="col-12 col-md-8 example-col">
+      <div class="">
+        <div class="">
+          <div>
+            <kendo-grid [data]="gridData"
+                        [style.maxHeight.px]="700"
+                        (remove)="removeHandler($event)"
+                        [height]="700">
+
+              <kendo-grid-column field="Code" title="Code">
+              </kendo-grid-column>
+              <kendo-grid-column field="CustomerName" title="Customer Name">
+              </kendo-grid-column>
+              <kendo-grid-column field="PickingDate" title="Picking Date">
+              </kendo-grid-column>
+              <kendo-grid-column field="ExpectedDate" title="Delivery Date">
+              </kendo-grid-column>
+              <kendo-grid-column field="PackageQuantity" title="Package Quantity">
+              </kendo-grid-column>
+              <kendo-grid-column field="WereHouseAddress" title="WereHouse Address"></kendo-grid-column>
+              <kendo-grid-command-column title="command">
+                <ng-template kendoGridCellTemplate>
+                  <button kendoGridRemoveCommand [primary]="true">Delete</button>
+                </ng-template>
+              </kendo-grid-command-column>
+            </kendo-grid>
+          </div>
+        </div>
+      </div>
     </div>
-    <kendo-dialog-actions>
-      <button kendoButton (click)="action('no')">Back</button>
-      <button kendoButton (click)="action('yes')" primary="true">Add To Shipment</button>
-    </kendo-dialog-actions>
-  </kendo-dialog>
-</div>-->
+  </div>
+
+  <div class="container">
+    <button (click)="CreateShipment()" primary="true">Save</button>
+  </div>
+</div>
+
+

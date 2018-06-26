@@ -35,6 +35,7 @@ import { ShipmentComponent } from './shipment/shipment/shipment.component';
 import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.component';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { DialogModule } from '@progress/kendo-angular-dialog';
+import { ButtonGroupModule } from '@progress/kendo-angular-buttons';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { DialogModule } from '@progress/kendo-angular-dialog';
     HttpClientJsonpModule,
     DropDownsModule,
     DialogModule,
+    ButtonGroupModule,
 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
