@@ -55,4 +55,9 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     this.formData.expectedDate = new Date();
     this.formData.pickingDate = new Date();
   }
+  public onValueChange(value) {
+    console.log("valueChange : ", value);
+    
+    console.log(this.formData.test);
+  }
 }

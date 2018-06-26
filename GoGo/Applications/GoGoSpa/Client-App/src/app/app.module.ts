@@ -19,7 +19,6 @@ import { FormsModule } from '@angular/forms';
 import { AccountModule } from './modules/account/account.module';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 
 
@@ -30,7 +29,8 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
 
     // Do initing of services that is required before app loads
     // NOTE: this factory needs to return a function (that then returns a promise)
-    return () => ServiceRegistryService.load('http://localhost:49946/configuration/serviceRegistry').toPromise();
+    //return () => ServiceRegistryService.load('http://localhost:49946/configuration/serviceRegistry').toPromise();
+    return () => ServiceRegistryService.load('http://localhost:50269/configuration/serviceRegistry').toPromise();
   },
   deps: [ServiceRegistryService],
   multi: true

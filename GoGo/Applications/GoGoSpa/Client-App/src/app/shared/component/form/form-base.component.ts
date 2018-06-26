@@ -265,6 +265,7 @@ export abstract class FormBaseComponent {
   }
 
   public onSubmitForm(formGroup: NgForm) {
+    this.formData.test = this.formData.test.id;
     this.formErrors = {};
     let validationResult = this.validationService.validateForm(formGroup, this._validationRules);
     if (!validationResult.isValid) {

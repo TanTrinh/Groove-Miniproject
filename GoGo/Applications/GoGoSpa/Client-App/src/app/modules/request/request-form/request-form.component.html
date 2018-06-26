@@ -56,8 +56,20 @@
           </div>
 
 
-          <kendo-autocomplete class="form-control" [(ngModel)]="formData.test" name="formData.test" [data]="formDataSource.WarehouseList" [valueField]="'nameWarehouse'" [placeholder]="'Your warehouse'">
-          </kendo-autocomplete>
+          <kendo-combobox class="form-control" [(ngModel)]="formData.test" name="formData.test" #test="ngModel" required
+                          [data]="formDataSource.WarehouseList"
+                          [valueField]="'id'"
+                          [textField]="'nameWarehouse'"
+                          (valueChange)="onValueChange($event)">
+          </kendo-combobox>
+          <div *ngIf="test.invalid && (test.dirty || test.touched)"
+               class="alert alert-danger">
+            <div *ngIf="test.errors.required">
+              Warehouse is required.
+            </div>
+          </div>
+          <!--<kendo-autocomplete class="form-control" [(ngModel)]="formData.test" name="formData.test" [data]="formDataSource.WarehouseList" [valueField]="'nameWarehouse'" [placeholder]="'Your warehouse'">
+  </kendo-autocomplete>-->
 
           <div class="form-group" *ngIf="!isViewFormMode">
             <label for="wareHouseId">Warehouse</label>

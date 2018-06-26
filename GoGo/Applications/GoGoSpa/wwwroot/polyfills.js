@@ -5473,7 +5473,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\intern05\Documents\gogoproject\GoGo\Applications\GoGoSpa\Client-App\src\polyfills.ts */"./src/polyfills.ts");
+module.exports = __webpack_require__(/*! D:\gogo\GoGo\Applications\GoGoSpa\Client-App\src\polyfills.ts */"./src/polyfills.ts");
 
 
 /***/ })

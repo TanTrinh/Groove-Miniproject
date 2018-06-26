@@ -5,7 +5,7 @@ import { RequestFormComponent } from './request-form/request-form.component';
 import { RequestRoutingModule } from './request-routing.module';
 import { FormsModule } from '@angular/forms';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
-import { AutoCompleteModule } from '@progress/kendo-angular-dropdowns';
+import { ComboBoxModule } from '@progress/kendo-angular-dropdowns';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { AutoCompleteModule } from '@progress/kendo-angular-dropdowns';
     RequestRoutingModule,
     FormsModule,
     DateInputsModule,
-    AutoCompleteModule
+    ComboBoxModule
   ],
   declarations: [
     RequestListComponent,

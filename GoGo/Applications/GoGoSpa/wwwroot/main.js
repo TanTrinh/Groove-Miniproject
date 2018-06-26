@@ -204,7 +204,8 @@ var APP_INITIALIZER_PROVIDER = {
     useFactory: function (ServiceRegistryService) {
         // Do initing of services that is required before app loads
         // NOTE: this factory needs to return a function (that then returns a promise)
-        return function () { return ServiceRegistryService.load('http://localhost:49946/configuration/serviceRegistry').toPromise(); };
+        //return () => ServiceRegistryService.load('http://localhost:49946/configuration/serviceRegistry').toPromise();
+        return function () { return ServiceRegistryService.load('http://localhost:50269/configuration/serviceRegistry').toPromise(); };
     },
     deps: [_shared__WEBPACK_IMPORTED_MODULE_10__["ServiceRegistryService"]],
     multi: true
@@ -1114,6 +1115,7 @@ var FormBaseComponent = /** @class */ (function () {
     };
     FormBaseComponent.prototype.onSubmitForm = function (formGroup) {
         var _this = this;
+        this.formData.test = this.formData.test.id;
         this.formErrors = {};
         var validationResult = this.validationService.validateForm(formGroup, this._validationRules);
         if (!validationResult.isValid) {
@@ -1838,7 +1840,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\intern05\Documents\gogoproject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\gogo\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })
