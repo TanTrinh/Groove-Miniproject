@@ -2,6 +2,7 @@
   <div class="form-group col-md-4">
     <label for="username">Username*</label>
     <input type="text" class="form-control" id="username" [(ngModel)]="model.username" name="username" #username="ngModel" required minlength="3" autofocus>
+
     <div *ngIf="username.invalid && (username.dirty || username.touched)">
 
       <div *ngIf="username.errors.required" style="color:red">
@@ -20,7 +21,6 @@
         <input type="password" class="form-control" id="exampleInputPassword1" #passwordA="ngModel" name="passwordA"
                [(ngModel)]="model.password" required>
       </div>
-      <!--{{model.password}}-->
       <div *ngIf="passwordA.invalid && (passwordA.dirty || passwordA.touched)">
 
         <div *ngIf="passwordA.errors.required" style="color:red">

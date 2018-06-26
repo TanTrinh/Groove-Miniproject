@@ -7,29 +7,26 @@ using System.Text;
 
 namespace Domains.Identity.Models
 {
-    public class UserUpdateModel
+    public class UserProfileUpdateModel
     {
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public string Role { get; set; }
     }
 
-    public class UserUpdateModelMapper: Profile
+    public class UserProfileUpdateModelMapper : Profile
     {
-        public UserUpdateModelMapper()
+        public UserProfileUpdateModelMapper()
         {
-            CreateMap<UserUpdateModel, User>()
-                .ForSourceMember(s => s.Role, opt => opt.Ignore());
+            CreateMap<UserProfileUpdateModel, User>();
         }
     }
 
-    public class UserUpdateModelValidator : AbstractValidator<UserUpdateModel>
+    public class UserProfileUpdateModelValidator : AbstractValidator<UserProfileUpdateModel>
     {
-        public UserUpdateModelValidator()
+        public UserProfileUpdateModelValidator()
         {
             RuleFor(p => p.Email).NotEmpty().EmailAddress();
             RuleFor(p => p.PhoneNumber).NotEmpty();
-            RuleFor(p => p.Role).NotEmpty();
         }
     }
 }

@@ -42,6 +42,7 @@ namespace Infrastructures.Repositories.Identity
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<UserReadModel>(_mapper).FirstAsync();
         }
 
+        //Find the user to edit in list by id
         public async Task<UserViewUpdateModel> GetUserUpdateByIdAsync(long? id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());

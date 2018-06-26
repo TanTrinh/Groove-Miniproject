@@ -12,6 +12,7 @@ namespace Domains.Identity.Services
     {
         Task<long> CreateUserAsync(UserCreateModel model, UserIdentity<long> issuer);
         Task<long> UpdateUserAsync(long id, UserUpdateModel model, UserIdentity<long> issuer);
+        Task<long> UpdateUserProfileAsync(long id, UserProfileUpdateModel model, UserIdentity<long> issuer);
         Task<IEnumerable<UserListModel>> GetUsersAsync(long? id);
         Task<UserReadModel> GetUserProfileAsync(long? id);
         Task<UserReadModel> GetUserDetailAsync(long? id);

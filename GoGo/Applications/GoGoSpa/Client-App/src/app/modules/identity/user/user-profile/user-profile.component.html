@@ -45,16 +45,62 @@
         </table>
         <div class="row justify-content-center">
           <!--<a href="#" class="btn btn-primary btn-space">Edit User</a>-->
-          <button class="btn btn-primary" routerLink="/profile/edit">Edit</button>&nbsp;
+          <button class="btn btn-primary" data-toggle="modal" data-target="#EditModal">Edit</button>&nbsp;
           <button class="btn btn-primary" data-toggle="modal" data-target="#ChangePWDModal">Change Password</button>&nbsp;
           <button class="btn btn-primary" data-toggle="modal" data-target="#DeactivateModal">Deactivate</button>&nbsp;
-          <button class="btn btn-primary" (click)="pageBack()">Back</button>&nbsp;
+          <button class="btn btn-primary" (click)="back()">Back</button>&nbsp;
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<!--Edit Modal-->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="EditModalLabel">Edit Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="userProfileEdit.email" name="email">
+          </div>
+          <div class="form-group">
+            <label for="phonenumber">Phone Number</label>
+            <input type="text" class="form-control" id="phonenumber" [(ngModel)]="userProfileEdit.phoneNumber" name="phonenumber">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-custom" data-dismiss="modal">Close</button>
+          <button id="btn-smessage" class="btn btn-custom" data-dismiss="modal" (click)="confirm(userProfile.id)" data-toggle="modal" data-target="#EditMessage">Confirm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!--Edit Message Modal-->
+<div class="modal fade" id="EditMessage" tabindex="-1" role="dialog" aria-labelledby="EditMessage" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title " id="EditMessageLabel">Edit Success</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-success">Your info has been changed successfully!</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--Deactivate Modal-->
 <div class="modal fade" id="DeactivateModal" tabindex="-1" role="dialog" aria-labelledby="DeactivateModalLabel" aria-hidden="true">

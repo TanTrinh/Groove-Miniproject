@@ -36,6 +36,7 @@ namespace Domains.Identity.Services
         
         public async Task<long> CreateUserAsync(UserCreateModel model, UserIdentity<long> issuer)
         {
+            model.Status = "Active";
             var user = _mapper.Map<User>(model);
             user.CreateBy(issuer).UpdateBy(issuer);
 
@@ -70,6 +71,21 @@ namespace Domains.Identity.Services
             _userRepository.Update(user);
             //await _userManagement.UpdateAsync(user);
             
+
+            await _uow.SaveChangesAsync();
+
+            return user.Id;
+        }
+
+        public async Task<long> UpdateUserProfileAsync(long id, UserProfileUpdateModel model, UserIdentity<long> issuer)
+        {
+            var user = _userRepository.GetEntityById(id);
+            var role = await _userManagement.GetRolesAsync(user);
+
+            _mapper.Map(model, user);
+            user.UpdateBy(issuer);
+
+            _userRepository.Update(user);
 
             await _uow.SaveChangesAsync();
 
