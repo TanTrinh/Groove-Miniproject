@@ -12,7 +12,7 @@
 
           <div class="form-group">
             <label for="receiverName">Receiver Name </label>
-            <input type="text" class="form-control" [(ngModel)]="formData.receiverName" name="receiverName" #receiverName="ngModel" required [disabled]="isViewFormMode">
+            <input type="text" class="form-control" [(ngModel)]="formData.receiverName" name="receiverName" #receiverName="ngModel" required [readonly]="isViewFormMode">
             <div *ngIf="receiverName.invalid && (receiverName.dirty || receiverName.touched)"
                  class="alert alert-danger">
               <div *ngIf="receiverName.errors.required">
@@ -23,7 +23,7 @@
 
           <div class="form-group">
             <label for="receiverPhoneNumber">Receiver PhoneNumber</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.receiverPhoneNumber" name="receiverPhoneNumber" #receiverPhoneNumber="ngModel" required [disabled]="isViewFormMode">
+            <input type="text" class="form-control" [(ngModel)]="formData.receiverPhoneNumber" name="receiverPhoneNumber" #receiverPhoneNumber="ngModel" required [readonly]="isViewFormMode">
             <div *ngIf="receiverPhoneNumber.invalid && (receiverPhoneNumber.dirty || receiverPhoneNumber.touched)"
                  class="alert alert-danger">
               <div *ngIf="receiverPhoneNumber.errors.required">
@@ -34,7 +34,7 @@
 
           <div class="form-group">
             <label for="packageQuantity">Package Quantity</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.packageQuantity" name="packageQuantity" #packageQuantity="ngModel" required [disabled]="isViewFormMode">
+            <input type="text" class="form-control" [(ngModel)]="formData.packageQuantity" name="packageQuantity" #packageQuantity="ngModel" required [readonly]="isViewFormMode">
             <div *ngIf="packageQuantity.invalid && (packageQuantity.dirty || packageQuantity.touched)"
                  class="alert alert-danger">
               <div *ngIf="packageQuantity.errors.required">
@@ -44,31 +44,25 @@
           </div>
 
           <div class="form-group">
-            <label for="pickingDate">Picking Date</label>
-            <input class="form-control" [(ngModel)]="formData.pickingDate" name="pickingDate" #pickingDate="ngModel" required [disabled]="isViewFormMode" type="datetime-local">
-            <div *ngIf="pickingDate.invalid && (pickingDate.dirty || pickingDate.touched)"
-                 class="alert alert-danger">
-              <div *ngIf="pickingDate.errors.required">
-                Picking Date is required.
-              </div>
-            </div>
+            <label for="">Picking Date</label>
+            <kendo-datepicker class="form-control" [(ngModel)]="formData.pickingDate" name="formData.pickingDate" [readonly]="isViewFormMode"></kendo-datepicker><br />
+            <kendo-timepicker class="form-control" [(ngModel)]="formData.pickingDate" name="formData.pickingDate" [readonly]="isViewFormMode"></kendo-timepicker>
           </div>
 
           <div class="form-group">
-            <label for="DeliveryDate">Expected Date</label>
-            <input class="form-control" [(ngModel)]="formData.expectedDate" name="expectedDate" #expectedDate="ngModel" required [disabled]="isViewFormMode" type="datetime-local">
-            <div *ngIf="expectedDate.invalid && (expectedDate.dirty || expectedDate.touched)"
-                 class="alert alert-danger">
-              <div *ngIf="expectedDate.errors.required">
-                Expected Date is required.
-              </div>
-            </div>
+            <label for="">Expected Date</label>
+            <kendo-datepicker class="form-control" [(ngModel)]="formData.expectedDate" name="formData.expectedDate" [readonly]="isViewFormMode"></kendo-datepicker><br />
+            <kendo-timepicker class="form-control" [(ngModel)]="formData.expectedDate" name="formData.expectedDate" [readonly]="isViewFormMode"></kendo-timepicker>
           </div>
+
+
+          <kendo-autocomplete class="form-control" [(ngModel)]="formData.test" name="formData.test" [data]="formDataSource.WarehouseList" [valueField]="'nameWarehouse'" [placeholder]="'Your warehouse'">
+          </kendo-autocomplete>
 
           <div class="form-group" *ngIf="!isViewFormMode">
             <label for="wareHouseId">Warehouse</label>
-            <select class="form-control" [(ngModel)]="formData.wareHouseId" name="wareHouseId" #wareHouseId="ngModel" [disabled]="isViewFormMode" required>
-              <option value="{{formData.wareHouseId}}" selected hidden>{{formDataSource.CurrentWarehouse}}</option>
+            <select class="form-control" [(ngModel)]="formData.wareHouseId" name="wareHouseId" #wareHouseId="ngModel" [disabled]="readonly" required>
+              <option [disabled]="isCreateFormMode" selected hidden value="{{formData.wareHouseId}}">{{formDataSource.CurrentWarehouse}}</option>
               <option *ngFor="let item of formDataSource.WarehouseList" value="{{item.id}}">{{item.nameWarehouse}}</option>
             </select>
             <div *ngIf="wareHouseId.invalid && (wareHouseId.dirty || wareHouseId.touched)"
@@ -78,6 +72,7 @@
               </div>
             </div>
           </div>
+
           <div class="form-group" *ngIf="isViewFormMode">
             <label for="address">Warehouse</label>
             <input type="text" class="form-control" [(ngModel)]="formDataSource.CurrentWarehouse" [ngModelOptions]="{standalone: true}" [disabled]="true">
@@ -85,7 +80,7 @@
 
           <div class="form-group">
             <label for="address">Delivery Address</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.address" name="address" #address="ngModel" required [disabled]="isViewFormMode">
+            <input type="text" class="form-control" [(ngModel)]="formData.address" name="address" #address="ngModel" required [readonly]="isViewFormMode">
             <div *ngIf="address.invalid && (address.dirty || address.touched)"
                  class="alert alert-danger">
               <div *ngIf="address.errors.required">
@@ -96,7 +91,7 @@
 
           <div class="form-group">
             <label for="deliveryLatitude">Delivery Latitude</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.deliveryLatitude" name="deliveryLatitude" #deliveryLatitude="ngModel" required [disabled]="isViewFormMode">
+            <input type="text" class="form-control" [(ngModel)]="formData.deliveryLatitude" name="deliveryLatitude" #deliveryLatitude="ngModel" required [readonly]="isViewFormMode">
             <div *ngIf="deliveryLatitude.invalid && (deliveryLatitude.dirty || deliveryLatitude.touched)"
                  class="alert alert-danger">
               <div *ngIf="deliveryLatitude.errors.required">
@@ -105,9 +100,11 @@
             </div>
           </div>
 
+
+
           <div class="form-group ">
             <label for="deliveryLongitude">Delivery Longitude</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.deliveryLongitude" name="deliveryLongitude" #deliveryLongitude="ngModel" required [disabled]="isViewFormMode">
+            <input type="text" class="form-control" [(ngModel)]="formData.deliveryLongitude" name="deliveryLongitude" #deliveryLongitude="ngModel" required [readonly]="isViewFormMode">
             <div *ngIf="deliveryLongitude.invalid && (deliveryLongitude.dirty || deliveryLongitude.touched)"
                  class="alert alert-danger">
               <div *ngIf="deliveryLongitude.errors.required">

@@ -18,6 +18,6 @@ export class RequestListComponent implements OnInit {
 
   }
   ngOnInit() {
-  }
+  } 
 
 }

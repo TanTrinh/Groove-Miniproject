@@ -17,6 +17,11 @@ import { LoginComponent } from './modules/account/login/login.component';
 import { ShipmentModule } from './shipment/shipment.module';
 import { FormsModule } from '@angular/forms';
 import { AccountModule } from './modules/account/account.module';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+
+
 
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
   provide: APP_INITIALIZER,
@@ -54,7 +59,10 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     //AgmDirectionModule,
     HttpClientModule,
     ShipmentModule,
-    AccountModule
+    AccountModule,
+    InputsModule,
+    BrowserAnimationsModule,
+
   ],
   providers: [
     LocalStorageService,

@@ -170,12 +170,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shipment_shipment_module__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./shipment/shipment.module */ "./src/app/shipment/shipment.module.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _modules_account_account_module__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./modules/account/account.module */ "./src/app/modules/account/account.module.ts");
+/* harmony import */ var _progress_kendo_angular_inputs__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @progress/kendo-angular-inputs */ "./node_modules/@progress/kendo-angular-inputs/dist/es/index.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -232,7 +236,9 @@ var AppModule = /** @class */ (function () {
                 //AgmDirectionModule,
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_14__["HttpClientModule"],
                 _shipment_shipment_module__WEBPACK_IMPORTED_MODULE_16__["ShipmentModule"],
-                _modules_account_account_module__WEBPACK_IMPORTED_MODULE_18__["AccountModule"]
+                _modules_account_account_module__WEBPACK_IMPORTED_MODULE_18__["AccountModule"],
+                _progress_kendo_angular_inputs__WEBPACK_IMPORTED_MODULE_19__["InputsModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_20__["BrowserAnimationsModule"],
             ],
             providers: [
                 _shared__WEBPACK_IMPORTED_MODULE_10__["LocalStorageService"],
@@ -585,7 +591,7 @@ var LayoutComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"sidebar-container\" class=\"sidebar-expanded d-none d-md-block \">\r\n  <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->\r\n  <!-- Bootstrap List Group -->\r\n  <ul class=\"list-group \" id=\"menu\">\r\n    <!--Menu with submenu\r\n  <li>\r\n    <a href=\"#submenu1\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\" list-group-item list-group-item-action flex-column align-items-start\">\r\n      Dashboard\r\n    </a>\r\n    <div id='submenu1' class=\"collapse sidebar-submenu\">\r\n      <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n        1. Charts\r\n      </a>\r\n      <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n        2. Reports\r\n      </a>\r\n      <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n        3. Tables\r\n      </a>\r\n    </div>\r\n  </li>-->\r\n\r\n\r\n    <!--<li>\r\n      <a routerLink=\"/assigned\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Assigned</a>\r\n    </li>-->\r\n    <li>\r\n     <a routerLink=\"/request/list\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Request</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/warehouse\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Warehouse</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/delivery-status\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Delivery Status</a>\r\n    </li>\r\n  </ul><!-- List Group END-->\r\n</div><!-- sidebar-container END -->\r\n"
+module.exports = "<div id=\"sidebar-container\" class=\"sidebar-expanded d-none d-md-block \">\r\n  <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->\r\n  <!-- Bootstrap List Group -->\r\n  <ul class=\"list-group \" id=\"menu\">\r\n    <!--Menu with submenu\r\n  <li>\r\n    <a href=\"#submenu1\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\" list-group-item list-group-item-action flex-column align-items-start\">\r\n      Dashboard\r\n    </a>\r\n    <div id='submenu1' class=\"collapse sidebar-submenu\">\r\n      <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n        1. Charts\r\n      </a>\r\n      <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n        2. Reports\r\n      </a>\r\n      <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n        3. Tables\r\n      </a>\r\n    </div>\r\n  </li>-->\r\n\r\n\r\n    <!--<li>\r\n      <a routerLink=\"/assigned\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Assigned</a>\r\n    </li>-->\r\n    <li>\r\n     <a routerLink=\"/request/list\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Request</a>\r\n    </li>\r\n    <li>\r\n      <a  class=\" list-group-item list-group-item-action \">Warehouse</a>\r\n    </li>\r\n    <li>\r\n      <a  class=\" list-group-item list-group-item-action \">Delivery Status</a>\r\n    </li>\r\n  </ul><!-- List Group END-->\r\n</div><!-- sidebar-container END -->\r\n"
 
 /***/ }),
 
@@ -901,6 +907,7 @@ var FormLink = /** @class */ (function () {
 var FormEvent = /** @class */ (function () {
     function FormEvent() {
         this.onAfterInitFormData = function () { };
+        this.onBeforeInitFormData = function () { };
     }
     return FormEvent;
 }());
@@ -1028,6 +1035,7 @@ var FormBaseComponent = /** @class */ (function () {
         // Form data
         if (this.isViewFormMode) {
             this.viewFormService.getFormData(this.formId).subscribe(function (data) {
+                _this.formConfiguration.events.onBeforeInitFormData(data);
                 _this.formData = data;
                 _this.formConfiguration.events.onAfterInitFormData(_this.formData);
                 _this.constructorForFormDataSource();
@@ -1035,12 +1043,14 @@ var FormBaseComponent = /** @class */ (function () {
         }
         else if (this.isUpdateFormMode) {
             this.viewFormService.getFormData(this.formId).subscribe(function (data) {
+                _this.formConfiguration.events.onBeforeInitFormData(data);
                 _this.formData = data;
-                _this.formConfiguration.events.onAfterInitFormData();
+                _this.formConfiguration.events.onAfterInitFormData(_this.formData);
                 _this.constructorForFormDataSource();
             });
         }
         else {
+            this.formConfiguration.events.onBeforeInitFormData(this._defaultFormData);
             this.formData = this._defaultFormData;
             this.formConfiguration.events.onAfterInitFormData(this.formData);
             this.constructorForFormDataSource();

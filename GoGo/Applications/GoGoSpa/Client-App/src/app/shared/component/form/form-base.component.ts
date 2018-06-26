@@ -30,6 +30,7 @@ export class FormLink {
 }
 export class FormEvent {
   onAfterInitFormData: Function = function () { };
+  onBeforeInitFormData: Function = function () { };
 }
 export class FormDataSourceMap {
   public name: string;
@@ -185,17 +186,20 @@ export abstract class FormBaseComponent {
     // Form data
     if (this.isViewFormMode) {
       this.viewFormService.getFormData(this.formId).subscribe(data => {
+        this.formConfiguration.events.onBeforeInitFormData(data);
         this.formData = data;
         this.formConfiguration.events.onAfterInitFormData(this.formData);
         this.constructorForFormDataSource();
       });
     } else if (this.isUpdateFormMode) {
       this.viewFormService.getFormData(this.formId).subscribe(data => {
+        this.formConfiguration.events.onBeforeInitFormData(data);
         this.formData = data;
-        this.formConfiguration.events.onAfterInitFormData();
+        this.formConfiguration.events.onAfterInitFormData(this.formData);
         this.constructorForFormDataSource();
       });
     } else {
+      this.formConfiguration.events.onBeforeInitFormData(this._defaultFormData);
       this.formData = this._defaultFormData;
       this.formConfiguration.events.onAfterInitFormData(this.formData);
       this.constructorForFormDataSource();

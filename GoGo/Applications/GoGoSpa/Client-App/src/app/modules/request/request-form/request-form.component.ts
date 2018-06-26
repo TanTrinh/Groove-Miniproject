@@ -6,6 +6,7 @@ import { RequestService } from '../request.service';
 import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { forEach } from '@angular/router/src/utils/collection';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-request-form',
@@ -14,7 +15,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 })
 
 export class RequestFormComponent extends FormBaseComponent implements OnInit {
-
+  
   public onAfterGetData(res, formData) {
     for (var i = 0; i < res.length; i++) {
       if (res[i].id = formData.wareHouseId) {
@@ -23,7 +24,21 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     }
     return temp;
   }
+
+  public onBeforeInitFormData(data) {
+    if (data.pickingDate == null || data.pickingDate == undefined || data.expectedDate == null || data.expectedDate == undefined) {
+
+      data.pickingDate = new Date(data.pickingDate);
+      data.expectedDate = new Date(data.expectedDate);
+    }
+    else {
+      data.pickingDate = new Date();
+      data.expectedDate = new Date();
+    }
+  }
+
   constructor(protected route: ActivatedRoute,
+ 
     protected router: Router,
     protected requestService: RequestService,
     protected notificationService: NotificationService,
@@ -33,10 +48,11 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     super(route, router, notificationService, requestService, validationService);
     this.formConfiguration.dataSourceMapper.add('WarehouseList', requestService);
     this.formConfiguration.dataSourceMapper.add('CurrentWarehouse', requestService, this.onAfterGetData);
+    this.formConfiguration.events.onAfterInitFormData = this.onBeforeInitFormData;
     super.formOnInit("Request", {});
-
   }
   ngOnInit() {
-   
+    this.formData.expectedDate = new Date();
+    this.formData.pickingDate = new Date();
   }
 }
