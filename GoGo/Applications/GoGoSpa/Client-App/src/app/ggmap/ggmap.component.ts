@@ -20,11 +20,11 @@ export class GgmapComponent implements OnInit {
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
   map: undefined;
-
+  markers = [];
   //The location of you
   yourAddress: any;
-  yourlat: number;
-  yourlng: number;
+  yourlat: number = 10.7725133;
+  yourlng: number = 106.70578479999999;
 
   //Location of trip
   latlngOrigin: LatLng;
@@ -41,16 +41,14 @@ export class GgmapComponent implements OnInit {
 
   constructor(private ngZone: NgZone) { }
 
-
   ngOnInit() {
-    this.GetYourPosition();
+    setInterval(() => { this.GetYourPosition() }, 1000);
     this.InitMap(this.latcenter, this.lngcenter);
     this.latlngOrigin = this.GetLatlng(10.7711799, 106.7004174);
     this.latlngDestination = this.GetLatlng(10.803780, 106.694184);
     this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.latlngOrigin, this.latlngDestination, this.checkboxArray);
-
   }
-
+ 
   //Init the map
   InitMap(latitude, longitude) {
     this.map = new google.maps.Map(document.getElementById('map'), {
@@ -117,24 +115,34 @@ export class GgmapComponent implements OnInit {
     });
   }
 
+  RemoveAllMarkers() {
+    for (var i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(null);
+    }
+  }
+
   //Get your position
   //Add the marker where you are
   //Address of where you are
   GetYourPosition() {
     if (navigator.geolocation) {
+     
       navigator.geolocation.getCurrentPosition(
         position => {
-          this.yourlat = position.coords.latitude;
-          this.yourlng = position.coords.longitude;
+          //this.yourlat = position.coords.latitude;
+          //this.yourlng = position.coords.longitude;
+          this.yourlat = this.yourlat + 0.0001;
+          this.yourlng = this.yourlng+0.0001;
+          console.log(this.yourlat, this.yourlng);
           let geocoder = new google.maps.Geocoder();
           let latlng = new google.maps.LatLng(this.yourlat, this.yourlng);
           var marker = new google.maps.Marker({
-            position: { lat: this.yourlat, lng: this.yourlng },
-
+            position: { lat: this.yourlat = this.yourlat + 0.0001, lng: this.yourlng = this.yourlng+0.0001 },
             icon: this.iconBase
           });
+          this.RemoveAllMarkers();
           marker.setMap(this.map);
-
+          this.markers.push(marker);
           let request = {
             latLng: latlng
           };

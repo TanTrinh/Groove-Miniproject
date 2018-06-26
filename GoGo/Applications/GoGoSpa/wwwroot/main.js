@@ -66,7 +66,7 @@ var routes = [
             { path: 'assigned', component: _shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_5__["AssignedComponent"] },
             {
                 path: 'shipmentPicking/:code', component: _shipment_shipment_picking_shipment_picking_component__WEBPACK_IMPORTED_MODULE_6__["ShipmentPickingComponent"], children: [
-                    { path: 'currentRequest', component: _request_current_request_current_request_component__WEBPACK_IMPORTED_MODULE_8__["CurrentRequestComponent"] },
+                    { path: 'request/:code', component: _request_current_request_current_request_component__WEBPACK_IMPORTED_MODULE_8__["CurrentRequestComponent"] },
                     { path: 'list', component: _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_7__["RequestListComponent"] }
                 ]
             }
@@ -372,6 +372,9 @@ var GgmapComponent = /** @class */ (function () {
         this.zoom = 15;
         this.directionsService = new google.maps.DirectionsService();
         this.directionsDisplay = new google.maps.DirectionsRenderer();
+        this.markers = [];
+        this.yourlat = 10.7725133;
+        this.yourlng = 106.70578479999999;
         //The array of waypoints
         this.checkboxArray = [
             'benthanhmarket',
@@ -382,7 +385,8 @@ var GgmapComponent = /** @class */ (function () {
         this.iconBase = '../assets/trucking.png';
     }
     GgmapComponent.prototype.ngOnInit = function () {
-        this.GetYourPosition();
+        var _this = this;
+        setInterval(function () { _this.GetYourPosition(); }, 1000);
         this.InitMap(this.latcenter, this.lngcenter);
         this.latlngOrigin = this.GetLatlng(10.7711799, 106.7004174);
         this.latlngDestination = this.GetLatlng(10.803780, 106.694184);
@@ -450,6 +454,11 @@ var GgmapComponent = /** @class */ (function () {
             }
         });
     };
+    GgmapComponent.prototype.RemoveAllMarkers = function () {
+        for (var i = 0; i < this.markers.length; i++) {
+            this.markers[i].setMap(null);
+        }
+    };
     //Get your position
     //Add the marker where you are
     //Address of where you are
@@ -457,15 +466,20 @@ var GgmapComponent = /** @class */ (function () {
         var _this = this;
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
-                _this.yourlat = position.coords.latitude;
-                _this.yourlng = position.coords.longitude;
+                //this.yourlat = position.coords.latitude;
+                //this.yourlng = position.coords.longitude;
+                _this.yourlat = _this.yourlat + 0.0001;
+                _this.yourlng = _this.yourlng + 0.0001;
+                console.log(_this.yourlat, _this.yourlng);
                 var geocoder = new google.maps.Geocoder();
                 var latlng = new google.maps.LatLng(_this.yourlat, _this.yourlng);
                 var marker = new google.maps.Marker({
-                    position: { lat: _this.yourlat, lng: _this.yourlng },
+                    position: { lat: _this.yourlat = _this.yourlat + 0.0001, lng: _this.yourlng = _this.yourlng + 0.0001 },
                     icon: _this.iconBase
                 });
+                _this.RemoveAllMarkers();
                 marker.setMap(_this.map);
+                _this.markers.push(marker);
                 var request = {
                     latLng: latlng
                 };
@@ -989,7 +1003,7 @@ var RequestDetail = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container detail\">\r\n  <table class=\"table table-hover\">\r\n    <tbody>\r\n      <tr>\r\n        <td>Request code</td>\r\n        <td>{{currentRequest.code}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Total Package</td>\r\n        <td>{{currentRequest.packageQuantity}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Estimate date</td>\r\n        <td>{{currentRequest.estimateDate | date:'short'}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Address</td>\r\n        <td>{{currentRequest.address}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Receiver</td>\r\n        <td>{{currentRequest.receiverName}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>PhoneNumber</td>\r\n        <td>{{currentRequest.receiverPhoneNumber}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Status</td>\r\n        <td>{{currentRequest.status}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
+module.exports = "<div class=\"request\">\r\n  <!--*ngIf=\"shipmentDetail.status != 'Completed' && shipmentDetail.status != 'Reject'\">-->\r\n  <table class=\"table table-hover\">\r\n    <tbody>\r\n      <tr>\r\n        <td>Request code</td>\r\n        <td>{{request.code}} <span class=\"badge badge-warning\">Not current</span></td>\r\n       \r\n      </tr>\r\n      <tr>\r\n        <td>Total Package</td>\r\n        <td>{{request.packageQuantity}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Estimate date</td>\r\n        <td>{{request.estimateDate | date:'short'}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Receiver</td>\r\n        <td>{{request.receiverName}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>PhoneNumber</td>\r\n        <td>{{request.receiverPhoneNumber}}</td>\r\n      </tr>\r\n      <tr>\r\n        <td>Status</td>\r\n        <td>{{request.status}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1016,8 +1030,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrentRequestComponent", function() { return CurrentRequestComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _shared_service_save_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/service/save.service */ "./src/app/shared/service/save.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _RequestDetail__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../RequestDetail */ "./src/app/request/RequestDetail.ts");
+/* harmony import */ var _shipment_shipment_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shipment/shipment.service */ "./src/app/shipment/shipment.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1031,33 +1046,35 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var CurrentRequestComponent = /** @class */ (function () {
-    function CurrentRequestComponent(http, router, save) {
+    function CurrentRequestComponent(http, router, route, shipmentService) {
         this.http = http;
         this.router = router;
-        this.save = save;
-        this.statusShipment = {};
-        this.data = {};
-        this.currentRequest = this.data;
+        this.route = route;
+        this.shipmentService = shipmentService;
+        this.request = new _RequestDetail__WEBPACK_IMPORTED_MODULE_3__["RequestDetail"]();
     }
     CurrentRequestComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.http.get('http://localhost:60012/api/Driver/shipment/requestDetail?code=' + this.save.getCode()).subscribe(function (result) {
-            _this.data = result;
-            _this.currentRequest = _this.data;
+        this.code = this.route.snapshot.paramMap.get('code');
+        this.shipmentService.getRequest(this.code).subscribe(function (data) {
+            _this.request = data;
+            console.log(_this.request);
         });
-        this.statusShipment = this.save.getStatusShipment();
-        console.log(this.statusShipment);
     };
     CurrentRequestComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-current-request',
             template: __webpack_require__(/*! ./current-request.component.html */ "./src/app/request/current-request/current-request.component.html"),
-            styles: [__webpack_require__(/*! ./current-request.component.scss */ "./src/app/request/current-request/current-request.component.scss")]
+            styles: [__webpack_require__(/*! ./current-request.component.scss */ "./src/app/request/current-request/current-request.component.scss")],
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"],
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-            _shared_service_save_service__WEBPACK_IMPORTED_MODULE_2__["SaveService"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _shipment_shipment_service__WEBPACK_IMPORTED_MODULE_4__["ShipmentService"]])
     ], CurrentRequestComponent);
     return CurrentRequestComponent;
 }());
@@ -1136,7 +1153,7 @@ var RequestDetailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"request\">\r\n  <table class=\"table table-hover\">\r\n \r\n    <tbody>\r\n      <tr *ngFor=\"let item of requestList\">\r\n        <td>\r\n          <span>{{item.code}}</span><br />\r\n          <span>{{item.address}}</span>\r\n        </td>\r\n\r\n        <td>\r\n          <span>{{item.estimateDate | date:'short'}}</span>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
+module.exports = "<div class=\"request\">\r\n  <table class=\"table table-hover\">\r\n    <tbody data-spy=\"scroll\" data-offset=\"50\">\r\n      <tr *ngFor=\"let item of requestList\">\r\n        <td>\r\n          <span>{{item.code}}</span><br />\r\n          <span>{{item.address}}</span>\r\n        </td>\r\n\r\n        <td>\r\n          <span>{{item.estimateDate | date:'short'}}</span>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1281,14 +1298,11 @@ var SaveService = /** @class */ (function () {
     SaveService.prototype.getCode = function () {
         return this.code;
     };
-    SaveService.prototype.saveStatus = function (status) {
-        this.statusShipment = status;
+    SaveService.prototype.saveCurrentRequest = function (code) {
+        this.currentRequest = code;
     };
-    SaveService.prototype.getStatusShipment = function () {
-        return this.statusShipment;
-    };
-    SaveService.prototype.getShipmentDetail = function (shipmentId) {
-        return this.http.get("http://localhost:60012/api/Driver/shipment/" + shipmentId);
+    SaveService.prototype.getCurrentRequest = function () {
+        return this.currentRequest;
     };
     SaveService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -1445,7 +1459,7 @@ var AssignedComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-4 container\">\r\n    <div class=\"tille\">\r\n      <span id=\"header\">SHIPMENT</span>\r\n      <img src=\"../../assets/support.svg\" class=\"rounded-circle float-right\" id=\"support\" width=\"60\" height=\"60\" />\r\n    </div>\r\n\r\n    <div class=\"col-sm-12\">\r\n      <input *ngIf=\"shipmentDetail.status != 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{locationPicking.address}}>\r\n      <input *ngIf=\"shipmentDetail.status == 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{firstRequest.address}}>\r\n    </div>\r\n\r\n    <div class=\"detail\">\r\n      <table class=\"table table-hover\">\r\n        <tbody>\r\n          <tr>\r\n            <td>Shipment code</td>\r\n            <td>{{shipmentDetail.code}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Total Package</td>\r\n            <td>{{shipmentDetail.packageQuality}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Start date</td>\r\n            <td style=\"color:red\">{{shipmentDetail.startDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>End date</td>\r\n            <td>{{shipmentDetail.endDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Status</td>\r\n            <td>{{shipmentDetail.status}}</td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n\r\n    <div class=\"status\">\r\n      <div class=\"row\">\r\n        <div class=\"col-6\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending'\" (click)=\"feedback(shipmentDetail, 'Accept')\" class=\"btn btn-success btn-block\">Accept a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Picking')\" class=\"btn btn-success btn-block\">Picking</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Picking'\" (click)=\"feedback(shipmentDetail, 'Loading')\" class=\"btn btn-success btn-block\">Start to load</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Loading'\" (click)=\"feedback(shipmentDetail, 'Ready')\" class=\"btn btn-success btn-block\">Complete loading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Ready'\" (click)=\"feedback(shipmentDetail, 'Shipping')\" class=\"btn btn-success btn-block\">Complete the loading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && firstRequest.status=='Waiting'\" (click)=\"changeStatus(shipmentDetail,'Shipping')\" class=\"btn btn-success btn-block\">Start to {{shipmentDetail.currentRequest}}</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && firstRequest.status=='Shipping'\" (click)=\"changeStatus(shipmentDetail,'Completed')\" class=\"btn btn-success btn-block\">Complete to {{shipmentDetail.currentRequest}}</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'\" (click)=\"returnList()\" class=\"btn btn-success btn-block\">Return the list shipment</button>\r\n\r\n        </div>\r\n        <div class=\"col-6\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Reject')\" class=\"btn btn-danger btn-block\">Reject a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'\" class=\"btn btn-danger btn-block\">Have a problem</button>\r\n\r\n        </div>\r\n      </div>\r\n      <!--<button *ngIf=\"shipmentDetail.status == 'Pending'\" (click)=\"feedback(shipmentDetail, 'Accept')\" class=\"btn btn-success btn-block\">Accept a shipment</button>\r\n      <button *ngIf=\"shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Picking')\" class=\"btn btn-success btn-block\">Picking</button>\r\n      <button *ngIf=\"shipmentDetail.status == 'Picking'\" (click)=\"feedback(shipmentDetail, 'Loading')\" class=\"btn btn-success btn-block\">Start to load</button>\r\n      <button *ngIf=\"shipmentDetail.status == 'Loading'\" (click)=\"feedback(shipmentDetail, 'Ready')\" class=\"btn btn-success btn-block\">Complete loading</button>\r\n      <button *ngIf=\"shipmentDetail.status == 'Ready'\" (click)=\"feedback(shipmentDetail, 'Shipping')\" class=\"btn btn-success btn-block\">Complete the loading</button>\r\n      <button *ngIf=\"shipmentDetail.status == 'Shipping' && firstRequest.status=='Waiting'\" (click)=\"changeStatus(shipmentDetail,'Shipping')\" class=\"btn btn-success btn-block\">Start to {{shipmentDetail.currentRequest}}</button>\r\n      <button *ngIf=\"shipmentDetail.status == 'Shipping' && firstRequest.status=='Shipping'\" (click)=\"changeStatus(shipmentDetail,'Completed')\" class=\"btn btn-success btn-block\">Complete to {{shipmentDetail.currentRequest}}</button>\r\n      <button *ngIf=\"shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'\" (click)=\"returnList()\" class=\"btn btn-success btn-block\">Return the list shipment</button>\r\n\r\n      <button *ngIf=\"shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Reject')\" class=\"btn btn-danger btn-block\">Reject a shipment</button>\r\n      <button *ngIf=\"shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'\" class=\"btn btn-danger btn-block\">Have a problem</button>-->\r\n\r\n    </div>\r\n\r\n\r\n\r\n    <div class=\"request\" *ngIf=\"shipmentDetail.status != 'Completed' && shipmentDetail.status != 'Reject'\">\r\n      <div class=\"tille\">\r\n        <h3>REQUEST DETAIL</h3>\r\n      </div>\r\n      <table class=\"table table-hover\">\r\n        <tbody>\r\n          <tr>\r\n            <td>Request code</td>\r\n            <td>{{firstRequest.code}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Total Package</td>\r\n            <td>{{firstRequest.packageQuantity}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Estimate date</td>\r\n            <td>{{firstRequest.estimateDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Receiver</td>\r\n            <td>{{firstRequest.receiverName}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>PhoneNumber</td>\r\n            <td>{{firstRequest.receiverPhoneNumber}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Status</td>\r\n            <td>{{firstRequest.status}}</td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <app-ggmap></app-ggmap>\r\n  </div>\r\n</div>\r\n"
+module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-4 container\">\r\n    <div class=\"tille\">\r\n      <span id=\"header\">SHIPMENT</span>\r\n      <img src=\"../../assets/support.svg\" class=\"rounded-circle float-right\" id=\"support\" width=\"60\" height=\"60\" />\r\n    </div>\r\n\r\n    <div class=\"col-sm-12\">\r\n      <input *ngIf=\"shipmentDetail.status != 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{locationPicking.address}}>\r\n      <input *ngIf=\"shipmentDetail.status == 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{request.address}}>\r\n    </div>\r\n\r\n    <div class=\"detail\">\r\n      <table class=\"table table-hover\">\r\n        <tbody>\r\n          <tr>\r\n            <td>Shipment code</td>\r\n            <td>{{shipmentDetail.code}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Total Package</td>\r\n            <td>{{shipmentDetail.packageQuality}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Start date</td>\r\n            <td style=\"color:red\">{{shipmentDetail.startDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>End date</td>\r\n            <td>{{shipmentDetail.endDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Status</td>\r\n            <td>{{shipmentDetail.status}}</td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n\r\n    <div class=\"container-fluid\">\r\n      <div class=\"row\">\r\n        <div style=\"width:50%\" class=\"pr-1\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending'\" (click)=\"feedback(shipmentDetail, 'Accept')\" class=\"btn btn-success btn-block\">Accept a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Picking')\" class=\"btn btn-success btn-block\">Picking</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Picking'\" (click)=\"feedback(shipmentDetail, 'Loading')\" class=\"btn btn-success btn-block\">Start to load</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Loading'\" (click)=\"feedback(shipmentDetail, 'Shipping')\" class=\"btn btn-success btn-block\">Complete loading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code==shipmentDetail.currentRequest\" (click)=\"changeStatus(shipmentDetail,'Shipping')\" class=\"btn btn-primary btn-block\">Start to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code!=shipmentDetail.currentRequest\" class=\"btn btn-primary btn-block diable\">Start to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Shipping' && request.code==shipmentDetail.currentRequest\" (click)=\"changeStatus(shipmentDetail,'Unloading')\" class=\"btn btn-warning btn-block\">Start to unloading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Unloading'\" (click)=\"changeStatus(shipmentDetail,'Completed')\" class=\"btn btn-success btn-block\">Complete to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'\" (click)=\"returnList()\" class=\"btn btn-primary btn-block\">Return to list</button>\r\n\r\n        </div>\r\n        <div style=\"width:50%\" class=\"pl-1\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Reject')\" class=\"btn btn-danger btn-block\">Reject a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'\" class=\"btn btn-danger btn-block\">Have a problem</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div id=\"inf\">\r\n      <ul class=\"nav nav-tabs\">\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\" *ngIf=\"statusNav=='Request'\" routerLink=\"./\" routerLinkActive=\"hold\">Request detail</a>\r\n          <a class=\"nav-link\" (click)=\"changeNav('Request')\" *ngIf=\"statusNav!='Request'\" routerLink=\"./\">Request detail</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link \" *ngIf=\"statusNav=='List'\" routerLink=\"./\" routerLinkActive=\"hold\">List request</a>\r\n          <a class=\"nav-link \" (click)=\"changeNav('List')\" *ngIf=\"statusNav!='List'\" routerLink=\"./\">List request</a>\r\n        </li>\r\n      </ul>\r\n\r\n      <div *ngIf=\"statusNav=='Request'\">\r\n        <div class=\"tille\">\r\n          <h3>REQUEST DETAIL</h3>\r\n        </div>\r\n        <table class=\"table table-hover\">\r\n          <tbody>\r\n            <tr>\r\n              <td>Request code</td>\r\n              <td *ngIf=\"shipmentDetail.status=='Completed'\">{{request.code}}</td>\r\n              <td *ngIf=\"request.code==shipmentDetail.currentRequest &&shipmentDetail.status!='Completed'\">{{request.code}} <span class=\"badge badge-success\">Current</span></td>\r\n              <td *ngIf=\"request.code!=shipmentDetail.currentRequest && shipmentDetail.status!='Completed'\">{{request.code}} <span (click)=\"gotoCurrentRequest()\" class=\"badge badge-warning\">Not current</span></td>\r\n            </tr>\r\n            <tr>\r\n              <td>Total Package</td>\r\n              <td>{{request.packageQuantity}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Estimate date</td>\r\n              <td>{{request.estimateDate | date:'short'}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Receiver</td>\r\n              <td>{{request.receiverName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>PhoneNumber</td>\r\n              <td>{{request.receiverPhoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Status</td>\r\n              <td>{{request.status}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n\r\n      <div *ngIf=\"statusNav=='List'\">\r\n        <table class=\"table table-hover\">\r\n          <tbody data-spy=\"scroll\" data-offset=\"50\">\r\n            <tr *ngFor=\"let item of requestList\" (click)=\"viewRequest(item)\">\r\n              <td>\r\n                <span>{{item.code}}</span><br />\r\n                <span>{{item.address}}</span>\r\n              </td>\r\n              <td>\r\n                <span>{{item.estimateDate | date:'short'}}</span>\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <app-ggmap></app-ggmap>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1456,7 +1470,7 @@ module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-4 contain
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".row {\n  margin-top: 5px; }\n\n.tille {\n  text-align: center; }\n\n#header {\n  font-size: 40px;\n  color: #0073e6; }\n\n.yourAddress {\n  border-bottom: 1px solid #0073e6;\n  background-image: url(\"/assets/placeholder.svg\");\n  background-repeat: no-repeat;\n  padding-left: 48px; }\n\n#completed {\n  margin-top: 5px; }\n\n#inf {\n  margin-top: 5px;\n  border: 1px solid #0073e6; }\n\n.nav {\n  border-bottom: 1px solid #0073e6;\n  color: black; }\n\n.nav-item a.hold {\n  background-color: #e6e6ff;\n  color: #0073e6;\n  font-weight: 500;\n  border-bottom: solid;\n  border-bottom-color: #0073e6; }\n\n/* Sidebar */\n\n#sidebar-container {\n  margin-top: 5px;\n  min-height: 460px;\n  padding: 0;\n  border-bottom-color: #0073e6;\n  font-weight: 500; }\n\n#support {\n  border: 2px solid #55E0DE;\n  background-color: #e6e6ff;\n  margin-top: 5px; }\n\n.request {\n  border: 2px solid #0073e6;\n  margin-top: 5px; }\n\nh3 {\n  text-align: center;\n  margin-top: 5px; }\n"
+module.exports = ".row {\n  margin-top: 5px; }\n\n.tille {\n  text-align: center; }\n\n#header {\n  font-size: 40px;\n  color: #0073e6; }\n\n.yourAddress {\n  border-bottom: 1px solid #0073e6;\n  background-image: url(\"/assets/placeholder.svg\");\n  background-repeat: no-repeat;\n  padding-left: 48px; }\n\n#completed {\n  margin-top: 5px; }\n\n#inf {\n  margin-top: 10px;\n  border: 1px solid #0073e6; }\n\n.nav {\n  border-bottom: 1px solid #0073e6;\n  color: black; }\n\n.nav-item a.hold {\n  background-color: #e6e6ff;\n  color: #0073e6;\n  font-weight: 500;\n  border-bottom: solid;\n  border-bottom-color: #0073e6; }\n\n/* Sidebar */\n\n#sidebar-container {\n  margin-top: 10px;\n  min-height: 460px;\n  padding: 0;\n  border-bottom-color: #0073e6;\n  font-weight: 500; }\n\n#support {\n  border: 2px solid #55E0DE;\n  background-color: #e6e6ff;\n  margin-top: 5px; }\n\n.request {\n  border: 2px solid #0073e6;\n  margin-top: 5px; }\n\nh3 {\n  text-align: center;\n  margin-top: 5px; }\n\n.diable {\n  pointer-events: none;\n  cursor: default;\n  opacity: 0.6; }\n\n.nav-item {\n  width: 50%; }\n"
 
 /***/ }),
 
@@ -1501,8 +1515,10 @@ var ShipmentPickingComponent = /** @class */ (function () {
         this.save = save;
         this.service = service;
         this.data = {};
+        this.statusNav = 'Request';
+        this.lock = 0;
         this.shipmentDetail = new _ShipmentAssigned_ShipmentAssigned__WEBPACK_IMPORTED_MODULE_3__["ShipmentAssigned"]();
-        this.firstRequest = new _request_RequestDetail__WEBPACK_IMPORTED_MODULE_5__["RequestDetail"]();
+        this.request = new _request_RequestDetail__WEBPACK_IMPORTED_MODULE_5__["RequestDetail"]();
         this.status = 'Waiting';
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
@@ -1524,43 +1540,65 @@ var ShipmentPickingComponent = /** @class */ (function () {
             _this.locationPicking = data;
         });
         this.refeshShipment(this.code);
+        this.service.getListRequest(this.code).subscribe(function (data) {
+            _this.requestList = data;
+        });
     };
     ShipmentPickingComponent.prototype.refeshShipment = function (code) {
         var _this = this;
         this.service.getShipmentDetail(this.code).subscribe(function (data) {
             _this.shipmentDetail = data;
-            console.log(_this.shipmentDetail);
             if (_this.shipmentDetail.currentRequest == "") {
                 _this.feedback(_this.shipmentDetail, 'Completed');
+                _this.changeNav('List');
             }
             else {
-                _this.service.getCurrentRequest(_this.shipmentDetail.currentRequest).subscribe(function (data) {
-                    _this.firstRequest = data;
+                _this.service.getRequest(_this.shipmentDetail.currentRequest).subscribe(function (data) {
+                    _this.request = data;
                 });
             }
         });
     };
+    ShipmentPickingComponent.prototype.UpdatePosition = function () {
+        setInterval(function () {
+            console.log('123');
+        }, 3000);
+    };
     ShipmentPickingComponent.prototype.feedback = function (item, status) {
         var _this = this;
         var param = { 'code': item.code, 'status': status };
-        console.log(this.status);
         this.service.changeStatusShipment(param).subscribe(function (data) {
             _this.shipmentDetail = data;
-            console.log(_this.shipmentDetail);
         });
     };
     ShipmentPickingComponent.prototype.changeStatus = function (item, status) {
         var _this = this;
         var param = { 'code': item.currentRequest, 'status': status };
         this.service.changeStatusRequest(param).subscribe(function (data) {
-            _this.firstRequest = data;
+            _this.request = data;
         });
         if (status == "Completed") {
             this.refeshShipment(this.code);
         }
     };
+    ShipmentPickingComponent.prototype.viewRequest = function (item) {
+        var _this = this;
+        this.changeNav('Request');
+        this.service.getRequest(item.code).subscribe(function (data) {
+            _this.request = data;
+        });
+    };
     ShipmentPickingComponent.prototype.returnList = function () {
         this.router.navigate(['./home/assigned']);
+    };
+    ShipmentPickingComponent.prototype.gotoCurrentRequest = function () {
+        var _this = this;
+        this.service.getRequest(this.shipmentDetail.currentRequest).subscribe(function (data) {
+            _this.request = data;
+        });
+    };
+    ShipmentPickingComponent.prototype.changeNav = function (status) {
+        this.statusNav = status;
     };
     ShipmentPickingComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1593,6 +1631,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentService", function() { return ShipmentService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1604,9 +1643,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var ShipmentService = /** @class */ (function () {
-    function ShipmentService(http) {
+    function ShipmentService(http, router) {
         this.http = http;
+        this.router = router;
         this.url = 'http://localhost:60012/api/Driver';
     }
     ShipmentService.prototype.getListShipmentAssigned = function (DriverID) {
@@ -1621,17 +1662,21 @@ var ShipmentService = /** @class */ (function () {
     ShipmentService.prototype.changeStatusShipment = function (parameter) {
         return this.http.post(this.url + "/shipmentFeedback", parameter);
     };
-    ShipmentService.prototype.getCurrentRequest = function (requestCode) {
-        return this.http.get(this.url + "/shipment/currentRequest?code=" + requestCode);
+    ShipmentService.prototype.getRequest = function (requestCode) {
+        return this.http.get(this.url + "/shipment/request?code=" + requestCode);
     };
     ShipmentService.prototype.changeStatusRequest = function (parameter) {
         return this.http.post(this.url + "/changeStatus", parameter);
+    };
+    ShipmentService.prototype.getListRequest = function (shipmentCode) {
+        return this.http.get(this.url + "/shipment/requestList?code=" + shipmentCode);
     };
     ShipmentService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], ShipmentService);
     return ShipmentService;
 }());

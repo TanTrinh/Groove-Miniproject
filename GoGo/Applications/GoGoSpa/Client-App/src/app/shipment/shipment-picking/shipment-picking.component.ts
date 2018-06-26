@@ -6,7 +6,7 @@ import { ShipmentAssigned } from '../ShipmentAssigned/ShipmentAssigned';
 import { SaveService } from '../../shared/service/save.service';
 import { RequestDetail } from '../../request/RequestDetail';
 import { ShipmentService } from '../shipment.service';
-import { error } from 'util';
+
 @Component({
   selector: 'app-shipment-picking',
   templateUrl: './shipment-picking.component.html',
@@ -14,10 +14,15 @@ import { error } from 'util';
 })
 export class ShipmentPickingComponent implements OnInit {
   data: any = {};
+  statusNav = 'Request';
+  lock = 0;
   shipmentDetail = new ShipmentAssigned();
-  firstRequest = new RequestDetail();
+ request = new RequestDetail();
   status='Waiting';
   code: string;
+  requestList: RequestDetail[];
+
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -45,42 +50,64 @@ export class ShipmentPickingComponent implements OnInit {
       this.locationPicking = data;
     })
     this.refeshShipment(this.code);
+    this.service.getListRequest(this.code).subscribe(data => {
+      this.requestList = data;
+    })
+    
   }
+
   refeshShipment(code: string) {
     this.service.getShipmentDetail(this.code).subscribe(data => {
       this.shipmentDetail = data;
-      console.log(this.shipmentDetail);
       if (this.shipmentDetail.currentRequest == "") {
         this.feedback(this.shipmentDetail, 'Completed');
+        this.changeNav('List');
       }
       else {
-        this.service.getCurrentRequest(this.shipmentDetail.currentRequest).subscribe(data => {
-          this.firstRequest = data;
+        this.service.getRequest(this.shipmentDetail.currentRequest).subscribe(data => {
+          this.request = data;
         })
       }
     })
   }
-
+  UpdatePosition() {
+    
+    setInterval(() => {
+      console.log('123');
+    }, 3000)
+  }
   feedback(item: ShipmentAssigned, status) {
     var param = { 'code': item.code, 'status': status }
-    console.log(this.status)
     this.service.changeStatusShipment(param).subscribe(data => {
       this.shipmentDetail = data;
-      console.log(this.shipmentDetail);
     })
   }
 
   changeStatus(item: ShipmentAssigned, status) {
     var param = { 'code': item.currentRequest, 'status': status }
     this.service.changeStatusRequest(param).subscribe(data => {
-      this.firstRequest = data;
+      this.request = data;
     })
     if (status == "Completed") {
       this.refeshShipment(this.code);
+     
     }
   }
-
+  viewRequest(item: RequestDetail) {
+    this.changeNav('Request');
+    this.service.getRequest(item.code).subscribe(data => {
+      this.request = data;
+    })
+  }
   returnList() {
     this.router.navigate(['./home/assigned']);
+  }
+  gotoCurrentRequest() {
+    this.service.getRequest(this.shipmentDetail.currentRequest).subscribe(data => {
+      this.request = data;
+    })
+  }
+  changeNav(status){
+    this.statusNav = status;
   }
 }

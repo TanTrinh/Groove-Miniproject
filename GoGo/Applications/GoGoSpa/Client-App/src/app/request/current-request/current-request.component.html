@@ -1,33 +1,31 @@
-<div class="container detail">
+<div class="request">
+  <!--*ngIf="shipmentDetail.status != 'Completed' && shipmentDetail.status != 'Reject'">-->
   <table class="table table-hover">
     <tbody>
       <tr>
         <td>Request code</td>
-        <td>{{currentRequest.code}}</td>
+        <td>{{request.code}} <span class="badge badge-warning">Not current</span></td>
+       
       </tr>
       <tr>
         <td>Total Package</td>
-        <td>{{currentRequest.packageQuantity}}</td>
+        <td>{{request.packageQuantity}}</td>
       </tr>
       <tr>
         <td>Estimate date</td>
-        <td>{{currentRequest.estimateDate | date:'short'}}</td>
-      </tr>
-      <tr>
-        <td>Address</td>
-        <td>{{currentRequest.address}}</td>
+        <td>{{request.estimateDate | date:'short'}}</td>
       </tr>
       <tr>
         <td>Receiver</td>
-        <td>{{currentRequest.receiverName}}</td>
+        <td>{{request.receiverName}}</td>
       </tr>
       <tr>
         <td>PhoneNumber</td>
-        <td>{{currentRequest.receiverPhoneNumber}}</td>
+        <td>{{request.receiverPhoneNumber}}</td>
       </tr>
       <tr>
         <td>Status</td>
-        <td>{{currentRequest.status}}</td>
+        <td>{{request.status}}</td>
       </tr>
     </tbody>
   </table>

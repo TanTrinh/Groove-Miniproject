@@ -64,7 +64,7 @@ namespace GoGoApi.Controllers.GoGo
         {
             return Ok(await _serviceShipment.GetShipmentAsync(code));
         }
-        [Route("shipment/currentRequest")]
+        [Route("shipment/request")]
         [HttpGet]
         public async Task<IActionResult> GetRequestDetailAsync(string code)
         {

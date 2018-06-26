@@ -9,7 +9,7 @@
 
     <div class="col-sm-12">
       <input *ngIf="shipmentDetail.status != 'Shipping'" type="text" class="form-control-plaintext yourAddress" readonly value={{locationPicking.address}}>
-      <input *ngIf="shipmentDetail.status == 'Shipping'" type="text" class="form-control-plaintext yourAddress" readonly value={{firstRequest.address}}>
+      <input *ngIf="shipmentDetail.status == 'Shipping'" type="text" class="form-control-plaintext yourAddress" readonly value={{request.address}}>
     </div>
 
     <div class="detail">
@@ -39,75 +39,93 @@
       </table>
     </div>
 
-    <div class="status">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-6">
+        <div style="width:50%" class="pr-1">
           <button *ngIf="shipmentDetail.status == 'Pending'" (click)="feedback(shipmentDetail, 'Accept')" class="btn btn-success btn-block">Accept a shipment</button>
           <button *ngIf="shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Picking')" class="btn btn-success btn-block">Picking</button>
           <button *ngIf="shipmentDetail.status == 'Picking'" (click)="feedback(shipmentDetail, 'Loading')" class="btn btn-success btn-block">Start to load</button>
-          <button *ngIf="shipmentDetail.status == 'Loading'" (click)="feedback(shipmentDetail, 'Ready')" class="btn btn-success btn-block">Complete loading</button>
-          <button *ngIf="shipmentDetail.status == 'Ready'" (click)="feedback(shipmentDetail, 'Shipping')" class="btn btn-success btn-block">Complete the loading</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && firstRequest.status=='Waiting'" (click)="changeStatus(shipmentDetail,'Shipping')" class="btn btn-success btn-block">Start to {{shipmentDetail.currentRequest}}</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && firstRequest.status=='Shipping'" (click)="changeStatus(shipmentDetail,'Completed')" class="btn btn-success btn-block">Complete to {{shipmentDetail.currentRequest}}</button>
-          <button *ngIf="shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'" (click)="returnList()" class="btn btn-success btn-block">Return the list shipment</button>
+          <button *ngIf="shipmentDetail.status == 'Loading'" (click)="feedback(shipmentDetail, 'Shipping')" class="btn btn-success btn-block">Complete loading</button>
+          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code==shipmentDetail.currentRequest" (click)="changeStatus(shipmentDetail,'Shipping')" class="btn btn-primary btn-block">Start to delivery</button>
+          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code!=shipmentDetail.currentRequest" class="btn btn-primary btn-block diable">Start to delivery</button>
+          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Shipping' && request.code==shipmentDetail.currentRequest" (click)="changeStatus(shipmentDetail,'Unloading')" class="btn btn-warning btn-block">Start to unloading</button>
+          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Unloading'" (click)="changeStatus(shipmentDetail,'Completed')" class="btn btn-success btn-block">Complete to delivery</button>
+          <button *ngIf="shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'" (click)="returnList()" class="btn btn-primary btn-block">Return to list</button>
 
         </div>
-        <div class="col-6">
+        <div style="width:50%" class="pl-1">
           <button *ngIf="shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Reject')" class="btn btn-danger btn-block">Reject a shipment</button>
           <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'" class="btn btn-danger btn-block">Have a problem</button>
-
         </div>
       </div>
-      <!--<button *ngIf="shipmentDetail.status == 'Pending'" (click)="feedback(shipmentDetail, 'Accept')" class="btn btn-success btn-block">Accept a shipment</button>
-      <button *ngIf="shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Picking')" class="btn btn-success btn-block">Picking</button>
-      <button *ngIf="shipmentDetail.status == 'Picking'" (click)="feedback(shipmentDetail, 'Loading')" class="btn btn-success btn-block">Start to load</button>
-      <button *ngIf="shipmentDetail.status == 'Loading'" (click)="feedback(shipmentDetail, 'Ready')" class="btn btn-success btn-block">Complete loading</button>
-      <button *ngIf="shipmentDetail.status == 'Ready'" (click)="feedback(shipmentDetail, 'Shipping')" class="btn btn-success btn-block">Complete the loading</button>
-      <button *ngIf="shipmentDetail.status == 'Shipping' && firstRequest.status=='Waiting'" (click)="changeStatus(shipmentDetail,'Shipping')" class="btn btn-success btn-block">Start to {{shipmentDetail.currentRequest}}</button>
-      <button *ngIf="shipmentDetail.status == 'Shipping' && firstRequest.status=='Shipping'" (click)="changeStatus(shipmentDetail,'Completed')" class="btn btn-success btn-block">Complete to {{shipmentDetail.currentRequest}}</button>
-      <button *ngIf="shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'" (click)="returnList()" class="btn btn-success btn-block">Return the list shipment</button>
-
-      <button *ngIf="shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Reject')" class="btn btn-danger btn-block">Reject a shipment</button>
-      <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'" class="btn btn-danger btn-block">Have a problem</button>-->
-
     </div>
 
 
+    <div id="inf">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="statusNav=='Request'" routerLink="./" routerLinkActive="hold">Request detail</a>
+          <a class="nav-link" (click)="changeNav('Request')" *ngIf="statusNav!='Request'" routerLink="./">Request detail</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " *ngIf="statusNav=='List'" routerLink="./" routerLinkActive="hold">List request</a>
+          <a class="nav-link " (click)="changeNav('List')" *ngIf="statusNav!='List'" routerLink="./">List request</a>
+        </li>
+      </ul>
 
-    <div class="request" *ngIf="shipmentDetail.status != 'Completed' && shipmentDetail.status != 'Reject'">
-      <div class="tille">
-        <h3>REQUEST DETAIL</h3>
+      <div *ngIf="statusNav=='Request'">
+        <div class="tille">
+          <h3>REQUEST DETAIL</h3>
+        </div>
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <td>Request code</td>
+              <td *ngIf="shipmentDetail.status=='Completed'">{{request.code}}</td>
+              <td *ngIf="request.code==shipmentDetail.currentRequest &&shipmentDetail.status!='Completed'">{{request.code}} <span class="badge badge-success">Current</span></td>
+              <td *ngIf="request.code!=shipmentDetail.currentRequest && shipmentDetail.status!='Completed'">{{request.code}} <span (click)="gotoCurrentRequest()" class="badge badge-warning">Not current</span></td>
+            </tr>
+            <tr>
+              <td>Total Package</td>
+              <td>{{request.packageQuantity}}</td>
+            </tr>
+            <tr>
+              <td>Estimate date</td>
+              <td>{{request.estimateDate | date:'short'}}</td>
+            </tr>
+            <tr>
+              <td>Receiver</td>
+              <td>{{request.receiverName}}</td>
+            </tr>
+            <tr>
+              <td>PhoneNumber</td>
+              <td>{{request.receiverPhoneNumber}}</td>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td>{{request.status}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <table class="table table-hover">
-        <tbody>
-          <tr>
-            <td>Request code</td>
-            <td>{{firstRequest.code}}</td>
-          </tr>
-          <tr>
-            <td>Total Package</td>
-            <td>{{firstRequest.packageQuantity}}</td>
-          </tr>
-          <tr>
-            <td>Estimate date</td>
-            <td>{{firstRequest.estimateDate | date:'short'}}</td>
-          </tr>
-          <tr>
-            <td>Receiver</td>
-            <td>{{firstRequest.receiverName}}</td>
-          </tr>
-          <tr>
-            <td>PhoneNumber</td>
-            <td>{{firstRequest.receiverPhoneNumber}}</td>
-          </tr>
-          <tr>
-            <td>Status</td>
-            <td>{{firstRequest.status}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
 
+      <div *ngIf="statusNav=='List'">
+        <table class="table table-hover">
+          <tbody data-spy="scroll" data-offset="50">
+            <tr *ngFor="let item of requestList" (click)="viewRequest(item)">
+              <td>
+                <span>{{item.code}}</span><br />
+                <span>{{item.address}}</span>
+              </td>
+              <td>
+                <span>{{item.estimateDate | date:'short'}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
   </div>
   <div class="col-md-8">
     <app-ggmap></app-ggmap>

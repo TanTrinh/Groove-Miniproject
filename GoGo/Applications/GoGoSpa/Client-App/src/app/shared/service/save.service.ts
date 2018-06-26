@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class SaveService {
   private code: any;
-  private statusShipment: string;
+  private currentRequest: string;
   constructor(public http:HttpClient) { }
 
   saveCode(code: any) {
@@ -16,15 +16,11 @@ export class SaveService {
   getCode() {
     return this.code;
   }
-  saveStatus(status: string) {
-    this.statusShipment = status;
+  saveCurrentRequest(code: string) {
+    this.currentRequest = code;
   }
-  getStatusShipment() {
-    return this.statusShipment;
-  }
-
-  getShipmentDetail(shipmentId: number): Observable<any> {
-    return this.http.get(`http://localhost:60012/api/Driver/shipment/${shipmentId}`);
+  getCurrentRequest() {
+    return this.currentRequest;
   }
 }
 

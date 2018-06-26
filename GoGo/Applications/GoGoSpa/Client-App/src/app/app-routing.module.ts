@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: 'assigned', component: AssignedComponent },
       {
         path: 'shipmentPicking/:code', component: ShipmentPickingComponent, children: [
-          { path: 'currentRequest', component: CurrentRequestComponent },
+          { path: 'request/:code', component: CurrentRequestComponent },
           { path: 'list', component: RequestListComponent }
         ]
       }
