@@ -41,6 +41,8 @@ namespace Domains.Identity.Models
             RuleFor(p => p.Password).MinimumLength(8);
             RuleFor(p => p.Password).RequireDigit();
             RuleFor(p => p.Password).RequireUppercase();
+            // Rule for ASCII Punctuation & Symbols(special characters)
+            RuleFor(p => p.Password).RequirePunctuation();
             RuleFor(p => p.Role).NotEmpty();
         }
     }

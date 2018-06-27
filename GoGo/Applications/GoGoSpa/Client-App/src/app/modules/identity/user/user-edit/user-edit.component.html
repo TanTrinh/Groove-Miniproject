@@ -1,22 +1,25 @@
 <form #myForm="ngForm" name="myForm">
-  <div class="form-group col-md-4">
+  <div class="form-group col-md-5">
     <label for="email">Email</label>
-    <input type="email" class="form-control" id="email" [(ngModel)]="model.email" name="email" #email="ngModel" required validateEmail="email">
-    <div *ngIf="email.invalid && (email.dirty || email.touched)">
-
-      <div *ngIf="email.errors.required" style="color:red">
-        Email is required.
-      </div>
-      <div *ngIf="email.errors.validateEmail" style="color:red">
-        Email format should be <i>tan@gmail.com</i>.
-      </div>
+    <input type="email" class="form-control" id="email" [(ngModel)]="model.email" name="email" #email="ngModel" required email="true">
+    <div [ngClass]="{'hidden': email.valid || email.pristine}" class="validation-message">
+      <p style="color:red">
+        This is not valid email, email should be <i>abc@gmail.com</i>.
+      </p>
     </div>
   </div>
-  <div class="form-group col-md-4">
+
+  <div class="form-group col-md-5">
     <label for="phonenumber">Phone Number</label>
-    <input type="text" class="form-control" id="phonenumber" [(ngModel)]="model.phoneNumber" name="phonenumber">
+    <input type="text" class="form-control" id="phonenumber" [(ngModel)]="model.phoneNumber" name="phonenumber" #phonenumber="ngModel" required pattern="([0][0-9]{9}|[0][0-9]{10}|[+][8][4][0-9]{9}|[+][8][4][0-9]{10})">
+    <div [ngClass]="{'hidden': phonenumber.valid || phonenumber.pristine}" class="validation-message">
+      <p style="color:red">
+        This is not a valid phone number.
+      </p>
+    </div>
   </div>
-  <div class="form-group col-md-4">
+
+  <div class="form-group col-md-5">
     <label for="role">Role</label>
     <!--<input type="text" class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required />-->
     <select class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
@@ -25,14 +28,14 @@
       <option value="Coordinator">Coordinator</option>
       <option value="Administrator">Administrator</option>
     </select>
-    <div *ngIf="role.invalid && (role.dirty || role.touched)">
-
-      <div *ngIf="role.errors.required" style="color:red">
+    <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
+      <p style="color:red">
         Role is required.
-      </div>
+      </p>
     </div>
   </div>
-  <div class="form-group col-md-4">
+
+  <div class="form-group col-md-5">
     <p style="color:red">{{message}}</p>
     <button class="btn btn-success" (click)="save(model.id)" [disabled]="myForm.invalid">Save</button>
     <button class="btn btn-primary" (click)="back()">Back</button>

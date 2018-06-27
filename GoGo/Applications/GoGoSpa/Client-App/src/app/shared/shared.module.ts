@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InvalidmessageDirective } from './directives/invalidmessage.directive';
+import { EmailvalidatorDirective } from './directives/emailvalidator.directive';
+import { PhonenumbervalidatorDirective } from './directives/phonenumbervalidator.directive';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [InvalidmessageDirective]
+  declarations: [EmailvalidatorDirective, PhonenumbervalidatorDirective]
 })
 export class SharedModule { }

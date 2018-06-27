@@ -10,9 +10,15 @@
             </div>
             <div class="form-field">
                 <label for="username">Username:</label>
-                <input type="text" class="form-control" id="username" [(ngModel)]="model.username" name="username" #username="ngModel" autofocus>
+                <input type="text" class="form-control" id="username" [(ngModel)]="model.username" name="username" #username="ngModel" required autofocus>
                 <!--<validation for="username" ></validation>-->
-                <div id="val-user" style="visibility:hidden">
+                <!--<div id="val-user" style="visibility:hidden">
+                    <p style="color:red">
+                        Username is required.
+                    </p>
+                </div>-->
+
+               <div [ngClass]="{'hidden': username.valid || username.pristine}" class="validation-message">
                     <p style="color:red">
                         Username is required.
                     </p>
@@ -20,11 +26,11 @@
             </div>
             <div class="form-field">
                 <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd" [(ngModel)]="model.password" name="password" #password="ngModel">
-                <div id="val-pass" style="visibility:hidden">
-                    <p style="color:red">
-                        Password is required.
-                    </p>
+                <input type="password" class="form-control" id="pwd" [(ngModel)]="model.password" name="password" #password="ngModel" required>
+                <div [ngClass]="{'hidden': password.valid || password.pristine}" class="validation-message">
+                  <p style="color:red">
+                    Password is required.
+                  </p>
                 </div>
             </div>
             <div class="form-field">
@@ -38,11 +44,11 @@
                 </ul>
             </div>
             <div class="form-field">
-                <button type="submit" class="btn btn-primary active">Sign In <i class="fas fa-sign-in-alt"></i></button>
-                <div id="check-valid" style="visibility:hidden">
-                    <p style="color:red">
-                        {{message}}
-                    </p>
+                <button type="submit" class="btn btn-primary active">Sign In</button>
+                <div [hidden]="!isError" class="validation-message">
+                  <p style="color:red">
+                    {{message}}
+                  </p>
                 </div>
             </div>
         </form>
