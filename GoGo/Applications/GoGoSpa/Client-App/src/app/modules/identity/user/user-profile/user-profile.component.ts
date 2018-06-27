@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserProfile } from './UserProfile';
 import { UserProfileEdit } from './UserProfileEdit';
 import { Location } from '@angular/common';
+import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
 import * as $ from 'jquery';
 
 @Component({
@@ -16,12 +18,15 @@ export class UserProfileComponent implements OnInit {
   public userProfile = new UserProfile();
   public userProfileEdit = new UserProfileEdit();
   public lStorage = localStorage.length;
+  public message: string = null;
+  public isError: boolean = false;
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private _notificationService: NotificationService
   ) { }
 
   ngOnInit() {
@@ -60,7 +65,18 @@ export class UserProfileComponent implements OnInit {
       this.http.put('http://localhost:62772/api/user/edit/profile?id=' + id, this.userProfile, httpOptions).subscribe(result => {
         if (result) {
           this.data = result;
-          $('#btn-smessage').attr('data-target','#EditMessage')
+          this.router.navigate(['home/profile']);
+          //$('#btn-smessage').attr('data-target','#EditMessage')
+        }
+      }, error => {
+        this.isError = true;
+
+        let httpError: HttpErrorResponse = error;
+        if (httpError.status === 400) {
+
+          this.message = httpError.error.message;
+        } else {
+          this._notificationService.prompError(httpError.message);
         }
       });
     }

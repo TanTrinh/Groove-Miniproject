@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
+import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -17,13 +19,16 @@ export class UserEditComponent implements OnInit {
   };
   data: any = {};
   id: any = {};
+  public message: string = null;
+  public isError: boolean = false;
   public lStorage = localStorage.length;
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private _notificationService: NotificationService
   ) { }
 
   ngOnInit() {
@@ -67,8 +72,16 @@ export class UserEditComponent implements OnInit {
           console.log(this.data);
           this.router.navigate(['home/detail', this.data.value]);
         }
-      }, e => {
-        console.log(e);
+      }, error => {
+        this.isError = true;
+
+        let httpError: HttpErrorResponse = error;
+        if (httpError.status === 400) {
+
+          this.message = httpError.error.message;
+        } else {
+          this._notificationService.prompError(httpError.message);
+        }
       });
     }
   }
