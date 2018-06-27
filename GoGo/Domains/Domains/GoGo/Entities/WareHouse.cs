@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domains.Core;
 using Domains.GoGo.Models;
 using Domains.Identity.Entities;
 using Groove.AspNetCore.Domain.Entities;
@@ -27,6 +28,8 @@ namespace Domains.GoGo
         {
             CreateMap<WareHouse, WarehouseOfCustomerModel>();
             CreateMap<WarehouseOfCustomerModel, WareHouse>();
+            
+
         }
     }
 }

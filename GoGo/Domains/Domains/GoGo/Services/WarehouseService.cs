@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domains.Core;
 using Domains.GoGo.Models;
 using Domains.GoGo.Repositories;
 using Groove.AspNetCore.UnitOfWork;
@@ -22,9 +23,14 @@ namespace Domains.GoGo.Services
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<WarehouseOfCustomerModel>> GetWarehousesOfCustomer(int id)
+        public Task<IEnumerable<DataSourceValue<int>>> GetWarehousesOfCustomer(int id)
         {
             return _repository.WarehouseOfCustomerModelAsync(id);
+        }
+
+        public Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName)
+        {
+            return _repository.GetOnFilter(displayName);
         }
     }
 }

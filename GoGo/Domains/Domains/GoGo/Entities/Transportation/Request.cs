@@ -47,7 +47,8 @@ namespace Domains.GoGo.Entities
     {
         public RequestMapper()
         {
-            CreateMap<Request, RequestModel>();
+            CreateMap<Request, RequestModel>()
+                .ForPath(destination => destination.WareHouse.Value, option => option.MapFrom(source => source.WareHouseId));
         }
     }
 }

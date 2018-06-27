@@ -186,6 +186,7 @@ export abstract class FormBaseComponent {
     // Form data
     if (this.isViewFormMode) {
       this.viewFormService.getFormData(this.formId).subscribe(data => {
+        console.log(data);
         this.formConfiguration.events.onBeforeInitFormData(data);
         this.formData = data;
         this.formConfiguration.events.onAfterInitFormData(this.formData);
@@ -194,7 +195,9 @@ export abstract class FormBaseComponent {
     } else if (this.isUpdateFormMode) {
       this.viewFormService.getFormData(this.formId).subscribe(data => {
         this.formConfiguration.events.onBeforeInitFormData(data);
+
         this.formData = data;
+
         this.formConfiguration.events.onAfterInitFormData(this.formData);
         this.constructorForFormDataSource();
       });
@@ -222,7 +225,7 @@ export abstract class FormBaseComponent {
       }
       mapDataSourceObs.subscribe(res => {
         if (map.onAfterGetData !== undefined && map.onAfterGetData !== null) {
-          this.formDataSource[map.name] = map.onAfterGetData(res, this.formData);
+          this.formDataSource[map.name] = map.onAfterGetData(res);
         } else {
           this.formDataSource[map.name] = res;
         }
@@ -265,7 +268,6 @@ export abstract class FormBaseComponent {
   }
 
   public onSubmitForm(formGroup: NgForm) {
-    this.formData.test = this.formData.test.id;
     this.formErrors = {};
     let validationResult = this.validationService.validateForm(formGroup, this._validationRules);
     if (!validationResult.isValid) {

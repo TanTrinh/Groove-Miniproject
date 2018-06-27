@@ -1,4 +1,5 @@
-﻿using Domains.GoGo.Models;
+﻿using Domains.Core;
+using Domains.GoGo.Models;
 using Groove.AspNetCore.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace Domains.GoGo.Repositories
 {
     public interface IWarehouseRepository : IGenericRepository<WareHouse, int>
     {
-        Task<IEnumerable<WarehouseOfCustomerModel>> WarehouseOfCustomerModelAsync(int id);
+        Task<IEnumerable<DataSourceValue<int>>> WarehouseOfCustomerModelAsync(int id);
+        Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName);
     }
 }

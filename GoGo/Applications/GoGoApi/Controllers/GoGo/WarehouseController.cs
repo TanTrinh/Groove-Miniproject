@@ -24,5 +24,13 @@ namespace GoGoApi.Controllers
             var result = await _warehouseService.GetWarehousesOfCustomer(id);
             return Ok(result);
         }
+
+        [Route("filter-list/{displayName}")]
+        [HttpGet]
+        public async Task<IActionResult> GetOnFilter(string displayName)
+        {
+            var result = await _warehouseService.GetOnFilter(displayName);
+            return Ok(result);
+        }
     }
 }

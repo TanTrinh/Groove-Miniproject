@@ -7,7 +7,7 @@
   <div class="container-fluid pt-3">
     
     <div class="row">
-      <div class="col-md-4 col-lg-4">
+      <div class="col-lg-4">
         <form #mainForm="ngForm" name="mainForm" (ngSubmit)="onSubmitForm(mainForm)">
 
           <div class="form-group">
@@ -45,50 +45,47 @@
 
           <div class="form-group">
             <label for="">Picking Date</label>
-            <kendo-datepicker class="form-control" [(ngModel)]="formData.pickingDate" name="formData.pickingDate" [readonly]="isViewFormMode"></kendo-datepicker><br />
-            <kendo-timepicker class="form-control" [(ngModel)]="formData.pickingDate" name="formData.pickingDate" [readonly]="isViewFormMode"></kendo-timepicker>
+            <div class="row px-3">
+              <kendo-datepicker class="col form-control" [(ngModel)]="formData.pickingDate" name="formData.pickingDate" [readonly]="isViewFormMode"></kendo-datepicker>&nbsp;
+              <kendo-timepicker class="col form-control" [(ngModel)]="formData.pickingDate" name="formData.pickingDate" [readonly]="isViewFormMode"></kendo-timepicker>
+            </div>
+            
           </div>
 
           <div class="form-group">
             <label for="">Expected Date</label>
-            <kendo-datepicker class="form-control" [(ngModel)]="formData.expectedDate" name="formData.expectedDate" [readonly]="isViewFormMode"></kendo-datepicker><br />
-            <kendo-timepicker class="form-control" [(ngModel)]="formData.expectedDate" name="formData.expectedDate" [readonly]="isViewFormMode"></kendo-timepicker>
-          </div>
-
-
-          <kendo-combobox class="form-control" [(ngModel)]="formData.test" name="formData.test" #test="ngModel" required
-                          [data]="formDataSource.WarehouseList"
-                          [valueField]="'id'"
-                          [textField]="'nameWarehouse'"
-                          (valueChange)="onValueChange($event)">
-          </kendo-combobox>
-          <div *ngIf="test.invalid && (test.dirty || test.touched)"
-               class="alert alert-danger">
-            <div *ngIf="test.errors.required">
-              Warehouse is required.
+            <div class="row px-3">
+              <kendo-datepicker class="col form-control" [(ngModel)]="formData.expectedDate" name="formData.expectedDate" [readonly]="isViewFormMode"></kendo-datepicker>&nbsp;
+              <kendo-timepicker class="col form-control" [(ngModel)]="formData.expectedDate" name="formData.expectedDate" [readonly]="isViewFormMode"></kendo-timepicker>
             </div>
+            
           </div>
-          <!--<kendo-autocomplete class="form-control" [(ngModel)]="formData.test" name="formData.test" [data]="formDataSource.WarehouseList" [valueField]="'nameWarehouse'" [placeholder]="'Your warehouse'">
-  </kendo-autocomplete>-->
 
-          <div class="form-group" *ngIf="!isViewFormMode">
+          <div class="form-group">
             <label for="wareHouseId">Warehouse</label>
-            <select class="form-control" [(ngModel)]="formData.wareHouseId" name="wareHouseId" #wareHouseId="ngModel" [disabled]="readonly" required>
-              <option [disabled]="isCreateFormMode" selected hidden value="{{formData.wareHouseId}}">{{formDataSource.CurrentWarehouse}}</option>
-              <option *ngFor="let item of formDataSource.WarehouseList" value="{{item.id}}">{{item.nameWarehouse}}</option>
-            </select>
-            <div *ngIf="wareHouseId.invalid && (wareHouseId.dirty || wareHouseId.touched)"
+            <kendo-combobox class="form-control" [(ngModel)]="formData.wareHouse" name="formData.wareHouse" #wareHouse="ngModel" required [disabled]="isViewFormMode"
+                            [data]="WarehouseList"
+                            [valueField]="'value'"
+                            [textField]="'displayName'"
+                            [filterable]="true"
+                            (filterChange)="filterChange($event)"
+                            >
+            </kendo-combobox>
+
+            <div *ngIf="wareHouse.invalid && (wareHouse.dirty || wareHouse.touched)"
                  class="alert alert-danger">
-              <div *ngIf="wareHouseId.errors.required">
+              <div *ngIf="wareHouse.errors.required">
                 Warehouse is required.
               </div>
             </div>
           </div>
 
-          <div class="form-group" *ngIf="isViewFormMode">
+          <div class="form-group">
             <label for="address">Warehouse</label>
-            <input type="text" class="form-control" [(ngModel)]="formDataSource.CurrentWarehouse" [ngModelOptions]="{standalone: true}" [disabled]="true">
+            <input type="text" class="form-control" [(ngModel)]="wwareHouse" name="WareHouse" required readonly [disabled]="!isViewFormMode">
+            
           </div>
+
 
           <div class="form-group">
             <label for="address">Delivery Address</label>
@@ -142,7 +139,7 @@
 
         </form>
       </div>
-      <div class="col-md-8 col-lg-8 ">
+      <div class=" col-lg-8 ">
         <p>Map here!</p>
       </div>
     </div>

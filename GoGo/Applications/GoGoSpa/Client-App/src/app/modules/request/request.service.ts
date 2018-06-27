@@ -9,11 +9,18 @@ import { AuthHttpService } from '../../shared';
 export class RequestService implements ICreateFormService, IViewFormService, IUpdateFormService, IDataSourceService {
   
   getDataSource(): Observable<any> { // warehouseList
-    var data: any = {};
-    data.WarehouseList = this._apiHttp.get(`/api/warehouse/customer/77`);
-    data.VehicleFeatureList = this._apiHttp.get(`/api/vehicle-feature/datasource`);
-    return data; //get id from claim
+    //var data: any = {};
+    //data.WarehouseList = this._apiHttp.get(`/api/warehouse/customer/77`);
+    //data.VehicleFeatureList = this._apiHttp.get(`/api/vehicle-feature/datasource`);
+    //return data; //get id from claim
+    return this._apiHttp.get(`/api/warehouse/customer/77`);
   }
+
+  filterWarehouseList(displayName: string): Observable<any>{
+    console.log("qwe");
+    return this._apiHttp.get(`/api/warehouse/filter-list/${displayName}`);
+  }
+
   edit(id: any, formData: any): Observable<any> {
     return this._apiHttp.put(`/api/request/${id}`, formData);
   }
@@ -23,7 +30,6 @@ export class RequestService implements ICreateFormService, IViewFormService, IUp
   }
 
   create(formData: any): Observable<any> {
-    console.log(formData);
     return this._apiHttp.post(`/api/request`, formData);
   }
 

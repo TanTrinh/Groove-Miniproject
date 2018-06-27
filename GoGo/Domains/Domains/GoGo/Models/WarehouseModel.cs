@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domains.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,6 +18,12 @@ namespace Domains.GoGo.Models
         {
             CreateMap<WarehouseOfCustomerModel, WareHouse>();
             CreateMap<WareHouse, WarehouseOfCustomerModel>();
+            CreateMap<WareHouse, DataSourceValue<int>>()
+                .ForMember(desination => desination.Value, option => option.MapFrom(source => source.Id))
+                .ForMember(desination => desination.DisplayName, option => option.MapFrom(source => source.NameWarehouse));
+            CreateMap<DataSourceValue<int>, WareHouse>()
+                .ForMember(desination => desination.Id, option => option.MapFrom(source => source.Value))
+                .ForMember(desination => desination.NameWarehouse, option => option.MapFrom(source => source.DisplayName));
         }
     }
 }

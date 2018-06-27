@@ -14,6 +14,7 @@ using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories;
 using Domains.GoGo;
 using Domains.GoGo.Models;
+using Domains.Core;
 
 namespace Infrastructures.Repositories.GoGo
 {
@@ -25,9 +26,15 @@ namespace Infrastructures.Repositories.GoGo
         {
             _mapper = mapper;
         }
-        public async Task<IEnumerable<WarehouseOfCustomerModel>> WarehouseOfCustomerModelAsync(int id)
+        public async Task<IEnumerable<DataSourceValue<int>>> WarehouseOfCustomerModelAsync(int id)
         {
-            return await this.dbSet.Where(p => p.OwnerId == id).MapQueryTo<WarehouseOfCustomerModel>(_mapper).ToListAsync();
+            return await this.dbSet.Where(p => p.OwnerId == id).MapQueryTo<DataSourceValue<int>>(_mapper).ToListAsync();
+        }
+
+        public async Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName)
+        {
+            return await this.dbSet.Where(p => p.NameWarehouse.Contains(displayName) && p.OwnerId == 77 )
+                .MapQueryTo<DataSourceValue<int>>(_mapper).ToListAsync(); //77 is get on claim
         }
     }
 }

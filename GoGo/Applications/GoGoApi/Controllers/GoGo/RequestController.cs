@@ -36,9 +36,9 @@ namespace GoGoApi.Controllers
 
         [Route("{id}")]
         [HttpGet]
-        public  IActionResult GetRequest(int id)
+        public async Task<IActionResult> GetRequestAsync(int id)
         {
-            var result = _requestService.FindCustomerRequest(id);
+            var result = await _requestService.FindCustomerRequestAsync(id);
             return Ok(result);
         }
 

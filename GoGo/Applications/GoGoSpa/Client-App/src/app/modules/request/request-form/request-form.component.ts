@@ -5,8 +5,6 @@ import { NotificationService } from '../../../shared/component/dialog/notificati
 import { RequestService } from '../request.service';
 import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
-import { forEach } from '@angular/router/src/utils/collection';
-import { debug } from 'util';
 
 @Component({
   selector: 'app-request-form',
@@ -15,25 +13,18 @@ import { debug } from 'util';
 })
 
 export class RequestFormComponent extends FormBaseComponent implements OnInit {
-  
-  public onAfterGetData(res, formData) {
-    for (var i = 0; i < res.length; i++) {
-      if (res[i].id = formData.wareHouseId) {
-        var temp = res[i].nameWarehouse;
-      }
-    }
-    return temp;
-  }
+  public WarehouseList: Observable<any>;
+  public WareHouse: any;
 
   public onBeforeInitFormData(data) {
+    this.WareHouse = data.wareHouse.displayName;
     if (data.pickingDate == null || data.pickingDate == undefined || data.expectedDate == null || data.expectedDate == undefined) {
-
-      data.pickingDate = new Date(data.pickingDate);
-      data.expectedDate = new Date(data.expectedDate);
-    }
-    else {
       data.pickingDate = new Date();
       data.expectedDate = new Date();
+    }
+    else {
+      data.pickingDate = new Date(data.pickingDate);
+      data.expectedDate = new Date(data.expectedDate);
     }
   }
 
@@ -46,18 +37,20 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     private _notificationService: NotificationService,
   ) {
     super(route, router, notificationService, requestService, validationService);
-    this.formConfiguration.dataSourceMapper.add('WarehouseList', requestService);
-    this.formConfiguration.dataSourceMapper.add('CurrentWarehouse', requestService, this.onAfterGetData);
     this.formConfiguration.events.onAfterInitFormData = this.onBeforeInitFormData;
     super.formOnInit("Request", {});
   }
   ngOnInit() {
-    this.formData.expectedDate = new Date();
-    this.formData.pickingDate = new Date();
   }
-  public onValueChange(value) {
-    console.log("valueChange : ", value);
-    
-    console.log(this.formData.test);
+  public filterChange(value) {
+    console.log(value);
+    if (value != null && value != undefined && value != '') {
+      this.requestService.filterWarehouseList(value).subscribe(data => {
+        if (data != null && data != undefined) {
+          this.WarehouseList = data;
+        }
+      });
+      
+    }
   }
 }
