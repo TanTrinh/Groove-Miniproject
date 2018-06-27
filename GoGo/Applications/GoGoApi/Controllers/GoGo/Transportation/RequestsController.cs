@@ -38,7 +38,7 @@ namespace GoGoApi.Controllers.GoGo
 		[HttpGet]
 		public async Task<IActionResult> GetDataSource(string value)
 		{
-
+	
 			return Ok(await _service.GetDataSource(value));
 		}
 

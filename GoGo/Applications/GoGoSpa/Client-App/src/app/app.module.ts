@@ -36,6 +36,7 @@ import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.co
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { ButtonGroupModule } from '@progress/kendo-angular-buttons';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ButtonGroupModule } from '@progress/kendo-angular-buttons';
     ShipmentCreatingComponent,
     ShipmentComponent,
     ShipmentListComponent,
+
    
  
   ],
@@ -73,6 +75,7 @@ import { ButtonGroupModule } from '@progress/kendo-angular-buttons';
     DropDownsModule,
     DialogModule,
     ButtonGroupModule,
+    DateInputsModule ,
 
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'

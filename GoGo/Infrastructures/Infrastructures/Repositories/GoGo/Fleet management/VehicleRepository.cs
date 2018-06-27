@@ -32,13 +32,17 @@ namespace Infrastructures.Repositories.GoGo.Fleet_management
                                     .MapQueryTo<VehicleModel>(_mapper).FirstAsync();
         }
 
-        public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string licensePlate)
+        public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value)
         {
-            return await this.dbSet.Where(p => p.LicensePlate.Contains(licensePlate)).Select(p => new DataSourceValue<int>
-            {
-                DisplayName = p.LicensePlate,
-                Value = p.Id
-            }).ToListAsync();
+			var vehicleIdList = this.context.Set<Shipment>().Select(p => p.VehicleId).ToList();
+
+			return await this.dbSet.Where(p => (p.LicensePlate.Contains(value) && !vehicleIdList.Contains(p.Id)) 
+													&& !vehicleIdList.Contains(p.Id))
+													.Select(p => new DataSourceValue<int>
+													{
+														DisplayName = p.LicensePlate,
+														Value = p.Id
+													}).ToListAsync();
         }
 
     }

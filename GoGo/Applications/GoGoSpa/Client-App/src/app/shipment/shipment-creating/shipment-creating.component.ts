@@ -39,6 +39,9 @@ export class ShipmentCreatingComponent{
   public driver: any = {
   };
 
+  private pickingDate = new Date();
+  private deliveryDate = new Date();
+
   //Grid
   private requestDetail: any;
   private vehicleDetail: any = {};
@@ -63,7 +66,7 @@ export class ShipmentCreatingComponent{
   }
 
   CreateShipment() {
-    this.service.CreateShipment(this.requestIdList, '20', "2020-06-26T15:28:00Z", "2020-06-26T15:28:00Z", '2', '2', '3')
+    this.service.CreateShipment(this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
       .subscribe()
   }
 

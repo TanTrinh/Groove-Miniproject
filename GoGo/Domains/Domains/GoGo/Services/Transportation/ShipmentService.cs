@@ -40,6 +40,8 @@ namespace Domains.GoGo.Services.Transportation
 
 			entity.Code = Helper.GenerateCode(DateTime.Now, 100);
 
+			entity.Status = "DeActive";
+
 			_uow.GetRepository<IShipmentRepository>().Create(entity);
 
 			await _uow.SaveChangesAsync();

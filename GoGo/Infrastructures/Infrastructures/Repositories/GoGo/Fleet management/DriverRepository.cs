@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domains.GoGo.Entities;
 
 namespace Infrastructures.Repositories.GoGo.Fleet_management
 {
@@ -38,13 +39,15 @@ namespace Infrastructures.Repositories.GoGo.Fleet_management
             return _mapper.Map<DriverModel>(driverInDb);
         }
 
-        public async Task<IEnumerable<DataSourceValue<long>>> GetDataSource(string userName)
+        public async Task<IEnumerable<DataSourceValue<long>>> GetDataSource(string value)
         {
+			var driverIdList = this.context.Set<Shipment>().Select(p => p.DriverId).ToList();
+
 			var query = (from uRole in _dbContext.UserRoles
 						 from user in dbSet
 						 from role in _dbContext.Roles
 						 where uRole.UserId == user.Id && role.Id == uRole.RoleId
-						 && user.UserName.Contains(userName)
+						 && ((user.UserName.Contains(value) || user.PhoneNumber == value || user.Id.ToString() == value) && !driverIdList.Contains(user.Id))
 						 && role.Name == "Driver"
 						 select new DataSourceValue<long>
 						 {
@@ -53,17 +56,6 @@ namespace Infrastructures.Repositories.GoGo.Fleet_management
 						 });
 
 			return await query.ToListAsync();
-
-
-			//(from uRole in _dbContext.UserRoles
-			// join user in dbSet on uRole.UserId equals user.Id
-			// join role in _dbContext.Roles on uRole.RoleId equals role.Id
-			// where user.UserName.Contains(userName) && role.Name == "Driver"
-			// select new DataSourceValue<long>
-			// {
-			//	 DisplayName = user.UserName,
-			//	 Value = user.Id
-			// });
 		}
     }
 }
