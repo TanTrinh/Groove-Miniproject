@@ -9,8 +9,8 @@
 
     <div class="col-sm-12">
       <input *ngIf="shipmentDetail.status != 'Shipping'" type="text" class="form-control-plaintext yourAddress" readonly value={{locationPicking.address}}>
-      <input *ngIf="shipmentDetail.status == 'Shipping'" type="text" class="form-control-plaintext yourAddress" readonly value={{request.address}}>
-    </div>
+      <input *ngIf="shipmentDetail.status == 'Shipping'" type="text" class="form-control-plaintext yourAddress" readonly value={{request.location.address}}>
+    </div>  
 
     <div class="detail">
       <table class="table table-hover">
@@ -115,7 +115,7 @@
             <tr *ngFor="let item of requestList" (click)="viewRequest(item)">
               <td>
                 <span>{{item.code}}</span><br />
-                <span>{{item.address}}</span>
+                <span>{{item.location.address}}</span>
               </td>
               <td>
                 <span>{{item.estimateDate | date:'short'}}</span>
@@ -128,6 +128,6 @@
     </div>
   </div>
   <div class="col-md-8">
-    <app-ggmap></app-ggmap>
+    <app-ggmap [Destination]="Destination" [Waypts]="Waypts" [Markers]="Markers"></app-ggmap>
   </div>
 </div>

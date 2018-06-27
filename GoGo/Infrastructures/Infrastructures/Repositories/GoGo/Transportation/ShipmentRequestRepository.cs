@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Domains;
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
     public class ShipmentRequestRepository : GenericRepository<ShipmentRequest, int>, IShipmentRequestRepository
@@ -63,7 +63,12 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                              ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
                              EstimateDate = p.RequestEstimateDate,
                              Status = p.Status,
-                             Address = p.Request.Address
+                             Location = new LocationModel()
+                             {
+                                 Address = p.Request.Address,
+                                 Latitude = p.Request.DeliveryLatitude,
+                                 Longitude = p.Request.DeliveryLongitude
+                             }
                          });
             return query.First();
         }
@@ -99,7 +104,12 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                              ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
                              EstimateDate = p.RequestEstimateDate,
                              Status = p.Status,
-                             Address = p.Request.Address
+                             Location = new LocationModel()
+                             {
+                                 Address = p.Request.Address,
+                                 Latitude = p.Request.DeliveryLatitude,
+                                 Longitude = p.Request.DeliveryLongitude
+                             }
                          });
             return await query.FirstAsync();
         }
@@ -118,7 +128,12 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                                ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
                                EstimateDate = p.RequestEstimateDate,
                                Status = p.Request.Status,
-                               Address = p.Request.Address
+                               Location = new LocationModel()
+                               {
+                                   Address = p.Request.Address,
+                                   Latitude = p.Request.DeliveryLatitude,
+                                   Longitude = p.Request.DeliveryLongitude
+                               }
                            });
             return await query.ToListAsync();
         }
@@ -133,6 +148,38 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             return sum;
         }
 
+        public async Task<IEnumerable<RequestDetailModel>> ChangeOrder(string shipmentCode, LocationModel[] newOrder)
+        {
+            List<RequestDetailModel> oldOrder = new List<RequestDetailModel>();
+            var query = this.dbSet
+                         .Include(p => p.Shipment)
+                         .Include(p => p.Request)
+                         .Where(p => p.Shipment.Code == shipmentCode)
+                         .Select(p => new RequestDetailModel
+                         {
+                             Code = p.Request.Code,
+                             PackageQuantity = p.Request.PackageQuantity,
+                             ReceiverName = p.Request.ReceiverName,
+                             ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
+                             EstimateDate = p.RequestEstimateDate,
+                             Status = p.Request.Status,
+                             Location = new LocationModel()
+                             {
+                                 Address = p.Request.Address,
+                                 Latitude = p.Request.DeliveryLatitude,
+                                 Longitude = p.Request.DeliveryLongitude
+                             }
+                         });
+            oldOrder = await query.ToListAsync();
+            for (int i = 0; i < newOrder.Length; i++)
+            {
+                oldOrder.Where(p => Helper.sub(p.Location.Latitude,newOrder[i].Latitude) > 0.0001);
+            }
+            return oldOrder.ToList();
+        }
+
+       
+      
 
     }
 }

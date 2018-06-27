@@ -326,7 +326,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--<div class=\"row\">\r\n  <div class=\"col-md-4\">\r\n    <div id=\"directions-panel\"></div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <div id=\"map\"></div>\r\n  </div>\r\n</div>-->\r\n\r\n<div id=\"map\"></div>\r\n"
+module.exports = "<!--<div class=\"row\">\r\n  <div class=\"col-md-4\">\r\n    <div id=\"directions-panel\"></div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <div id=\"map\"></div>\r\n  </div>\r\n</div>-->\r\n\r\n<div id=\"map\"></div>\r\n{{marker}}\r\n"
 
 /***/ }),
 
@@ -352,6 +352,8 @@ module.exports = ".row {\n  margin-left: 10px;\n  margin-top: 5px; }\n\n#map {\n
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GgmapComponent", function() { return GgmapComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _shipment_shipment_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shipment/shipment.service */ "./src/app/shipment/shipment.service.ts");
+/* harmony import */ var _shipment_shipment_picking_Location__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shipment/shipment-picking/Location */ "./src/app/shipment/shipment-picking/Location.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -362,35 +364,39 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var GgmapComponent = /** @class */ (function () {
-    function GgmapComponent(ngZone) {
+    function GgmapComponent(ngZone, shipmentService) {
         this.ngZone = ngZone;
+        this.shipmentService = shipmentService;
+        this.Waypts = [];
+        this.Markers = [];
         //parameter 
         //parameter of map
         this.latcenter = 10.7711799;
         this.lngcenter = 106.7004174;
         this.zoom = 15;
         this.directionsService = new google.maps.DirectionsService();
-        this.directionsDisplay = new google.maps.DirectionsRenderer();
+        this.directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
         this.markers = [];
         this.yourlat = 10.7725133;
         this.yourlng = 106.70578479999999;
         //The array of waypoints
-        this.checkboxArray = [
-            'benthanhmarket',
-            { lat: 10.7711899, lng: 106.7304174 },
-            'dai hoc khoa hoc tu nhien'
-        ];
-        this.iconWarehouse = '../assets/warehouse.png';
+        this.optimizeRequest = [];
+        this.iconWarehouse = '../assets/location.png';
         this.iconBase = '../assets/trucking.png';
+        this.iconNext = '../assets/next.png';
     }
     GgmapComponent.prototype.ngOnInit = function () {
         var _this = this;
         setInterval(function () { _this.GetYourPosition(); }, 1000);
         this.InitMap(this.latcenter, this.lngcenter);
-        this.latlngOrigin = this.GetLatlng(10.7711799, 106.7004174);
+        setInterval(function () { _this.latlngOrigin = _this.GetLatlng(_this.yourlat, _this.yourlng); }, 3000);
         this.latlngDestination = this.GetLatlng(10.803780, 106.694184);
-        this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.latlngOrigin, this.latlngDestination, this.checkboxArray);
+        //setInterval(() => {
+        setTimeout(function () { _this.CalculateAndDisplayRoute(_this.directionsService, _this.directionsDisplay, _this.latlngOrigin, _this.Waypts); }, 1000);
+        //  }, 3000);
     };
     //Init the map
     GgmapComponent.prototype.InitMap = function (latitude, longitude) {
@@ -406,17 +412,48 @@ var GgmapComponent = /** @class */ (function () {
     //Input:
     //start point: originLocation || end point: destinationLocation
     //checkboxArray: the array of detination
-    GgmapComponent.prototype.CalculateAndDisplayRoute = function (directionsService, directionsDisplay, originLocation, destinationLocation, checkboxArray) {
+    GgmapComponent.prototype.CalculateAndDisplayRoute = function (directionsService, directionsDisplay, originLocation, checkboxArray) {
+        var _this = this;
         var waypts = [];
-        for (var i = 0; i < checkboxArray.length; i++) {
-            waypts.push({
-                location: checkboxArray[i],
-                stopover: true
-            });
+        var markers = [];
+        var markerOrigin = new google.maps.Marker({
+            position: { lat: this.yourlat, lng: this.yourlng },
+            icon: this.iconBase,
+            label: 'A',
+            map: this.map
+        });
+        markers.push(markerOrigin);
+        var index;
+        //console.log(checkboxArray.length);
+        for (index = 0; index < checkboxArray.length; index++) {
+            if (index == 0) {
+                var m = new google.maps.Marker({
+                    position: checkboxArray[index],
+                    icon: this.iconWarehouse,
+                    animation: google.maps.Animation.BOUNCE,
+                    map: this.map
+                });
+                markers.push(m);
+            }
+            else {
+                var m = new google.maps.Marker({
+                    position: checkboxArray[index],
+                    icon: this.iconWarehouse,
+                    map: this.map
+                });
+                markers.push(m);
+            }
+            if (index < (checkboxArray.length - 1)) {
+                waypts.push({
+                    location: m.get('position'),
+                    stopover: true,
+                });
+            }
         }
+        var optimize = [];
         directionsService.route({
-            origin: originLocation,
-            destination: destinationLocation,
+            origin: markers[0].get('position'),
+            destination: markers[index].get('position'),
             waypoints: waypts,
             optimizeWaypoints: true,
             travelMode: 'DRIVING'
@@ -424,23 +461,22 @@ var GgmapComponent = /** @class */ (function () {
             if (status === 'OK') {
                 directionsDisplay.setDirections(response);
                 var route = response.routes[0];
-                //var summaryPanel = document.getElementById('directions-panel');
-                //summaryPanel.innerHTML = '';
-                //// For each route, display summary information.
-                //for (var i = 0; i < route.legs.length; i++) {
-                //  var routeSegment = i + 1;
-                //  summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                //    '</b><br>';
-                //  summaryPanel.innerHTML += route.legs[i].start_address + '<br> ';
-                //  summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-                //  summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-                //}
-                //return summaryPanel;
+                for (var i = 0; i < index; i++) {
+                    var location = new _shipment_shipment_picking_Location__WEBPACK_IMPORTED_MODULE_2__["Location"]();
+                    location.latitude = route.legs[i].end_location.lat();
+                    location.longitude = route.legs[i].end_location.lng();
+                    optimize.push(location);
+                }
             }
             else {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+        var pama;
+        setTimeout(function () { pama = { code: '270620181056GG28', order: optimize }; }, 1000);
+        setTimeout(function () {
+            console.log(pama), _this.shipmentService.changeOrderReqeust(pama).subscribe(function (data) { });
+        }, 1000);
     };
     //Convert the address to the latitude and longitude
     GgmapComponent.prototype.Geocoding = function (address) {
@@ -470,29 +506,21 @@ var GgmapComponent = /** @class */ (function () {
                 //this.yourlng = position.coords.longitude;
                 _this.yourlat = _this.yourlat + 0.0001;
                 _this.yourlng = _this.yourlng + 0.0001;
-                console.log(_this.yourlat, _this.yourlng);
                 var geocoder = new google.maps.Geocoder();
                 var latlng = new google.maps.LatLng(_this.yourlat, _this.yourlng);
-                var marker = new google.maps.Marker({
-                    position: { lat: _this.yourlat = _this.yourlat + 0.0001, lng: _this.yourlng = _this.yourlng + 0.0001 },
-                    icon: _this.iconBase
-                });
-                _this.RemoveAllMarkers();
-                marker.setMap(_this.map);
-                _this.markers.push(marker);
-                var request = {
-                    latLng: latlng
-                };
-                geocoder.geocode(request, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        if (results[0] != null) {
-                            _this.ngZone.run(function () { _this.yourAddress = results[0].formatted_address; });
-                        }
-                        else {
-                            alert("No address available");
-                        }
-                    }
-                });
+                //let request = {
+                //  latLng: latlng
+                //};
+                //geocoder.geocode(request, (results, status) => {
+                //  if (status == google.maps.GeocoderStatus.OK) {
+                //    if (results[0] != null) {
+                //      this.ngZone.run(() => { this.yourAddress = results[0].formatted_address });
+                //    } else {
+                //      alert("No address available");
+                //    }
+                //  }
+                //});
+                return latlng;
             }, function (error) {
                 console.log("Error code: " + error.code + "<br /> Error message: " + error.message);
             });
@@ -503,13 +531,42 @@ var GgmapComponent = /** @class */ (function () {
         var latlng = new google.maps.LatLng(latitude, longitude);
         return latlng;
     };
+    GgmapComponent.prototype.GetMarker = function (latitue, longitude, urlIcon, map) {
+        var marker = new google.maps.Marker({
+            position: this.GetLatlng(latitue, longitude),
+            icon: this.iconWarehouse,
+            map: map
+        });
+        return marker;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('marker'),
+        __metadata("design:type", String)
+    ], GgmapComponent.prototype, "marker", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('Origin'),
+        __metadata("design:type", Object)
+    ], GgmapComponent.prototype, "Origin", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('Destination'),
+        __metadata("design:type", Object)
+    ], GgmapComponent.prototype, "Destination", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('Waypts'),
+        __metadata("design:type", Array)
+    ], GgmapComponent.prototype, "Waypts", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('Markers'),
+        __metadata("design:type", Array)
+    ], GgmapComponent.prototype, "Markers", void 0);
     GgmapComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-ggmap',
             template: __webpack_require__(/*! ./ggmap.component.html */ "./src/app/ggmap/ggmap.component.html"),
             styles: [__webpack_require__(/*! ./ggmap.component.scss */ "./src/app/ggmap/ggmap.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]])
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"],
+            _shipment_shipment_service__WEBPACK_IMPORTED_MODULE_1__["ShipmentService"]])
     ], GgmapComponent);
     return GgmapComponent;
 }());
@@ -1452,6 +1509,26 @@ var AssignedComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shipment/shipment-picking/Location.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/shipment/shipment-picking/Location.ts ***!
+  \*******************************************************/
+/*! exports provided: Location */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Location", function() { return Location; });
+var Location = /** @class */ (function () {
+    function Location() {
+    }
+    return Location;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shipment/shipment-picking/shipment-picking.component.html":
 /*!***************************************************************************!*\
   !*** ./src/app/shipment/shipment-picking/shipment-picking.component.html ***!
@@ -1459,7 +1536,7 @@ var AssignedComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-4 container\">\r\n    <div class=\"tille\">\r\n      <span id=\"header\">SHIPMENT</span>\r\n      <img src=\"../../assets/support.svg\" class=\"rounded-circle float-right\" id=\"support\" width=\"60\" height=\"60\" />\r\n    </div>\r\n\r\n    <div class=\"col-sm-12\">\r\n      <input *ngIf=\"shipmentDetail.status != 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{locationPicking.address}}>\r\n      <input *ngIf=\"shipmentDetail.status == 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{request.address}}>\r\n    </div>\r\n\r\n    <div class=\"detail\">\r\n      <table class=\"table table-hover\">\r\n        <tbody>\r\n          <tr>\r\n            <td>Shipment code</td>\r\n            <td>{{shipmentDetail.code}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Total Package</td>\r\n            <td>{{shipmentDetail.packageQuality}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Start date</td>\r\n            <td style=\"color:red\">{{shipmentDetail.startDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>End date</td>\r\n            <td>{{shipmentDetail.endDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Status</td>\r\n            <td>{{shipmentDetail.status}}</td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n\r\n    <div class=\"container-fluid\">\r\n      <div class=\"row\">\r\n        <div style=\"width:50%\" class=\"pr-1\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending'\" (click)=\"feedback(shipmentDetail, 'Accept')\" class=\"btn btn-success btn-block\">Accept a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Picking')\" class=\"btn btn-success btn-block\">Picking</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Picking'\" (click)=\"feedback(shipmentDetail, 'Loading')\" class=\"btn btn-success btn-block\">Start to load</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Loading'\" (click)=\"feedback(shipmentDetail, 'Shipping')\" class=\"btn btn-success btn-block\">Complete loading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code==shipmentDetail.currentRequest\" (click)=\"changeStatus(shipmentDetail,'Shipping')\" class=\"btn btn-primary btn-block\">Start to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code!=shipmentDetail.currentRequest\" class=\"btn btn-primary btn-block diable\">Start to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Shipping' && request.code==shipmentDetail.currentRequest\" (click)=\"changeStatus(shipmentDetail,'Unloading')\" class=\"btn btn-warning btn-block\">Start to unloading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Unloading'\" (click)=\"changeStatus(shipmentDetail,'Completed')\" class=\"btn btn-success btn-block\">Complete to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'\" (click)=\"returnList()\" class=\"btn btn-primary btn-block\">Return to list</button>\r\n\r\n        </div>\r\n        <div style=\"width:50%\" class=\"pl-1\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Reject')\" class=\"btn btn-danger btn-block\">Reject a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'\" class=\"btn btn-danger btn-block\">Have a problem</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div id=\"inf\">\r\n      <ul class=\"nav nav-tabs\">\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\" *ngIf=\"statusNav=='Request'\" routerLink=\"./\" routerLinkActive=\"hold\">Request detail</a>\r\n          <a class=\"nav-link\" (click)=\"changeNav('Request')\" *ngIf=\"statusNav!='Request'\" routerLink=\"./\">Request detail</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link \" *ngIf=\"statusNav=='List'\" routerLink=\"./\" routerLinkActive=\"hold\">List request</a>\r\n          <a class=\"nav-link \" (click)=\"changeNav('List')\" *ngIf=\"statusNav!='List'\" routerLink=\"./\">List request</a>\r\n        </li>\r\n      </ul>\r\n\r\n      <div *ngIf=\"statusNav=='Request'\">\r\n        <div class=\"tille\">\r\n          <h3>REQUEST DETAIL</h3>\r\n        </div>\r\n        <table class=\"table table-hover\">\r\n          <tbody>\r\n            <tr>\r\n              <td>Request code</td>\r\n              <td *ngIf=\"shipmentDetail.status=='Completed'\">{{request.code}}</td>\r\n              <td *ngIf=\"request.code==shipmentDetail.currentRequest &&shipmentDetail.status!='Completed'\">{{request.code}} <span class=\"badge badge-success\">Current</span></td>\r\n              <td *ngIf=\"request.code!=shipmentDetail.currentRequest && shipmentDetail.status!='Completed'\">{{request.code}} <span (click)=\"gotoCurrentRequest()\" class=\"badge badge-warning\">Not current</span></td>\r\n            </tr>\r\n            <tr>\r\n              <td>Total Package</td>\r\n              <td>{{request.packageQuantity}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Estimate date</td>\r\n              <td>{{request.estimateDate | date:'short'}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Receiver</td>\r\n              <td>{{request.receiverName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>PhoneNumber</td>\r\n              <td>{{request.receiverPhoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Status</td>\r\n              <td>{{request.status}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n\r\n      <div *ngIf=\"statusNav=='List'\">\r\n        <table class=\"table table-hover\">\r\n          <tbody data-spy=\"scroll\" data-offset=\"50\">\r\n            <tr *ngFor=\"let item of requestList\" (click)=\"viewRequest(item)\">\r\n              <td>\r\n                <span>{{item.code}}</span><br />\r\n                <span>{{item.address}}</span>\r\n              </td>\r\n              <td>\r\n                <span>{{item.estimateDate | date:'short'}}</span>\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <app-ggmap></app-ggmap>\r\n  </div>\r\n</div>\r\n"
+module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-4 container\">\r\n    <div class=\"tille\">\r\n      <span id=\"header\">SHIPMENT</span>\r\n      <img src=\"../../assets/support.svg\" class=\"rounded-circle float-right\" id=\"support\" width=\"60\" height=\"60\" />\r\n    </div>\r\n\r\n    <div class=\"col-sm-12\">\r\n      <input *ngIf=\"shipmentDetail.status != 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{locationPicking.address}}>\r\n      <input *ngIf=\"shipmentDetail.status == 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{request.location.address}}>\r\n    </div>  \r\n\r\n    <div class=\"detail\">\r\n      <table class=\"table table-hover\">\r\n        <tbody>\r\n          <tr>\r\n            <td>Shipment code</td>\r\n            <td>{{shipmentDetail.code}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Total Package</td>\r\n            <td>{{shipmentDetail.packageQuality}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Start date</td>\r\n            <td style=\"color:red\">{{shipmentDetail.startDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>End date</td>\r\n            <td>{{shipmentDetail.endDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Status</td>\r\n            <td>{{shipmentDetail.status}}</td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n\r\n    <div class=\"container-fluid\">\r\n      <div class=\"row\">\r\n        <div style=\"width:50%\" class=\"pr-1\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending'\" (click)=\"feedback(shipmentDetail, 'Accept')\" class=\"btn btn-success btn-block\">Accept a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Picking')\" class=\"btn btn-success btn-block\">Picking</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Picking'\" (click)=\"feedback(shipmentDetail, 'Loading')\" class=\"btn btn-success btn-block\">Start to load</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Loading'\" (click)=\"feedback(shipmentDetail, 'Shipping')\" class=\"btn btn-success btn-block\">Complete loading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code==shipmentDetail.currentRequest\" (click)=\"changeStatus(shipmentDetail,'Shipping')\" class=\"btn btn-primary btn-block\">Start to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code!=shipmentDetail.currentRequest\" class=\"btn btn-primary btn-block diable\">Start to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Shipping' && request.code==shipmentDetail.currentRequest\" (click)=\"changeStatus(shipmentDetail,'Unloading')\" class=\"btn btn-warning btn-block\">Start to unloading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Unloading'\" (click)=\"changeStatus(shipmentDetail,'Completed')\" class=\"btn btn-success btn-block\">Complete to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'\" (click)=\"returnList()\" class=\"btn btn-primary btn-block\">Return to list</button>\r\n\r\n        </div>\r\n        <div style=\"width:50%\" class=\"pl-1\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Reject')\" class=\"btn btn-danger btn-block\">Reject a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'\" class=\"btn btn-danger btn-block\">Have a problem</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div id=\"inf\">\r\n      <ul class=\"nav nav-tabs\">\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\" *ngIf=\"statusNav=='Request'\" routerLink=\"./\" routerLinkActive=\"hold\">Request detail</a>\r\n          <a class=\"nav-link\" (click)=\"changeNav('Request')\" *ngIf=\"statusNav!='Request'\" routerLink=\"./\">Request detail</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link \" *ngIf=\"statusNav=='List'\" routerLink=\"./\" routerLinkActive=\"hold\">List request</a>\r\n          <a class=\"nav-link \" (click)=\"changeNav('List')\" *ngIf=\"statusNav!='List'\" routerLink=\"./\">List request</a>\r\n        </li>\r\n      </ul>\r\n\r\n      <div *ngIf=\"statusNav=='Request'\">\r\n        <div class=\"tille\">\r\n          <h3>REQUEST DETAIL</h3>\r\n        </div>\r\n        <table class=\"table table-hover\">\r\n          <tbody>\r\n            <tr>\r\n              <td>Request code</td>\r\n              <td *ngIf=\"shipmentDetail.status=='Completed'\">{{request.code}}</td>\r\n              <td *ngIf=\"request.code==shipmentDetail.currentRequest &&shipmentDetail.status!='Completed'\">{{request.code}} <span class=\"badge badge-success\">Current</span></td>\r\n              <td *ngIf=\"request.code!=shipmentDetail.currentRequest && shipmentDetail.status!='Completed'\">{{request.code}} <span (click)=\"gotoCurrentRequest()\" class=\"badge badge-warning\">Not current</span></td>\r\n            </tr>\r\n            <tr>\r\n              <td>Total Package</td>\r\n              <td>{{request.packageQuantity}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Estimate date</td>\r\n              <td>{{request.estimateDate | date:'short'}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Receiver</td>\r\n              <td>{{request.receiverName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>PhoneNumber</td>\r\n              <td>{{request.receiverPhoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Status</td>\r\n              <td>{{request.status}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n\r\n      <div *ngIf=\"statusNav=='List'\">\r\n        <table class=\"table table-hover\">\r\n          <tbody data-spy=\"scroll\" data-offset=\"50\">\r\n            <tr *ngFor=\"let item of requestList\" (click)=\"viewRequest(item)\">\r\n              <td>\r\n                <span>{{item.code}}</span><br />\r\n                <span>{{item.location.address}}</span>\r\n              </td>\r\n              <td>\r\n                <span>{{item.estimateDate | date:'short'}}</span>\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <app-ggmap [Destination]=\"Destination\" [Waypts]=\"Waypts\" [Markers]=\"Markers\"></app-ggmap>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1487,10 +1564,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ShipmentAssigned_ShipmentAssigned__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ShipmentAssigned/ShipmentAssigned */ "./src/app/shipment/ShipmentAssigned/ShipmentAssigned.ts");
-/* harmony import */ var _shared_service_save_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/service/save.service */ "./src/app/shared/service/save.service.ts");
-/* harmony import */ var _request_RequestDetail__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../request/RequestDetail */ "./src/app/request/RequestDetail.ts");
-/* harmony import */ var _shipment_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../shipment.service */ "./src/app/shipment/shipment.service.ts");
+/* harmony import */ var _Location__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Location */ "./src/app/shipment/shipment-picking/Location.ts");
+/* harmony import */ var _ShipmentAssigned_ShipmentAssigned__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ShipmentAssigned/ShipmentAssigned */ "./src/app/shipment/ShipmentAssigned/ShipmentAssigned.ts");
+/* harmony import */ var _shared_service_save_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/service/save.service */ "./src/app/shared/service/save.service.ts");
+/* harmony import */ var _request_RequestDetail__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../request/RequestDetail */ "./src/app/request/RequestDetail.ts");
+/* harmony import */ var _shipment_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../shipment.service */ "./src/app/shipment/shipment.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1500,6 +1578,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1517,9 +1596,11 @@ var ShipmentPickingComponent = /** @class */ (function () {
         this.data = {};
         this.statusNav = 'Request';
         this.lock = 0;
-        this.shipmentDetail = new _ShipmentAssigned_ShipmentAssigned__WEBPACK_IMPORTED_MODULE_3__["ShipmentAssigned"]();
-        this.request = new _request_RequestDetail__WEBPACK_IMPORTED_MODULE_5__["RequestDetail"]();
+        this.shipmentDetail = new _ShipmentAssigned_ShipmentAssigned__WEBPACK_IMPORTED_MODULE_4__["ShipmentAssigned"]();
+        this.request = new _request_RequestDetail__WEBPACK_IMPORTED_MODULE_6__["RequestDetail"]();
         this.status = 'Waiting';
+        this.Waypts = [];
+        this.Markers = [];
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
                 'Content-Type': 'application/json',
@@ -1534,15 +1615,16 @@ var ShipmentPickingComponent = /** @class */ (function () {
     }
     ShipmentPickingComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.request.location = new _Location__WEBPACK_IMPORTED_MODULE_3__["Location"]();
         this.code = this.route.snapshot.paramMap.get('code');
         this.save.saveCode(this.code);
         this.service.getLocationPicking(this.code).subscribe(function (data) {
             _this.locationPicking = data;
         });
         this.refeshShipment(this.code);
-        this.service.getListRequest(this.code).subscribe(function (data) {
-            _this.requestList = data;
-        });
+        this.GetRequestList();
+        this.Origin = this.InitLatlng(10.7711799, 106.7004174);
+        this.Destination = this.InitLatlng(10.803780, 106.694184);
     };
     ShipmentPickingComponent.prototype.refeshShipment = function (code) {
         var _this = this;
@@ -1558,11 +1640,6 @@ var ShipmentPickingComponent = /** @class */ (function () {
                 });
             }
         });
-    };
-    ShipmentPickingComponent.prototype.UpdatePosition = function () {
-        setInterval(function () {
-            console.log('123');
-        }, 3000);
     };
     ShipmentPickingComponent.prototype.feedback = function (item, status) {
         var _this = this;
@@ -1585,6 +1662,7 @@ var ShipmentPickingComponent = /** @class */ (function () {
         var _this = this;
         this.changeNav('Request');
         this.service.getRequest(item.code).subscribe(function (data) {
+            console.log(data);
             _this.request = data;
         });
     };
@@ -1600,6 +1678,24 @@ var ShipmentPickingComponent = /** @class */ (function () {
     ShipmentPickingComponent.prototype.changeNav = function (status) {
         this.statusNav = status;
     };
+    ShipmentPickingComponent.prototype.GetRequestList = function () {
+        var _this = this;
+        this.service.getListRequest(this.code).subscribe(function (data) {
+            _this.requestList = data;
+            for (var _i = 0, _a = _this.requestList; _i < _a.length; _i++) {
+                var item = _a[_i];
+                var latlng = _this.InitLatlng(item.location.latitude, item.location.longitude);
+                _this.Waypts.push(latlng);
+            }
+            console.log(_this.Waypts.length);
+        });
+    };
+    ShipmentPickingComponent.prototype.InitLatlng = function (latitude, longitude) {
+        var latlng = new google.maps.LatLng(latitude, longitude);
+        return latlng;
+    };
+    ShipmentPickingComponent.prototype.InitMarker = function (latitude, longitude) {
+    };
     ShipmentPickingComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-shipment-picking',
@@ -1609,8 +1705,8 @@ var ShipmentPickingComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
-            _shared_service_save_service__WEBPACK_IMPORTED_MODULE_4__["SaveService"],
-            _shipment_service__WEBPACK_IMPORTED_MODULE_6__["ShipmentService"]])
+            _shared_service_save_service__WEBPACK_IMPORTED_MODULE_5__["SaveService"],
+            _shipment_service__WEBPACK_IMPORTED_MODULE_7__["ShipmentService"]])
     ], ShipmentPickingComponent);
     return ShipmentPickingComponent;
 }());
@@ -1670,6 +1766,9 @@ var ShipmentService = /** @class */ (function () {
     };
     ShipmentService.prototype.getListRequest = function (shipmentCode) {
         return this.http.get(this.url + "/shipment/requestList?code=" + shipmentCode);
+    };
+    ShipmentService.prototype.changeOrderReqeust = function (paramerter) {
+        return this.http.post(this.url + "/shipment/changeOrder", paramerter);
     };
     ShipmentService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({

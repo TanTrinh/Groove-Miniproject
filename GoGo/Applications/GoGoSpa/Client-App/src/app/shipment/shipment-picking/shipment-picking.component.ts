@@ -6,7 +6,9 @@ import { ShipmentAssigned } from '../ShipmentAssigned/ShipmentAssigned';
 import { SaveService } from '../../shared/service/save.service';
 import { RequestDetail } from '../../request/RequestDetail';
 import { ShipmentService } from '../shipment.service';
-
+import { LatLng } from '@agm/core';
+import { Marker } from '@agm/core/services/google-maps-types';
+declare var google: any;
 @Component({
   selector: 'app-shipment-picking',
   templateUrl: './shipment-picking.component.html',
@@ -17,11 +19,15 @@ export class ShipmentPickingComponent implements OnInit {
   statusNav = 'Request';
   lock = 0;
   shipmentDetail = new ShipmentAssigned();
- request = new RequestDetail();
-  status='Waiting';
+  request = new RequestDetail();
+  status = 'Waiting';
   code: string;
   requestList: RequestDetail[];
 
+  Origin: LatLng;
+  Destination: LatLng;
+  Waypts: LatLng[] = [];
+  Markers: Marker[] = [];
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -44,16 +50,16 @@ export class ShipmentPickingComponent implements OnInit {
 
 
   ngOnInit() {
+    this.request.location = new Location();
     this.code = this.route.snapshot.paramMap.get('code');
     this.save.saveCode(this.code);
     this.service.getLocationPicking(this.code).subscribe(data => {
       this.locationPicking = data;
     })
     this.refeshShipment(this.code);
-    this.service.getListRequest(this.code).subscribe(data => {
-      this.requestList = data;
-    })
-    
+    this.GetRequestList();
+    this.Origin = this.InitLatlng(10.7711799, 106.7004174);
+    this.Destination = this.InitLatlng(10.803780, 106.694184);
   }
 
   refeshShipment(code: string) {
@@ -70,12 +76,7 @@ export class ShipmentPickingComponent implements OnInit {
       }
     })
   }
-  UpdatePosition() {
-    
-    setInterval(() => {
-      console.log('123');
-    }, 3000)
-  }
+ 
   feedback(item: ShipmentAssigned, status) {
     var param = { 'code': item.code, 'status': status }
     this.service.changeStatusShipment(param).subscribe(data => {
@@ -90,12 +91,13 @@ export class ShipmentPickingComponent implements OnInit {
     })
     if (status == "Completed") {
       this.refeshShipment(this.code);
-     
+
     }
   }
   viewRequest(item: RequestDetail) {
     this.changeNav('Request');
     this.service.getRequest(item.code).subscribe(data => {
+      console.log(data);
       this.request = data;
     })
   }
@@ -107,7 +109,27 @@ export class ShipmentPickingComponent implements OnInit {
       this.request = data;
     })
   }
-  changeNav(status){
+  changeNav(status) {
     this.statusNav = status;
+  }
+  
+  GetRequestList() {
+    this.service.getListRequest(this.code).subscribe(data => {
+      this.requestList = data;
+      for (var item of this.requestList) {
+        var latlng = this.InitLatlng(item.location.latitude, item.location.longitude);
+        this.Waypts.push(latlng);
+      }
+      console.log(this.Waypts.length);
+    })
+
+  }
+
+  InitLatlng(latitude, longitude) {
+    let latlng = new google.maps.LatLng(latitude, longitude);
+    return latlng;
+  }
+  InitMarker(latitude, longitude) {
+
   }
 }

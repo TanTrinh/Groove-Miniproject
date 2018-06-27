@@ -31,7 +31,7 @@ namespace GoGoApi.Controllers.GoGo
             public string ShipmentCode { set; get; }
             public string RequestCode { set; get; }
         }
-       
+
         [Route("changeStatus")]
         [HttpPost]
         public async Task<IActionResult> changeStatus([FromBody]parameter p)
@@ -68,7 +68,7 @@ namespace GoGoApi.Controllers.GoGo
         [HttpGet]
         public async Task<IActionResult> GetRequestDetailAsync(string code)
         {
-             return Ok(await _serviceShipmentRequest.GetCurrentRequestAsync(code));
+            return Ok(await _serviceShipmentRequest.GetCurrentRequestAsync(code));
         }
 
 
@@ -79,15 +79,31 @@ namespace GoGoApi.Controllers.GoGo
             IEnumerable<RequestDetailModel> list = await _serviceShipmentRequest.GetRequestListAsync(code);
             foreach (var item in list)
             {
-                item.Address = item.Address.Replace("Thanh pho", "TP. ");
-                item.Address = item.Address.Replace("Phường", "P.");
-                item.Address = item.Address.Replace("Quận", "Q.");
-                item.Address = item.Address.Replace("Thanh pho", "TP. ");
-                item.Address = item.Address.Replace("Vietnam", "VN");
-                item.Address = item.Address.Replace("Ho Chi Minh", "HCM");
-                item.Address = item.Address.Replace("Hồ Chí Minh", "HCM");
+                item.Location.Address = item.Location.Address.Replace("Thanh pho", "TP. ");
+                item.Location.Address = item.Location.Address.Replace("Phường", "P.");
+                item.Location.Address = item.Location.Address.Replace("Quận", "Q.");
+                item.Location.Address = item.Location.Address.Replace("Thanh pho", "TP. ");
+                item.Location.Address = item.Location.Address.Replace("Vietnam", "VN");
+                item.Location.Address = item.Location.Address.Replace("Ho Chi Minh", "HCM");
+                item.Location.Address = item.Location.Address.Replace("Hồ Chí Minh", "HCM");
             }
             return Ok(list);
+        }
+        public class LatLng
+        {
+            public double latitude { set; get; }
+            public double longitude { set; get; }
+        }
+        public class pama
+        {
+            public string code { set; get; }
+            public LocationModel[] order { set; get; }
+        }
+        [Route("shipment/changeOrder")]
+        [HttpPost]
+        public async Task<IActionResult> changeOrder([FromBody]pama p)
+        {
+            return Ok();
         }
     }
 }

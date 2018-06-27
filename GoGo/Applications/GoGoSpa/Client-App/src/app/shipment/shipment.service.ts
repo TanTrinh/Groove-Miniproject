@@ -38,4 +38,7 @@ export class ShipmentService {
   getListRequest(shipmentCode: string): Observable<any> {
     return this.http.get(`${this.url}/shipment/requestList?code=${shipmentCode}`);
   }
+  changeOrderReqeust(paramerter: any): Observable<any> {
+    return this.http.post(`${this.url}/shipment/changeOrder`, paramerter);
+  }
 }

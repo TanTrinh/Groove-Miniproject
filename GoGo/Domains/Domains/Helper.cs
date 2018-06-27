@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domains
 {
-    class Helper
+    public class Helper
     {
 		//Generate code
 		public static string GenerateCode(DateTime dateTime, long id)
@@ -25,5 +25,9 @@ namespace Domains
 			else output = input.ToString();
 			return output;
 		}
-	}
+        public static double sub(double val1, double val2)
+        {
+            return Math.Abs(val1 - val2);
+        }
+    }
 }
