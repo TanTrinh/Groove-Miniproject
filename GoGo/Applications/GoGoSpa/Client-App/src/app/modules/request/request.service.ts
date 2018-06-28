@@ -17,7 +17,6 @@ export class RequestService implements ICreateFormService, IViewFormService, IUp
   }
 
   filterWarehouseList(displayName: string): Observable<any>{
-    console.log("qwe");
     return this._apiHttp.get(`/api/warehouse/filter-list/${displayName}`);
   }
 

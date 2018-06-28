@@ -46,6 +46,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                                           Value = p.WareHouseId,
                                           DisplayName = p.WareHouse.NameWarehouse
                                       },
+                                      Id = p.Id,
                                       ExpectedDate = p.ExpectedDate,
                                       Address = p.Address,
                                       DeliveryLatitude = p.DeliveryLatitude,

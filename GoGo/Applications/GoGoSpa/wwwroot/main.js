@@ -998,6 +998,9 @@ var FormBaseComponent = /** @class */ (function () {
             _this.constructorForFormData();
         });
     };
+    FormBaseComponent.prototype.GetData = function () {
+        return this.formData;
+    };
     FormBaseComponent.prototype.deepClone = function (source) {
         return JSON.parse(JSON.stringify(source));
     };
@@ -1036,7 +1039,6 @@ var FormBaseComponent = /** @class */ (function () {
         // Form data
         if (this.isViewFormMode) {
             this.viewFormService.getFormData(this.formId).subscribe(function (data) {
-                console.log(data);
                 _this.formConfiguration.events.onBeforeInitFormData(data);
                 _this.formData = data;
                 _this.formConfiguration.events.onAfterInitFormData(_this.formData);

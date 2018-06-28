@@ -143,6 +143,10 @@ export abstract class FormBaseComponent {
     });
   }
 
+  public GetData() {
+    return this.formData;
+  }
+
   public deepClone(source) {
     return JSON.parse(JSON.stringify(source));
   }
@@ -186,7 +190,6 @@ export abstract class FormBaseComponent {
     // Form data
     if (this.isViewFormMode) {
       this.viewFormService.getFormData(this.formId).subscribe(data => {
-        console.log(data);
         this.formConfiguration.events.onBeforeInitFormData(data);
         this.formData = data;
         this.formConfiguration.events.onAfterInitFormData(this.formData);
@@ -195,9 +198,7 @@ export abstract class FormBaseComponent {
     } else if (this.isUpdateFormMode) {
       this.viewFormService.getFormData(this.formId).subscribe(data => {
         this.formConfiguration.events.onBeforeInitFormData(data);
-
         this.formData = data;
-
         this.formConfiguration.events.onAfterInitFormData(this.formData);
         this.constructorForFormDataSource();
       });
@@ -206,6 +207,7 @@ export abstract class FormBaseComponent {
       this.formData = this._defaultFormData;
       this.formConfiguration.events.onAfterInitFormData(this.formData);
       this.constructorForFormDataSource();
+      
     }
   }
 
@@ -220,7 +222,8 @@ export abstract class FormBaseComponent {
       }
       if ((map.source as IDataSourceService).getDataSource !== undefined) {
         mapDataSourceObs = (map.source as IDataSourceService).getDataSource();
-      } else if (typeof (map.source) === 'function' || map.source instanceof Function) {
+      }
+      else if (typeof (map.source) === 'function' || map.source instanceof Function) {
         mapDataSourceObs = (map.source as Function)();
       }
       mapDataSourceObs.subscribe(res => {

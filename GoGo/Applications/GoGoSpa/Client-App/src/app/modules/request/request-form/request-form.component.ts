@@ -13,11 +13,12 @@ import { Observable } from 'rxjs';
 })
 
 export class RequestFormComponent extends FormBaseComponent implements OnInit {
-  public WarehouseList: Observable<any>;
-  public WareHouse: any;
+  public warehouseList: Array<any> = [];
+
 
   public onBeforeInitFormData(data) {
-    this.WareHouse = data.wareHouse.displayName;
+
+    // Date parse
     if (data.pickingDate == null || data.pickingDate == undefined || data.expectedDate == null || data.expectedDate == undefined) {
       data.pickingDate = new Date();
       data.expectedDate = new Date();
@@ -26,10 +27,12 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
       data.pickingDate = new Date(data.pickingDate);
       data.expectedDate = new Date(data.expectedDate);
     }
+
+    // Push warehouse to warehouse list so that it can show in combobox
+    this.warehouseList.push(data.wareHouse);
   }
 
   constructor(protected route: ActivatedRoute,
- 
     protected router: Router,
     protected requestService: RequestService,
     protected notificationService: NotificationService,
@@ -37,13 +40,16 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     private _notificationService: NotificationService,
   ) {
     super(route, router, notificationService, requestService, validationService);
-    this.formConfiguration.events.onAfterInitFormData = this.onBeforeInitFormData;
+    this.formConfiguration.events.onAfterInitFormData = (data)=> {
+      this.onBeforeInitFormData(data);
+    };
+
     super.formOnInit("Request", {});
   }
   ngOnInit() {
   }
+
   public filterChange(value) {
-    console.log(value);
     if (value != null && value != undefined && value != '') {
       this.requestService.filterWarehouseList(value).subscribe(data => {
         if (data != null && data != undefined) {
@@ -53,4 +59,6 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
       
     }
   }
+
+
 }
