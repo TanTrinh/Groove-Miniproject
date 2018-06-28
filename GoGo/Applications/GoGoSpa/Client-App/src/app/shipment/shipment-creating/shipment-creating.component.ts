@@ -51,6 +51,7 @@ export class ShipmentCreatingComponent{
   private vehicleDetail: any = {};
   private driverDetail: any = {};
   private warehouseDetail: any = {};
+  private isValid: boolean;
 
   public addSucess: boolean;
 
@@ -58,13 +59,15 @@ export class ShipmentCreatingComponent{
   };
 
   public active: boolean;
-
+  public errors: "";
   //Grid
   public requestList: any[] = new Array();
   public requestIdList: any[] = new Array();
   public gridData: any = process(this.requestList, this.state);
 
-  constructor(private service: ShipmentService, private router: Router, private http: Http, private requestService: RequestService, private masterDataService: MasterDataService) {
+  constructor(private service: ShipmentService, private router: Router, private http: Http,
+              private requestService: RequestService, private masterDataService: MasterDataService,
+              private sharingService: SharingService) {
     this.view = requestService;
     this.vehicleView = masterDataService;
     this.driverView = masterDataService;
@@ -72,8 +75,14 @@ export class ShipmentCreatingComponent{
   }
 
   CreateShipment() {
-    this.service.CreateShipment(this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
-      .subscribe()
+    if (this.requestIdList.length != 0) {
+      this.service.CreateShipment(this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
+        .subscribe(result => {
+    
+          this.router.navigate(['/shipment/']);
+        },
+        errors => { this.errors = errors })
+    }
   }
 
   //Master Data
@@ -126,6 +135,8 @@ export class ShipmentCreatingComponent{
     this.requestService.getRequestDetail(this.request.DisplayName).pipe(map(res => res.json()))
       .subscribe(result => {
         this.requestDetail = result
+        this.requestDetail.PickingDate = this.sharingService.datimeFormat(this.requestDetail.PickingDate);
+        this.requestDetail.ExpectedDate = this.sharingService.datimeFormat(this.requestDetail.ExpectedDate);
         this.pushRequest()
       });
   }
@@ -133,11 +144,13 @@ export class ShipmentCreatingComponent{
   //Grid table
   pushRequest()
   {
-    if (this.requestList.indexOf(this.requestDetail) != -1 || this.requestIdList.indexOf(this.requestDetail.Id) != -1) {
+    if (this.requestList.indexOf(this.requestDetail) != -1
+      || this.requestIdList.indexOf(this.requestDetail.Id) != -1) {
     } else {
       this.requestList.push(this.requestDetail);
       this.requestIdList.push(this.requestDetail.Id);
-      this.refreshGrid()
+      this.refreshGrid();
+      this.isValid = true;
     }
   }
 
@@ -150,6 +163,9 @@ export class ShipmentCreatingComponent{
     this.requestList.splice(index, 1);
     this.requestIdList.splice(index, 1);
     this.refreshGrid();
+
+    if (this.requestIdList.length == 0)
+      this.isValid = false
   }
 
  

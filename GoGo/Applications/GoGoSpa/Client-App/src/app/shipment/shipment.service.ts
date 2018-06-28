@@ -47,6 +47,12 @@ export class ShipmentService extends BehaviorSubject<any>  {
       );
   }
 
+  public ChangeShipmentStatus(Code , value): any {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.https.put(this.baseUrl + `/shipments/update?code=${Code}&status=${value}`, Option);
+  }
 
 
 

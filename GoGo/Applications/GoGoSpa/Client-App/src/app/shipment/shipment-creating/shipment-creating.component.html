@@ -1,5 +1,5 @@
 <div class="card">
-  <form class="k-form">
+  <form class="k-form" #form="ngForm" novalidate>
     <fieldset>
       <legend><b>transportation</b></legend>
       <div class="row">
@@ -20,14 +20,14 @@
               <button class="btn btn-primary btn-sm" (click)="GetVehicleDetail()" primary="true">Add</button>
             </span>
           </div>
-          <div>
+          <div >
             <div>
               <span>License Plate</span>
-              <input class="k-textbox" [(ngModel)]="vehicleDetail.LicensePlate" name="LicensePlate" readonly />
+              <input class="k-textbox" [(ngModel)]="vehicleDetail.LicensePlate" name="LicensePlate" readonly required />
             </div>
             <div>
               <span>Vehicle Type</span>
-              <input class="k-textbox" [(ngModel)]="vehicleDetail.VehicleFeatureType" name="VehicleFeatureType" readonly />
+              <input class="k-textbox" [(ngModel)]="vehicleDetail.VehicleFeatureType" name="VehicleFeatureType" readonly required/>
             </div>
           </div>
         </div>
@@ -53,11 +53,11 @@
           <div>
             <div>
               <span>Driver Name</span>
-              <input class="k-textbox" [(ngModel)]="driverDetail.UserName" name="UserName" readonly />
+              <input class="k-textbox" [(ngModel)]="driverDetail.UserName" name="UserName" readonly required />
             </div>
             <div>
               <span>Phone Number</span>
-              <input class="k-textbox" [(ngModel)]="driverDetail.PhoneNumber" name="PhoneNumber" readonly />
+              <input class="k-textbox" [(ngModel)]="driverDetail.PhoneNumber" name="DriverPhoneNumber" readonly/>
             </div>
           </div>
         </div>
@@ -67,22 +67,21 @@
           <div>
             <span>Start Date</span>
             <div class="row px-3">
-              <kendo-datepicker [(ngModel)]="pickingDate" name="pickingDate"></kendo-datepicker>
-              <kendo-timepicker [(ngModel)]="pickingDate" name="pickingDate"></kendo-timepicker>
+              <kendo-datepicker [(ngModel)]="pickingDate" name="pickingDate" required></kendo-datepicker>
+              <kendo-timepicker [(ngModel)]="pickingDate" name="pickingDate" required></kendo-timepicker>
             </div>
           </div>
           <div>
             <span>Delivery Date</span>
             <div class="row px-3">
-              <kendo-datepicker [(ngModel)]="deliveryDate" name="deliveryDate"></kendo-datepicker>
-              <kendo-timepicker [(ngModel)]="deliveryDate" name="deliveryDate"></kendo-timepicker>
+              <kendo-datepicker [(ngModel)]="deliveryDate" name="deliveryDate" required></kendo-datepicker>
+              <kendo-timepicker [(ngModel)]="deliveryDate" name="deliveryDate" required></kendo-timepicker>
             </div>
           </div>
         </div>
       </div>
 
     </fieldset>
-
     <fieldset>
       <legend><b>Request</b></legend>
       <div>
@@ -96,27 +95,28 @@
                           [filterable]="true"
                           (filterChange)="handleWarehouseFilter($event)"
                           style="width: 200px;"
-                          class="mr-1 mb-1">
+                          class="mr-1 mb-1"
+                          [disabled]="isValid">
           </kendo-combobox>
           <span class="input-group-btn">
             <button class="btn btn-primary btn-sm" (click)="GetWarehouseDetail()" primary="true">Add </button>
           </span>
         </div>
         <!--<div>
-          <div>
-            <span>Warehouse Name</span>
-            <input class="k-textbox" [(ngModel)]="warehouseDetail.WarehouseName" name="WarehouseName" readonly />
-          </div>
-          <div>
-            <span>Address</span>
-            <input class="k-textbox" [(ngModel)]="warehouseDetail.Address" name="WarehouseAddress" readonly />
-          </div>
-          <div>
-            <span>Phone Number</span>
-            <input class="k-textbox" [(ngModel)]="warehouseDetail.PhoneNumber" name="WarehousePhoneNumber" readonly />
-          </div>
-        </div>-->
-   
+        <div>
+          <span>Warehouse Name</span>
+          <input class="k-textbox" [(ngModel)]="warehouseDetail.WarehouseName" name="WarehouseName" readonly />
+        </div>
+        <div>
+          <span>Address</span>
+          <input class="k-textbox" [(ngModel)]="warehouseDetail.Address" name="WarehouseAddress" readonly />
+        </div>
+        <div>
+          <span>Phone Number</span>
+          <input class="k-textbox" [(ngModel)]="warehouseDetail.PhoneNumber" name="WarehousePhoneNumber" readonly />
+        </div>
+      </div>-->
+
       </div>
       <div>
         <span>Request Search Box </span>
@@ -136,35 +136,35 @@
           </span>
         </div>
       </div>
+
     </fieldset>
-    <kendo-grid [data]="gridData"            
+    <kendo-grid [data]="gridData"
                 [scrollable]="'scrollable'"
-                [height] ="350"
+                [height]="350"
                 [pageSize]="state.take"
-                (remove)="removeHandler($event)">
-      <kendo-grid-column field="Code" title="Code">
-      </kendo-grid-column>
-      <kendo-grid-column field="CustomerName" title="Customer Name">
-      </kendo-grid-column>
-      <kendo-grid-column field="PickingDate" title="Picking Date">
-      </kendo-grid-column>
-      <kendo-grid-column field="ExpectedDate" title="Delivery Date">
-      </kendo-grid-column>
-      <kendo-grid-column field="PackageQuantity" title="Package Quantity">
-      </kendo-grid-column>
-      <kendo-grid-column field="WereHouseAddress" title="WareHouse Address"></kendo-grid-column>
-      <kendo-grid-command-column title="command">
+                (remove)="removeHandler($event)"
+                required>
+      <kendo-grid-column field="Code" title="Code"></kendo-grid-column>
+      <kendo-grid-column field="CustomerName" title="Customer Name"></kendo-grid-column>
+      <kendo-grid-column field="PickingDate" title="Expected Picking Date"></kendo-grid-column>
+      <kendo-grid-column field="ExpectedDate" title="Expected Delivery Date"></kendo-grid-column>
+      <kendo-grid-column field="PackageQuantity" title="Packages" width="150"></kendo-grid-column>
+      <kendo-grid-column field="DeliveryAddress" title="Delivery Address"></kendo-grid-column>
+      <kendo-grid-command-column title="Delivery Date">
         <ng-template kendoGridCellTemplate>
-          <button kendoGridRemoveCommand [primary]="true">Delete</button>
+          <kendo-datepicker name="deliveryDate" required></kendo-datepicker>
+          <kendo-timepicker name="deliveryDate" required></kendo-timepicker>
         </ng-template>
       </kendo-grid-command-column>
+        <kendo-grid-command-column title="command" width="100">
+          <ng-template kendoGridCellTemplate>
+            <button kendoGridRemoveCommand [primary]="true">Delete</button>
+          </ng-template>
+        </kendo-grid-command-column>
     </kendo-grid>
-
+    <div>
+      <button (click)="CreateShipment()" class="btn btn-primary mt-3" primary="true" [disabled]="form.invalid" [ngClass]="{active: isValid, disabled: !isValid}">Save</button>&nbsp;
+      <button class="btn btn-secondary  mt-3" primary="true">Cancel</button>
+    </div>
   </form>
 </div>
-
-
-<!--<div class="container">
-  <button (click)="CreateShipment()" class="btn btn-primary" primary="true">Save</button>&nbsp;
-  <button class="btn btn-secondary" primary="true">Cancel</button>
-</div>-->
