@@ -13,7 +13,7 @@ namespace Domains.GoGo.Services
 
         Task<string> ChangeStatus(int? id, string status);
 
-		Task<IEnumerable<DataSourceValue<int>>>  GetDataSource(string value);
+		Task<IEnumerable<DataSourceValue<int>>>  GetDataSource(string value, int warehouseId);
 
 		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
         Task<RequestModel> GetRequestDetailAsync(string code);

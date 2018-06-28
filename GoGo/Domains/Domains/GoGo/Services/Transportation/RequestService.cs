@@ -18,8 +18,6 @@ namespace Domains.GoGo.Services
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-		private readonly int pageSize = 5;
-
 		public RequestService(IMapper mapper, IUnitOfWork uow, IRequestRepository repository)
         {
             _uow = uow;
@@ -44,9 +42,9 @@ namespace Domains.GoGo.Services
             return _repository.GetRequestDetailAsync(id);
         }
 
-		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value)
+		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId)
 		{
-			return await _repository.GetDataSource(value);
+			return await _repository.GetDataSource(value, warehouseId);
 		}
 
         public Task<RequestModel> GetRequestDetailAsync(string code)

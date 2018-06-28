@@ -1,11 +1,12 @@
 ﻿using Domains.Identity.Entities;
+using Groove.AspNetCore.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Domains.GoGo
 {
-    public class WareHouse
+    public class WareHouse : IEntity<int>
     {
         public int Id { get; set; }
 

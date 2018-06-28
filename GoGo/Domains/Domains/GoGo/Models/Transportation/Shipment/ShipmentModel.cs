@@ -6,26 +6,30 @@ using System.Text;
 
 namespace Domains.GoGo.Models.Transportation
 {
-    public class CreateShipmentModel
-    {
-		public List<int> RequestIdList { get; set; }
+	public class ShipmentModel
+	{
+		public string Code { set; get; }
 
 		public int RequestQuantity { get; set; }
 
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
 
-		public int VehicleId { get; set; }
-		public long DriverId { get; set; }
-		public long CoordinatorId { get; set; }
+		public string Status { set; get; }
+		public string VehicleLicensePlate { get; set; }
+		public string DriverName { get; set; }
 	}
 
-	public class CreateShipmentModelMapper : Profile
+	public class ShipmentModelMapper : Profile
 	{
-		public CreateShipmentModelMapper()
+		public ShipmentModelMapper()
 		{
-			CreateMap<Shipment, CreateShipmentModel>();
-			CreateMap<CreateShipmentModel, Shipment>();
+			CreateMap<ShipmentModel, Shipment>();
+
+			var mappers = CreateMap<Shipment, ShipmentModel>();
+
+			mappers.ForMember(p => p.DriverName, opt => opt.MapFrom(s => s.Driver.UserName));
+			mappers.ForMember(p => p.VehicleLicensePlate, opt => opt.MapFrom(s => s.Vehicle.LicensePlate));
 		}
 	}
 }

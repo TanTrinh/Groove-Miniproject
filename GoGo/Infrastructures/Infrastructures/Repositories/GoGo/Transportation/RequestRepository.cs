@@ -41,18 +41,17 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 			return this.dbSet.MapQueryTo<RequestModel>(_mapper).ToDataSourceResult(request);
 		}
 
-		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value)
+		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId)
 		{
 			var requestedIdList = this.context.Set<ShipmentRequest>().Select(p => p.RequestId).ToList();
 
 			return await this.dbSet.Where(p => (( p.Code.Contains(value) || p.Address.Contains(value)) 
-									&& !requestedIdList.Contains(p.Id) && p.Status =="Pending" ) )
+									&& !requestedIdList.Contains(p.Id) && p.Status =="Pending" && p.WareHouseId == warehouseId ) )
 									.Select(p => new DataSourceValue<int>
 									{
 										Value = p.Id,
 										DisplayName = p.Code
 									}).ToListAsync();
-
 		}
 
         public async Task<RequestModel> GetRequestDetailAsync(string code)

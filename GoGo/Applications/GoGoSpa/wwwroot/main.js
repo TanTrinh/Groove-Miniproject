@@ -182,27 +182,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shipment_shipment_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./shipment/shipment.module */ "./src/app/shipment/shipment.module.ts");
 /* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
 /* harmony import */ var _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/sevices/config-service.service */ "./src/app/shared/sevices/config-service.service.ts");
-/* harmony import */ var _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./shared/sevices/pager-service.service */ "./src/app/shared/sevices/pager-service.service.ts");
-/* harmony import */ var _request_request_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./request/request.service */ "./src/app/request/request.service.ts");
-/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./shared/shared.module */ "./src/app/shared/shared.module.ts");
-/* harmony import */ var _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./request/request-list/request-list.component */ "./src/app/request/request-list/request-list.component.ts");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
-/* harmony import */ var _progress_kendo_angular_buttons__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @progress/kendo-angular-buttons */ "./node_modules/@progress/kendo-angular-buttons/dist/es/index.js");
-/* harmony import */ var _shipment_shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./shipment/shipment-creating/shipment-creating.component */ "./src/app/shipment/shipment-creating/shipment-creating.component.ts");
-/* harmony import */ var _shipment_shipment_shipment_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./shipment/shipment/shipment.component */ "./src/app/shipment/shipment/shipment.component.ts");
-/* harmony import */ var _shipment_shipment_list_shipment_list_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./shipment/shipment-list/shipment-list.component */ "./src/app/shipment/shipment-list/shipment-list.component.ts");
-/* harmony import */ var _progress_kendo_angular_dropdowns__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @progress/kendo-angular-dropdowns */ "./node_modules/@progress/kendo-angular-dropdowns/dist/es/index.js");
-/* harmony import */ var _progress_kendo_angular_dialog__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @progress/kendo-angular-dialog */ "./node_modules/@progress/kendo-angular-dialog/dist/es/index.js");
-/* harmony import */ var _progress_kendo_angular_dateinputs__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @progress/kendo-angular-dateinputs */ "./node_modules/@progress/kendo-angular-dateinputs/dist/es/index.js");
+/* harmony import */ var _request_request_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./request/request.service */ "./src/app/request/request.service.ts");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./request/request-list/request-list.component */ "./src/app/request/request-list/request-list.component.ts");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _progress_kendo_angular_buttons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @progress/kendo-angular-buttons */ "./node_modules/@progress/kendo-angular-buttons/dist/es/index.js");
+/* harmony import */ var _shipment_shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./shipment/shipment-creating/shipment-creating.component */ "./src/app/shipment/shipment-creating/shipment-creating.component.ts");
+/* harmony import */ var _shipment_shipment_shipment_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./shipment/shipment/shipment.component */ "./src/app/shipment/shipment/shipment.component.ts");
+/* harmony import */ var _shipment_shipment_list_shipment_list_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./shipment/shipment-list/shipment-list.component */ "./src/app/shipment/shipment-list/shipment-list.component.ts");
+/* harmony import */ var _progress_kendo_angular_dropdowns__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @progress/kendo-angular-dropdowns */ "./node_modules/@progress/kendo-angular-dropdowns/dist/es/index.js");
+/* harmony import */ var _progress_kendo_angular_dialog__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @progress/kendo-angular-dialog */ "./node_modules/@progress/kendo-angular-dialog/dist/es/index.js");
+/* harmony import */ var _progress_kendo_angular_dateinputs__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @progress/kendo-angular-dateinputs */ "./node_modules/@progress/kendo-angular-dateinputs/dist/es/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -254,36 +252,36 @@ var AppModule = /** @class */ (function () {
                 _layout_navigation_navigation_component__WEBPACK_IMPORTED_MODULE_10__["NavigationComponent"],
                 _ggmap_ggmap_component__WEBPACK_IMPORTED_MODULE_11__["GgmapComponent"],
                 _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_15__["LoginComponent"],
-                _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_23__["RequestListComponent"],
-                _shipment_shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_28__["ShipmentCreatingComponent"],
-                _shipment_shipment_shipment_component__WEBPACK_IMPORTED_MODULE_29__["ShipmentComponent"],
-                _shipment_shipment_list_shipment_list_component__WEBPACK_IMPORTED_MODULE_30__["ShipmentListComponent"],
+                _request_request_list_request_list_component__WEBPACK_IMPORTED_MODULE_22__["RequestListComponent"],
+                _shipment_shipment_creating_shipment_creating_component__WEBPACK_IMPORTED_MODULE_27__["ShipmentCreatingComponent"],
+                _shipment_shipment_shipment_component__WEBPACK_IMPORTED_MODULE_28__["ShipmentComponent"],
+                _shipment_shipment_list_shipment_list_component__WEBPACK_IMPORTED_MODULE_29__["ShipmentListComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
-                _shared_shared_module__WEBPACK_IMPORTED_MODULE_22__["SharedModule"],
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_21__["SharedModule"],
                 agm_direction__WEBPACK_IMPORTED_MODULE_13__["AgmDirectionModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientModule"],
                 _shipment_shipment_module__WEBPACK_IMPORTED_MODULE_17__["ShipmentModule"],
-                _angular_common__WEBPACK_IMPORTED_MODULE_25__["CommonModule"],
-                _angular_http__WEBPACK_IMPORTED_MODULE_24__["HttpModule"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_24__["CommonModule"],
+                _angular_http__WEBPACK_IMPORTED_MODULE_23__["HttpModule"],
                 _progress_kendo_angular_grid__WEBPACK_IMPORTED_MODULE_14__["GridModule"],
-                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_26__["BrowserAnimationsModule"],
-                _progress_kendo_angular_buttons__WEBPACK_IMPORTED_MODULE_27__["ButtonsModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_25__["BrowserAnimationsModule"],
+                _progress_kendo_angular_buttons__WEBPACK_IMPORTED_MODULE_26__["ButtonsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_16__["HttpClientJsonpModule"],
-                _progress_kendo_angular_dropdowns__WEBPACK_IMPORTED_MODULE_31__["DropDownsModule"],
-                _progress_kendo_angular_dialog__WEBPACK_IMPORTED_MODULE_32__["DialogModule"],
-                _progress_kendo_angular_buttons__WEBPACK_IMPORTED_MODULE_27__["ButtonGroupModule"],
-                _progress_kendo_angular_dateinputs__WEBPACK_IMPORTED_MODULE_33__["DateInputsModule"],
+                _progress_kendo_angular_dropdowns__WEBPACK_IMPORTED_MODULE_30__["DropDownsModule"],
+                _progress_kendo_angular_dialog__WEBPACK_IMPORTED_MODULE_31__["DialogModule"],
+                _progress_kendo_angular_buttons__WEBPACK_IMPORTED_MODULE_26__["ButtonGroupModule"],
+                _progress_kendo_angular_dateinputs__WEBPACK_IMPORTED_MODULE_32__["DateInputsModule"],
                 _agm_core__WEBPACK_IMPORTED_MODULE_12__["AgmCoreModule"].forRoot({
                     apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
                 }),
             ],
             providers: [
-                src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_18__["NotificationService"], _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_19__["ConfigService"], _shared_sevices_pager_service_service__WEBPACK_IMPORTED_MODULE_20__["PagerService"], _request_request_service__WEBPACK_IMPORTED_MODULE_21__["RequestService"]
+                src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_18__["NotificationService"], _shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_19__["ConfigService"], _request_request_service__WEBPACK_IMPORTED_MODULE_20__["RequestService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
         })
@@ -823,7 +821,7 @@ module.exports = "<div id=\"sidebar-container\" class=\"sidebar-expanded d-none 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* Sidebar */\n#sidebar-container {\n  min-height: 100vh;\n  background-color: #e6e6ff;\n  padding: 0;\n  font-weight: 500; }\n/* Sidebar item*/\n#sidebar-container .list-group a {\n  height: 50px;\n  background-color: #e6e6ff;\n  padding-left: 30px; }\n#sidebar-container .list-group a.hold {\n  background-color: white;\n  color: #0073e6;\n  font-weight: 500;\n  border-bottom: solid;\n  border-bottom-color: #0073e6; }\n#sidebar-container .list-group a:hover {\n  height: 50px;\n  background-color: white;\n  color: #0073e6;\n  font-weight: 500; }\n#sidebar-container .list-group a:focus {\n  height: 50px;\n  background-color: white;\n  color: #0073e6;\n  font-weight: 500;\n  border-bottom: solid;\n  border-bottom-color: #0073e6; }\n"
+module.exports = "/* Sidebar */\n#sidebar-container {\n  min-height: 92.3vh;\n  position: relative;\n  background-color: #e6e6ff;\n  padding: 0;\n  font-weight: 500; }\n/* Sidebar item*/\n#sidebar-container .list-group a {\n  height: 50px;\n  background-color: #e6e6ff;\n  padding-left: 30px; }\n#sidebar-container .list-group a.hold {\n  background-color: white;\n  color: #0073e6;\n  font-weight: 500;\n  border-bottom: solid;\n  border-bottom-color: #0073e6; }\n#sidebar-container .list-group a:hover {\n  height: 50px;\n  background-color: white;\n  color: #0073e6;\n  font-weight: 500; }\n#sidebar-container .list-group a:focus {\n  height: 50px;\n  background-color: white;\n  color: #0073e6;\n  font-weight: 500;\n  border-bottom: solid;\n  border-bottom-color: #0073e6; }\n"
 
 /***/ }),
 
@@ -1146,12 +1144,12 @@ var RequestService = /** @class */ (function (_super) {
         }); }));
     };
     //Request filter Api
-    RequestService.prototype.query = function (value) {
+    RequestService.prototype.query = function (value, werehouseId) {
         var _this = this;
-        this.getdatasource(value).subscribe(function (x) { return _super.prototype.next.call(_this, x); });
+        this.getdatasource(value, werehouseId).subscribe(function (x) { return _super.prototype.next.call(_this, x); });
     };
-    RequestService.prototype.getdatasource = function (value) {
-        return this.https.get(this.baseUrl + ("/Requests/dataSource?value=" + value));
+    RequestService.prototype.getdatasource = function (value, werehouseId) {
+        return this.https.get(this.baseUrl + ("/Requests/dataSource?value=" + value + "&warehouseId=" + werehouseId));
     };
     //Request Detail Api
     RequestService.prototype.getRequestDetail = function (code) {
@@ -1236,19 +1234,31 @@ var ConfigService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/shared/sevices/pager-service.service.ts":
-/*!*********************************************************!*\
-  !*** ./src/app/shared/sevices/pager-service.service.ts ***!
-  \*********************************************************/
-/*! exports provided: PagerService */
+/***/ "./src/app/shared/sevices/master-data.service.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/shared/sevices/master-data.service.ts ***!
+  \*******************************************************/
+/*! exports provided: MasterDataService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PagerService", function() { return PagerService; });
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MasterDataService", function() { return MasterDataService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var _config_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config-service.service */ "./src/app/shared/sevices/config-service.service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1261,60 +1271,70 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var PagerService = /** @class */ (function () {
-    function PagerService(http, configService) {
-        this.http = http;
-        this.configService = configService;
-        this.baseUrl = '';
-        this.baseUrl = configService.getApiURI();
+
+
+var MasterDataService = /** @class */ (function (_super) {
+    __extends(MasterDataService, _super);
+    function MasterDataService(http, configService, https) {
+        var _this = _super.call(this, null) || this;
+        _this.http = http;
+        _this.configService = configService;
+        _this.https = https;
+        _this.baseUrl = '';
+        _this.baseUrl = configService.getApiURI();
+        return _this;
     }
-    PagerService.prototype.getPager = function (totalPages, currentPage) {
-        if (currentPage === void 0) { currentPage = 1; }
-        // ensure current page isn't out of range
-        if (currentPage < 1) {
-            currentPage = 1;
-        }
-        else if (currentPage > totalPages) {
-            currentPage = totalPages;
-        }
-        var startPage, endPage;
-        if (totalPages <= 10) {
-            // less than 10 total pages so show all
-            startPage = 1;
-            endPage = totalPages;
-        }
-        else {
-            // more than 10 total pages so calculate start and end pages
-            if (currentPage <= 6) {
-                startPage = 1;
-                endPage = 10;
-            }
-            else if (currentPage + 4 >= totalPages) {
-                startPage = totalPages - 9;
-                endPage = totalPages;
-            }
-            else {
-                startPage = currentPage - 5;
-                endPage = currentPage + 4;
-            }
-        }
-        // create an array of pages to ng-repeat in the pager control
-        var pages = Array.from(Array((endPage + 1) - startPage).keys()).map(function (i) { return startPage + i; });
-        // return object with all pager properties required by the view
-        return {
-            currentPage: currentPage,
-            totalPages: totalPages,
-            startPage: startPage,
-            endPage: endPage,
-            pages: pages
-        };
+    //Master Data
+    //Vehicles filter Api
+    MasterDataService.prototype.vehicleQuery = function (licensePlate) {
+        var _this = this;
+        this.getVehicleDataSouce(licensePlate).subscribe(function (x) { return _super.prototype.next.call(_this, x); });
     };
-    PagerService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_0__["Http"], _config_service_service__WEBPACK_IMPORTED_MODULE_2__["ConfigService"]])
-    ], PagerService);
-    return PagerService;
-}());
+    MasterDataService.prototype.getVehicleDataSouce = function (licensePlate) {
+        return this.https.get(this.baseUrl + ("/Vehicles/dataSource?licensePlate=" + licensePlate));
+    };
+    //Vehicles Detail Api
+    MasterDataService.prototype.getVehicleDetail = function (Id) {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]({ 'Content-Type': 'application/json' });
+        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["RequestOptions"]({ headers: headers });
+        return this.http.get(this.baseUrl + '/Vehicles/getDetail?Id=' + Id, options);
+    };
+    //Driver filter Api
+    MasterDataService.prototype.driverQuery = function (driverName) {
+        var _this = this;
+        this.getDriverDataSource(driverName).subscribe(function (x) { return _super.prototype.next.call(_this, x); });
+    };
+    MasterDataService.prototype.getDriverDataSource = function (driverName) {
+        return this.https.get(this.baseUrl + ("/MasterData/Drivers/dataSource?driverName=" + driverName));
+    };
+    //Driver filter Api
+    MasterDataService.prototype.getDriverDetail = function (Id) {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]({ 'Content-Type': 'application/json' });
+        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["RequestOptions"]({ headers: headers });
+        return this.http.get(this.baseUrl + '/MasterData/Drivers/getDetail?Id=' + Id, options);
+    };
+    //Warehouse filter Api
+    MasterDataService.prototype.werehouseQuery = function (value) {
+        var _this = this;
+        this.getWarehouseDataSource(value).subscribe(function (x) { return _super.prototype.next.call(_this, x); });
+    };
+    MasterDataService.prototype.getWarehouseDataSource = function (value) {
+        return this.https.get(this.baseUrl + ("/MasterData/Warehouses/dataSource?value=" + value));
+    };
+    //Warehouse filter Api
+    MasterDataService.prototype.getWarehouseDetail = function (Id) {
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["Headers"]({ 'Content-Type': 'application/json' });
+        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_1__["RequestOptions"]({ headers: headers });
+        return this.http.get(this.baseUrl + '/MasterData/Warehouses/getDetail?Id=' + Id, options);
+    };
+    MasterDataService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_1__["Http"], _config_service_service__WEBPACK_IMPORTED_MODULE_2__["ConfigService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]])
+    ], MasterDataService);
+    return MasterDataService;
+}(rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]));
 
 
 
@@ -1465,7 +1485,7 @@ var AssignedComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card\">\r\n  <div class=\"row\">\r\n    <div class=\"col-md-3 col-lg-3\">\r\n      <form class=\"k-form\">\r\n        <fieldset>\r\n          <legend>Add Request</legend>\r\n          <div>\r\n            <span>Search Box </span>\r\n            <div class=\"input-group\">\r\n              <kendo-combobox name=\"request\"\r\n                              [data]=\"view | async\"\r\n                              [(ngModel)]=\"request\"\r\n                              [valueField]=\"'Value'\"\r\n                              [textField]=\"'DisplayName'\"\r\n                              [filterable]=\"true\"\r\n                              (filterChange)=\"handleFilter($event)\">\r\n              </kendo-combobox>\r\n              <span class=\"input-group-btn\">\r\n                &nbsp;\r\n                <button class=\"btn btn-primary btn-sm\" (click)=\"AddRequestToList()\" primary=\"true\">Add </button>\r\n              </span>\r\n            </div>\r\n          </div>\r\n        </fieldset>\r\n\r\n        <fieldset>\r\n          <legend>Vehicle Details</legend>\r\n          <div>\r\n            <span>Choose Vehicle </span>\r\n            <div class=\"input-group\">\r\n              <kendo-combobox name=\"vehicle\"\r\n                              [data]=\"vehicleView | async\"\r\n                              [(ngModel)]=\"vehicle\"\r\n                              [valueField]=\"'Value'\"\r\n                              [textField]=\"'DisplayName'\"\r\n                              [filterable]=\"true\"\r\n                              (filterChange)=\"handleVehicleFilter($event)\">\r\n              </kendo-combobox>\r\n              <span class=\"input-group-btn\">\r\n                &nbsp;\r\n                <button class=\"btn btn-primary btn-sm\" (click)=\"GetVehicleDetail()\" primary=\"true\">Add</button>\r\n              </span>\r\n            </div>\r\n          </div>\r\n          <label class=\"k-form-field\">\r\n            <span>License Plate</span>\r\n            <input class=\"k-textbox\" [(ngModel)]=\"vehicleDetail.LicensePlate\" name=\"LicensePlate\" disabled />\r\n          </label>\r\n          <label class=\"k-form-field\">\r\n            <span>Vehicle Type</span>\r\n            <input class=\"k-textbox\" [(ngModel)]=\"vehicleDetail.VehicleFeatureType\" name=\"VehicleFeatureType\" disabled />\r\n          </label>\r\n        </fieldset>\r\n\r\n        <fieldset>\r\n          <legend>Driver Details</legend>\r\n          <div>\r\n            <span>Choose Driver </span>\r\n            <div class=\"input-group\">\r\n              <kendo-combobox name=\"driver\"\r\n                              [data]=\"driverView | async\"\r\n                              [(ngModel)]=\"driver\"\r\n                              [valueField]=\"'Value'\"\r\n                              [textField]=\"'DisplayName'\"\r\n                              [filterable]=\"true\"\r\n                              (filterChange)=\"handleDriverFilter($event)\">\r\n              </kendo-combobox>\r\n              <span class=\"input-group-btn\">\r\n                &nbsp;\r\n                <button class=\"btn btn-primary btn-sm\" (click)=\"GetDriverDetail()\" primary=\"true\">Add</button>\r\n              </span>\r\n            </div>\r\n          </div>\r\n          <label class=\"k-form-field\">\r\n            <span>Driver Name</span>\r\n            <input class=\"k-textbox\" [(ngModel)]=\"driverDetail.UserName\" name=\"UserName\" disabled />\r\n          </label>\r\n          <label class=\"k-form-field\">\r\n            <span>Phone Number</span>\r\n            <input class=\"k-textbox\" [(ngModel)]=\"driverDetail.PhoneNumber\" name=\"PhoneNumber\" disabled />\r\n          </label>\r\n        </fieldset>\r\n\r\n        <fieldset>\r\n          <legend>Schedule</legend>\r\n          <div>\r\n            <span>Start Date</span>\r\n            <div class=\"row px-3\">\r\n              <kendo-datepicker  [(ngModel)]=\"pickingDate\" name=\"pickingDate\"></kendo-datepicker>\r\n              <kendo-timepicker  [(ngModel)]=\"deliveryDate\" name=\"deliveryDate\"></kendo-timepicker>\r\n            </div>\r\n          </div>\r\n          <div>\r\n            <span>Delivery Date</span>\r\n            <div class=\"row px-3\">\r\n              <kendo-datepicker></kendo-datepicker>\r\n              <kendo-timepicker></kendo-timepicker>\r\n            </div>\r\n          </div>\r\n        </fieldset>\r\n      </form>\r\n      <div class=\"container\">\r\n        <button (click)=\"CreateShipment()\" class=\"btn btn-primary\" primary=\"true\">Save</button>&nbsp;\r\n        <button class=\"btn btn-secondary\" primary=\"true\">Cancel</button>\r\n      </div>\r\n                \r\n    </div>\r\n    <div class=\"col-md-9 col-lg-9 pt-3 ml-0\">\r\n      <div class=\"container-fluid ml-0\">\r\n        <div class=\"\">\r\n          <div>\r\n            <kendo-grid [data]=\"gridData\"\r\n                        [style.maxHeight.px]=\"700\"\r\n                        (remove)=\"removeHandler($event)\"\r\n                        [height]=\"700\">\r\n              <kendo-grid-column field=\"Code\" title=\"Code\">\r\n              </kendo-grid-column>\r\n              <kendo-grid-column field=\"CustomerName\" title=\"Customer Name\">\r\n              </kendo-grid-column>\r\n              <kendo-grid-column field=\"PickingDate\" title=\"Picking Date\">\r\n              </kendo-grid-column>\r\n              <kendo-grid-column field=\"ExpectedDate\" title=\"Delivery Date\">\r\n              </kendo-grid-column>\r\n              <kendo-grid-column field=\"PackageQuantity\" title=\"Package Quantity\">\r\n              </kendo-grid-column>\r\n              <kendo-grid-column field=\"WereHouseAddress\" title=\"WereHouse Address\"></kendo-grid-column>\r\n              <kendo-grid-command-column title=\"command\">\r\n                <ng-template kendoGridCellTemplate>\r\n                  <button kendoGridRemoveCommand [primary]=\"true\">Delete</button>\r\n                </ng-template>\r\n              </kendo-grid-command-column>\r\n            </kendo-grid>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"card\">\r\n  <form class=\"k-form\">\r\n    <fieldset>\r\n      <legend><b>transportation</b></legend>\r\n      <div class=\"row\">\r\n        <div class=\"col-sm\">\r\n          <span><b>Choose Vehicle </b></span>\r\n          <div class=\"input-group\">\r\n            <kendo-combobox name=\"vehicle\"\r\n                            [data]=\"vehicleView | async\"\r\n                            [(ngModel)]=\"vehicle\"\r\n                            [valueField]=\"'Value'\"\r\n                            [textField]=\"'DisplayName'\"\r\n                            [filterable]=\"true\"\r\n                            (filterChange)=\"handleVehicleFilter($event)\"\r\n                            style=\"width: 200px;\"\r\n                            class=\"mr-1 mb-1\">\r\n            </kendo-combobox>\r\n            <span class=\"input-group-btn\">\r\n              <button class=\"btn btn-primary btn-sm\" (click)=\"GetVehicleDetail()\" primary=\"true\">Add</button>\r\n            </span>\r\n          </div>\r\n          <div>\r\n            <div>\r\n              <span>License Plate</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"vehicleDetail.LicensePlate\" name=\"LicensePlate\" readonly />\r\n            </div>\r\n            <div>\r\n              <span>Vehicle Type</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"vehicleDetail.VehicleFeatureType\" name=\"VehicleFeatureType\" readonly />\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-sm\">\r\n          <span><b>Choose Driver</b> </span>\r\n          <div class=\"input-group\">\r\n            <kendo-combobox name=\"driver\"\r\n                            [data]=\"driverView | async\"\r\n                            [(ngModel)]=\"driver\"\r\n                            [valueField]=\"'Value'\"\r\n                            [textField]=\"'DisplayName'\"\r\n                            [filterable]=\"true\"\r\n                            (filterChange)=\"handleDriverFilter($event)\"\r\n                            style=\"width: 200px;\"\r\n                            class=\"mr-1 mb-1\">\r\n            </kendo-combobox>\r\n            <span class=\"input-group-btn\">\r\n              <button class=\"btn btn-primary btn-sm\" (click)=\"GetDriverDetail()\" primary=\"true\">Add</button>\r\n            </span>\r\n          </div>\r\n\r\n          <div>\r\n            <div>\r\n              <span>Driver Name</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"driverDetail.UserName\" name=\"UserName\" readonly />\r\n            </div>\r\n            <div>\r\n              <span>Phone Number</span>\r\n              <input class=\"k-textbox\" [(ngModel)]=\"driverDetail.PhoneNumber\" name=\"PhoneNumber\" readonly />\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"col-sm\">\r\n          <span><b>Shipment Schedule</b></span>\r\n          <div>\r\n            <span>Start Date</span>\r\n            <div class=\"row px-3\">\r\n              <kendo-datepicker [(ngModel)]=\"pickingDate\" name=\"pickingDate\"></kendo-datepicker>\r\n              <kendo-timepicker [(ngModel)]=\"pickingDate\" name=\"pickingDate\"></kendo-timepicker>\r\n            </div>\r\n          </div>\r\n          <div>\r\n            <span>Delivery Date</span>\r\n            <div class=\"row px-3\">\r\n              <kendo-datepicker [(ngModel)]=\"deliveryDate\" name=\"deliveryDate\"></kendo-datepicker>\r\n              <kendo-timepicker [(ngModel)]=\"deliveryDate\" name=\"deliveryDate\"></kendo-timepicker>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n    </fieldset>\r\n\r\n    <fieldset>\r\n      <legend><b>Request</b></legend>\r\n      <div>\r\n        <span>Warehouse Search Box </span>\r\n        <div class=\"input-group\">\r\n          <kendo-combobox name=\"warehouse\"\r\n                          [data]=\"warehouseView | async\"\r\n                          [(ngModel)]=\"warehouse\"\r\n                          [valueField]=\"'Value'\"\r\n                          [textField]=\"'DisplayName'\"\r\n                          [filterable]=\"true\"\r\n                          (filterChange)=\"handleWarehouseFilter($event)\"\r\n                          style=\"width: 200px;\"\r\n                          class=\"mr-1 mb-1\">\r\n          </kendo-combobox>\r\n          <span class=\"input-group-btn\">\r\n            <button class=\"btn btn-primary btn-sm\" (click)=\"GetWarehouseDetail()\" primary=\"true\">Add </button>\r\n          </span>\r\n        </div>\r\n        <!--<div>\r\n          <div>\r\n            <span>Warehouse Name</span>\r\n            <input class=\"k-textbox\" [(ngModel)]=\"warehouseDetail.WarehouseName\" name=\"WarehouseName\" readonly />\r\n          </div>\r\n          <div>\r\n            <span>Address</span>\r\n            <input class=\"k-textbox\" [(ngModel)]=\"warehouseDetail.Address\" name=\"WarehouseAddress\" readonly />\r\n          </div>\r\n          <div>\r\n            <span>Phone Number</span>\r\n            <input class=\"k-textbox\" [(ngModel)]=\"warehouseDetail.PhoneNumber\" name=\"WarehousePhoneNumber\" readonly />\r\n          </div>\r\n        </div>-->\r\n   \r\n      </div>\r\n      <div>\r\n        <span>Request Search Box </span>\r\n        <div class=\"input-group\">\r\n          <kendo-combobox name=\"request\"\r\n                          [data]=\"view | async\"\r\n                          [(ngModel)]=\"request\"\r\n                          [valueField]=\"'Value'\"\r\n                          [textField]=\"'DisplayName'\"\r\n                          [filterable]=\"true\"\r\n                          (filterChange)=\"handleFilter($event)\"\r\n                          style=\"width: 200px;\"\r\n                          class=\"mr-1 mb-1\">\r\n          </kendo-combobox>\r\n          <span class=\"input-group-btn\">\r\n            <button class=\"btn btn-primary btn-sm\" (click)=\"AddRequestToList()\" primary=\"true\">Add </button>\r\n          </span>\r\n        </div>\r\n      </div>\r\n    </fieldset>\r\n    <kendo-grid [data]=\"gridData\"            \r\n                [scrollable]=\"'scrollable'\"\r\n                [height] =\"350\"\r\n                [pageSize]=\"state.take\"\r\n                (remove)=\"removeHandler($event)\">\r\n      <kendo-grid-column field=\"Code\" title=\"Code\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"CustomerName\" title=\"Customer Name\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PickingDate\" title=\"Picking Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"ExpectedDate\" title=\"Delivery Date\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"PackageQuantity\" title=\"Package Quantity\">\r\n      </kendo-grid-column>\r\n      <kendo-grid-column field=\"WereHouseAddress\" title=\"WareHouse Address\"></kendo-grid-column>\r\n      <kendo-grid-command-column title=\"command\">\r\n        <ng-template kendoGridCellTemplate>\r\n          <button kendoGridRemoveCommand [primary]=\"true\">Delete</button>\r\n        </ng-template>\r\n      </kendo-grid-command-column>\r\n    </kendo-grid>\r\n\r\n  </form>\r\n</div>\r\n\r\n\r\n<!--<div class=\"container\">\r\n  <button (click)=\"CreateShipment()\" class=\"btn btn-primary\" primary=\"true\">Save</button>&nbsp;\r\n  <button class=\"btn btn-secondary\" primary=\"true\">Cancel</button>\r\n</div>-->\r\n"
 
 /***/ }),
 
@@ -1497,6 +1517,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _shared_sevices_master_data_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../shared/sevices/master-data.service */ "./src/app/shared/sevices/master-data.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1513,62 +1534,80 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ShipmentCreatingComponent = /** @class */ (function () {
-    function ShipmentCreatingComponent(service, router, http, requestService) {
+    function ShipmentCreatingComponent(service, router, http, requestService, masterDataService) {
         this.service = service;
         this.router = router;
         this.http = http;
         this.requestService = requestService;
+        this.masterDataService = masterDataService;
         //Combobox
         this.toggleText = 'Hide';
         this.show = true;
         this.request = {};
         this.vehicle = {};
         this.driver = {};
+        this.warehouse = {};
         this.pickingDate = new Date();
         this.deliveryDate = new Date();
         this.vehicleDetail = {};
         this.driverDetail = {};
+        this.warehouseDetail = {};
         this.state = {};
-        //Table
+        //Grid
         this.requestList = new Array();
         this.requestIdList = new Array();
         this.gridData = Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_3__["process"])(this.requestList, this.state);
         this.view = requestService;
-        this.vehicleView = service;
-        this.driverView = service;
+        this.vehicleView = masterDataService;
+        this.driverView = masterDataService;
+        this.warehouseView = masterDataService;
     }
     ShipmentCreatingComponent.prototype.CreateShipment = function () {
         this.service.CreateShipment(this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
             .subscribe();
     };
+    //Master Data
     //Driver code filter
     ShipmentCreatingComponent.prototype.handleDriverFilter = function (value) {
-        this.service.queryData(value);
+        this.masterDataService.driverQuery(value);
     };
     //get Driver Detail
     ShipmentCreatingComponent.prototype.GetDriverDetail = function () {
         var _this = this;
-        this.service.getDriverDetail(this.driver.Value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.json(); }))
+        this.masterDataService.getDriverDetail(this.driver.Value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.json(); }))
             .subscribe(function (result) {
             _this.driverDetail = result;
         });
     };
     //Vehicles code filter
     ShipmentCreatingComponent.prototype.handleVehicleFilter = function (value) {
-        this.service.query(value);
+        this.masterDataService.vehicleQuery(value);
     };
     //get Vehicles Detail
     ShipmentCreatingComponent.prototype.GetVehicleDetail = function () {
         var _this = this;
-        this.service.getVehicleDetail(this.vehicle.Value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.json(); }))
+        this.masterDataService.getVehicleDetail(this.vehicle.Value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.json(); }))
             .subscribe(function (result) {
             _this.vehicleDetail = result;
         });
     };
+    //Warehouse code filter
+    ShipmentCreatingComponent.prototype.handleWarehouseFilter = function (value) {
+        this.masterDataService.werehouseQuery(value);
+    };
+    //get Warehouse Detail
+    ShipmentCreatingComponent.prototype.GetWarehouseDetail = function () {
+        var _this = this;
+        this.masterDataService.getWarehouseDetail(this.warehouse.Value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.json(); }))
+            .subscribe(function (result) {
+            _this.warehouseDetail = result;
+        });
+    };
     //Request code filter
     ShipmentCreatingComponent.prototype.handleFilter = function (value) {
-        this.requestService.query(value);
+        this.requestService.query(value, this.warehouseDetail.Id);
     };
     //Add Request Tolist
     ShipmentCreatingComponent.prototype.AddRequestToList = function () {
@@ -1579,6 +1618,7 @@ var ShipmentCreatingComponent = /** @class */ (function () {
             _this.pushRequest();
         });
     };
+    //Grid table
     ShipmentCreatingComponent.prototype.pushRequest = function () {
         if (this.requestList.indexOf(this.requestDetail) != -1 || this.requestIdList.indexOf(this.requestDetail.Id) != -1) {
         }
@@ -1604,7 +1644,7 @@ var ShipmentCreatingComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./shipment-creating.component.html */ "./src/app/shipment/shipment-creating/shipment-creating.component.html"),
             styles: [__webpack_require__(/*! ./shipment-creating.component.scss */ "./src/app/shipment/shipment-creating/shipment-creating.component.scss")]
         }),
-        __metadata("design:paramtypes", [_shipment_service__WEBPACK_IMPORTED_MODULE_2__["ShipmentService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _angular_http__WEBPACK_IMPORTED_MODULE_5__["Http"], _request_request_service__WEBPACK_IMPORTED_MODULE_1__["RequestService"]])
+        __metadata("design:paramtypes", [_shipment_service__WEBPACK_IMPORTED_MODULE_2__["ShipmentService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _angular_http__WEBPACK_IMPORTED_MODULE_5__["Http"], _request_request_service__WEBPACK_IMPORTED_MODULE_1__["RequestService"], _shared_sevices_master_data_service__WEBPACK_IMPORTED_MODULE_7__["MasterDataService"]])
     ], ShipmentCreatingComponent);
     return ShipmentCreatingComponent;
 }());
@@ -1620,7 +1660,7 @@ var ShipmentCreatingComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"py-3\">\r\n  <button class=\"btn btn-success\" routerLink=\"/shipment/create\">Create Shipment</button>\r\n</div>\r\n\r\n<kendo-grid [kendoGridBinding]=\"gridData\"\r\n            [pageSize]=\"10\"\r\n            [pageable]=\"true\"\r\n            [sortable]=\"true\"\r\n            [filterable]=\"true\"\r\n            [groupable]=\"true\"\r\n            [height]=\"510\">\r\n  <kendo-grid-column field=\"CompanyName\" [width]=\"140\"></kendo-grid-column>\r\n  <kendo-grid-column field=\"ContactName\" [width]=\"120\"></kendo-grid-column>\r\n  <kendo-grid-column field=\"City\" [width]=\"100\"></kendo-grid-column>\r\n  <kendo-grid-column field=\"ContactTitle\" [width]=\"130\"></kendo-grid-column>\r\n</kendo-grid>\r\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"py-3\">\r\n    <button class=\"btn btn-success\" routerLink=\"/shipment/create\">Create Shipment</button>\r\n  </div>\r\n\r\n  <kendo-grid [data]=\"shipments\"\r\n              [pageSize]=\"state.take\"\r\n              [skip]=\"state.skip\"\r\n              [sort]=\"state.sort\"\r\n              [sortable]=\"true\"\r\n              [pageable]=\"true\"\r\n              [scrollable]=\"'scrollable'\"\r\n              [group]=\"state.group\"\r\n              [filterable]=\"true\"\r\n              [filter]=\"state.filter\"\r\n              (dataStateChange)=\"dataStateChange($event)\"\r\n              [height]=\"370\">\r\n\r\n    <kendo-grid-column field=\"Code\" title=\"Code\">\r\n    </kendo-grid-column>\r\n    <kendo-grid-column field=\"RequestQuantity\" title=\"Request Quantity\">\r\n    </kendo-grid-column>\r\n    <kendo-grid-column field=\"StartDate\" title=\"Start Date\">\r\n    </kendo-grid-column>\r\n    <kendo-grid-column field=\"EndDate\" title=\"End Date\">\r\n    </kendo-grid-column>\r\n    <kendo-grid-column field=\"DriverName\" title=\"Driver\">\r\n    </kendo-grid-column>\r\n    <kendo-grid-column field=\"VehicleLicensePlate\" title=\"Vehicle\">\r\n    </kendo-grid-column>\r\n  </kendo-grid>\r\n\r\n\r\n  <div class=\"modal fade\" id=\"CancelModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"CancelModalLabel\" aria-hidden=\"true\">\r\n    <div class=\"modal-dialog\" role=\"document\">\r\n      <div class=\"modal-content\">\r\n        <div class=\"modal-header\">\r\n          <h5 class=\"modal-title\" id=\"CancelModalLabel\">Cancel</h5>\r\n          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <div class=\"modal-body\">\r\n          Are you sure?\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"button\" class=\"btn btn-primary\">Confirm</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1646,30 +1686,44 @@ module.exports = ""
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentListComponent", function() { return ShipmentListComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _shipment_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shipment.service */ "./src/app/shipment/shipment.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
 
 var ShipmentListComponent = /** @class */ (function () {
-    function ShipmentListComponent() {
-        this.BASE_URL = 'http://localhost:54520/api/Requests/RequestList';
-        this.gridState = {
-            sort: [],
+    function ShipmentListComponent(shipmentService, router) {
+        var _this = this;
+        this.shipmentService = shipmentService;
+        this.router = router;
+        this.state = {
             skip: 0,
-            take: 10
+            take: 5
         };
+        this.shipmentService.fetch(this.state).subscribe(function (response) { return _this.shipments = response; });
     }
-    ShipmentListComponent.prototype.ngOnInit = function () {
+    ShipmentListComponent.prototype.dataStateChange = function (state) {
+        var _this = this;
+        this.state = state;
+        this.shipmentService.fetch(state)
+            .subscribe(function (response) { return _this.shipments = response; });
     };
     ShipmentListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-shipment-list',
             template: __webpack_require__(/*! ./shipment-list.component.html */ "./src/app/shipment/shipment-list/shipment-list.component.html"),
             styles: [__webpack_require__(/*! ./shipment-list.component.scss */ "./src/app/shipment/shipment-list/shipment-list.component.scss")]
-        })
+        }),
+        __metadata("design:paramtypes", [_shipment_service__WEBPACK_IMPORTED_MODULE_1__["ShipmentService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], ShipmentListComponent);
     return ShipmentListComponent;
 }());
@@ -1732,9 +1786,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShipmentService", function() { return ShipmentService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
-/* harmony import */ var src_app_shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/sevices/config-service.service */ "./src/app/shared/sevices/config-service.service.ts");
+/* harmony import */ var _progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @progress/kendo-data-query */ "./node_modules/@progress/kendo-data-query/dist/es/main.js");
+/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/internal/operators/map */ "./node_modules/rxjs/internal/operators/map.js");
+/* harmony import */ var rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/http */ "./node_modules/@angular/http/fesm5/http.js");
+/* harmony import */ var src_app_shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/shared/sevices/config-service.service */ "./src/app/shared/sevices/config-service.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1759,6 +1816,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var ShipmentService = /** @class */ (function (_super) {
     __extends(ShipmentService, _super);
     function ShipmentService(http, configService, https) {
@@ -1766,52 +1825,35 @@ var ShipmentService = /** @class */ (function (_super) {
         _this.http = http;
         _this.configService = configService;
         _this.https = https;
+        _this.BASE_URL = 'http://localhost:54520/api/Shipments/ShipmentList';
         _this.baseUrl = '';
         _this.baseUrl = configService.getApiURI();
         return _this;
     }
     ShipmentService.prototype.CreateShipment = function (requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId) {
         var body = JSON.stringify({ requestIdList: requestIdList, requestQuantity: requestQuantity, startDate: startDate, endDate: endDate, vehicleId: vehicleId, driverId: driverId, coordinatorId: coordinatorId });
-        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["Headers"]({ 'Content-Type': 'application/json' });
-        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["RequestOptions"]({ headers: headers });
+        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_5__["Headers"]({ 'Content-Type': 'application/json' });
+        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_5__["RequestOptions"]({ headers: headers });
         return this.http.post(this.baseUrl + '/Shipments/Create', body, options);
     };
-    //Vehicles filter Api
-    ShipmentService.prototype.query = function (licensePlate) {
-        var _this = this;
-        this.getdatasource(licensePlate).subscribe(function (x) { return _super.prototype.next.call(_this, x); });
-    };
-    ShipmentService.prototype.getdatasource = function (licensePlate) {
-        return this.https.get(this.baseUrl + ("/Vehicles/dataSource?licensePlate=" + licensePlate));
-    };
-    //Vehicles Detail Api
-    ShipmentService.prototype.getVehicleDetail = function (Id) {
-        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["Headers"]({ 'Content-Type': 'application/json' });
-        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["RequestOptions"]({ headers: headers });
-        return this.http.get(this.baseUrl + '/Vehicles/getDetail?Id=' + Id, options);
-    };
-    //Driver filter Api
-    ShipmentService.prototype.queryData = function (driverName) {
-        var _this = this;
-        this.getDatasource(driverName).subscribe(function (x) { return _super.prototype.next.call(_this, x); });
-    };
-    ShipmentService.prototype.getDatasource = function (driverName) {
-        return this.https.get(this.baseUrl + ("/MasterData/Drivers/dataSource?driverName=" + driverName));
-    };
-    //Driver filter Api
-    ShipmentService.prototype.getDriverDetail = function (Id) {
-        var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["Headers"]({ 'Content-Type': 'application/json' });
-        var options = new _angular_http__WEBPACK_IMPORTED_MODULE_3__["RequestOptions"]({ headers: headers });
-        return this.http.get(this.baseUrl + '/MasterData/Drivers/getDetail?Id=' + Id, options);
+    //Request List Api
+    ShipmentService.prototype.fetch = function (state) {
+        var queryStr = "" + Object(_progress_kendo_data_query__WEBPACK_IMPORTED_MODULE_2__["toDataSourceRequestString"])(state);
+        var hasGroups = state.group && state.group.length;
+        return this.https
+            .get(this.BASE_URL + "?" + queryStr).pipe(Object(rxjs_internal_operators_map__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return ({
+            data: response['Data'],
+            total: parseInt(response['Total'], 10)
+        }); }));
     };
     ShipmentService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_3__["Http"], src_app_shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_4__["ConfigService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+        __metadata("design:paramtypes", [_angular_http__WEBPACK_IMPORTED_MODULE_5__["Http"], src_app_shared_sevices_config_service_service__WEBPACK_IMPORTED_MODULE_6__["ConfigService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], ShipmentService);
     return ShipmentService;
-}(rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]));
+}(rxjs__WEBPACK_IMPORTED_MODULE_4__["BehaviorSubject"]));
 
 
 

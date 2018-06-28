@@ -38,12 +38,12 @@ export class RequestService extends BehaviorSubject<any> {
   }
 
   //Request filter Api
-  public query(value): void {
-    this.getdatasource(value).subscribe(x => super.next(x));
+  public query(value, werehouseId): void {
+    this.getdatasource(value, werehouseId).subscribe(x => super.next(x));
   }
 
-  public getdatasource(value): Observable<any> {
-    return this.https.get(this.baseUrl + `/Requests/dataSource?value=${value}`);
+  public getdatasource(value, werehouseId): Observable<any> {
+    return this.https.get(this.baseUrl + `/Requests/dataSource?value=${value}&warehouseId=${werehouseId}`);
   }
 
   //Request Detail Api

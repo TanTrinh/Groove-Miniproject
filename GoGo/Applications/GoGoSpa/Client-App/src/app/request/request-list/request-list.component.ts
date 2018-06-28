@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { RequestService } from '../request.service';
-import { PagerService } from '../../shared/sevices/pager-service.service';
 import { map } from 'rxjs/internal/operators/map';
 import { SharingService } from '../../shared/sevices/sharing-service.service';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';

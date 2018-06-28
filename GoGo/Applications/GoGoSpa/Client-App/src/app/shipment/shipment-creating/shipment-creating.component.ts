@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharingService } from '../../shared/sevices/sharing-service.service';
 import { RequestService } from '../../request/request.service';
-import { PagerService } from '../../shared/sevices/pager-service.service';
 import { Observable } from 'rxjs-compat/Observable';
 import { ShipmentService } from '../shipment.service';
 import { DataSourceRequestState } from '@progress/kendo-data-query';
@@ -15,6 +14,7 @@ import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { map } from 'rxjs/operators';
+import { MasterDataService } from '../../shared/sevices/master-data.service';
 
 
 @Component({
@@ -39,6 +39,10 @@ export class ShipmentCreatingComponent{
   public driver: any = {
   };
 
+  private warehouseView: Observable<any>;
+  public warehouse: any = {
+  };
+
   private pickingDate = new Date();
   private deliveryDate = new Date();
 
@@ -46,6 +50,7 @@ export class ShipmentCreatingComponent{
   private requestDetail: any;
   private vehicleDetail: any = {};
   private driverDetail: any = {};
+  private warehouseDetail: any = {};
 
   public addSucess: boolean;
 
@@ -54,15 +59,16 @@ export class ShipmentCreatingComponent{
 
   public active: boolean;
 
-  //Table
+  //Grid
   public requestList: any[] = new Array();
   public requestIdList: any[] = new Array();
   public gridData: any = process(this.requestList, this.state);
 
-  constructor(private service: ShipmentService, private router: Router, private http: Http, private requestService: RequestService) {
+  constructor(private service: ShipmentService, private router: Router, private http: Http, private requestService: RequestService, private masterDataService: MasterDataService) {
     this.view = requestService;
-    this.vehicleView = service;
-    this.driverView = service;
+    this.vehicleView = masterDataService;
+    this.driverView = masterDataService;
+    this.warehouseView = masterDataService;
   }
 
   CreateShipment() {
@@ -70,14 +76,15 @@ export class ShipmentCreatingComponent{
       .subscribe()
   }
 
+  //Master Data
   //Driver code filter
   public handleDriverFilter(value) {
-    this.service.queryData(value)
+    this.masterDataService.driverQuery(value)
   }
 
   //get Driver Detail
   GetDriverDetail() {
-    this.service.getDriverDetail(this.driver.Value).pipe(map(res => res.json()))
+    this.masterDataService.getDriverDetail(this.driver.Value).pipe(map(res => res.json()))
       .subscribe(result => {
         this.driverDetail = result
       });
@@ -85,21 +92,33 @@ export class ShipmentCreatingComponent{
 
   //Vehicles code filter
   public handleVehicleFilter(value) {
-    this.service.query(value)
+    this.masterDataService.vehicleQuery(value)
   }
 
   //get Vehicles Detail
   GetVehicleDetail() {
-    this.service.getVehicleDetail(this.vehicle.Value).pipe(map(res => res.json()))
+    this.masterDataService.getVehicleDetail(this.vehicle.Value).pipe(map(res => res.json()))
       .subscribe(result => {
         this.vehicleDetail = result
       });
   }
 
+  //Warehouse code filter
+  public handleWarehouseFilter(value) {
+    this.masterDataService.werehouseQuery(value)
+  }
+
+  //get Warehouse Detail
+  GetWarehouseDetail() {
+    this.masterDataService.getWarehouseDetail(this.warehouse.Value).pipe(map(res => res.json()))
+      .subscribe(result => {
+        this.warehouseDetail = result
+      });
+  }
 
   //Request code filter
   public handleFilter(value) {
-    this.requestService.query(value)
+    this.requestService.query(value, this.warehouseDetail.Id)
   }
 
   //Add Request Tolist
@@ -110,7 +129,8 @@ export class ShipmentCreatingComponent{
         this.pushRequest()
       });
   }
-  
+
+  //Grid table
   pushRequest()
   {
     if (this.requestList.indexOf(this.requestDetail) != -1 || this.requestIdList.indexOf(this.requestDetail.Id) != -1) {

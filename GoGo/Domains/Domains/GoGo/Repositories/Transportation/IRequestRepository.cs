@@ -17,7 +17,7 @@ namespace Domains.GoGo.Repositories.Transportation
 
         Task<string> ChangeStatus(int? id, string status);
 
-		Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value);
+		Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId);
 
         Task<RequestModel> GetRequestDetailAsync(string code);
 

@@ -19,7 +19,6 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ShipmentModule } from './shipment/shipment.module';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
 import { ConfigService } from './shared/sevices/config-service.service';
-import { PagerService } from './shared/sevices/pager-service.service';
 import { RequestService } from './request/request.service';
 import { SharedModule } from './shared/shared.module';
 import { RequestListComponent } from './request/request-list/request-list.component';
@@ -37,6 +36,7 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { ButtonGroupModule } from '@progress/kendo-angular-buttons';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+import { MasterDataService } from './shared/sevices/master-data.service';
 
 @NgModule({
   declarations: [
@@ -82,7 +82,7 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
     }),
   ],
   providers: [
-    NotificationService, ConfigService, PagerService, RequestService
+    NotificationService, ConfigService, RequestService
   ],
   bootstrap: [AppComponent]
 })

@@ -12,8 +12,7 @@ import { Observable } from 'rxjs-compat/Observable';
   providedIn: 'root'
 })
 export class ShipmentService extends BehaviorSubject<any>  {
-
-
+  private BASE_URL: string = 'http://localhost:54520/api/Shipments/ShipmentList';
   private baseUrl = '';
 
   constructor(private http: Http, private configService: ConfigService, private https: HttpClient) {
@@ -33,37 +32,22 @@ export class ShipmentService extends BehaviorSubject<any>  {
     return this.http.post(this.baseUrl + '/Shipments/Create', body, options);
   }
 
-  //Vehicles filter Api
-  public query(licensePlate): void {
-    this.getdatasource(licensePlate).subscribe(x => super.next(x));
+
+  //Request List Api
+  public fetch(state: DataSourceRequestState): Observable<GridDataResult> {
+    const queryStr = `${toDataSourceRequestString(state)}`;
+    const hasGroups = state.group && state.group.length;
+
+    return this.https
+      .get(`${this.BASE_URL}?${queryStr}`).pipe(
+        map(response => (<GridDataResult>{
+          data: response['Data'],
+          total: parseInt(response['Total'], 10)
+        }))
+      );
   }
 
-  public getdatasource(licensePlate): Observable<any> {
-    return this.https.get(this.baseUrl + `/Vehicles/dataSource?licensePlate=${licensePlate}`);
-  }
 
-  //Vehicles Detail Api
-  public getVehicleDetail(Id: string): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(this.baseUrl + '/Vehicles/getDetail?Id=' + Id, options);
-  }
 
-  //Driver filter Api
-  public queryData(driverName): void {
-    this.getDatasource(driverName).subscribe(x => super.next(x));
-  }
-
-  public getDatasource(driverName): Observable<any> {
-    return this.https.get(this.baseUrl + `/MasterData/Drivers/dataSource?driverName=${driverName}`);
-  }
-
- //Driver filter Api
-  public getDriverDetail(Id: string): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.get(this.baseUrl + '/MasterData/Drivers/getDetail?Id=' + Id, options);
-  }
 }

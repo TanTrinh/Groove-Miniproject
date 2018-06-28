@@ -36,10 +36,10 @@ namespace GoGoApi.Controllers.GoGo
 
 		[Route("datasource")]
 		[HttpGet]
-		public async Task<IActionResult> GetDataSource(string value)
+		public async Task<IActionResult> GetDataSource(string value, int warehouseId)
 		{
 	
-			return Ok(await _service.GetDataSource(value));
+			return Ok(await _service.GetDataSource(value, warehouseId));
 		}
 
         [Route("GetDetail")]
