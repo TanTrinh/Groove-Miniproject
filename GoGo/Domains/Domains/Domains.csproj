@@ -11,11 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="GoGo\Models\Fleet management\" />
     <Folder Include="Identity\Models\" />
     <Folder Include="Identity\Services\" />
-    <Folder Include="GoGo\Models\" />
-    <Folder Include="GoGo\Services\" />
-    <Folder Include="GoGo\Repositories\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -42,15 +42,32 @@ namespace Domains.GoGo.Services
         {
             var entity = this._mapper.Map<Request>(model);
 
-            entity.Status = "Pending";
+            entity.Status = "InActive";
             entity.CreatedDate = DateTime.Now;
             entity.Code = Helper.GenerateCode(DateTime.Now, 1);
             entity.IssuerId = 77; //take from claim
             entity.CustomerId = 77;
+            entity.WareHouse = null;
 
             _repository.Create(entity);
             await _uow.SaveChangesAsync();
             return entity.Id;
+        }
+
+        public async Task<int> UpdateCustomerRequest(RequestModel model, UserIdentity<long> issuer)
+        {
+            var entity = this._mapper.Map<Request>(model);
+            _repository.Update(entity);
+            //entity.WareHouse = null;
+            await _uow.SaveChangesAsync();
+            return entity.Id;
+        }
+
+        public async Task<RequestModel> FindCustomerRequestAsync(int id)
+        {
+            //var entity = _repository.GetEntityById(id);
+            //var entity = _repository.FindCustomerRequestAsync(id);
+            return await _repository.FindCustomerRequestAsync(id);
         }
     }
 }

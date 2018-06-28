@@ -13,12 +13,14 @@ import { NotificationService } from './shared/component/dialog/notification.serv
 import { FormValidationService } from './shared/component/form';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
-import { DlDateTimePickerDateModule } from 'angular-bootstrap-datetimepicker';
-import { InvalidTooltipModule } from 'ng-invalid-tooltip';
 import { LoginComponent } from './modules/account/login/login.component';
 import { ShipmentModule } from './shipment/shipment.module';
 import { FormsModule } from '@angular/forms';
 import { AccountModule } from './modules/account/account.module';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
   provide: APP_INITIALIZER,
@@ -28,6 +30,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     // Do initing of services that is required before app loads
     // NOTE: this factory needs to return a function (that then returns a promise)
     return () => ServiceRegistryService.load('http://localhost:49946/configuration/serviceRegistry').toPromise();
+    //return () => ServiceRegistryService.load('http://localhost:50269/configuration/serviceRegistry').toPromise();
   },
   deps: [ServiceRegistryService],
   multi: true
@@ -49,8 +52,6 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    DlDateTimePickerDateModule,
-    InvalidTooltipModule,
     FormsModule,
     //AgmCoreModule.forRoot({
     //  apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
@@ -58,7 +59,10 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     //AgmDirectionModule,
     HttpClientModule,
     ShipmentModule,
-    AccountModule
+    AccountModule,
+    InputsModule,
+    BrowserAnimationsModule,
+
   ],
   providers: [
     LocalStorageService,

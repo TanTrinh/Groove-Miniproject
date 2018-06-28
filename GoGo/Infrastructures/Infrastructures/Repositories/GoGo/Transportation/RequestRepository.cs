@@ -11,6 +11,8 @@ using AutoMapper;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Domains.GoGo.Models.Transportation;
+using Domains.GoGo;
+using Domains.Core;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -31,6 +33,33 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
         }
+        public async Task<RequestModel> FindCustomerRequestAsync(int id)
+        {
+            //return await this.dbSet.Where(p => p.Id == id).Include(p => p.WareHouse).MapQueryTo<RequestModel>(_mapper).FirstAsync();
+            return await this.dbSet
+                                 .Include(p => p.WareHouse)
+                                 .Where(p => p.Id == id)
+                                  .Select(p => new RequestModel
+                                  {
+                                      WareHouse = new DataSourceValue<int>()
+                                      {
+                                          Value = p.WareHouseId,
+                                          DisplayName = p.WareHouse.NameWarehouse
+                                      },
+                                      Id = p.Id,
+                                      ExpectedDate = p.ExpectedDate,
+                                      Address = p.Address,
+                                      DeliveryLatitude = p.DeliveryLatitude,
+                                      DeliveryLongitude = p.DeliveryLongitude,
+                                      Code = p.Code,
+                                      PackageQuantity = p.PackageQuantity,
+                                      ReceiverName = p.ReceiverName,
+                                      ReceiverPhoneNumber = p.ReceiverPhoneNumber,
+                                      CreatedDate = p.CreatedDate,
+                                      PickingDate = p.PickingDate,
+                                  }).SingleOrDefaultAsync();
+        }
+
 
         public Task<string> ChangeStatus(int? id, string status)
         {

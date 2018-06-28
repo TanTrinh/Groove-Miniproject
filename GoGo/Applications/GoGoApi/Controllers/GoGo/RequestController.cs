@@ -33,5 +33,27 @@ namespace GoGoApi.Controllers
             var result = await this._requestService.CreateCustomerRequest(model, null);
             return OkValueObject(result);
         }
+
+        [Route("{id}")]
+        [HttpGet]
+        public async Task<IActionResult> GetRequestAsync(int id)
+        {
+            var result = await _requestService.FindCustomerRequestAsync(id);
+            return Ok(result);
+        }
+
+        [Route("{id}")]
+        [HttpPut]
+        public async Task<IActionResult> UpateRequest([FromBody]RequestModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            //var userIdentity = GetCurrentIdentity<long>();
+            var result = await this._requestService.UpdateCustomerRequest(model, null);
+            return OkValueObject(result);
+        }
     }
 }

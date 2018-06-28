@@ -1,11 +1,15 @@
-﻿using Domains.Identity.Entities;
+﻿using AutoMapper;
+using Domains.Core;
+using Domains.GoGo.Models;
+using Domains.Identity.Entities;
+using Groove.AspNetCore.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Domains.GoGo
 {
-    public class WareHouse
+    public class WareHouse : IEntity<int>
     {
         public int Id { get; set; }
 
@@ -17,4 +21,15 @@ namespace Domains.GoGo
         public long OwnerId { get; set; }
 		public User Owner { get; set; }		
 	}
+
+    public class WareHouseMapper : Profile
+    {
+        public WareHouseMapper()
+        {
+            CreateMap<WareHouse, WarehouseOfCustomerModel>();
+            CreateMap<WarehouseOfCustomerModel, WareHouse>();
+            
+
+        }
+    }
 }

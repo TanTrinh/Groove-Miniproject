@@ -30,6 +30,7 @@ export class FormLink {
 }
 export class FormEvent {
   onAfterInitFormData: Function = function () { };
+  onBeforeInitFormData: Function = function () { };
 }
 export class FormDataSourceMap {
   public name: string;
@@ -73,6 +74,7 @@ export class FormDataSourceMapper {
 export class FormConfiguration {
   public events: FormEvent = new FormEvent();
   public dataSourceMapper: FormDataSourceMapper = new FormDataSourceMapper();
+
 }
 
 export class FormError {
@@ -141,6 +143,10 @@ export abstract class FormBaseComponent {
     });
   }
 
+  public GetData() {
+    return this.formData;
+  }
+
   public deepClone(source) {
     return JSON.parse(JSON.stringify(source));
   }
@@ -150,6 +156,9 @@ export abstract class FormBaseComponent {
     this.isViewFormMode = false;
     this.isCreateFormMode = false;
     this.isUpdateFormMode = false;
+
+    
+
     switch (this._formMode) {
       case "create":
         this.isCreateFormMode = true;
@@ -172,6 +181,7 @@ export abstract class FormBaseComponent {
       default:
         throw new Error(`Form mode = <${_formMode}> is not valid.`);
     }
+
     this.formLinks.listPageUrl = this.getListPageUrl();
     this.formLinks.viewFormUrl = this.getViewFormUrl(this.formId);
   }
@@ -180,27 +190,31 @@ export abstract class FormBaseComponent {
     // Form data
     if (this.isViewFormMode) {
       this.viewFormService.getFormData(this.formId).subscribe(data => {
+        this.formConfiguration.events.onBeforeInitFormData(data);
         this.formData = data;
         this.formConfiguration.events.onAfterInitFormData(this.formData);
         this.constructorForFormDataSource();
       });
     } else if (this.isUpdateFormMode) {
       this.viewFormService.getFormData(this.formId).subscribe(data => {
+        this.formConfiguration.events.onBeforeInitFormData(data);
         this.formData = data;
         this.formConfiguration.events.onAfterInitFormData(this.formData);
         this.constructorForFormDataSource();
-
       });
     } else {
+      this.formConfiguration.events.onBeforeInitFormData(this._defaultFormData);
       this.formData = this._defaultFormData;
       this.formConfiguration.events.onAfterInitFormData(this.formData);
       this.constructorForFormDataSource();
+      
     }
   }
 
   private constructorForFormDataSource() {
     // Data source data
     for (let map of this.formConfiguration.dataSourceMapper.getMap()) {
+
       let mapDataSourceObs: Observable<any>;
       if ((map.formMode & this._formModeCode) !== this._formModeCode) {
         // Ignore if user is in  diff context
@@ -208,7 +222,8 @@ export abstract class FormBaseComponent {
       }
       if ((map.source as IDataSourceService).getDataSource !== undefined) {
         mapDataSourceObs = (map.source as IDataSourceService).getDataSource();
-      } else if (typeof (map.source) === 'function' || map.source instanceof Function) {
+      }
+      else if (typeof (map.source) === 'function' || map.source instanceof Function) {
         mapDataSourceObs = (map.source as Function)();
       }
       mapDataSourceObs.subscribe(res => {

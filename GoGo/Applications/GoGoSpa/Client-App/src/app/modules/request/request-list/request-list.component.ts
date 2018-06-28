@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestService } from '../request.service';
 
 @Component({
   selector: 'app-request-list',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _requestService: RequestService) {
 
-  ngOnInit() {
   }
+  onClickActivate() {
+    //this._requestService.
+  }
+  onClickDeactivate() {
+
+  }
+  ngOnInit() {
+  } 
 
 }
