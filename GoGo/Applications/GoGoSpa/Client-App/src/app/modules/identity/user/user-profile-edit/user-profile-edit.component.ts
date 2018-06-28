@@ -3,31 +3,33 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { NgForm } from '@angular/forms';
+import { UserProfileEdit } from './UserProfileEdit';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss']
+  selector: 'app-user-profile-edit',
+  templateUrl: './user-profile-edit.component.html',
+  styleUrls: ['./user-profile-edit.component.scss']
 })
-export class UserEditComponent implements OnInit {
+export class UserProfileEditComponent implements OnInit {
+  id: any = {};
+  public modelHard = {
+    dob: '06/09/1996',
+    address: '132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh'
+  };
   public model: any = {
     email: '',
-    phoneNumber: '',
-    role: ''
+    phoneNumber: ''
   };
-  data: any = {};
-  id: any = {};
   public message: string = null;
   public isError: boolean = false;
   public lStorage = localStorage.length;
 
   constructor(
-    private http: HttpClient,
-    private router: Router,
-    private route: ActivatedRoute,
-    private location: Location,
+    private _http: HttpClient,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _location: Location,
     private _notificationService: NotificationService
   ) { }
 
@@ -42,13 +44,11 @@ export class UserEditComponent implements OnInit {
         })
       };
 
-      this.id = this.route.snapshot.paramMap.get('id');
+      this.id = this._route.snapshot.paramMap.get('id');
 
-      this.http.get('http://localhost:62772/api/user/accounts/edit?id=' + this.id, httpOptions).subscribe(result => {
-        if (result) {
-          console.log(result);
-          this.model = result;
-        }
+      this._http.get('http://localhost:62772/api/user/edit/profile?id=' + this.id, httpOptions).subscribe(result => {
+        console.log(result);
+        this.model = result;
       });
     }
   }
@@ -64,13 +64,9 @@ export class UserEditComponent implements OnInit {
         })
       };
 
-      id = this.route.snapshot.paramMap.get('id');
-
-      this.http.put('http://localhost:62772/api/user/account/edit?id=' + id, this.model, httpOptions).subscribe(result => {
+      this._http.put('http://localhost:62772/api/user/edit/profile?id=' + id, this.model, httpOptions).subscribe(result => {
         if (result) {
-          this.data = result;
-          console.log(this.data);
-          this.router.navigate(['home/detail', this.data.value]);
+          this._router.navigate(['home/profile']);
         }
       }, error => {
         this.isError = true;
@@ -87,6 +83,6 @@ export class UserEditComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['home/account']);
+    this._location.back();
   }
 }

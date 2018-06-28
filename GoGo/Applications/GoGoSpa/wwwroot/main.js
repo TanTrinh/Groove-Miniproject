@@ -45,6 +45,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_identity_user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/identity/user/user-detail/user-detail.component */ "./src/app/modules/identity/user/user-detail/user-detail.component.ts");
 /* harmony import */ var _modules_identity_user_user_create_user_create_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/identity/user/user-create/user-create.component */ "./src/app/modules/identity/user/user-create/user-create.component.ts");
 /* harmony import */ var _modules_identity_user_user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/identity/user/user-edit/user-edit.component */ "./src/app/modules/identity/user/user-edit/user-edit.component.ts");
+/* harmony import */ var _modules_identity_user_user_profile_edit_user_profile_edit_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/identity/user/user-profile-edit/user-profile-edit.component */ "./src/app/modules/identity/user/user-profile-edit/user-profile-edit.component.ts");
+/* harmony import */ var _shared_services_authservices_auth_guard_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./shared/services/authservices/auth-guard.service */ "./src/app/shared/services/authservices/auth-guard.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -64,6 +66,8 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
@@ -73,7 +77,8 @@ var routes = [
             { path: 'assigned', component: _shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_4__["AssignedComponent"] },
             { path: 'account', component: _modules_identity_user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_6__["UserListComponent"] },
             { path: 'create', component: _modules_identity_user_user_create_user_create_component__WEBPACK_IMPORTED_MODULE_10__["UserCreateComponent"] },
-            { path: 'profile', component: _modules_identity_user_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_7__["UserProfileComponent"] },
+            { path: 'profile', component: _modules_identity_user_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_7__["UserProfileComponent"], canActivate: [_shared_services_authservices_auth_guard_service__WEBPACK_IMPORTED_MODULE_13__["AuthGuardService"]] },
+            { path: 'profile/edit/:id', component: _modules_identity_user_user_profile_edit_user_profile_edit_component__WEBPACK_IMPORTED_MODULE_12__["UserProfileEditComponent"] },
             { path: 'detail/:id', component: _modules_identity_user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_9__["UserDetailComponent"] },
             { path: 'edit/:id', component: _modules_identity_user_user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_11__["UserEditComponent"] }
         ]
@@ -180,6 +185,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shipment_shipment_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./shipment/shipment.module */ "./src/app/shipment/shipment.module.ts");
 /* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
 /* harmony import */ var _modules_identity_user_user_module__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./modules/identity/user/user.module */ "./src/app/modules/identity/user/user.module.ts");
+/* harmony import */ var _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @auth0/angular-jwt */ "./node_modules/@auth0/angular-jwt/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -200,6 +206,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 //import { GgmapComponent } from './ggmap/ggmap.component';
 //import { AgmCoreModule, AgmDataLayer } from '@agm/core';
 //import { AgmDirectionModule } from 'agm-direction';
+
 
 
 
@@ -231,10 +238,17 @@ var AppModule = /** @class */ (function () {
                 //AgmDirectionModule,
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"],
                 _shipment_shipment_module__WEBPACK_IMPORTED_MODULE_13__["ShipmentModule"],
-                _modules_identity_user_user_module__WEBPACK_IMPORTED_MODULE_15__["UserModule"]
+                _modules_identity_user_user_module__WEBPACK_IMPORTED_MODULE_15__["UserModule"],
+                _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_16__["JwtModule"].forRoot({
+                    config: {
+                        tokenGetter: function () {
+                            return localStorage.getItem('tokenKey');
+                        }
+                    }
+                })
             ],
             providers: [
-                src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_14__["NotificationService"]
+                src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_14__["NotificationService"], _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_16__["JwtHelperService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
         })
@@ -359,7 +373,6 @@ var HomeComponent = /** @class */ (function () {
         this.route = route;
     }
     HomeComponent.prototype.ngOnInit = function () {
-        this.route.navigate(['./home/account']);
     };
     HomeComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1066,7 +1079,7 @@ var UserEditComponent = /** @class */ (function () {
                 })
             };
             this.id = this.route.snapshot.paramMap.get('id');
-            this.http.get('http://localhost:62772/api/user/edit?id=' + this.id, httpOptions).subscribe(function (result) {
+            this.http.get('http://localhost:62772/api/user/accounts/edit?id=' + this.id, httpOptions).subscribe(function (result) {
                 if (result) {
                     console.log(result);
                     _this.model = result;
@@ -1086,7 +1099,7 @@ var UserEditComponent = /** @class */ (function () {
                 })
             };
             id = this.route.snapshot.paramMap.get('id');
-            this.http.put('http://localhost:62772/api/user/edit?id=' + id, this.model, httpOptions).subscribe(function (result) {
+            this.http.put('http://localhost:62772/api/user/account/edit?id=' + id, this.model, httpOptions).subscribe(function (result) {
                 if (result) {
                     _this.data = result;
                     console.log(_this.data);
@@ -1105,7 +1118,7 @@ var UserEditComponent = /** @class */ (function () {
         }
     };
     UserEditComponent.prototype.back = function () {
-        this.location.back();
+        this.router.navigate(['home/account']);
     };
     UserEditComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1200,7 +1213,7 @@ var UserListComponent = /** @class */ (function () {
             console.log(this.selectOption);
             if (this.selectOption == 'Customer') {
                 this.id = 1;
-                this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(function (result) {
+                this.http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(function (result) {
                     _this.data = result;
                     _this.userList = _this.data;
                 });
@@ -1256,6 +1269,144 @@ var UserListComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/modules/identity/user/user-profile-edit/user-profile-edit.component.html":
+/*!******************************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-profile-edit/user-profile-edit.component.html ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<form #myForm=\"ngForm\" name=\"myForm\">\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"dob\">Date of birth</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"dob\" [(ngModel)]=\"modelHard.dob\" name=\"dob\" #dob=\"ngModel\" required>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"email\">Email</label>\r\n    <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"model.email\" name=\"email\" #email=\"ngModel\" required email=\"true\">\r\n    <div [ngClass]=\"{'hidden': email.valid || email.pristine}\" class=\"validation-message\">\r\n      <div *ngIf=\"email?.errors?.required\">\r\n        Email is required.\r\n      </div>\r\n      <div *ngIf=\"email?.errors?.email\">\r\n        This is not valid email, email should be <i>abc@gmail.com</i>.\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"phonenumber\">Phone Number</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"model.phoneNumber\" name=\"phonenumber\" #phonenumber=\"ngModel\" required>\r\n    <div [ngClass]=\"{'hidden': phonenumber.valid || phonenumber.pristine}\" class=\"validation-message\">\r\n      Phone number is required.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"address\">Address</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"address\" [(ngModel)]=\"modelHard.address\" name=\"address\" #address=\"ngModel\" required>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <button class=\"btn btn-success\" (click)=\"save(model.id)\">Save</button>\r\n    <button class=\"btn btn-primary\" (click)=\"back()\">Back</button>\r\n    {{message}}\r\n  </div>\r\n</form>\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/identity/user/user-profile-edit/user-profile-edit.component.scss":
+/*!******************************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-profile-edit/user-profile-edit.component.scss ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/modules/identity/user/user-profile-edit/user-profile-edit.component.ts":
+/*!****************************************************************************************!*\
+  !*** ./src/app/modules/identity/user/user-profile-edit/user-profile-edit.component.ts ***!
+  \****************************************************************************************/
+/*! exports provided: UserProfileEditComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfileEditComponent", function() { return UserProfileEditComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var UserProfileEditComponent = /** @class */ (function () {
+    function UserProfileEditComponent(_http, _router, _route, _location, _notificationService) {
+        this._http = _http;
+        this._router = _router;
+        this._route = _route;
+        this._location = _location;
+        this._notificationService = _notificationService;
+        this.id = {};
+        this.modelHard = {
+            dob: '06/09/1996',
+            address: '132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh'
+        };
+        this.model = {
+            email: '',
+            phoneNumber: ''
+        };
+        this.message = null;
+        this.isError = false;
+        this.lStorage = localStorage.length;
+    }
+    UserProfileEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var key = localStorage.getItem('tokenKey');
+        var currentKey = JSON.parse(key);
+        if (this.lStorage != 0) {
+            var httpOptions = {
+                headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentKey.access_token
+                })
+            };
+            this.id = this._route.snapshot.paramMap.get('id');
+            this._http.get('http://localhost:62772/api/user/edit/profile?id=' + this.id, httpOptions).subscribe(function (result) {
+                console.log(result);
+                _this.model = result;
+            });
+        }
+    };
+    UserProfileEditComponent.prototype.save = function (id) {
+        var _this = this;
+        var key = localStorage.getItem('tokenKey');
+        var currentKey = JSON.parse(key);
+        if (this.lStorage != 0) {
+            var httpOptions = {
+                headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentKey.access_token
+                })
+            };
+            this._http.put('http://localhost:62772/api/user/edit/profile?id=' + id, this.model, httpOptions).subscribe(function (result) {
+                if (result) {
+                    _this._router.navigate(['home/profile']);
+                }
+            }, function (error) {
+                _this.isError = true;
+                var httpError = error;
+                if (httpError.status === 400) {
+                    _this.message = httpError.error.message;
+                }
+                else {
+                    _this._notificationService.prompError(httpError.message);
+                }
+            });
+        }
+    };
+    UserProfileEditComponent.prototype.back = function () {
+        this._location.back();
+    };
+    UserProfileEditComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-user-profile-edit',
+            template: __webpack_require__(/*! ./user-profile-edit.component.html */ "./src/app/modules/identity/user/user-profile-edit/user-profile-edit.component.html"),
+            styles: [__webpack_require__(/*! ./user-profile-edit.component.scss */ "./src/app/modules/identity/user/user-profile-edit/user-profile-edit.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_3__["Location"],
+            src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+    ], UserProfileEditComponent);
+    return UserProfileEditComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/modules/identity/user/user-profile/UserProfile.ts":
 /*!*******************************************************************!*\
   !*** ./src/app/modules/identity/user/user-profile/UserProfile.ts ***!
@@ -1276,26 +1427,6 @@ var UserProfile = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/modules/identity/user/user-profile/UserProfileEdit.ts":
-/*!***********************************************************************!*\
-  !*** ./src/app/modules/identity/user/user-profile/UserProfileEdit.ts ***!
-  \***********************************************************************/
-/*! exports provided: UserProfileEdit */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserProfileEdit", function() { return UserProfileEdit; });
-var UserProfileEdit = /** @class */ (function () {
-    function UserProfileEdit() {
-    }
-    return UserProfileEdit;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/modules/identity/user/user-profile/user-profile.component.html":
 /*!********************************************************************************!*\
   !*** ./src/app/modules/identity/user/user-profile/user-profile.component.html ***!
@@ -1303,7 +1434,7 @@ var UserProfileEdit = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Profile</h1>\r\n  </div>\r\n  <div class=\"container pt-2\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3 col-lg-3 \" align=\"center\">\r\n        <img alt=\"User Pic\" src=\"https://image.flaticon.com/icons/svg/3/3641.svg\" class=\"img-circle\">\r\n\r\n        <div class=\"d-flex justify-content-center pt-3\">\r\n          <input style=\"display: none\"\r\n                 type=\"file\" (change)=\"onFileChanged($event)\"\r\n                 #fileInput>\r\n          <button class=\"btn btn-primary\" (click)=\"fileInput.click()\" id=\"AUpload\">Upload your photo</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-9 col-lg-9\">\r\n        <table class=\"table\">\r\n          <tbody>\r\n            <tr>\r\n              <th>Full name:</th>\r\n              <td>{{userProfile.userName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Date of birth:</th>\r\n              <td>06/09/1996</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Email:</th>\r\n              <td>{{userProfile.email}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Phone number:</th>\r\n              <td>{{userProfile.phoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Address:</th>\r\n              <td>132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Join date:</th>\r\n              <td>{{userProfile.createdDate | date:'medium'}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n        <div class=\"row justify-content-center\">\r\n          <!--<a href=\"#\" class=\"btn btn-primary btn-space\">Edit User</a>-->\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#EditModal\">Edit</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#ChangePWDModal\">Change Password</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#DeactivateModal\">Deactivate</button>&nbsp;\r\n          <button class=\"btn btn-primary\" (click)=\"back()\">Back</button>&nbsp;\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Edit Modal-->\r\n<div class=\"modal fade\" id=\"EditModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"EditModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"EditModalLabel\">Edit Profile</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <div class=\"form-group\">\r\n            <label for=\"email\">Email</label>\r\n            <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"userProfileEdit.email\" name=\"email\" #email=\"ngModel\" required email=\"true\">\r\n            <div [ngClass]=\"{'hidden': email.valid || email.pristine}\" class=\"validation-message\">\r\n              <div *ngIf=\"email?.errors?.required\">\r\n                Email is required.\r\n              </div>\r\n              <div *ngIf=\"email?.errors?.email\">\r\n                This is not valid email, email should be <i>abc@gmail.com</i>.\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"phonenumber\">Phone Number</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"userProfileEdit.phoneNumber\" name=\"phonenumber\" #phonenumber=\"ngModel\" required>\r\n            <div [ngClass]=\"{'hidden': phonenumber.valid || phonenumber.pristine}\" class=\"validation-message\">\r\n              Phone number is required.\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button id=\"btn-smessage\" class=\"btn btn-custom\"  (click)=\"confirm(userProfile.id)\" >Confirm</button>\r\n        </div>\r\n        <div [hidden]=\"!isError\" class=\"validation-message\">\r\n          {{message}}\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Edit Message Modal-->\r\n<div class=\"modal fade\" id=\"EditMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"EditMessage\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title \" id=\"EditMessageLabel\">Edit Success</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-success\">Your info has been changed successfully!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Deactivate Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <p>Please fill your password to comfirm.</p>\r\n          <input class=\"form-control\" type=\"password\" id=\"Password\" name=\"Password\" placeholder=\"Password\" />\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#DeactivateMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Deactivate Message Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateMessageLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-danger\">You have 7 days remain before your account being deactivate!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"ChangePWDModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <div class=\"form-group\">\r\n            <label for=\"CurrentPassword\">Current Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"CurrentPassword\" id=\"CurrentPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"NewPassword\">New Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"NewPassword\" id=\"NewPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"RePassword\">Re-Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"RePassword\" id=\"RePassword\">\r\n          </div>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#ChangePWDMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Message Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title \" id=\"ChangePWDMessageLabel\">Password changed!</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-success\">Your password has been changed successfully!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Profile</h1>\r\n  </div>\r\n  <div class=\"container pt-2\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3 col-lg-3 \" align=\"center\">\r\n        <img alt=\"User Pic\" src=\"https://image.flaticon.com/icons/svg/3/3641.svg\" class=\"img-circle\">\r\n\r\n        <div class=\"d-flex justify-content-center pt-3\">\r\n          <input style=\"display: none\"\r\n                 type=\"file\" (change)=\"onFileChanged($event)\"\r\n                 #fileInput>\r\n          <button class=\"btn btn-primary\" (click)=\"fileInput.click()\" id=\"AUpload\">Upload your photo</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-9 col-lg-9\">\r\n        <table class=\"table\">\r\n          <tbody>\r\n            <tr>\r\n              <th>Full name:</th>\r\n              <td>{{userProfile.userName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Date of birth:</th>\r\n              <td>06/09/1996</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Email:</th>\r\n              <td>{{userProfile.email}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Phone number:</th>\r\n              <td>{{userProfile.phoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Address:</th>\r\n              <td>132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Join date:</th>\r\n              <td>{{userProfile.createdDate | date:'medium'}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n        <div class=\"row justify-content-center\">\r\n          <!--<a href=\"#\" class=\"btn btn-primary btn-space\">Edit User</a>-->\r\n          <button class=\"btn btn-primary\" (click)=\"edit(userProfile.id)\">Edit</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#ChangePWDModal\">Change Password</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#DeactivateModal\">Deactivate</button>&nbsp;\r\n          <button class=\"btn btn-primary\" (click)=\"back()\">Back</button>&nbsp;\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Edit Modal-->\r\n<!--<div class=\"modal fade\" id=\"EditModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"EditModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"EditModalLabel\">Edit Profile</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <div class=\"form-group\">\r\n            <label for=\"email\">Email</label>\r\n            <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"userProfileEdit.email\" name=\"email\" #email=\"ngModel\" required email=\"true\">\r\n            <div [ngClass]=\"{'hidden': email.valid || email.pristine}\" class=\"validation-message\">\r\n              <div *ngIf=\"email?.errors?.required\">\r\n                Email is required.\r\n              </div>\r\n              <div *ngIf=\"email?.errors?.email\">\r\n                This is not valid email, email should be <i>abc@gmail.com</i>.\r\n              </div>\r\n            </div>\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"phonenumber\">Phone Number</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"userProfileEdit.phoneNumber\" name=\"phonenumber\" #phonenumber=\"ngModel\" required>\r\n            <div [ngClass]=\"{'hidden': phonenumber.valid || phonenumber.pristine}\" class=\"validation-message\">\r\n              Phone number is required.\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button id=\"btn-smessage\" class=\"btn btn-custom\"  (click)=\"confirm(userProfile.id)\" >Confirm</button>\r\n        </div>\r\n        <div [hidden]=\"!isError\" class=\"validation-message\">\r\n          {{message}}\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>-->\r\n\r\n<!--Edit Message Modal-->\r\n<!--<div class=\"modal fade\" id=\"EditMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"EditMessage\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title \" id=\"EditMessageLabel\">Edit Success</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-success\">Your info has been changed successfully!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>-->\r\n\r\n<!--Deactivate Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <p>Please fill your password to comfirm.</p>\r\n          <input class=\"form-control\" type=\"password\" id=\"Password\" name=\"Password\" placeholder=\"Password\" />\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#DeactivateMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Deactivate Message Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateMessageLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-danger\">You have 7 days remain before your account being deactivate!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"ChangePWDModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <div class=\"form-group\">\r\n            <label for=\"CurrentPassword\">Current Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"CurrentPassword\" id=\"CurrentPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"NewPassword\">New Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"NewPassword\" id=\"NewPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"RePassword\">Re-Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"RePassword\" id=\"RePassword\">\r\n          </div>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#ChangePWDMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Message Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title \" id=\"ChangePWDMessageLabel\">Password changed!</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-success\">Your password has been changed successfully!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1332,9 +1463,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _UserProfile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UserProfile */ "./src/app/modules/identity/user/user-profile/UserProfile.ts");
-/* harmony import */ var _UserProfileEdit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./UserProfileEdit */ "./src/app/modules/identity/user/user-profile/UserProfileEdit.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1350,17 +1480,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var UserProfileComponent = /** @class */ (function () {
-    function UserProfileComponent(http, router, route, location, _notificationService) {
-        this.http = http;
-        this.router = router;
-        this.route = route;
-        this.location = location;
+    function UserProfileComponent(_http, _router, _route, _location, _notificationService) {
+        this._http = _http;
+        this._router = _router;
+        this._route = _route;
+        this._location = _location;
         this._notificationService = _notificationService;
         this.data = {};
         this.userProfile = new _UserProfile__WEBPACK_IMPORTED_MODULE_3__["UserProfile"]();
-        this.userProfileEdit = new _UserProfileEdit__WEBPACK_IMPORTED_MODULE_4__["UserProfileEdit"]();
         this.lStorage = localStorage.length;
         this.message = null;
         this.isError = false;
@@ -1376,45 +1504,49 @@ var UserProfileComponent = /** @class */ (function () {
                     'Authorization': 'Bearer ' + currentKey.access_token
                 })
             };
-            this.http.get('http://localhost:62772/api/user/profile', httpOptions).subscribe(function (result) {
+            this._http.get('http://localhost:62772/api/user/profile', httpOptions).subscribe(function (result) {
                 _this.data = result;
                 _this.userProfile = _this.data;
-                _this.userProfileEdit = JSON.parse(JSON.stringify(_this.userProfile));
+                //this.userProfileEdit = JSON.parse(JSON.stringify(this.userProfile));
             });
         }
     };
-    UserProfileComponent.prototype.confirm = function (id) {
-        var _this = this;
-        var key = localStorage.getItem('tokenKey');
-        var currentKey = JSON.parse(key);
-        if (this.lStorage != 0) {
-            var httpOptions = {
-                headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + currentKey.access_token
-                })
-            };
-            this.userProfile = JSON.parse(JSON.stringify(this.userProfileEdit));
-            this.http.put('http://localhost:62772/api/user/edit/profile?id=' + id, this.userProfile, httpOptions).subscribe(function (result) {
-                if (result) {
-                    _this.data = result;
-                    _this.router.navigate(['home/profile']);
-                    //$('#btn-smessage').attr('data-target','#EditMessage')
-                }
-            }, function (error) {
-                _this.isError = true;
-                var httpError = error;
-                if (httpError.status === 400) {
-                    _this.message = httpError.error.message;
-                }
-                else {
-                    _this._notificationService.prompError(httpError.message);
-                }
-            });
-        }
+    //confirm(id) {
+    //  var key = localStorage.getItem('tokenKey');
+    //  var currentKey = JSON.parse(key);
+    //  if (this.lStorage != 0) {
+    //    var httpOptions = {
+    //      headers: new HttpHeaders({
+    //        'Content-Type': 'application/json',
+    //        'Authorization': 'Bearer ' + currentKey.access_token
+    //      })
+    //    };
+    //    this._http.put('http://localhost:62772/api/user/edit/profile?id=' + id, this.userProfileEdit, httpOptions).subscribe(result => {
+    //      if (result) {
+    //        this.userProfile = JSON.parse(JSON.stringify(this.userProfileEdit));
+    //        this.data = result;
+    //        //this._renderer.setElementAttribute(this._el, 'data-dismiss', 'modal');
+    //        //this._renderer.setElementAttribute(this._el, 'data-toggle', 'modal');
+    //        //this._renderer.setElementAttribute(this._el, 'data-target', '#EditMessage');
+    //        //this._router.navigate(['home/profile']);
+    //        $('#btn-smessage').attr('data-target','#EditMessage')
+    //      }
+    //    }, error => {
+    //      this.isError = true;
+    //      let httpError: HttpErrorResponse = error;
+    //      if (httpError.status === 400) {
+    //        this.message = httpError.error.message;
+    //      } else {
+    //        this._notificationService.prompError(httpError.message);
+    //      }
+    //    });
+    //  }
+    //}
+    UserProfileComponent.prototype.edit = function (id) {
+        this._router.navigate(['home/profile/edit', id]);
     };
     UserProfileComponent.prototype.back = function () {
-        this.location.back();
+        this._location.back();
     };
     UserProfileComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1425,8 +1557,8 @@ var UserProfileComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _angular_common__WEBPACK_IMPORTED_MODULE_5__["Location"],
-            src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_6__["NotificationService"]])
+            _angular_common__WEBPACK_IMPORTED_MODULE_4__["Location"],
+            src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
     ], UserProfileComponent);
     return UserProfileComponent;
 }());
@@ -1453,12 +1585,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./user-detail/user-detail.component */ "./src/app/modules/identity/user/user-detail/user-detail.component.ts");
 /* harmony import */ var _user_create_user_create_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user-create/user-create.component */ "./src/app/modules/identity/user/user-create/user-create.component.ts");
 /* harmony import */ var _user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./user-edit/user-edit.component */ "./src/app/modules/identity/user/user-edit/user-edit.component.ts");
+/* harmony import */ var _user_profile_edit_user_profile_edit_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./user-profile-edit/user-profile-edit.component */ "./src/app/modules/identity/user/user-profile-edit/user-profile-edit.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -1476,7 +1610,7 @@ var UserModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"]
             ],
-            declarations: [_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_2__["UserListComponent"], _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__["UserProfileComponent"], _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__["UserDetailComponent"], _user_create_user_create_component__WEBPACK_IMPORTED_MODULE_6__["UserCreateComponent"], _user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_7__["UserEditComponent"]]
+            declarations: [_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_2__["UserListComponent"], _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_3__["UserProfileComponent"], _user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_5__["UserDetailComponent"], _user_create_user_create_component__WEBPACK_IMPORTED_MODULE_6__["UserCreateComponent"], _user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_7__["UserEditComponent"], _user_profile_edit_user_profile_edit_component__WEBPACK_IMPORTED_MODULE_8__["UserProfileEditComponent"]]
         })
     ], UserModule);
     return UserModule;
@@ -1520,6 +1654,107 @@ var NotificationService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
     ], NotificationService);
     return NotificationService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/authservices/auth-guard.service.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/shared/services/authservices/auth-guard.service.ts ***!
+  \********************************************************************/
+/*! exports provided: AuthGuardService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuardService", function() { return AuthGuardService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth.service */ "./src/app/shared/services/authservices/auth.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AuthGuardService = /** @class */ (function () {
+    function AuthGuardService(auth, router) {
+        this.auth = auth;
+        this.router = router;
+    }
+    AuthGuardService.prototype.canActivate = function () {
+        if (!this.auth.isAuthenticated()) {
+            this.router.navigate(['login']);
+            return false;
+        }
+        return true;
+    };
+    AuthGuardService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], AuthGuardService);
+    return AuthGuardService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/authservices/auth.service.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/shared/services/authservices/auth.service.ts ***!
+  \**************************************************************/
+/*! exports provided: AuthService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthService", function() { return AuthService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @auth0/angular-jwt */ "./node_modules/@auth0/angular-jwt/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AuthService = /** @class */ (function () {
+    function AuthService(jwtHelper) {
+        this.jwtHelper = jwtHelper;
+    }
+    AuthService.prototype.isAuthenticated = function () {
+        var token = localStorage.getItem('tokenKey');
+        // Check whether the token is expired and return
+        // true or false
+        if (token != null && token != "undefined") {
+            var tokenKey = JSON.parse(token);
+            var currentToken = tokenKey.access_token;
+            return !this.jwtHelper.isTokenExpired(currentToken);
+        }
+        return false;
+    };
+    AuthService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_1__["JwtHelperService"]])
+    ], AuthService);
+    return AuthService;
 }());
 
 
@@ -1728,7 +1963,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\MyData\GrooveIntern\MiniProject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\intern02\MiniProject\ForkMiniProject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

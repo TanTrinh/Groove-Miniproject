@@ -6,12 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserProfileEditComponent } from './user-profile-edit/user-profile-edit.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule
   ],
-  declarations: [UserListComponent, UserProfileComponent, UserDetailComponent, UserCreateComponent, UserEditComponent]
+  declarations: [UserListComponent, UserProfileComponent, UserDetailComponent, UserCreateComponent, UserEditComponent, UserProfileEditComponent]
 })
 export class UserModule { }

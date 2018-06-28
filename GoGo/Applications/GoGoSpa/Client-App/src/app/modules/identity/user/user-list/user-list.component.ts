@@ -41,7 +41,7 @@ export class UserListComponent implements OnInit {
       console.log(this.selectOption);
       if (this.selectOption == 'Customer') {
         this.id = 1;
-        this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(result => {
+        this.http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
           this.data = result;
           this.userList = this.data;
         });

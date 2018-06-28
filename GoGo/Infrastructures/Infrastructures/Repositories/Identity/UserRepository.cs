@@ -50,6 +50,7 @@ namespace Infrastructures.Repositories.Identity
             var role = await _userManager.GetRolesAsync(user);
             var roleMap = new
             {
+                userMap.Id,
                 userMap.Email,
                 userMap.PhoneNumber,
                 Role = role[0]

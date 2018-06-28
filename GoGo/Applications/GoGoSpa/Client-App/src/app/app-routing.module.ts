@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { UserDetailComponent } from './modules/identity/user/user-detail/user-detail.component';
 import { UserCreateComponent } from './modules/identity/user/user-create/user-create.component';
 import { UserEditComponent } from './modules/identity/user/user-edit/user-edit.component';
+import { UserProfileEditComponent } from './modules/identity/user/user-profile-edit/user-profile-edit.component';
+import { AuthGuardService as AuthGuard } from './shared/services/authservices/auth-guard.service';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,7 +24,8 @@ const routes: Routes = [
         { path: 'assigned', component: AssignedComponent },
         { path: 'account', component: UserListComponent },
         { path: 'create', component: UserCreateComponent },
-        { path: 'profile', component: UserProfileComponent },
+        { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
+        { path: 'profile/edit/:id', component: UserProfileEditComponent },
         { path: 'detail/:id', component: UserDetailComponent },
         { path: 'edit/:id', component: UserEditComponent }
       ]

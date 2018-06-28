@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ShipmentModule } from './shipment/shipment.module';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
 import { UserModule } from './modules/identity/user/user.module';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,10 +42,17 @@ import { UserModule } from './modules/identity/user/user.module';
     //AgmDirectionModule,
     HttpClientModule,
     ShipmentModule,
-    UserModule
+    UserModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('tokenKey');
+        }
+      }
+    })
   ],
   providers: [
-    NotificationService
+    NotificationService, JwtHelperService 
   ],
   bootstrap: [AppComponent]
 })

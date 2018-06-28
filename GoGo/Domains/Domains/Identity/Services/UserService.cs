@@ -80,7 +80,6 @@ namespace Domains.Identity.Services
         public async Task<long> UpdateUserProfileAsync(long id, UserProfileUpdateModel model, UserIdentity<long> issuer)
         {
             var user = _userRepository.GetEntityById(id);
-            var role = await _userManagement.GetRolesAsync(user);
 
             _mapper.Map(model, user);
             user.UpdateBy(issuer);

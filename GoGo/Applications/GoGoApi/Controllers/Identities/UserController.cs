@@ -19,9 +19,9 @@ namespace GoGoApi.Controllers.Identities
             _userService = userService;
         }
 
-        [Route("userroles")]
+        [Route("list")]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetUsers(long? id)
         {
             return Ok(await _userService.GetUsersAsync(id));
@@ -29,7 +29,7 @@ namespace GoGoApi.Controllers.Identities
 
         [Route("create")]
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateUser([FromBody]UserCreateModel model)
         {
             if (!ModelState.IsValid)
@@ -42,9 +42,9 @@ namespace GoGoApi.Controllers.Identities
             return OkValueObject(userId);
         }
 
-        [Route("edit")]
+        [Route("account/edit")]
         [HttpPut]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateUser(long id, [FromBody]UserUpdateModel model)
         {
             if (!ModelState.IsValid)
@@ -58,9 +58,9 @@ namespace GoGoApi.Controllers.Identities
         }
 
         //Get the value of user need to update
-        [Route("edit")]
+        [Route("accounts/edit")]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> ViewUserUpdate(long id)
         {
             return Ok(await _userService.GetUserUpdateAsync(id));
@@ -81,6 +81,14 @@ namespace GoGoApi.Controllers.Identities
             return OkValueObject(userId);
         }
 
+        [Route("edit/profile")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> ViewUserProfileUpdate(long id)
+        {
+            return Ok(await _userService.GetUserUpdateAsync(id));
+        }
+
         [Route("profile")]
         [HttpGet]
         [Authorize]
@@ -92,7 +100,7 @@ namespace GoGoApi.Controllers.Identities
 
         [Route("detail")]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetUserDetail(long? id)
         {
             return Ok(await _userService.GetUserDetailAsync(id));
