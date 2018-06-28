@@ -13,10 +13,6 @@ import { NotificationService } from 'src/app/shared/components/dialog/notificati
 })
 export class UserProfileEditComponent implements OnInit {
   id: any = {};
-  public modelHard = {
-    dob: '06/09/1996',
-    address: '132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh'
-  };
   public model: any = {
     email: '',
     phoneNumber: ''

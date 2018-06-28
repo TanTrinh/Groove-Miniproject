@@ -70,7 +70,7 @@ export class UserEditComponent implements OnInit {
         if (result) {
           this.data = result;
           console.log(this.data);
-          this.router.navigate(['home/detail', this.data.value]);
+          this.router.navigate(['account/detail', this.data.value]);
         }
       }, error => {
         this.isError = true;
@@ -87,6 +87,6 @@ export class UserEditComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['home/account']);
+    this.router.navigate(['account']);
   }
 }

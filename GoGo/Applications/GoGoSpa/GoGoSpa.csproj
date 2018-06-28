@@ -9,6 +9,7 @@
     <Folder Include="Client-App\src\app\shared\components\dialog\" />
     <Folder Include="Client-App\src\app\shared\directives\" />
     <Folder Include="Client-App\src\app\shared\services\authservices\" />
+    <Folder Include="Client-App\src\app\shared\services\roleguardservice\" />
   </ItemGroup>
 
   <ItemGroup>

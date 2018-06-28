@@ -51,6 +51,7 @@ namespace Infrastructures.Repositories.Identity
             var roleMap = new
             {
                 userMap.Id,
+                userMap.UserName,
                 userMap.Email,
                 userMap.PhoneNumber,
                 Role = role[0]

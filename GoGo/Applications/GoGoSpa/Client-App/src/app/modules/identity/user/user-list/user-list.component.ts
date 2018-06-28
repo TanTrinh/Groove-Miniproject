@@ -76,14 +76,14 @@ export class UserListComponent implements OnInit {
   }
 
   loadDetail(id) {
-    this.router.navigate(['home/detail', id]);
+    this.router.navigate(['account/detail', id]);
   }
 
   loadUpdate(id) {
-    this.router.navigate(['home/edit', id])
+    this.router.navigate(['account/edit', id])
   }
 
   create() {
-    this.router.navigate(['home/create']);
+    this.router.navigate(['account/create']);
   }
 }

@@ -13,8 +13,8 @@ export class AuthService {
     // Check whether the token is expired and return
     // true or false
     if (token != null && token != "undefined") {
-      var tokenKey = JSON.parse(token);
-      const currentToken = tokenKey.access_token
+      const tokenKey = JSON.parse(token);
+      const currentToken = tokenKey.access_token;
       return !this.jwtHelper.isTokenExpired(currentToken);
     }
     return false;

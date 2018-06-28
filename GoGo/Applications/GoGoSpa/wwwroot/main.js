@@ -47,6 +47,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_identity_user_user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/identity/user/user-edit/user-edit.component */ "./src/app/modules/identity/user/user-edit/user-edit.component.ts");
 /* harmony import */ var _modules_identity_user_user_profile_edit_user_profile_edit_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/identity/user/user-profile-edit/user-profile-edit.component */ "./src/app/modules/identity/user/user-profile-edit/user-profile-edit.component.ts");
 /* harmony import */ var _shared_services_authservices_auth_guard_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./shared/services/authservices/auth-guard.service */ "./src/app/shared/services/authservices/auth-guard.service.ts");
+/* harmony import */ var _shared_services_roleguardservice_role_guard_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./shared/services/roleguardservice/role-guard.service */ "./src/app/shared/services/roleguardservice/role-guard.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -68,21 +69,31 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: _modules_account_login_login_component__WEBPACK_IMPORTED_MODULE_2__["LoginComponent"] },
-    { path: '', component: _layout_layout_component__WEBPACK_IMPORTED_MODULE_3__["LayoutComponent"] },
     {
-        path: 'home', component: _home_home_component__WEBPACK_IMPORTED_MODULE_5__["HomeComponent"], children: [
+        path: '', component: _layout_layout_component__WEBPACK_IMPORTED_MODULE_3__["LayoutComponent"], children: [
             { path: 'assigned', component: _shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_4__["AssignedComponent"] },
-            { path: 'account', component: _modules_identity_user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_6__["UserListComponent"] },
-            { path: 'create', component: _modules_identity_user_user_create_user_create_component__WEBPACK_IMPORTED_MODULE_10__["UserCreateComponent"] },
-            { path: 'profile', component: _modules_identity_user_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_7__["UserProfileComponent"], canActivate: [_shared_services_authservices_auth_guard_service__WEBPACK_IMPORTED_MODULE_13__["AuthGuardService"]] },
-            { path: 'profile/edit/:id', component: _modules_identity_user_user_profile_edit_user_profile_edit_component__WEBPACK_IMPORTED_MODULE_12__["UserProfileEditComponent"] },
-            { path: 'detail/:id', component: _modules_identity_user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_9__["UserDetailComponent"] },
-            { path: 'edit/:id', component: _modules_identity_user_user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_11__["UserEditComponent"] }
+            {
+                path: 'account', component: _modules_identity_user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_6__["UserListComponent"], canActivate: [_shared_services_roleguardservice_role_guard_service__WEBPACK_IMPORTED_MODULE_14__["RoleGuardService"]], data: {
+                    expectedRole: 'Administrator'
+                }, children: [
+                    { path: 'create', component: _modules_identity_user_user_create_user_create_component__WEBPACK_IMPORTED_MODULE_10__["UserCreateComponent"] },
+                    { path: 'detail/:id', component: _modules_identity_user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_9__["UserDetailComponent"] },
+                    { path: 'edit/:id', component: _modules_identity_user_user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_11__["UserEditComponent"] }
+                ]
+            }
         ]
     },
+    {
+        path: 'home', component: _home_home_component__WEBPACK_IMPORTED_MODULE_5__["HomeComponent"], children: [
+            { path: 'profile', component: _modules_identity_user_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_7__["UserProfileComponent"], canActivate: [_shared_services_authservices_auth_guard_service__WEBPACK_IMPORTED_MODULE_13__["AuthGuardService"]] },
+            { path: 'profile/edit/:id', component: _modules_identity_user_user_profile_edit_user_profile_edit_component__WEBPACK_IMPORTED_MODULE_12__["UserProfileEditComponent"] }
+        ]
+    }
+    //{ path: 'detail/:id', component: UserDetailComponent }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -572,7 +583,6 @@ var LayoutComponent = /** @class */ (function () {
         this.router = router;
     }
     LayoutComponent.prototype.ngOnInit = function () {
-        this.router.navigate(['./assigned']);
     };
     LayoutComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -596,7 +606,7 @@ var LayoutComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"sidebar-container\" class=\"sidebar-expanded d-none d-md-block \">\r\n  <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->\r\n  <!-- Bootstrap List Group -->\r\n  <ul class=\"list-group \" id=\"menu\">\r\n    <!--Menu with submenu\r\n    <li>\r\n      <a href=\"#submenu1\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\" list-group-item list-group-item-action flex-column align-items-start\">\r\n        Dashboard\r\n      </a>\r\n      <div id='submenu1' class=\"collapse sidebar-submenu\">\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          1. Charts\r\n        </a>\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          2. Reports\r\n        </a>\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          3. Tables\r\n        </a>\r\n      </div>\r\n    </li>-->\r\n    <li>\r\n      <a routerLink=\"/home/assigned\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Assigned</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/request\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Request</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/warehouse\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Warehouse</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/delivery-status\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Delivery Status</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/home/account\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Account</a>\r\n    </li>\r\n  </ul><!-- List Group END-->\r\n</div><!-- sidebar-container END -->\r\n"
+module.exports = "<div id=\"sidebar-container\" class=\"sidebar-expanded d-none d-md-block \">\r\n  <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->\r\n  <!-- Bootstrap List Group -->\r\n  <ul class=\"list-group \" id=\"menu\">\r\n    <!--Menu with submenu\r\n    <li>\r\n      <a href=\"#submenu1\" data-toggle=\"collapse\" aria-expanded=\"false\" class=\" list-group-item list-group-item-action flex-column align-items-start\">\r\n        Dashboard\r\n      </a>\r\n      <div id='submenu1' class=\"collapse sidebar-submenu\">\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          1. Charts\r\n        </a>\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          2. Reports\r\n        </a>\r\n        <a href=\"#\" class=\"list-group-item list-group-item-action \">\r\n          3. Tables\r\n        </a>\r\n      </div>\r\n    </li>-->\r\n    <li>\r\n      <a routerLink=\"/assigned\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Assigned</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/request\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Request</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/warehouse\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Warehouse</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/delivery-status\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Delivery Status</a>\r\n    </li>\r\n    <li>\r\n      <a routerLink=\"/account\" routerLinkActive=\"hold\" class=\" list-group-item list-group-item-action \">Account</a>\r\n    </li>\r\n  </ul><!-- List Group END-->\r\n</div><!-- sidebar-container END -->\r\n"
 
 /***/ }),
 
@@ -1103,7 +1113,7 @@ var UserEditComponent = /** @class */ (function () {
                 if (result) {
                     _this.data = result;
                     console.log(_this.data);
-                    _this.router.navigate(['home/detail', _this.data.value]);
+                    _this.router.navigate(['account/detail', _this.data.value]);
                 }
             }, function (error) {
                 _this.isError = true;
@@ -1118,7 +1128,7 @@ var UserEditComponent = /** @class */ (function () {
         }
     };
     UserEditComponent.prototype.back = function () {
-        this.router.navigate(['home/account']);
+        this.router.navigate(['account']);
     };
     UserEditComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1246,13 +1256,13 @@ var UserListComponent = /** @class */ (function () {
         //});
     };
     UserListComponent.prototype.loadDetail = function (id) {
-        this.router.navigate(['home/detail', id]);
+        this.router.navigate(['account/detail', id]);
     };
     UserListComponent.prototype.loadUpdate = function (id) {
-        this.router.navigate(['home/edit', id]);
+        this.router.navigate(['account/edit', id]);
     };
     UserListComponent.prototype.create = function () {
-        this.router.navigate(['home/create']);
+        this.router.navigate(['account/create']);
     };
     UserListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1276,7 +1286,7 @@ var UserListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form #myForm=\"ngForm\" name=\"myForm\">\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"dob\">Date of birth</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"dob\" [(ngModel)]=\"modelHard.dob\" name=\"dob\" #dob=\"ngModel\" required>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"email\">Email</label>\r\n    <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"model.email\" name=\"email\" #email=\"ngModel\" required email=\"true\">\r\n    <div [ngClass]=\"{'hidden': email.valid || email.pristine}\" class=\"validation-message\">\r\n      <div *ngIf=\"email?.errors?.required\">\r\n        Email is required.\r\n      </div>\r\n      <div *ngIf=\"email?.errors?.email\">\r\n        This is not valid email, email should be <i>abc@gmail.com</i>.\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"phonenumber\">Phone Number</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"model.phoneNumber\" name=\"phonenumber\" #phonenumber=\"ngModel\" required>\r\n    <div [ngClass]=\"{'hidden': phonenumber.valid || phonenumber.pristine}\" class=\"validation-message\">\r\n      Phone number is required.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"address\">Address</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"address\" [(ngModel)]=\"modelHard.address\" name=\"address\" #address=\"ngModel\" required>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <button class=\"btn btn-success\" (click)=\"save(model.id)\">Save</button>\r\n    <button class=\"btn btn-primary\" (click)=\"back()\">Back</button>\r\n    {{message}}\r\n  </div>\r\n</form>\n"
+module.exports = "<form #myForm=\"ngForm\" name=\"myForm\">\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"username\">User Name</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"username\" [(ngModel)]=\"model.userName\" name=\"username\" #username=\"ngModel\" disabled>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"email\">Email</label>\r\n    <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"model.email\" name=\"email\" #email=\"ngModel\" required email=\"true\">\r\n    <div [ngClass]=\"{'hidden': email.valid || email.pristine}\" class=\"validation-message\">\r\n      <div *ngIf=\"email?.errors?.required\">\r\n        Email is required.\r\n      </div>\r\n      <div *ngIf=\"email?.errors?.email\">\r\n        This is not valid email, email should be <i>abc@gmail.com</i>.\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"phonenumber\">Phone Number</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"model.phoneNumber\" name=\"phonenumber\" #phonenumber=\"ngModel\" required>\r\n    <div [ngClass]=\"{'hidden': phonenumber.valid || phonenumber.pristine}\" class=\"validation-message\">\r\n      Phone number is required.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <button class=\"btn btn-success\" (click)=\"save(model.id)\">Save</button>\r\n    <button class=\"btn btn-primary\" (click)=\"back()\">Back</button>\r\n    {{message}}\r\n  </div>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -1328,10 +1338,6 @@ var UserProfileEditComponent = /** @class */ (function () {
         this._location = _location;
         this._notificationService = _notificationService;
         this.id = {};
-        this.modelHard = {
-            dob: '06/09/1996',
-            address: '132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh'
-        };
         this.model = {
             email: '',
             phoneNumber: ''
@@ -1761,6 +1767,68 @@ var AuthService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/services/roleguardservice/role-guard.service.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/shared/services/roleguardservice/role-guard.service.ts ***!
+  \************************************************************************/
+/*! exports provided: RoleGuardService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleGuardService", function() { return RoleGuardService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _authservices_auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../authservices/auth.service */ "./src/app/shared/services/authservices/auth.service.ts");
+/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jwt-decode */ "./node_modules/jwt-decode/lib/index.js");
+/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jwt_decode__WEBPACK_IMPORTED_MODULE_3__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var RoleGuardService = /** @class */ (function () {
+    function RoleGuardService(auth, router) {
+        this.auth = auth;
+        this.router = router;
+    }
+    RoleGuardService.prototype.canActivate = function (route) {
+        // this will be passed from the route config
+        // on the data property
+        var expectedRole = route.data.expectedRole;
+        var token = localStorage.getItem('tokenKey');
+        var tokenKey = JSON.parse(token);
+        //const currentToken = JSON.stringify(tokenKey.access_token);
+        // decode the token to get its payload
+        var tokenPayload = jwt_decode__WEBPACK_IMPORTED_MODULE_3___default()(tokenKey.access_token);
+        if (!this.auth.isAuthenticated() ||
+            tokenPayload.role !== expectedRole) {
+            this.router.navigate(['login']);
+            return false;
+        }
+        return true;
+    };
+    RoleGuardService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_authservices_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], RoleGuardService);
+    return RoleGuardService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shipment/ShipmentAssigned/assigned.component.html":
 /*!*******************************************************************!*\
   !*** ./src/app/shipment/ShipmentAssigned/assigned.component.html ***!
@@ -1963,7 +2031,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\intern02\MiniProject\ForkMiniProject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\MyData\GrooveIntern\MiniProject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })
