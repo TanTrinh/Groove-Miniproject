@@ -1,4 +1,5 @@
-﻿using Groove.AspNetCore.Domain.Entities;
+﻿using AutoMapper;
+using Groove.AspNetCore.Domain.Entities;
 using Groove.AspNetCore.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -6,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Groove.AspNetCore.UnitOfWork.EntityFramework
 {
     public abstract class GenericRepository<TEntity, TKey> : IGenericRepository<TEntity, TKey>
@@ -25,7 +25,6 @@ namespace Groove.AspNetCore.UnitOfWork.EntityFramework
         {
             dbSet.Add(entity);
         }
-
 
         public virtual void Delete(TKey id)
         {
