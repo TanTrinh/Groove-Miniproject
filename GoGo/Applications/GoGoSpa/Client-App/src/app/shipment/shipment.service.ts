@@ -31,9 +31,9 @@ export class ShipmentService extends BehaviorSubject<any>  {
     return this.http.post(this.baseUrl + '/Shipments/Create', body, options);
   }
 
-  UpdateShipment(id, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId): any {
+  UpdateShipment(id, code, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId): any {
 
-    let body = JSON.stringify({id, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId });
+    let body = JSON.stringify({id, code, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId });
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });

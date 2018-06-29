@@ -61,14 +61,14 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 		public IEnumerable<RequestModel> GetRequestsByShipmentId(int shipmentId)
 		{
-			var requestIdList = this.context.Set<ShipmentRequest>().Where(p => p.ShipmentId == shipmentId).Select(p => p.RequestId).ToList();
+			var requestIdList = this.context.Set<ShipmentRequest>().Where(p =>( p.ShipmentId == shipmentId && p.Status == "Waiting")).Select(p => p.RequestId).ToList();
 
 			return this.dbSet.Where(p => (requestIdList.IndexOf(p.Id) != -1)).MapQueryTo<RequestModel>(_mapper).ToList();
 		}
 
 		public IEnumerable<int> GetRequestIdList(int shipmentId)
 		{
-			return this.context.Set<ShipmentRequest>().Where(p => p.ShipmentId == shipmentId).Select(p => p.RequestId).ToList();
+			return this.context.Set<ShipmentRequest>().Where(p => (p.ShipmentId == shipmentId && p.Status == "Waiting")).Select(p => p.RequestId).ToList();
 		}
 	}
 }

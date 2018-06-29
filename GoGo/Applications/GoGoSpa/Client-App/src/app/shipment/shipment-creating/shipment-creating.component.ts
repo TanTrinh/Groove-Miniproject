@@ -29,6 +29,7 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
 
+  public shipmentCode: any;
   public shipmentId: any;
   //Combobox
   private toggleText = 'Hide';
@@ -86,6 +87,7 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
         (
         result => {
           this.shipmentId = result.Id
+          this.shipmentCode = result.Code
           this.driverDetail = result.Driver
           this.vehicleDetail = result.Vehicle
           this.requestIdList = result.RequestIdList
@@ -93,6 +95,7 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
           this.pickingDate = new Date(result.EndDate)
           this.deliveryDate = new Date(result.EndDate)
           this.refreshGrid()
+          console.log(this.sharingService.shipmentCode)
         }
         )
     }
@@ -115,7 +118,7 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
               errors => { this.errors = errors })
         }
         else if (this.sharingService.isNewShipment == false) {
-          this.shipmentService.UpdateShipment(this.shipmentId, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
+          this.shipmentService.UpdateShipment(this.shipmentId, this.sharingService.shipmentCode, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
             .subscribe(result => {
 
               this.router.navigate(['/shipment/']);

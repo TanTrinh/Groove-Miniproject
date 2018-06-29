@@ -1625,6 +1625,7 @@ var ShipmentCreatingComponent = /** @class */ (function () {
         if (this.sharingService.isNewShipment == false) {
             this.shipmentService.GetDetailByCode(this.sharingService.shipmentCode).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (res) { return res.json(); })).subscribe(function (result) {
                 _this.shipmentId = result.Id;
+                _this.shipmentCode = result.Code;
                 _this.driverDetail = result.Driver;
                 _this.vehicleDetail = result.Vehicle;
                 _this.requestIdList = result.RequestIdList;
@@ -1632,6 +1633,7 @@ var ShipmentCreatingComponent = /** @class */ (function () {
                 _this.pickingDate = new Date(result.EndDate);
                 _this.deliveryDate = new Date(result.EndDate);
                 _this.refreshGrid();
+                console.log(_this.sharingService.shipmentCode);
             });
         }
     };
@@ -1648,7 +1650,7 @@ var ShipmentCreatingComponent = /** @class */ (function () {
                     }, function (errors) { _this.errors = errors; });
                 }
                 else if (this.sharingService.isNewShipment == false) {
-                    this.shipmentService.UpdateShipment(this.shipmentId, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
+                    this.shipmentService.UpdateShipment(this.shipmentId, this.sharingService.shipmentCode, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
                         .subscribe(function (result) {
                         _this.router.navigate(['/shipment/']);
                     }, function (errors) { _this.errors = errors; });
@@ -1951,8 +1953,8 @@ var ShipmentService = /** @class */ (function (_super) {
         var options = new _angular_http__WEBPACK_IMPORTED_MODULE_5__["RequestOptions"]({ headers: headers });
         return this.http.post(this.baseUrl + '/Shipments/Create', body, options);
     };
-    ShipmentService.prototype.UpdateShipment = function (id, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId) {
-        var body = JSON.stringify({ id: id, requestIdList: requestIdList, requestQuantity: requestQuantity, startDate: startDate, endDate: endDate, vehicleId: vehicleId, driverId: driverId, coordinatorId: coordinatorId });
+    ShipmentService.prototype.UpdateShipment = function (id, code, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId) {
+        var body = JSON.stringify({ id: id, code: code, requestIdList: requestIdList, requestQuantity: requestQuantity, startDate: startDate, endDate: endDate, vehicleId: vehicleId, driverId: driverId, coordinatorId: coordinatorId });
         var headers = new _angular_http__WEBPACK_IMPORTED_MODULE_5__["Headers"]({ 'Content-Type': 'application/json' });
         var options = new _angular_http__WEBPACK_IMPORTED_MODULE_5__["RequestOptions"]({ headers: headers });
         return this.http.put(this.baseUrl + '/Shipments/Update', body, options);

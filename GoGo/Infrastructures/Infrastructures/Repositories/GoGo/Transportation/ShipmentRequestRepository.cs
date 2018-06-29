@@ -33,7 +33,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 				if (index != -1)
 				{
-					shipmentRequestsInDb[i].RequestOrder = index;
+					shipmentRequestsInDb[i].RequestOrder = index+1;
 					this.dbSet.Update(shipmentRequestsInDb[i]);
 				}
 				else
@@ -51,7 +51,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 					var entity = new ShipmentRequest();
 					entity.ShipmentId = shipmentId;
 					entity.RequestId = requestIdList[0];
-					entity.RequestOrder = i;
+					entity.RequestOrder = i+1;
 					entity.Status = "Waiting";
 					entity.Note = "Created";
 					this.dbSet.Add(entity);

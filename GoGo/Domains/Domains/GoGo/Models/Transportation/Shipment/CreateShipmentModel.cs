@@ -9,7 +9,7 @@ namespace Domains.GoGo.Models.Transportation
     public class CreateShipmentModel
     {
 		public int Id { get; set; }
-		public int Code { get; set; }
+		public string Code { get; set; }
 		public List<int> RequestIdList { get; set; }
 
 		public int RequestQuantity { get; set; }
@@ -27,7 +27,14 @@ namespace Domains.GoGo.Models.Transportation
 		public CreateShipmentModelMapper()
 		{
 			CreateMap<Shipment, CreateShipmentModel>();
-			CreateMap<CreateShipmentModel, Shipment>();
+			var mappers = CreateMap<CreateShipmentModel, Shipment>();
+
+			mappers.ForMember(p => p.Id, opt => opt.MapFrom(s => s.Id));
+			mappers.ForMember(p => p.Code, opt => opt.MapFrom(s => s.Code));
+			mappers.ForMember(p => p.StartDate, opt => opt.MapFrom(s => s.StartDate));
+			mappers.ForMember(p => p.EndDate, opt => opt.MapFrom(s => s.EndDate));
+			mappers.ForMember(p => p.CoordinatorId, opt => opt.MapFrom(s => s.CoordinatorId));
+			mappers.ForMember(p => p.RequestQuantity, opt => opt.MapFrom(s => s.RequestQuantity));
 		}
 	}
 

@@ -58,6 +58,8 @@ namespace Domains.GoGo.Services.Transportation
 		{
 			var entity = _mapper.Map<Shipment>(model);
 
+
+
 			_shipmentRequestRepository.UpdateShipmentReuqest(model.RequestIdList, model.Id);
 			_uow.GetRepository<IShipmentRepository>().Update(entity);
 			
