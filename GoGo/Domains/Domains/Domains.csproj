@@ -23,6 +23,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.0" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2018.2.620" />
   </ItemGroup>
 
   <ItemGroup>

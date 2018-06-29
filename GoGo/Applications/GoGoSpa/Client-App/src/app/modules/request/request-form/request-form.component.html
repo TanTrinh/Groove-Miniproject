@@ -145,8 +145,18 @@
 
         </form>
       </div>
-      <div class=" col-lg-8 ">
-        <p>Map here!</p>
+      <div class="col-lg-8">
+        <div class="row pl-4" *ngIf="isViewFormMode">
+          <div class="col-7">
+            <h5>Code: {{formData.code}}</h5>
+          </div>
+          <div class="col-5">
+            <h5>Status: {{formData.status}}</h5>
+          </div>
+        </div>
+        <div class="row">
+          <p>Map here!</p>
+        </div>
       </div>
     </div>
   </div>

@@ -14,7 +14,9 @@ import { Observable } from 'rxjs';
 
 export class RequestFormComponent extends FormBaseComponent implements OnInit {
   public warehouseList: Array<any> = [];
-
+  formData: any = {
+    wareHouse: '',
+  }
 
   public onBeforeInitFormData(data) {
 
@@ -53,7 +55,7 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     if (value != null && value != undefined && value != '') {
       this.requestService.filterWarehouseList(value).subscribe(data => {
         if (data != null && data != undefined) {
-          this.WarehouseList = data;
+          this.warehouseList = data;
         }
       });
       

@@ -17,6 +17,8 @@ import { GridModule } from '@progress/kendo-angular-grid';
     ComboBoxModule,
     GridModule
   ],
+  providers: [
+  ],
   declarations: [
     RequestListComponent,
     RequestFormComponent,

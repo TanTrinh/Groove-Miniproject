@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo;
 using Domains.Core;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -47,6 +49,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                                           DisplayName = p.WareHouse.NameWarehouse
                                       },
                                       Id = p.Id,
+                                      Status = p.Status,
                                       ExpectedDate = p.ExpectedDate,
                                       Address = p.Address,
                                       DeliveryLatitude = p.DeliveryLatitude,
@@ -64,6 +67,20 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         public Task<string> ChangeStatus(int? id, string status)
         {
             throw new NotImplementedException();
+        }
+
+        public DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request)
+        { // 77 get from claim
+            
+            return this.dbSet.Include(p => p.WareHouse).Where(p => p.CustomerId == 77).Select(p => new SummaryRequestModel
+            {
+                WareHouse = p.WareHouse.NameWarehouse,
+                ExpectedDate = p.ExpectedDate,
+                Address = p.Address,
+                Status = p.Status,
+                Code = p.Code,
+                PickingDate = p.PickingDate,
+            }).ToDataSourceResult(request);
         }
     }
 }

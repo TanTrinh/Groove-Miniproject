@@ -35,6 +35,9 @@ namespace GoGoApi
             var jwtSecurityKey = Configuration.GetValue<string>("Security:Jwt:SecurityKey");
             var tokenTimeOutMinutes = Configuration.GetValue<long>("Security:Jwt:TokenTimeOutMinutes");
 
+            // Add Kendo UI services to the services container
+            services.AddKendo();
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(defaultConnectionString, sqlServerOptions =>
@@ -102,6 +105,10 @@ namespace GoGoApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // Configure Kendo UI
+            app.UseKendo(env);
+
             app.UseCors(builder =>
                    builder
                    .AllowAnyOrigin()

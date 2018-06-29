@@ -8,6 +8,7 @@ using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.Common.Identity;
 using Groove.AspNetCore.UnitOfWork;
+using Kendo.Mvc.UI;
 
 namespace Domains.GoGo.Services
 {
@@ -68,6 +69,11 @@ namespace Domains.GoGo.Services
             //var entity = _repository.GetEntityById(id);
             //var entity = _repository.FindCustomerRequestAsync(id);
             return await _repository.FindCustomerRequestAsync(id);
+        }
+
+        public DataSourceResult GetCustomerRequests(DataSourceRequest request)
+        {
+            return _repository.GetCustomerRequestsAsync(request);
         }
     }
 }

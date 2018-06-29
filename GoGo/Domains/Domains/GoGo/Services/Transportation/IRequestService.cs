@@ -1,6 +1,7 @@
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
 using Groove.AspNetCore.Common.Identity;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,5 +17,6 @@ namespace Domains.GoGo.Services
         Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
         Task<int> UpdateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
         Task<RequestModel> FindCustomerRequestAsync(int id);
+        DataSourceResult GetCustomerRequests(DataSourceRequest request);
     }
 }

@@ -92,4 +92,14 @@ namespace Domains.GoGo.Models.Transportation
 
         }
     }
+
+    public class SummaryRequestModel
+    {
+        public string Code { set; get; }
+        public string Status { get; set; }
+        public DateTime PickingDate { get; set; }
+        public DateTime ExpectedDate { set; get; }
+        public string WareHouse { get; set; }
+        public string Address { set; get; }
+    }
 }

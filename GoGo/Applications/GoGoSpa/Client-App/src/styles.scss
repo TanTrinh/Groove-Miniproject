@@ -45,3 +45,8 @@ img {
 .hidden{
     visibility: hidden;
 }
+
+.k-grid table tr:hover td {
+  background: #edeff2 !important;
+  cursor: pointer !important;
+}
