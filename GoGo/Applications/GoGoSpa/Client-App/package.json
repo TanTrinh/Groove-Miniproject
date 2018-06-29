@@ -31,6 +31,7 @@
     "jwt-decode": "^2.2.0",
     "package": "^1.0.1",
     "rxjs": "^6.2.1",
+    "rxjs-compat": "^6.2.1",
     "tether": "^1.4.4",
     "zone.js": "^0.8.26"
   },

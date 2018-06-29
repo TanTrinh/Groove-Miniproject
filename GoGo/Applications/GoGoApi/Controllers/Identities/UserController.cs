@@ -42,7 +42,7 @@ namespace GoGoApi.Controllers.Identities
             return OkValueObject(userId);
         }
 
-        [Route("account/edit")]
+        [Route("edit")]
         [HttpPut]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateUser(long id, [FromBody]UserUpdateModel model)
@@ -58,7 +58,7 @@ namespace GoGoApi.Controllers.Identities
         }
 
         //Get the value of user need to update
-        [Route("accounts/edit")]
+        [Route("edit")]
         [HttpGet]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> ViewUserUpdate(long id)
@@ -66,7 +66,7 @@ namespace GoGoApi.Controllers.Identities
             return Ok(await _userService.GetUserUpdateAsync(id));
         }
 
-        [Route("edit/profile")]
+        [Route("profile/edit")]
         [HttpPut]
         [Authorize]
         public async Task<IActionResult> UpdateUserProfile(long id, [FromBody]UserProfileUpdateModel model)
@@ -81,7 +81,7 @@ namespace GoGoApi.Controllers.Identities
             return OkValueObject(userId);
         }
 
-        [Route("edit/profile")]
+        [Route("profile/edit")]
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> ViewUserProfileUpdate(long id)

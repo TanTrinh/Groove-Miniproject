@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
+import { AdminConfigService } from '../../../../shared/configs/admin-config/admin-config.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -19,6 +20,8 @@ export class UserEditComponent implements OnInit {
   };
   data: any = {};
   id: any = {};
+  baseUrlEdit: string;
+  baseUrlInfoBeEdit: string;
   public message: string = null;
   public isError: boolean = false;
   public lStorage = localStorage.length;
@@ -28,8 +31,12 @@ export class UserEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private _notificationService: NotificationService
-  ) { }
+    private _notificationService: NotificationService,
+    private _configService: AdminConfigService
+  ) {
+    this.baseUrlInfoBeEdit = _configService.getUerInfoBeEditURI();
+    this.baseUrlEdit = _configService.getEditUserURI()
+  }
 
   ngOnInit() {
     var key = localStorage.getItem('tokenKey');
@@ -44,7 +51,7 @@ export class UserEditComponent implements OnInit {
 
       this.id = this.route.snapshot.paramMap.get('id');
 
-      this.http.get('http://localhost:62772/api/user/accounts/edit?id=' + this.id, httpOptions).subscribe(result => {
+      this.http.get(this.baseUrlInfoBeEdit + this.id, httpOptions).subscribe(result => {
         if (result) {
           console.log(result);
           this.model = result;
@@ -66,7 +73,7 @@ export class UserEditComponent implements OnInit {
 
       id = this.route.snapshot.paramMap.get('id');
 
-      this.http.put('http://localhost:62772/api/user/account/edit?id=' + id, this.model, httpOptions).subscribe(result => {
+      this.http.put(this.baseUrlEdit + id, this.model, httpOptions).subscribe(result => {
         if (result) {
           this.data = result;
           console.log(this.data);

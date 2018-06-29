@@ -76,24 +76,18 @@ var routes = [
     {
         path: '', component: _layout_layout_component__WEBPACK_IMPORTED_MODULE_3__["LayoutComponent"], children: [
             { path: 'assigned', component: _shipment_ShipmentAssigned_assigned_component__WEBPACK_IMPORTED_MODULE_4__["AssignedComponent"] },
-            {
-                path: 'account', component: _modules_identity_user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_6__["UserListComponent"], canActivate: [_shared_services_roleguardservice_role_guard_service__WEBPACK_IMPORTED_MODULE_14__["RoleGuardService"]], data: {
-                    expectedRole: 'Administrator'
-                }, children: [
-                    { path: 'create', component: _modules_identity_user_user_create_user_create_component__WEBPACK_IMPORTED_MODULE_10__["UserCreateComponent"] },
-                    { path: 'detail/:id', component: _modules_identity_user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_9__["UserDetailComponent"] },
-                    { path: 'edit/:id', component: _modules_identity_user_user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_11__["UserEditComponent"] }
-                ]
-            }
+            { path: 'account', component: _modules_identity_user_user_list_user_list_component__WEBPACK_IMPORTED_MODULE_6__["UserListComponent"], canActivate: [_shared_services_roleguardservice_role_guard_service__WEBPACK_IMPORTED_MODULE_14__["RoleGuardService"]], data: { expectedRole: 'Administrator' } },
+            { path: 'account/create', component: _modules_identity_user_user_create_user_create_component__WEBPACK_IMPORTED_MODULE_10__["UserCreateComponent"], canActivate: [_shared_services_roleguardservice_role_guard_service__WEBPACK_IMPORTED_MODULE_14__["RoleGuardService"]], data: { expectedRole: 'Administrator' } },
+            { path: 'account/detail/:id', component: _modules_identity_user_user_detail_user_detail_component__WEBPACK_IMPORTED_MODULE_9__["UserDetailComponent"], canActivate: [_shared_services_roleguardservice_role_guard_service__WEBPACK_IMPORTED_MODULE_14__["RoleGuardService"]], data: { expectedRole: 'Administrator' } },
+            { path: 'account/edit/:id', component: _modules_identity_user_user_edit_user_edit_component__WEBPACK_IMPORTED_MODULE_11__["UserEditComponent"], canActivate: [_shared_services_roleguardservice_role_guard_service__WEBPACK_IMPORTED_MODULE_14__["RoleGuardService"]], data: { expectedRole: 'Administrator' } }
         ]
     },
     {
-        path: 'home', component: _home_home_component__WEBPACK_IMPORTED_MODULE_5__["HomeComponent"], children: [
-            { path: 'profile', component: _modules_identity_user_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_7__["UserProfileComponent"], canActivate: [_shared_services_authservices_auth_guard_service__WEBPACK_IMPORTED_MODULE_13__["AuthGuardService"]] },
+        path: 'home', component: _home_home_component__WEBPACK_IMPORTED_MODULE_5__["HomeComponent"], canActivate: [_shared_services_authservices_auth_guard_service__WEBPACK_IMPORTED_MODULE_13__["AuthGuardService"]], children: [
+            { path: 'profile', component: _modules_identity_user_user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_7__["UserProfileComponent"] },
             { path: 'profile/edit/:id', component: _modules_identity_user_user_profile_edit_user_profile_edit_component__WEBPACK_IMPORTED_MODULE_12__["UserProfileEditComponent"] }
         ]
     }
-    //{ path: 'detail/:id', component: UserDetailComponent }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -779,7 +773,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form #myForm=\"ngForm\" (ngSubmit)=\"onCreate()\" name=\"myForm\">\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"username\">Username*</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"username\" [(ngModel)]=\"model.username\" name=\"username\" #username=\"ngModel\" required autofocus>\r\n    <div [ngClass]=\"{'hidden': username.valid || username.pristine}\" class=\"validation-message\">\r\n      Username is required.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"password\">Password*</label>\r\n    <input type=\"password\" class=\"form-control\" id=\"pwd\" #password=\"ngModel\" name=\"password\" [(ngModel)]=\"model.password\" required>\r\n    <div [ngClass]=\"{'hidden': password.valid || password.pristine}\" class=\"validation-message\">\r\n      Password is required.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"repassword\">Re-Password*</label>\r\n    <input type=\"password\" class=\"form-control\" id=\"repwd\" #repassword=\"ngModel\" name=\"repassword\" [(ngModel)]=\"model.repassword\" required>\r\n    <div [ngClass]=\"{'hidden': repassword.valid || repassword.pristine}\" class=\"validation-message\">\r\n      Re-Password is required.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"email\">Email*</label>\r\n    <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"model.email\" name=\"email\" #email=\"ngModel\" required email=\"true\">\r\n    <div [ngClass]=\"{'hidden': email.valid || email.pristine}\" class=\"validation-message\">\r\n      <div *ngIf=\"email?.errors?.required\">\r\n        Email is required.\r\n      </div>\r\n      <div *ngIf=\"email?.errors?.email\">\r\n        This is not valid email, email should be <i>abc@gmail.com</i>.\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"phonenumber\">Phone Number*</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"model.phonenumber\" name=\"phonenumber\" #phonenumber=\"ngModel\" required>\r\n    <div [ngClass]=\"{'hidden': phonenumber.valid || phonenumber.pristine}\" class=\"validation-message\">\r\n      Phone number is required.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"role\">Role*</label>\r\n    <select type=\"text\" class=\"form-control\" id=\"role\" [(ngModel)]=\"model.role\" name=\"role\" #role=\"ngModel\" required>\r\n      <option>Customer</option>\r\n      <option>Driver</option>\r\n      <option>Coordinator</option>\r\n      <option>Administrator</option>\r\n    </select>\r\n    <div [ngClass]=\"{'hidden': role.valid || role.pristine}\" class=\"validation-message\">\r\n      Role is required.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <div class=\"form-group col-md-9 row\">\r\n      <button type=\"submit\" class=\"btn btn-success active\">Create</button>&nbsp;\r\n      <button class=\"btn btn-primary active\" (click)=\"back()\">Back</button>&nbsp;\r\n    </div>\r\n    <div [hidden]=\"!isError\" class=\"validation-message\">\r\n      {{message}}\r\n    </div>\r\n  </div>\r\n</form>\r\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Create User</h1>\r\n  </div>\r\n  <form #myForm=\"ngForm\" (ngSubmit)=\"onCreate()\" name=\"myForm\">\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"username\">Username<span class=\"note\">*</span></label>\r\n      <input type=\"text\" class=\"form-control\" id=\"username\" [(ngModel)]=\"model.username\" name=\"username\" #username=\"ngModel\" required autofocus>\r\n      <div [ngClass]=\"{'hidden': username.valid || username.pristine}\" class=\"validation-message\">\r\n        Username is required.\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"password\">Password<span class=\"note\">*</span></label>\r\n      <input type=\"password\" class=\"form-control\" id=\"pwd\" #password=\"ngModel\" name=\"password\" [(ngModel)]=\"model.password\" required>\r\n      <div [ngClass]=\"{'hidden': password.valid || password.pristine}\" class=\"validation-message\">\r\n        Password is required.\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"repassword\">Re-Password<span class=\"note\">*</span></label>\r\n      <input type=\"password\" class=\"form-control\" id=\"repwd\" #repassword=\"ngModel\" name=\"repassword\" [(ngModel)]=\"model.repassword\" required>\r\n      <div [ngClass]=\"{'hidden': repassword.valid || repassword.pristine}\" class=\"validation-message\">\r\n        Re-Password is required.\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"email\">Email<span class=\"note\">*</span></label>\r\n      <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"model.email\" name=\"email\" #email=\"ngModel\" required email=\"true\">\r\n      <div [ngClass]=\"{'hidden': email.valid || email.pristine}\" class=\"validation-message\">\r\n        <div *ngIf=\"email?.errors?.required\">\r\n          Email is required.\r\n        </div>\r\n        <div *ngIf=\"email?.errors?.email\">\r\n          This is not valid email, email should be <i>abc@gmail.com</i>.\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"phonenumber\">Phone Number<span class=\"note\">*</span></label>\r\n      <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"model.phonenumber\" name=\"phonenumber\" #phonenumber=\"ngModel\" required>\r\n      <div [ngClass]=\"{'hidden': phonenumber.valid || phonenumber.pristine}\" class=\"validation-message\">\r\n        Phone number is required.\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"role\">Role<span class=\"note\">*</span></label>\r\n      <select type=\"text\" class=\"form-control\" id=\"role\" [(ngModel)]=\"model.role\" name=\"role\" #role=\"ngModel\" required>\r\n        <option>Customer</option>\r\n        <option>Driver</option>\r\n        <option>Coordinator</option>\r\n        <option>Administrator</option>\r\n      </select>\r\n      <div [ngClass]=\"{'hidden': role.valid || role.pristine}\" class=\"validation-message\">\r\n        Role is required.\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <div class=\"form-group col-md-9 row\">\r\n        <button type=\"submit\" class=\"btn btn-success active\">Create</button>&nbsp;\r\n        <button class=\"btn btn-primary active\" (click)=\"back()\">Back</button>&nbsp;\r\n      </div>\r\n      <div [hidden]=\"!isError\" class=\"validation-message\">\r\n        {{message}}\r\n      </div>\r\n    </div>\r\n  </form>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -809,6 +803,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
+/* harmony import */ var _shared_configs_admin_config_admin_config_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../shared/configs/admin-config/admin-config.service */ "./src/app/shared/configs/admin-config/admin-config.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -823,12 +818,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UserCreateComponent = /** @class */ (function () {
-    function UserCreateComponent(_http, _router, _location, _notificationService) {
+    function UserCreateComponent(_http, _router, _location, _notificationService, _configService) {
         this._http = _http;
         this._router = _router;
         this._location = _location;
         this._notificationService = _notificationService;
+        this._configService = _configService;
         this.data = {};
         this.message = null;
         this.model = {
@@ -841,8 +838,10 @@ var UserCreateComponent = /** @class */ (function () {
         };
         this.isError = false;
         this.lStorage = localStorage.length;
+        this.baseUrl = _configService.getCreateUserURI();
     }
     UserCreateComponent.prototype.ngOnInit = function () {
+        console.log(1);
     };
     UserCreateComponent.prototype.onCreate = function () {
         var _this = this;
@@ -855,9 +854,9 @@ var UserCreateComponent = /** @class */ (function () {
                     'Authorization': 'Bearer ' + currentKey.access_token
                 })
             };
-            this._http.post('http://localhost:62772/api/user/create', this.model, httpOptions).subscribe(function (result) {
+            this._http.post(this.baseUrl, this.model, httpOptions).subscribe(function (result) {
                 _this.data = result;
-                _this._router.navigate(['home/detail', _this.data.value]);
+                _this._router.navigate(['account/detail', _this.data.value]);
             }, function (error) {
                 _this.isError = true;
                 var httpError = error;
@@ -882,7 +881,8 @@ var UserCreateComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_common__WEBPACK_IMPORTED_MODULE_3__["Location"],
-            src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+            src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"],
+            _shared_configs_admin_config_admin_config_service__WEBPACK_IMPORTED_MODULE_5__["AdminConfigService"]])
     ], UserCreateComponent);
     return UserCreateComponent;
 }());
@@ -918,7 +918,7 @@ var UserDetail = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>User Detail</h1>\r\n  </div>\r\n  <div class=\"container pt-2\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3 col-lg-3 \" align=\"center\">\r\n        <img alt=\"User Pic\" src=\"https://image.flaticon.com/icons/svg/3/3641.svg\" class=\"img-circle\">\r\n      </div>\r\n      <div class=\"col-md-9 col-lg-9\">\r\n        <table class=\"table\">\r\n          <tbody>\r\n            <tr>\r\n              <th>Full name:</th>\r\n              <td>{{userDetail.userName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Date of birth:</th>\r\n              <td>06/09/1996</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Email:</th>\r\n              <td>{{userDetail.email}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Phone number:</th>\r\n              <td>{{userDetail.phoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Address:</th>\r\n              <td>132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Join date:</th>\r\n              <td>{{userDetail.createdDate | date:'medium'}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n        <div class=\"row justify-content-center\">\r\n          <!--<a href=\"#\" class=\"btn btn-primary btn-space\">Edit User</a>-->\r\n          <button class=\"btn btn-primary\" routerLink=\"/profile/edit\">Edit</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#ChangePWDModal\">Change Password</button>&nbsp;\r\n          <button class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#DeactivateModal\">Deactivate</button>&nbsp;\r\n          <button class=\"btn btn-primary\" (click)=\"pageBack()\">Back</button>&nbsp;\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n<!--Deactivate Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <p>Please fill your password to comfirm.</p>\r\n          <input class=\"form-control\" type=\"password\" id=\"Password\" name=\"Password\" placeholder=\"Password\" />\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#DeactivateMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Deactivate Message Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateMessageLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-danger\">You have 7 days remain before your account being deactivate!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"ChangePWDModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <div class=\"form-group\">\r\n            <label for=\"CurrentPassword\">Current Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"CurrentPassword\" id=\"CurrentPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"NewPassword\">New Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"NewPassword\" id=\"NewPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"RePassword\">Re-Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"RePassword\" id=\"RePassword\">\r\n          </div>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#ChangePWDMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Message Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title \" id=\"ChangePWDMessageLabel\">Password changed!</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-success\">Your password has been changed successfully!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>User Detail</h1>\r\n  </div>\r\n  <div class=\"container pt-2\">\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3 col-lg-3 \" align=\"center\">\r\n        <img alt=\"User Pic\" src=\"https://image.flaticon.com/icons/svg/3/3641.svg\" class=\"img-circle\">\r\n      </div>\r\n      <div class=\"col-md-9 col-lg-9\">\r\n        <table class=\"table\">\r\n          <tbody>\r\n            <tr>\r\n              <th>Full name:</th>\r\n              <td>{{userDetail.userName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Date of birth:</th>\r\n              <td>06/09/1996</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Email:</th>\r\n              <td>{{userDetail.email}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Phone number:</th>\r\n              <td>{{userDetail.phoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Address:</th>\r\n              <td>132 Hàm Nghi, Quận 1, Tp. Hồ Chí Minh</td>\r\n            </tr>\r\n            <tr>\r\n              <th>Join date:</th>\r\n              <td>{{userDetail.createdDate | date:'medium'}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n        <div class=\"row justify-content-center\">\r\n          <button class=\"btn btn-primary\" (click)=\"pageBack()\">Back</button>&nbsp;\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n<!--Deactivate Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <p>Please fill your password to comfirm.</p>\r\n          <input class=\"form-control\" type=\"password\" id=\"Password\" name=\"Password\" placeholder=\"Password\" />\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#DeactivateMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--Deactivate Message Modal-->\r\n<div class=\"modal fade\" id=\"DeactivateMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"DeactivateMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"DeactivateMessageLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-danger\">You have 7 days remain before your account being deactivate!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDModalLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"ChangePWDModalLabel\">Deactivate</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <form>\r\n        <div class=\"modal-body\">\r\n          <div class=\"form-group\">\r\n            <label for=\"CurrentPassword\">Current Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"CurrentPassword\" id=\"CurrentPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"NewPassword\">New Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"NewPassword\" id=\"NewPassword\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"RePassword\">Re-Password</label>\r\n            <input type=\"password\" class=\"form-control\" name=\"RePassword\" id=\"RePassword\">\r\n          </div>\r\n        </div>\r\n        <div class=\"modal-footer\">\r\n          <button type=\"button\" class=\"btn btn-custom\" data-dismiss=\"modal\">Close</button>\r\n          <button type=\"submit\" class=\"btn btn-custom\" data-dismiss=\"modal\" data-toggle=\"modal\" data-target=\"#ChangePWDMessage\">Confirm</button>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n<!--ChangePWD Message Modal-->\r\n<div class=\"modal fade\" id=\"ChangePWDMessage\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"ChangePWDMessageLabel\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title \" id=\"ChangePWDMessageLabel\">Password changed!</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        <p class=\"text-success\">Your password has been changed successfully!</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -947,6 +947,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _UserDetail__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UserDetail */ "./src/app/modules/identity/user/user-detail/UserDetail.ts");
+/* harmony import */ var _shared_configs_admin_config_admin_config_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../shared/configs/admin-config/admin-config.service */ "./src/app/shared/configs/admin-config/admin-config.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -960,14 +961,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UserDetailComponent = /** @class */ (function () {
-    function UserDetailComponent(http, router, route) {
-        this.http = http;
-        this.router = router;
-        this.route = route;
+    function UserDetailComponent(_http, _router, _route, _configService) {
+        this._http = _http;
+        this._router = _router;
+        this._route = _route;
+        this._configService = _configService;
         this.data = {};
         this.userDetail = new _UserDetail__WEBPACK_IMPORTED_MODULE_3__["UserDetail"]();
         this.lStorage = localStorage.length;
+        this.baseUrl = _configService.getUserDetailURI();
     }
     UserDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -980,8 +984,8 @@ var UserDetailComponent = /** @class */ (function () {
                     'Authorization': 'Bearer ' + currentKey.access_token
                 })
             };
-            this.id = this.route.snapshot.paramMap.get('id');
-            this.http.get('http://localhost:62772/api/user/detail?id=' + this.id, httpOptions).subscribe(function (result) {
+            this.id = this._route.snapshot.paramMap.get('id');
+            this._http.get(this.baseUrl + this.id, httpOptions).subscribe(function (result) {
                 console.log(result);
                 _this.data = result;
                 _this.userDetail = _this.data;
@@ -989,7 +993,7 @@ var UserDetailComponent = /** @class */ (function () {
         }
     };
     UserDetailComponent.prototype.pageBack = function () {
-        this.router.navigate(['home/account']);
+        this._router.navigate(['account']);
     };
     UserDetailComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -999,7 +1003,8 @@ var UserDetailComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _shared_configs_admin_config_admin_config_service__WEBPACK_IMPORTED_MODULE_4__["AdminConfigService"]])
     ], UserDetailComponent);
     return UserDetailComponent;
 }());
@@ -1015,7 +1020,7 @@ var UserDetailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form #myForm=\"ngForm\" name=\"myForm\">\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"email\">Email</label>\r\n    <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"model.email\" name=\"email\" #email=\"ngModel\" required email=\"true\">\r\n    <div [ngClass]=\"{'hidden': email.valid || email.pristine}\" class=\"validation-message\">\r\n      <div *ngIf=\"email?.errors?.required\">\r\n        Email is required.\r\n      </div>\r\n      <div *ngIf=\"email?.errors?.email\">\r\n        This is not valid email, email should be <i>abc@gmail.com</i>.\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"phonenumber\">Phone Number</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"model.phoneNumber\" name=\"phonenumber\" #phonenumber=\"ngModel\" required>\r\n    <div [ngClass]=\"{'hidden': phonenumber.valid || phonenumber.pristine}\" class=\"validation-message\">\r\n      Phone number is required.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"role\">Role</label>\r\n    <select class=\"form-control\" id=\"role\" [(ngModel)]=\"model.role\" name=\"role\" #role=\"ngModel\" required>\r\n      <option value=\"Customer\">Customer</option>\r\n      <option value=\"Driver\">Driver</option>\r\n      <option value=\"Coordinator\">Coordinator</option>\r\n      <option value=\"Administrator\">Administrator</option>\r\n    </select>\r\n    <div [ngClass]=\"{'hidden': role.valid || role.pristine}\" class=\"validation-message\">\r\n      Role is required.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <button class=\"btn btn-success\" (click)=\"save(model.id)\">Save</button>\r\n    <button class=\"btn btn-primary\" (click)=\"back()\">Back</button>\r\n    {{message}}\r\n  </div>\r\n</form>\r\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Edit User</h1>\r\n  </div>\r\n\r\n  <form #myForm=\"ngForm\" name=\"myForm\">\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"email\">Email</label>\r\n      <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"model.email\" name=\"email\" #email=\"ngModel\" required email=\"true\">\r\n      <div [ngClass]=\"{'hidden': email.valid || email.pristine}\" class=\"validation-message\">\r\n        <div *ngIf=\"email?.errors?.required\">\r\n          Email is required.\r\n        </div>\r\n        <div *ngIf=\"email?.errors?.email\">\r\n          This is not valid email, email should be <i>abc@gmail.com</i>.\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"phonenumber\">Phone Number</label>\r\n      <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"model.phoneNumber\" name=\"phonenumber\" #phonenumber=\"ngModel\" required>\r\n      <div [ngClass]=\"{'hidden': phonenumber.valid || phonenumber.pristine}\" class=\"validation-message\">\r\n        Phone number is required.\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"role\">Role</label>\r\n      <select class=\"form-control\" id=\"role\" [(ngModel)]=\"model.role\" name=\"role\" #role=\"ngModel\" required>\r\n        <option value=\"Customer\">Customer</option>\r\n        <option value=\"Driver\">Driver</option>\r\n        <option value=\"Coordinator\">Coordinator</option>\r\n        <option value=\"Administrator\">Administrator</option>\r\n      </select>\r\n      <div [ngClass]=\"{'hidden': role.valid || role.pristine}\" class=\"validation-message\">\r\n        Role is required.\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <button class=\"btn btn-success\" (click)=\"save(model.id)\">Save</button>&nbsp;\r\n      <button class=\"btn btn-primary\" (click)=\"back()\">Back</button>&nbsp;\r\n      {{message}}\r\n    </div>\r\n  </form>\r\n</div>\r\n\r\n  \r\n"
 
 /***/ }),
 
@@ -1045,6 +1050,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
+/* harmony import */ var _shared_configs_admin_config_admin_config_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../shared/configs/admin-config/admin-config.service */ "./src/app/shared/configs/admin-config/admin-config.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1059,13 +1065,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UserEditComponent = /** @class */ (function () {
-    function UserEditComponent(http, router, route, location, _notificationService) {
+    function UserEditComponent(http, router, route, location, _notificationService, _configService) {
         this.http = http;
         this.router = router;
         this.route = route;
         this.location = location;
         this._notificationService = _notificationService;
+        this._configService = _configService;
         this.model = {
             email: '',
             phoneNumber: '',
@@ -1076,6 +1084,8 @@ var UserEditComponent = /** @class */ (function () {
         this.message = null;
         this.isError = false;
         this.lStorage = localStorage.length;
+        this.baseUrlInfoBeEdit = _configService.getUerInfoBeEditURI();
+        this.baseUrlEdit = _configService.getEditUserURI();
     }
     UserEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1089,7 +1099,7 @@ var UserEditComponent = /** @class */ (function () {
                 })
             };
             this.id = this.route.snapshot.paramMap.get('id');
-            this.http.get('http://localhost:62772/api/user/accounts/edit?id=' + this.id, httpOptions).subscribe(function (result) {
+            this.http.get(this.baseUrlInfoBeEdit + this.id, httpOptions).subscribe(function (result) {
                 if (result) {
                     console.log(result);
                     _this.model = result;
@@ -1109,7 +1119,7 @@ var UserEditComponent = /** @class */ (function () {
                 })
             };
             id = this.route.snapshot.paramMap.get('id');
-            this.http.put('http://localhost:62772/api/user/account/edit?id=' + id, this.model, httpOptions).subscribe(function (result) {
+            this.http.put(this.baseUrlEdit + id, this.model, httpOptions).subscribe(function (result) {
                 if (result) {
                     _this.data = result;
                     console.log(_this.data);
@@ -1140,7 +1150,8 @@ var UserEditComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _angular_common__WEBPACK_IMPORTED_MODULE_3__["Location"],
-            src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+            src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"],
+            _shared_configs_admin_config_admin_config_service__WEBPACK_IMPORTED_MODULE_5__["AdminConfigService"]])
     ], UserEditComponent);
     return UserEditComponent;
 }());
@@ -1197,9 +1208,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var UserListComponent = /** @class */ (function () {
-    function UserListComponent(http, router) {
-        this.http = http;
-        this.router = router;
+    function UserListComponent(_http, _router) {
+        this._http = _http;
+        this._router = _router;
         this.data = {};
         this.selectOption = "";
         this.lStorage = localStorage.length;
@@ -1223,28 +1234,28 @@ var UserListComponent = /** @class */ (function () {
             console.log(this.selectOption);
             if (this.selectOption == 'Customer') {
                 this.id = 1;
-                this.http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(function (result) {
+                this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(function (result) {
                     _this.data = result;
                     _this.userList = _this.data;
                 });
             }
             else if (this.selectOption == 'Driver') {
                 this.id = 2;
-                this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(function (result) {
+                this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(function (result) {
                     _this.data = result;
                     _this.userList = _this.data;
                 });
             }
             else if (this.selectOption == 'Coordinator') {
                 this.id = 3;
-                this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(function (result) {
+                this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(function (result) {
                     _this.data = result;
                     _this.userList = _this.data;
                 });
             }
             else {
                 this.id = 4;
-                this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(function (result) {
+                this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(function (result) {
                     _this.data = result;
                     _this.userList = _this.data;
                 });
@@ -1256,13 +1267,13 @@ var UserListComponent = /** @class */ (function () {
         //});
     };
     UserListComponent.prototype.loadDetail = function (id) {
-        this.router.navigate(['account/detail', id]);
+        this._router.navigate(['account/detail', id]);
     };
     UserListComponent.prototype.loadUpdate = function (id) {
-        this.router.navigate(['account/edit', id]);
+        this._router.navigate(['account/edit', id]);
     };
     UserListComponent.prototype.create = function () {
-        this.router.navigate(['account/create']);
+        this._router.navigate(['account/create']);
     };
     UserListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1270,7 +1281,8 @@ var UserListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./user-list.component.html */ "./src/app/modules/identity/user/user-list/user-list.component.html"),
             styles: [__webpack_require__(/*! ./user-list.component.scss */ "./src/app/modules/identity/user/user-list/user-list.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], UserListComponent);
     return UserListComponent;
 }());
@@ -1286,7 +1298,7 @@ var UserListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form #myForm=\"ngForm\" name=\"myForm\">\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"username\">User Name</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"username\" [(ngModel)]=\"model.userName\" name=\"username\" #username=\"ngModel\" disabled>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"email\">Email</label>\r\n    <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"model.email\" name=\"email\" #email=\"ngModel\" required email=\"true\">\r\n    <div [ngClass]=\"{'hidden': email.valid || email.pristine}\" class=\"validation-message\">\r\n      <div *ngIf=\"email?.errors?.required\">\r\n        Email is required.\r\n      </div>\r\n      <div *ngIf=\"email?.errors?.email\">\r\n        This is not valid email, email should be <i>abc@gmail.com</i>.\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <label for=\"phonenumber\">Phone Number</label>\r\n    <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"model.phoneNumber\" name=\"phonenumber\" #phonenumber=\"ngModel\" required>\r\n    <div [ngClass]=\"{'hidden': phonenumber.valid || phonenumber.pristine}\" class=\"validation-message\">\r\n      Phone number is required.\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"form-group col-md-5\">\r\n    <button class=\"btn btn-success\" (click)=\"save(model.id)\">Save</button>\r\n    <button class=\"btn btn-primary\" (click)=\"back()\">Back</button>\r\n    {{message}}\r\n  </div>\r\n</form>\r\n"
+module.exports = "<div class=\"container-fluid\">\r\n  <div class=\"border-custom\">\r\n    <h1>Edit Profile</h1>\r\n  </div>\r\n\r\n  <form #myForm=\"ngForm\" name=\"myForm\">\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"username\">User Name</label>\r\n      <input type=\"text\" class=\"form-control\" id=\"username\" [(ngModel)]=\"model.userName\" name=\"username\" #username=\"ngModel\" disabled>\r\n      <div class=\"validation-message\"></div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"email\">Email</label>\r\n      <input type=\"email\" class=\"form-control\" id=\"email\" [(ngModel)]=\"model.email\" name=\"email\" #email=\"ngModel\" required email=\"true\">\r\n      <div [ngClass]=\"{'hidden': email.valid || email.pristine}\" class=\"validation-message\">\r\n        <div *ngIf=\"email?.errors?.required\">\r\n          Email is required.\r\n        </div>\r\n        <div *ngIf=\"email?.errors?.email\">\r\n          This is not valid email, email should be <i>abc@gmail.com</i>.\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <label for=\"phonenumber\">Phone Number</label>\r\n      <input type=\"text\" class=\"form-control\" id=\"phonenumber\" [(ngModel)]=\"model.phoneNumber\" name=\"phonenumber\" #phonenumber=\"ngModel\" required>\r\n      <div [ngClass]=\"{'hidden': phonenumber.valid || phonenumber.pristine}\" class=\"validation-message\">\r\n        Phone number is required.\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group col-md-5\">\r\n      <button class=\"btn btn-success\" (click)=\"save(model.id)\">Save</button>&nbsp;\r\n      <button class=\"btn btn-primary\" (click)=\"back()\">Back</button>&nbsp;\r\n      {{message}}\r\n    </div>\r\n  </form>\r\n</div>\r\n\r\n  \r\n"
 
 /***/ }),
 
@@ -1316,6 +1328,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
+/* harmony import */ var _shared_configs_user_config_user_config_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../shared/configs/user-config/user-config.service */ "./src/app/shared/configs/user-config/user-config.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1330,13 +1343,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UserProfileEditComponent = /** @class */ (function () {
-    function UserProfileEditComponent(_http, _router, _route, _location, _notificationService) {
+    function UserProfileEditComponent(_http, _router, _route, _location, _notificationService, _configService) {
         this._http = _http;
         this._router = _router;
         this._route = _route;
         this._location = _location;
         this._notificationService = _notificationService;
+        this._configService = _configService;
         this.id = {};
         this.model = {
             email: '',
@@ -1345,6 +1360,8 @@ var UserProfileEditComponent = /** @class */ (function () {
         this.message = null;
         this.isError = false;
         this.lStorage = localStorage.length;
+        this.baseUrlProfileInfoBeEdit = _configService.getUserProfileInfoBeEditURI();
+        this.baseUrlProfileEdit = _configService.getUserProfileEditURI();
     }
     UserProfileEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1358,7 +1375,7 @@ var UserProfileEditComponent = /** @class */ (function () {
                 })
             };
             this.id = this._route.snapshot.paramMap.get('id');
-            this._http.get('http://localhost:62772/api/user/edit/profile?id=' + this.id, httpOptions).subscribe(function (result) {
+            this._http.get(this.baseUrlProfileInfoBeEdit + this.id, httpOptions).subscribe(function (result) {
                 console.log(result);
                 _this.model = result;
             });
@@ -1375,7 +1392,7 @@ var UserProfileEditComponent = /** @class */ (function () {
                     'Authorization': 'Bearer ' + currentKey.access_token
                 })
             };
-            this._http.put('http://localhost:62772/api/user/edit/profile?id=' + id, this.model, httpOptions).subscribe(function (result) {
+            this._http.put(this.baseUrlProfileEdit + id, this.model, httpOptions).subscribe(function (result) {
                 if (result) {
                     _this._router.navigate(['home/profile']);
                 }
@@ -1404,7 +1421,8 @@ var UserProfileEditComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _angular_common__WEBPACK_IMPORTED_MODULE_3__["Location"],
-            src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"]])
+            src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_4__["NotificationService"],
+            _shared_configs_user_config_user_config_service__WEBPACK_IMPORTED_MODULE_5__["UserConfigService"]])
     ], UserProfileEditComponent);
     return UserProfileEditComponent;
 }());
@@ -1471,6 +1489,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UserProfile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UserProfile */ "./src/app/modules/identity/user/user-profile/UserProfile.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/components/dialog/notification.service */ "./src/app/shared/components/dialog/notification.service.ts");
+/* harmony import */ var _shared_configs_user_config_user_config_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../shared/configs/user-config/user-config.service */ "./src/app/shared/configs/user-config/user-config.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1486,18 +1505,21 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UserProfileComponent = /** @class */ (function () {
-    function UserProfileComponent(_http, _router, _route, _location, _notificationService) {
+    function UserProfileComponent(_http, _router, _route, _location, _notificationService, _configService) {
         this._http = _http;
         this._router = _router;
         this._route = _route;
         this._location = _location;
         this._notificationService = _notificationService;
+        this._configService = _configService;
         this.data = {};
         this.userProfile = new _UserProfile__WEBPACK_IMPORTED_MODULE_3__["UserProfile"]();
         this.lStorage = localStorage.length;
         this.message = null;
         this.isError = false;
+        this.baseUrl = _configService.getUserProfileURI();
     }
     UserProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1510,44 +1532,12 @@ var UserProfileComponent = /** @class */ (function () {
                     'Authorization': 'Bearer ' + currentKey.access_token
                 })
             };
-            this._http.get('http://localhost:62772/api/user/profile', httpOptions).subscribe(function (result) {
+            this._http.get(this.baseUrl, httpOptions).subscribe(function (result) {
                 _this.data = result;
                 _this.userProfile = _this.data;
-                //this.userProfileEdit = JSON.parse(JSON.stringify(this.userProfile));
             });
         }
     };
-    //confirm(id) {
-    //  var key = localStorage.getItem('tokenKey');
-    //  var currentKey = JSON.parse(key);
-    //  if (this.lStorage != 0) {
-    //    var httpOptions = {
-    //      headers: new HttpHeaders({
-    //        'Content-Type': 'application/json',
-    //        'Authorization': 'Bearer ' + currentKey.access_token
-    //      })
-    //    };
-    //    this._http.put('http://localhost:62772/api/user/edit/profile?id=' + id, this.userProfileEdit, httpOptions).subscribe(result => {
-    //      if (result) {
-    //        this.userProfile = JSON.parse(JSON.stringify(this.userProfileEdit));
-    //        this.data = result;
-    //        //this._renderer.setElementAttribute(this._el, 'data-dismiss', 'modal');
-    //        //this._renderer.setElementAttribute(this._el, 'data-toggle', 'modal');
-    //        //this._renderer.setElementAttribute(this._el, 'data-target', '#EditMessage');
-    //        //this._router.navigate(['home/profile']);
-    //        $('#btn-smessage').attr('data-target','#EditMessage')
-    //      }
-    //    }, error => {
-    //      this.isError = true;
-    //      let httpError: HttpErrorResponse = error;
-    //      if (httpError.status === 400) {
-    //        this.message = httpError.error.message;
-    //      } else {
-    //        this._notificationService.prompError(httpError.message);
-    //      }
-    //    });
-    //  }
-    //}
     UserProfileComponent.prototype.edit = function (id) {
         this._router.navigate(['home/profile/edit', id]);
     };
@@ -1564,7 +1554,8 @@ var UserProfileComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _angular_common__WEBPACK_IMPORTED_MODULE_4__["Location"],
-            src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"]])
+            src_app_shared_components_dialog_notification_service__WEBPACK_IMPORTED_MODULE_5__["NotificationService"],
+            _shared_configs_user_config_user_config_service__WEBPACK_IMPORTED_MODULE_6__["UserConfigService"]])
     ], UserProfileComponent);
     return UserProfileComponent;
 }());
@@ -1660,6 +1651,108 @@ var NotificationService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
     ], NotificationService);
     return NotificationService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/configs/admin-config/admin-config.service.ts":
+/*!*********************************************************************!*\
+  !*** ./src/app/shared/configs/admin-config/admin-config.service.ts ***!
+  \*********************************************************************/
+/*! exports provided: AdminConfigService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminConfigService", function() { return AdminConfigService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var AdminConfigService = /** @class */ (function () {
+    function AdminConfigService() {
+        this.createUserURI = 'http://localhost:62772/api/user/create';
+        this.userDetailURI = 'http://localhost:62772/api/user/detail?id=';
+        this.userInfoBeEdit = 'http://localhost:62772/api/user/edit?id=';
+        this.editUserURI = 'http://localhost:62772/api/user/edit?id=';
+    }
+    AdminConfigService.prototype.getCreateUserURI = function () {
+        return this.createUserURI;
+    };
+    AdminConfigService.prototype.getUserDetailURI = function () {
+        return this.userDetailURI;
+    };
+    AdminConfigService.prototype.getUerInfoBeEditURI = function () {
+        return this.userInfoBeEdit;
+    };
+    AdminConfigService.prototype.getEditUserURI = function () {
+        return this.editUserURI;
+    };
+    AdminConfigService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], AdminConfigService);
+    return AdminConfigService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/configs/user-config/user-config.service.ts":
+/*!*******************************************************************!*\
+  !*** ./src/app/shared/configs/user-config/user-config.service.ts ***!
+  \*******************************************************************/
+/*! exports provided: UserConfigService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserConfigService", function() { return UserConfigService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var UserConfigService = /** @class */ (function () {
+    function UserConfigService() {
+        this.userProfileURI = 'http://localhost:62772/api/user/profile';
+        this.userProfileInfoBeEdit = 'http://localhost:62772/api/user/profile/edit?id=';
+        this.userProfileEdit = 'http://localhost:62772/api/user/profile/edit?id=';
+    }
+    UserConfigService.prototype.getUserProfileURI = function () {
+        return this.userProfileURI;
+    };
+    UserConfigService.prototype.getUserProfileInfoBeEditURI = function () {
+        return this.userProfileInfoBeEdit;
+    };
+    UserConfigService.prototype.getUserProfileEditURI = function () {
+        return this.userProfileEdit;
+    };
+    UserConfigService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], UserConfigService);
+    return UserConfigService;
 }());
 
 
@@ -1801,20 +1894,25 @@ var RoleGuardService = /** @class */ (function () {
         this.router = router;
     }
     RoleGuardService.prototype.canActivate = function (route) {
+        // ActivatedRouteSnapshot
         // this will be passed from the route config
         // on the data property
         var expectedRole = route.data.expectedRole;
         var token = localStorage.getItem('tokenKey');
-        var tokenKey = JSON.parse(token);
-        //const currentToken = JSON.stringify(tokenKey.access_token);
-        // decode the token to get its payload
-        var tokenPayload = jwt_decode__WEBPACK_IMPORTED_MODULE_3___default()(tokenKey.access_token);
-        if (!this.auth.isAuthenticated() ||
-            tokenPayload.role !== expectedRole) {
-            this.router.navigate(['login']);
-            return false;
+        if (token != null && token != "undefined") {
+            var tokenKey = JSON.parse(token);
+            var currentToken = JSON.stringify(tokenKey.access_token);
+            // decode the token to get its payload
+            var tokenPayload = jwt_decode__WEBPACK_IMPORTED_MODULE_3___default()(currentToken);
+            var role = tokenPayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+            if (!this.auth.isAuthenticated() || role !== expectedRole) {
+                this.router.navigate(['login']);
+                return false;
+            }
+            return true;
         }
-        return true;
+        this.router.navigate(['login']);
+        return false;
     };
     RoleGuardService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -2031,7 +2129,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\MyData\GrooveIntern\MiniProject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\intern02\MiniProject\ForkMiniProject\GoGo\Applications\GoGoSpa\Client-App\src\main.ts */"./src/main.ts");
 
 
 /***/ })

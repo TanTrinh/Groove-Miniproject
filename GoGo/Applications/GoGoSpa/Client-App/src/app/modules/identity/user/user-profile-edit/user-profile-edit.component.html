@@ -1,34 +1,43 @@
-<form #myForm="ngForm" name="myForm">
-
-  <div class="form-group col-md-5">
-    <label for="username">User Name</label>
-    <input type="text" class="form-control" id="username" [(ngModel)]="model.userName" name="username" #username="ngModel" disabled>
+<div class="container-fluid">
+  <div class="border-custom">
+    <h1>Edit Profile</h1>
   </div>
 
-  <div class="form-group col-md-5">
-    <label for="email">Email</label>
-    <input type="email" class="form-control" id="email" [(ngModel)]="model.email" name="email" #email="ngModel" required email="true">
-    <div [ngClass]="{'hidden': email.valid || email.pristine}" class="validation-message">
-      <div *ngIf="email?.errors?.required">
-        Email is required.
-      </div>
-      <div *ngIf="email?.errors?.email">
-        This is not valid email, email should be <i>abc@gmail.com</i>.
+  <form #myForm="ngForm" name="myForm">
+
+    <div class="form-group col-md-5">
+      <label for="username">User Name</label>
+      <input type="text" class="form-control" id="username" [(ngModel)]="model.userName" name="username" #username="ngModel" disabled>
+      <div class="validation-message"></div>
+    </div>
+
+    <div class="form-group col-md-5">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" [(ngModel)]="model.email" name="email" #email="ngModel" required email="true">
+      <div [ngClass]="{'hidden': email.valid || email.pristine}" class="validation-message">
+        <div *ngIf="email?.errors?.required">
+          Email is required.
+        </div>
+        <div *ngIf="email?.errors?.email">
+          This is not valid email, email should be <i>abc@gmail.com</i>.
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="form-group col-md-5">
-    <label for="phonenumber">Phone Number</label>
-    <input type="text" class="form-control" id="phonenumber" [(ngModel)]="model.phoneNumber" name="phonenumber" #phonenumber="ngModel" required>
-    <div [ngClass]="{'hidden': phonenumber.valid || phonenumber.pristine}" class="validation-message">
-      Phone number is required.
+    <div class="form-group col-md-5">
+      <label for="phonenumber">Phone Number</label>
+      <input type="text" class="form-control" id="phonenumber" [(ngModel)]="model.phoneNumber" name="phonenumber" #phonenumber="ngModel" required>
+      <div [ngClass]="{'hidden': phonenumber.valid || phonenumber.pristine}" class="validation-message">
+        Phone number is required.
+      </div>
     </div>
-  </div>
 
-  <div class="form-group col-md-5">
-    <button class="btn btn-success" (click)="save(model.id)">Save</button>
-    <button class="btn btn-primary" (click)="back()">Back</button>
-    {{message}}
-  </div>
-</form>
+    <div class="form-group col-md-5">
+      <button class="btn btn-success" (click)="save(model.id)">Save</button>&nbsp;
+      <button class="btn btn-primary" (click)="back()">Back</button>&nbsp;
+      {{message}}
+    </div>
+  </form>
+</div>
+
+  

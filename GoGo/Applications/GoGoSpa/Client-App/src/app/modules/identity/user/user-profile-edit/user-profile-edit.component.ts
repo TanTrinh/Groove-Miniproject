@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { UserProfileEdit } from './UserProfileEdit';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
+import { UserConfigService } from '../../../../shared/configs/user-config/user-config.service';
+import { UserCreateComponent } from '../user-create/user-create.component';
 
 @Component({
   selector: 'app-user-profile-edit',
@@ -17,6 +19,8 @@ export class UserProfileEditComponent implements OnInit {
     email: '',
     phoneNumber: ''
   };
+  baseUrlProfileInfoBeEdit: string;
+  baseUrlProfileEdit: string;
   public message: string = null;
   public isError: boolean = false;
   public lStorage = localStorage.length;
@@ -26,8 +30,12 @@ export class UserProfileEditComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _location: Location,
-    private _notificationService: NotificationService
-  ) { }
+    private _notificationService: NotificationService,
+    private _configService: UserConfigService
+  ) {
+    this.baseUrlProfileInfoBeEdit = _configService.getUserProfileInfoBeEditURI();
+    this.baseUrlProfileEdit = _configService.getUserProfileEditURI();
+  }
 
   ngOnInit() {
     var key = localStorage.getItem('tokenKey');
@@ -42,7 +50,7 @@ export class UserProfileEditComponent implements OnInit {
 
       this.id = this._route.snapshot.paramMap.get('id');
 
-      this._http.get('http://localhost:62772/api/user/edit/profile?id=' + this.id, httpOptions).subscribe(result => {
+      this._http.get(this.baseUrlProfileInfoBeEdit + this.id, httpOptions).subscribe(result => {
         console.log(result);
         this.model = result;
       });
@@ -60,7 +68,7 @@ export class UserProfileEditComponent implements OnInit {
         })
       };
 
-      this._http.put('http://localhost:62772/api/user/edit/profile?id=' + id, this.model, httpOptions).subscribe(result => {
+      this._http.put(this.baseUrlProfileEdit + id, this.model, httpOptions).subscribe(result => {
         if (result) {
           this._router.navigate(['home/profile']);
         }

@@ -19,7 +19,10 @@ export class UserListComponent implements OnInit {
   selectOption: string = "";
   public lStorage = localStorage.length;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private _http: HttpClient,
+    private _router: Router
+  ) { }
 
   paginators = [];
   ngOnInit() {
@@ -37,32 +40,31 @@ export class UserListComponent implements OnInit {
           'Authorization': 'Bearer ' + currentKey.access_token
         })
       };
-
       console.log(this.selectOption);
       if (this.selectOption == 'Customer') {
         this.id = 1;
-        this.http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
           this.data = result;
           this.userList = this.data;
         });
       }
       else if (this.selectOption == 'Driver') {
         this.id = 2;
-        this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(result => {
+        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
           this.data = result;
           this.userList = this.data;
         });
       }
       else if (this.selectOption == 'Coordinator') {
         this.id = 3;
-        this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(result => {
+        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
           this.data = result;
           this.userList = this.data;
         });
       }
       else {
         this.id = 4
-        this.http.get('http://localhost:62772/api/user/userroles?id=' + this.id, httpOptions).subscribe(result => {
+        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
           this.data = result;
           this.userList = this.data;
         });
@@ -76,14 +78,14 @@ export class UserListComponent implements OnInit {
   }
 
   loadDetail(id) {
-    this.router.navigate(['account/detail', id]);
+    this._router.navigate(['account/detail', id]);
   }
 
   loadUpdate(id) {
-    this.router.navigate(['account/edit', id])
+    this._router.navigate(['account/edit', id])
   }
 
   create() {
-    this.router.navigate(['account/create']);
+    this._router.navigate(['account/create']);
   }
 }

@@ -69,9 +69,7 @@ namespace Domains.Identity.Services
                 }
             }
             _userRepository.Update(user);
-            //await _userManagement.UpdateAsync(user);
             
-
             await _uow.SaveChangesAsync();
 
             return user.Id;

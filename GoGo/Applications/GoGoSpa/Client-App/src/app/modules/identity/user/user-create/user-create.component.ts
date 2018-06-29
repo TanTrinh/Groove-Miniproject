@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
 import { EmailvalidatorDirective } from 'src/app/shared/directives/emailvalidator.directive';
+import { AdminConfigService } from '../../../../shared/configs/admin-config/admin-config.service';
 
 @Component({
   selector: 'app-user-create',
@@ -14,6 +15,7 @@ import { EmailvalidatorDirective } from 'src/app/shared/directives/emailvalidato
 export class UserCreateComponent implements OnInit {
 
   data: any = {};
+  baseUrl: string;
   public message: string = null;
   public model = {
     username: '',
@@ -30,10 +32,14 @@ export class UserCreateComponent implements OnInit {
     private _http: HttpClient,
     private _router: Router,
     private _location: Location,
-    private _notificationService: NotificationService
-  ) { }
+    private _notificationService: NotificationService,
+    private _configService: AdminConfigService
+  ) {
+    this.baseUrl = _configService.getCreateUserURI();
+  }
 
   ngOnInit() {
+    console.log(1)
   }
 
   onCreate() {
@@ -48,9 +54,9 @@ export class UserCreateComponent implements OnInit {
         })
       }
 
-      this._http.post('http://localhost:62772/api/user/create', this.model, httpOptions).subscribe(result => {
+      this._http.post(this.baseUrl, this.model, httpOptions).subscribe(result => {
         this.data = result;
-        this._router.navigate(['home/detail', this.data.value]);
+        this._router.navigate(['account/detail', this.data.value]);
       }, error => {
         this.isError = true;
 

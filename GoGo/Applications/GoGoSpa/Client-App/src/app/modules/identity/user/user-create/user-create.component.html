@@ -1,69 +1,74 @@
-<form #myForm="ngForm" (ngSubmit)="onCreate()" name="myForm">
-  <div class="form-group col-md-5">
-    <label for="username">Username*</label>
-    <input type="text" class="form-control" id="username" [(ngModel)]="model.username" name="username" #username="ngModel" required autofocus>
-    <div [ngClass]="{'hidden': username.valid || username.pristine}" class="validation-message">
-      Username is required.
-    </div>
+<div class="container-fluid">
+  <div class="border-custom">
+    <h1>Create User</h1>
   </div>
-
-  <div class="form-group col-md-5">
-    <label for="password">Password*</label>
-    <input type="password" class="form-control" id="pwd" #password="ngModel" name="password" [(ngModel)]="model.password" required>
-    <div [ngClass]="{'hidden': password.valid || password.pristine}" class="validation-message">
-      Password is required.
-    </div>
-  </div>
-
-  <div class="form-group col-md-5">
-    <label for="repassword">Re-Password*</label>
-    <input type="password" class="form-control" id="repwd" #repassword="ngModel" name="repassword" [(ngModel)]="model.repassword" required>
-    <div [ngClass]="{'hidden': repassword.valid || repassword.pristine}" class="validation-message">
-      Re-Password is required.
-    </div>
-  </div>
-
-  <div class="form-group col-md-5">
-    <label for="email">Email*</label>
-    <input type="email" class="form-control" id="email" [(ngModel)]="model.email" name="email" #email="ngModel" required email="true">
-    <div [ngClass]="{'hidden': email.valid || email.pristine}" class="validation-message">
-      <div *ngIf="email?.errors?.required">
-        Email is required.
-      </div>
-      <div *ngIf="email?.errors?.email">
-        This is not valid email, email should be <i>abc@gmail.com</i>.
+  <form #myForm="ngForm" (ngSubmit)="onCreate()" name="myForm">
+    <div class="form-group col-md-5">
+      <label for="username">Username<span class="note">*</span></label>
+      <input type="text" class="form-control" id="username" [(ngModel)]="model.username" name="username" #username="ngModel" required autofocus>
+      <div [ngClass]="{'hidden': username.valid || username.pristine}" class="validation-message">
+        Username is required.
       </div>
     </div>
-  </div>
 
-  <div class="form-group col-md-5">
-    <label for="phonenumber">Phone Number*</label>
-    <input type="text" class="form-control" id="phonenumber" [(ngModel)]="model.phonenumber" name="phonenumber" #phonenumber="ngModel" required>
-    <div [ngClass]="{'hidden': phonenumber.valid || phonenumber.pristine}" class="validation-message">
-      Phone number is required.
+    <div class="form-group col-md-5">
+      <label for="password">Password<span class="note">*</span></label>
+      <input type="password" class="form-control" id="pwd" #password="ngModel" name="password" [(ngModel)]="model.password" required>
+      <div [ngClass]="{'hidden': password.valid || password.pristine}" class="validation-message">
+        Password is required.
+      </div>
     </div>
-  </div>
 
-  <div class="form-group col-md-5">
-    <label for="role">Role*</label>
-    <select type="text" class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
-      <option>Customer</option>
-      <option>Driver</option>
-      <option>Coordinator</option>
-      <option>Administrator</option>
-    </select>
-    <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
-      Role is required.
+    <div class="form-group col-md-5">
+      <label for="repassword">Re-Password<span class="note">*</span></label>
+      <input type="password" class="form-control" id="repwd" #repassword="ngModel" name="repassword" [(ngModel)]="model.repassword" required>
+      <div [ngClass]="{'hidden': repassword.valid || repassword.pristine}" class="validation-message">
+        Re-Password is required.
+      </div>
     </div>
-  </div>
 
-  <div class="form-group col-md-5">
-    <div class="form-group col-md-9 row">
-      <button type="submit" class="btn btn-success active">Create</button>&nbsp;
-      <button class="btn btn-primary active" (click)="back()">Back</button>&nbsp;
+    <div class="form-group col-md-5">
+      <label for="email">Email<span class="note">*</span></label>
+      <input type="email" class="form-control" id="email" [(ngModel)]="model.email" name="email" #email="ngModel" required email="true">
+      <div [ngClass]="{'hidden': email.valid || email.pristine}" class="validation-message">
+        <div *ngIf="email?.errors?.required">
+          Email is required.
+        </div>
+        <div *ngIf="email?.errors?.email">
+          This is not valid email, email should be <i>abc@gmail.com</i>.
+        </div>
+      </div>
     </div>
-    <div [hidden]="!isError" class="validation-message">
-      {{message}}
+
+    <div class="form-group col-md-5">
+      <label for="phonenumber">Phone Number<span class="note">*</span></label>
+      <input type="text" class="form-control" id="phonenumber" [(ngModel)]="model.phonenumber" name="phonenumber" #phonenumber="ngModel" required>
+      <div [ngClass]="{'hidden': phonenumber.valid || phonenumber.pristine}" class="validation-message">
+        Phone number is required.
+      </div>
     </div>
-  </div>
-</form>
+
+    <div class="form-group col-md-5">
+      <label for="role">Role<span class="note">*</span></label>
+      <select type="text" class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
+        <option>Customer</option>
+        <option>Driver</option>
+        <option>Coordinator</option>
+        <option>Administrator</option>
+      </select>
+      <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
+        Role is required.
+      </div>
+    </div>
+
+    <div class="form-group col-md-5">
+      <div class="form-group col-md-9 row">
+        <button type="submit" class="btn btn-success active">Create</button>&nbsp;
+        <button class="btn btn-primary active" (click)="back()">Back</button>&nbsp;
+      </div>
+      <div [hidden]="!isError" class="validation-message">
+        {{message}}
+      </div>
+    </div>
+  </form>
+</div>

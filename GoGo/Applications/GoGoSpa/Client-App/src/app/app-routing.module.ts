@@ -22,24 +22,18 @@ const routes: Routes = [
   {
     path: '', component: LayoutComponent, children: [
       { path: 'assigned', component: AssignedComponent },
-      {
-        path: 'account', component: UserListComponent, canActivate: [RoleGuard], data: {
-          expectedRole: 'Administrator'
-        }, children: [
-          { path: 'create', component: UserCreateComponent },
-          { path: 'detail/:id', component: UserDetailComponent },
-          { path: 'edit/:id', component: UserEditComponent }
-        ]
-      }
+      { path: 'account', component: UserListComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' }},
+      { path: 'account/create', component: UserCreateComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
+      { path: 'account/detail/:id', component: UserDetailComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
+      { path: 'account/edit/:id', component: UserEditComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } }
     ]
   },
   {
-    path: 'home', component: HomeComponent, children: [
-      { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
+    path: 'home', component: HomeComponent, canActivate: [AuthGuard], children: [
+      { path: 'profile', component: UserProfileComponent },
       { path: 'profile/edit/:id', component: UserProfileEditComponent }
     ]
   }
-  //{ path: 'detail/:id', component: UserDetailComponent }
 ];
 
 @NgModule({
