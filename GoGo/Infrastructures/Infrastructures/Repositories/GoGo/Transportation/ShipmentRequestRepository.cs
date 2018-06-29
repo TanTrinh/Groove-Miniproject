@@ -41,7 +41,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                            .Where(p => p.Shipment.Code == code)
                            .Select(p => new LocationModel
                            {
-                               Address = p.Request.WareHouse.Address,
+                               Address = Helper.ResizeAddress(p.Request.WareHouse.Address),
                                Latitude = p.Request.WareHouse.Latitude,
                                Longitude = p.Request.WareHouse.Longitude
                            });
@@ -65,7 +65,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                              Status = p.Status,
                              Location = new LocationModel()
                              {
-                                 Address = p.Request.Address,
+                                 Address = Helper.ResizeAddress(p.Request.Address),
                                  Latitude = p.Request.DeliveryLatitude,
                                  Longitude = p.Request.DeliveryLongitude
                              }
@@ -106,7 +106,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                              Status = p.Status,
                              Location = new LocationModel()
                              {
-                                 Address = p.Request.Address,
+                                 Address = Helper.ResizeAddress(p.Request.Address),
                                  Latitude = p.Request.DeliveryLatitude,
                                  Longitude = p.Request.DeliveryLongitude
                              }
@@ -120,6 +120,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                            .Include(p => p.Shipment)
                            .Include(p => p.Request)
                            .Where(p => p.Shipment.Code == code)
+                           .OrderBy(p=>p.RequestOrder)
                            .Select(p => new RequestDetailModel
                            {
                                Code = p.Request.Code,
@@ -127,13 +128,14 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                                ReceiverName = p.Request.ReceiverName,
                                ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
                                EstimateDate = p.RequestEstimateDate,
-                               Status = p.Request.Status,
+                               Status = p.Status,
                                Location = new LocationModel()
                                {
-                                   Address = p.Request.Address,
+                                   Address = Helper.ResizeAddress(p.Request.Address),
                                    Latitude = p.Request.DeliveryLatitude,
                                    Longitude = p.Request.DeliveryLongitude
-                               }
+                               },
+                               RequestOrder=p.RequestOrder
                            });
             return await query.ToListAsync();
         }
@@ -165,7 +167,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                              Status = p.Request.Status,
                              Location = new LocationModel()
                              {
-                                 Address = p.Request.Address,
+                                 Address = Helper.ResizeAddress(p.Request.Address),
                                  Latitude = p.Request.DeliveryLatitude,
                                  Longitude = p.Request.DeliveryLongitude
                              }
@@ -177,9 +179,5 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             }
             return oldOrder.ToList();
         }
-
-       
-      
-
     }
 }

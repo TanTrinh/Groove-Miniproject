@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domains;
+using Domains.GoGo.Models;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Services;
 using Domains.GoGo.Services.Transportation;
@@ -70,24 +72,13 @@ namespace GoGoApi.Controllers.GoGo
         {
             return Ok(await _serviceShipmentRequest.GetCurrentRequestAsync(code));
         }
-
+        
 
         [Route("shipment/requestList")]
         [HttpGet]
         public async Task<IActionResult> GetRequestList(string code)
         {
-            IEnumerable<RequestDetailModel> list = await _serviceShipmentRequest.GetRequestListAsync(code);
-            foreach (var item in list)
-            {
-                item.Location.Address = item.Location.Address.Replace("Thanh pho", "TP. ");
-                item.Location.Address = item.Location.Address.Replace("Phường", "P.");
-                item.Location.Address = item.Location.Address.Replace("Quận", "Q.");
-                item.Location.Address = item.Location.Address.Replace("Thanh pho", "TP. ");
-                item.Location.Address = item.Location.Address.Replace("Vietnam", "VN");
-                item.Location.Address = item.Location.Address.Replace("Ho Chi Minh", "HCM");
-                item.Location.Address = item.Location.Address.Replace("Hồ Chí Minh", "HCM");
-            }
-            return Ok(list);
+            return Ok(await _serviceShipmentRequest.GetRequestListAsync(code));
         }
         public class LatLng
         {

@@ -353,7 +353,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GgmapComponent", function() { return GgmapComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shipment_shipment_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shipment/shipment.service */ "./src/app/shipment/shipment.service.ts");
-/* harmony import */ var _shipment_shipment_picking_Location__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shipment/shipment-picking/Location */ "./src/app/shipment/shipment-picking/Location.ts");
+/* harmony import */ var _shared_service_save_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/service/save.service */ "./src/app/shared/service/save.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -367,11 +367,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var GgmapComponent = /** @class */ (function () {
-    function GgmapComponent(ngZone, shipmentService) {
+    function GgmapComponent(ngZone, shipmentService, saveService) {
         this.ngZone = ngZone;
         this.shipmentService = shipmentService;
+        this.saveService = saveService;
         this.Waypts = [];
-        this.Markers = [];
+        //  @Input('Markers') Markers: any[] = [];
         //parameter 
         //parameter of map
         this.latcenter = 10.7711799;
@@ -379,24 +380,24 @@ var GgmapComponent = /** @class */ (function () {
         this.zoom = 15;
         this.directionsService = new google.maps.DirectionsService();
         this.directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
-        this.markers = [];
+        this.oldMarkerOrigin = new google.maps.Marker();
         this.yourlat = 10.7725133;
         this.yourlng = 106.70578479999999;
         //The array of waypoints
         this.optimizeRequest = [];
-        this.iconWarehouse = '../assets/location.png';
+        this.iconNext = '../assets/location.png';
         this.iconBase = '../assets/trucking.png';
-        this.iconNext = '../assets/next.png';
+        this.iconWarehouse = '../assets/warehouse2.png';
     }
     GgmapComponent.prototype.ngOnInit = function () {
         var _this = this;
-        setInterval(function () { _this.GetYourPosition(); }, 1000);
+        setInterval(function () { _this.GetYourPosition(); }, 5000);
         this.InitMap(this.latcenter, this.lngcenter);
-        setInterval(function () { _this.latlngOrigin = _this.GetLatlng(_this.yourlat, _this.yourlng); }, 3000);
         this.latlngDestination = this.GetLatlng(10.803780, 106.694184);
-        //setInterval(() => {
-        setTimeout(function () { _this.CalculateAndDisplayRoute(_this.directionsService, _this.directionsDisplay, _this.latlngOrigin, _this.Waypts); }, 1000);
-        //  }, 3000);
+        setInterval(function () {
+            setTimeout(function () { _this.CalculateAndDisplayRoute(_this.directionsService, _this.directionsDisplay); }, 5000);
+        }, 3000);
+        //setTimeout(() => { this.DrawMarkers() }, 1000)
     };
     //Init the map
     GgmapComponent.prototype.InitMap = function (latitude, longitude) {
@@ -408,75 +409,94 @@ var GgmapComponent = /** @class */ (function () {
         });
         this.directionsDisplay.setMap(this.map);
     };
+    GgmapComponent.prototype.DrawMarkers = function () {
+        var index;
+        for (index = 0; index < this.Waypts.length; index++) {
+            var contentString = "<p>" + this.Waypts[index].code + "</p>";
+            var infoWindow = new google.maps.InfoWindow();
+            var m = new google.maps.Marker({
+                position: this.Waypts[index].latlng,
+                icon: this.iconNext,
+                map: this.map,
+            });
+            m.setMap(this.map);
+            if (index == 0) {
+                if (this.Waypts[index].code == "This is location picking") {
+                    m.setIcon(this.iconWarehouse);
+                }
+                else {
+                    m.setAnimation(google.maps.Animation.BOUNCE);
+                    infoWindow.setContent(contentString);
+                    infoWindow.open(this.map, m);
+                }
+            }
+            else {
+                this.openInfoWindow(m, contentString, infoWindow);
+                this.closeInfoWindow(m, contentString, infoWindow);
+            }
+        }
+    };
+    GgmapComponent.prototype.RefeshMarker = function (markers) {
+        console.log(markers.length);
+        for (var i = 0; i < markers.length; i++)
+            markers[i].setMap(null);
+    };
     //Optimize the route and show
     //Input:
     //start point: originLocation || end point: destinationLocation
     //checkboxArray: the array of detination
-    GgmapComponent.prototype.CalculateAndDisplayRoute = function (directionsService, directionsDisplay, originLocation, checkboxArray) {
-        var _this = this;
+    GgmapComponent.prototype.CalculateAndDisplayRoute = function (directionsService, directionsDisplay) {
+        this.DrawMarkers();
+        console.log(this.Waypts);
         var waypts = [];
-        var markers = [];
+        this.oldMarkerOrigin.setMap(null);
         var markerOrigin = new google.maps.Marker({
             position: { lat: this.yourlat, lng: this.yourlng },
             icon: this.iconBase,
-            label: 'A',
             map: this.map
         });
-        markers.push(markerOrigin);
+        this.oldMarkerOrigin = markerOrigin;
+        var markerDetination = new google.maps.Marker({
+            position: this.Waypts[this.Waypts.length - 1].latlng,
+            icon: this.iconNext,
+            map: this.map
+        });
         var index;
-        //console.log(checkboxArray.length);
-        for (index = 0; index < checkboxArray.length; index++) {
-            if (index == 0) {
-                var m = new google.maps.Marker({
-                    position: checkboxArray[index],
-                    icon: this.iconWarehouse,
-                    animation: google.maps.Animation.BOUNCE,
-                    map: this.map
-                });
-                markers.push(m);
-            }
-            else {
-                var m = new google.maps.Marker({
-                    position: checkboxArray[index],
-                    icon: this.iconWarehouse,
-                    map: this.map
-                });
-                markers.push(m);
-            }
-            if (index < (checkboxArray.length - 1)) {
+        for (index = 0; index < this.Waypts.length; index++) {
+            if (index < (this.Waypts.length - 1) && this.Waypts[index].status != 'unActive') {
                 waypts.push({
-                    location: m.get('position'),
+                    location: this.Waypts[index].latlng,
                     stopover: true,
                 });
             }
         }
-        var optimize = [];
         directionsService.route({
-            origin: markers[0].get('position'),
-            destination: markers[index].get('position'),
+            origin: markerOrigin.get('position'),
+            destination: markerDetination.get('position'),
             waypoints: waypts,
-            optimizeWaypoints: true,
+            optimizeWaypoints: false,
             travelMode: 'DRIVING'
         }, function (response, status) {
             if (status === 'OK') {
                 directionsDisplay.setDirections(response);
                 var route = response.routes[0];
-                for (var i = 0; i < index; i++) {
-                    var location = new _shipment_shipment_picking_Location__WEBPACK_IMPORTED_MODULE_2__["Location"]();
-                    location.latitude = route.legs[i].end_location.lat();
-                    location.longitude = route.legs[i].end_location.lng();
-                    optimize.push(location);
-                }
+                //console.log(route);
             }
             else {
                 window.alert('Directions request failed due to ' + status);
             }
         });
-        var pama;
-        setTimeout(function () { pama = { code: '270620181056GG28', order: optimize }; }, 1000);
-        setTimeout(function () {
-            console.log(pama), _this.shipmentService.changeOrderReqeust(pama).subscribe(function (data) { });
-        }, 1000);
+    };
+    GgmapComponent.prototype.openInfoWindow = function (marker, data, infoWindow) {
+        google.maps.event.addListener(marker, 'mouseover', function () {
+            infoWindow.setContent("<div style = 'width:150px;min-height:10px;color:blue;text-align:center'>" + data + "</div>");
+            infoWindow.open(this.map, marker);
+        });
+    };
+    GgmapComponent.prototype.closeInfoWindow = function (marker, data, infoWindow) {
+        google.maps.event.addListener(marker, 'mouseout', function () {
+            infoWindow.close(this.map, marker);
+        });
     };
     //Convert the address to the latitude and longitude
     GgmapComponent.prototype.Geocoding = function (address) {
@@ -491,9 +511,9 @@ var GgmapComponent = /** @class */ (function () {
         });
     };
     GgmapComponent.prototype.RemoveAllMarkers = function () {
-        for (var i = 0; i < this.markers.length; i++) {
-            this.markers[i].setMap(null);
-        }
+        //for (var i = 0; i < this.markers.length; i++) {
+        //  this.markers[i].setMap(null);
+        //}
     };
     //Get your position
     //Add the marker where you are
@@ -555,10 +575,6 @@ var GgmapComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('Waypts'),
         __metadata("design:type", Array)
     ], GgmapComponent.prototype, "Waypts", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])('Markers'),
-        __metadata("design:type", Array)
-    ], GgmapComponent.prototype, "Markers", void 0);
     GgmapComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-ggmap',
@@ -566,7 +582,8 @@ var GgmapComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./ggmap.component.scss */ "./src/app/ggmap/ggmap.component.scss")]
         }),
         __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"],
-            _shipment_shipment_service__WEBPACK_IMPORTED_MODULE_1__["ShipmentService"]])
+            _shipment_shipment_service__WEBPACK_IMPORTED_MODULE_1__["ShipmentService"],
+            _shared_service_save_service__WEBPACK_IMPORTED_MODULE_2__["SaveService"]])
     ], GgmapComponent);
     return GgmapComponent;
 }());
@@ -1348,6 +1365,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var SaveService = /** @class */ (function () {
     function SaveService(http) {
         this.http = http;
+        this.waypts = [];
     }
     SaveService.prototype.saveCode = function (code) {
         this.code = code;
@@ -1509,6 +1527,26 @@ var AssignedComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shipment/shipment-picking/InfoRequest.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/shipment/shipment-picking/InfoRequest.ts ***!
+  \**********************************************************/
+/*! exports provided: InfoRequest */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InfoRequest", function() { return InfoRequest; });
+var InfoRequest = /** @class */ (function () {
+    function InfoRequest() {
+    }
+    return InfoRequest;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shipment/shipment-picking/Location.ts":
 /*!*******************************************************!*\
   !*** ./src/app/shipment/shipment-picking/Location.ts ***!
@@ -1536,7 +1574,7 @@ var Location = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-4 container\">\r\n    <div class=\"tille\">\r\n      <span id=\"header\">SHIPMENT</span>\r\n      <img src=\"../../assets/support.svg\" class=\"rounded-circle float-right\" id=\"support\" width=\"60\" height=\"60\" />\r\n    </div>\r\n\r\n    <div class=\"col-sm-12\">\r\n      <input *ngIf=\"shipmentDetail.status != 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{locationPicking.address}}>\r\n      <input *ngIf=\"shipmentDetail.status == 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{request.location.address}}>\r\n    </div>  \r\n\r\n    <div class=\"detail\">\r\n      <table class=\"table table-hover\">\r\n        <tbody>\r\n          <tr>\r\n            <td>Shipment code</td>\r\n            <td>{{shipmentDetail.code}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Total Package</td>\r\n            <td>{{shipmentDetail.packageQuality}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Start date</td>\r\n            <td style=\"color:red\">{{shipmentDetail.startDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>End date</td>\r\n            <td>{{shipmentDetail.endDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Status</td>\r\n            <td>{{shipmentDetail.status}}</td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n\r\n    <div class=\"container-fluid\">\r\n      <div class=\"row\">\r\n        <div style=\"width:50%\" class=\"pr-1\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending'\" (click)=\"feedback(shipmentDetail, 'Accept')\" class=\"btn btn-success btn-block\">Accept a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Picking')\" class=\"btn btn-success btn-block\">Picking</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Picking'\" (click)=\"feedback(shipmentDetail, 'Loading')\" class=\"btn btn-success btn-block\">Start to load</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Loading'\" (click)=\"feedback(shipmentDetail, 'Shipping')\" class=\"btn btn-success btn-block\">Complete loading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code==shipmentDetail.currentRequest\" (click)=\"changeStatus(shipmentDetail,'Shipping')\" class=\"btn btn-primary btn-block\">Start to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code!=shipmentDetail.currentRequest\" class=\"btn btn-primary btn-block diable\">Start to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Shipping' && request.code==shipmentDetail.currentRequest\" (click)=\"changeStatus(shipmentDetail,'Unloading')\" class=\"btn btn-warning btn-block\">Start to unloading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Unloading'\" (click)=\"changeStatus(shipmentDetail,'Completed')\" class=\"btn btn-success btn-block\">Complete to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'\" (click)=\"returnList()\" class=\"btn btn-primary btn-block\">Return to list</button>\r\n\r\n        </div>\r\n        <div style=\"width:50%\" class=\"pl-1\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Reject')\" class=\"btn btn-danger btn-block\">Reject a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'\" class=\"btn btn-danger btn-block\">Have a problem</button>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div id=\"inf\">\r\n      <ul class=\"nav nav-tabs\">\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\" *ngIf=\"statusNav=='Request'\" routerLink=\"./\" routerLinkActive=\"hold\">Request detail</a>\r\n          <a class=\"nav-link\" (click)=\"changeNav('Request')\" *ngIf=\"statusNav!='Request'\" routerLink=\"./\">Request detail</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link \" *ngIf=\"statusNav=='List'\" routerLink=\"./\" routerLinkActive=\"hold\">List request</a>\r\n          <a class=\"nav-link \" (click)=\"changeNav('List')\" *ngIf=\"statusNav!='List'\" routerLink=\"./\">List request</a>\r\n        </li>\r\n      </ul>\r\n\r\n      <div *ngIf=\"statusNav=='Request'\">\r\n        <div class=\"tille\">\r\n          <h3>REQUEST DETAIL</h3>\r\n        </div>\r\n        <table class=\"table table-hover\">\r\n          <tbody>\r\n            <tr>\r\n              <td>Request code</td>\r\n              <td *ngIf=\"shipmentDetail.status=='Completed'\">{{request.code}}</td>\r\n              <td *ngIf=\"request.code==shipmentDetail.currentRequest &&shipmentDetail.status!='Completed'\">{{request.code}} <span class=\"badge badge-success\">Current</span></td>\r\n              <td *ngIf=\"request.code!=shipmentDetail.currentRequest && shipmentDetail.status!='Completed'\">{{request.code}} <span (click)=\"gotoCurrentRequest()\" class=\"badge badge-warning\">Not current</span></td>\r\n            </tr>\r\n            <tr>\r\n              <td>Total Package</td>\r\n              <td>{{request.packageQuantity}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Estimate date</td>\r\n              <td>{{request.estimateDate | date:'short'}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Receiver</td>\r\n              <td>{{request.receiverName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>PhoneNumber</td>\r\n              <td>{{request.receiverPhoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Status</td>\r\n              <td>{{request.status}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n\r\n      <div *ngIf=\"statusNav=='List'\">\r\n        <table class=\"table table-hover\">\r\n          <tbody data-spy=\"scroll\" data-offset=\"50\">\r\n            <tr *ngFor=\"let item of requestList\" (click)=\"viewRequest(item)\">\r\n              <td>\r\n                <span>{{item.code}}</span><br />\r\n                <span>{{item.location.address}}</span>\r\n              </td>\r\n              <td>\r\n                <span>{{item.estimateDate | date:'short'}}</span>\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <app-ggmap [Destination]=\"Destination\" [Waypts]=\"Waypts\" [Markers]=\"Markers\"></app-ggmap>\r\n  </div>\r\n</div>\r\n"
+module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-4 container\">\r\n    <div class=\"tille\">\r\n      <span id=\"header\">SHIPMENT</span>\r\n      <img src=\"../../assets/support.svg\" class=\"rounded-circle float-right\" id=\"support\" width=\"60\" height=\"60\" />\r\n    </div>\r\n\r\n    <div class=\"col-sm-12\">\r\n      <input *ngIf=\"shipmentDetail.status != 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{locationPicking.address}}>\r\n      <input *ngIf=\"shipmentDetail.status == 'Shipping'\" type=\"text\" class=\"form-control-plaintext yourAddress\" readonly value={{request.location.address}}>\r\n    </div>  \r\n\r\n    <div class=\"detail\">\r\n      <table class=\"table table-hover\">\r\n        <tbody>\r\n          <tr>\r\n            <td>Shipment code</td>\r\n            <td>{{shipmentDetail.code}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Total Package</td>\r\n            <td>{{shipmentDetail.packageQuality}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Start date</td>\r\n            <td style=\"color:red\">{{shipmentDetail.startDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>End date</td>\r\n            <td>{{shipmentDetail.endDate | date:'short'}}</td>\r\n          </tr>\r\n          <tr>\r\n            <td>Status</td>\r\n            <td>{{shipmentDetail.status}}</td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n    </div>\r\n\r\n    <div class=\"container-fluid\">\r\n      <div class=\"row\">\r\n        <div style=\"width:50%\" class=\"pr-1\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending'\" (click)=\"feedback(shipmentDetail, 'Accept')\" class=\"btn btn-success btn-block\">Accept a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Picking')\" class=\"btn btn-success btn-block\">Picking</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Picking'\" (click)=\"feedback(shipmentDetail, 'Loading')\" class=\"btn btn-success btn-block\">Start to load</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Loading'\" (click)=\"feedback(shipmentDetail, 'Shipping')\" class=\"btn btn-success btn-block\">Complete loading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code==shipmentDetail.currentRequest\" (click)=\"changeStatus(shipmentDetail,'Shipping')\" class=\"btn btn-primary btn-block\">Start to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code!=shipmentDetail.currentRequest\" class=\"btn btn-primary btn-block diable\">Start to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Shipping' && request.code==shipmentDetail.currentRequest\" (click)=\"changeStatus(shipmentDetail,'Unloading')\" class=\"btn btn-warning btn-block\">Start to unloading</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Shipping' && request.status=='Unloading'\" (click)=\"changeStatus(shipmentDetail,'Completed')\" class=\"btn btn-success btn-block\">Complete to delivery</button>\r\n          <button *ngIf=\"shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'\" (click)=\"returnList()\" class=\"btn btn-primary btn-block\">Return to list</button>\r\n\r\n        </div>\r\n        <div style=\"width:50%\" class=\"pl-1\">\r\n          <button *ngIf=\"shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'\" (click)=\"feedback(shipmentDetail, 'Reject')\" class=\"btn btn-danger btn-block\">Reject a shipment</button>\r\n          <button *ngIf=\"shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'\" class=\"btn btn-danger btn-block\" data-toggle=\"modal\" data-target=\"#Problem\">Have a problem</button>\r\n\r\n          <div class=\"modal fade\" id=\"Problem\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"Problem\" aria-hidden=\"true\">\r\n            <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\r\n              <div class=\"modal-content\">\r\n                <div class=\"modal-header\">\r\n                  <h5 class=\"modal-title\" id=\"exampleModalLongTitle\" style=\"color:red\">Your problem</h5>\r\n                  <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n                    <span aria-hidden=\"true\">&times;</span>\r\n                  </button>\r\n                </div>\r\n                <div class=\"modal-body\">\r\n                  <p style=\"font-size:16px\">Request code: {{request.code}}</p>\r\n                  <input type=\"text\" id=\"problem\" class=\"form-control-plaintext\" placeholder=\"Enter your problem\">\r\n                </div>\r\n                <div class=\"modal-footer\">\r\n                  <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\r\n                  <button type=\"button\" class=\"btn btn-primary\">Send</button>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div id=\"inf\">\r\n      <ul class=\"nav nav-tabs\">\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link\" *ngIf=\"statusNav=='Request'\" routerLink=\"./\" routerLinkActive=\"hold\">Request detail</a>\r\n          <a class=\"nav-link\" (click)=\"changeNav('Request')\" *ngIf=\"statusNav!='Request'\" routerLink=\"./\">Request detail</a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a class=\"nav-link \" *ngIf=\"statusNav=='List'\" routerLink=\"./\" routerLinkActive=\"hold\">List request</a>\r\n          <a class=\"nav-link \" (click)=\"changeNav('List')\" *ngIf=\"statusNav!='List'\" routerLink=\"./\">List request</a>\r\n        </li>\r\n      </ul>\r\n\r\n      <div *ngIf=\"statusNav=='Request'\">\r\n        <div class=\"tille\">\r\n          <h3>REQUEST DETAIL</h3>\r\n        </div>\r\n        <table class=\"table table-hover\">\r\n          <tbody>\r\n            <tr>\r\n              <td>Request code</td>\r\n              <td *ngIf=\"shipmentDetail.status=='Completed'\">{{request.code}}</td>\r\n              <td *ngIf=\"request.code==shipmentDetail.currentRequest &&shipmentDetail.status!='Completed'\">{{request.code}} <span class=\"badge badge-success\">Current</span></td>\r\n              <td *ngIf=\"request.code!=shipmentDetail.currentRequest && shipmentDetail.status!='Completed'\">{{request.code}} <span (click)=\"gotoCurrentRequest()\" class=\"badge badge-warning\">Not current</span></td>\r\n            </tr>\r\n            <tr>\r\n              <td>Total Package</td>\r\n              <td>{{request.packageQuantity}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Estimate date</td>\r\n              <td>{{request.estimateDate | date:'short'}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Receiver</td>\r\n              <td>{{request.receiverName}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>PhoneNumber</td>\r\n              <td>{{request.receiverPhoneNumber}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Status</td>\r\n              <td>{{request.status}}</td>\r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n\r\n      <div *ngIf=\"statusNav=='List'\">\r\n        <table class=\"table table-hover\">\r\n          <tbody data-spy=\"scroll\" data-offset=\"50\">\r\n            <tr *ngFor=\"let item of requestList\" (click)=\"viewRequest(item)\">\r\n              <td>\r\n                <span>{{item.code}} </span> <span class=\"badge badge-success\">{{item.status}}</span><br />\r\n                <span style=\"font-size:12px\">{{item.location.address}}</span><br />\r\n              </td>\r\n              <td>\r\n                <span style=\"font-size:12px\">{{item.estimateDate | date:'short'}}</span>\r\n              </td>\r\n          \r\n            </tr>\r\n          </tbody>\r\n        </table>\r\n      </div>\r\n\r\n    </div>\r\n  </div>\r\n  <div class=\"col-md-8\">\r\n    <app-ggmap  [Waypts]=\"Waypts\"></app-ggmap>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1547,7 +1585,7 @@ module.exports = "\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-md-4 contain
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".row {\n  margin-top: 5px; }\n\n.tille {\n  text-align: center; }\n\n#header {\n  font-size: 40px;\n  color: #0073e6; }\n\n.yourAddress {\n  border-bottom: 1px solid #0073e6;\n  background-image: url(\"/assets/placeholder.svg\");\n  background-repeat: no-repeat;\n  padding-left: 48px; }\n\n#completed {\n  margin-top: 5px; }\n\n#inf {\n  margin-top: 10px;\n  border: 1px solid #0073e6; }\n\n.nav {\n  border-bottom: 1px solid #0073e6;\n  color: black; }\n\n.nav-item a.hold {\n  background-color: #e6e6ff;\n  color: #0073e6;\n  font-weight: 500;\n  border-bottom: solid;\n  border-bottom-color: #0073e6; }\n\n/* Sidebar */\n\n#sidebar-container {\n  margin-top: 10px;\n  min-height: 460px;\n  padding: 0;\n  border-bottom-color: #0073e6;\n  font-weight: 500; }\n\n#support {\n  border: 2px solid #55E0DE;\n  background-color: #e6e6ff;\n  margin-top: 5px; }\n\n.request {\n  border: 2px solid #0073e6;\n  margin-top: 5px; }\n\nh3 {\n  text-align: center;\n  margin-top: 5px; }\n\n.diable {\n  pointer-events: none;\n  cursor: default;\n  opacity: 0.6; }\n\n.nav-item {\n  width: 50%; }\n"
+module.exports = ".row {\n  margin-top: 5px; }\n\n.tille {\n  text-align: center; }\n\n#header {\n  font-size: 40px;\n  color: #0073e6; }\n\n.yourAddress {\n  border-bottom: 1px solid #0073e6;\n  background-image: url(\"/assets/placeholder.svg\");\n  background-repeat: no-repeat;\n  padding-left: 48px; }\n\n#completed {\n  margin-top: 5px; }\n\n#inf {\n  margin-top: 10px;\n  border: 1px solid #0073e6; }\n\n.nav {\n  border-bottom: 1px solid #0073e6;\n  color: black; }\n\n.nav-item a.hold {\n  background-color: #e6e6ff;\n  color: #0073e6;\n  font-weight: 500;\n  border-bottom: solid;\n  border-bottom-color: #0073e6; }\n\n/* Sidebar */\n\n#sidebar-container {\n  margin-top: 10px;\n  min-height: 460px;\n  padding: 0;\n  border-bottom-color: #0073e6;\n  font-weight: 500; }\n\n#support {\n  border: 2px solid #55E0DE;\n  background-color: #e6e6ff;\n  margin-top: 5px; }\n\n.request {\n  border: 2px solid #0073e6;\n  margin-top: 5px; }\n\nh3 {\n  text-align: center;\n  margin-top: 5px; }\n\n.diable {\n  pointer-events: none;\n  cursor: default;\n  opacity: 0.6; }\n\n.nav-item {\n  width: 50%; }\n\np {\n  font-size: 12px; }\n"
 
 /***/ }),
 
@@ -1565,10 +1603,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _Location__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Location */ "./src/app/shipment/shipment-picking/Location.ts");
-/* harmony import */ var _ShipmentAssigned_ShipmentAssigned__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ShipmentAssigned/ShipmentAssigned */ "./src/app/shipment/ShipmentAssigned/ShipmentAssigned.ts");
-/* harmony import */ var _shared_service_save_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/service/save.service */ "./src/app/shared/service/save.service.ts");
-/* harmony import */ var _request_RequestDetail__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../request/RequestDetail */ "./src/app/request/RequestDetail.ts");
-/* harmony import */ var _shipment_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../shipment.service */ "./src/app/shipment/shipment.service.ts");
+/* harmony import */ var _InfoRequest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./InfoRequest */ "./src/app/shipment/shipment-picking/InfoRequest.ts");
+/* harmony import */ var _ShipmentAssigned_ShipmentAssigned__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../ShipmentAssigned/ShipmentAssigned */ "./src/app/shipment/ShipmentAssigned/ShipmentAssigned.ts");
+/* harmony import */ var _shared_service_save_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../shared/service/save.service */ "./src/app/shared/service/save.service.ts");
+/* harmony import */ var _request_RequestDetail__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../request/RequestDetail */ "./src/app/request/RequestDetail.ts");
+/* harmony import */ var _shipment_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../shipment.service */ "./src/app/shipment/shipment.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1586,6 +1625,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ShipmentPickingComponent = /** @class */ (function () {
     function ShipmentPickingComponent(http, route, router, save, service) {
         this.http = http;
@@ -1595,9 +1635,8 @@ var ShipmentPickingComponent = /** @class */ (function () {
         this.service = service;
         this.data = {};
         this.statusNav = 'Request';
-        this.lock = 0;
-        this.shipmentDetail = new _ShipmentAssigned_ShipmentAssigned__WEBPACK_IMPORTED_MODULE_4__["ShipmentAssigned"]();
-        this.request = new _request_RequestDetail__WEBPACK_IMPORTED_MODULE_6__["RequestDetail"]();
+        this.shipmentDetail = new _ShipmentAssigned_ShipmentAssigned__WEBPACK_IMPORTED_MODULE_5__["ShipmentAssigned"]();
+        this.request = new _request_RequestDetail__WEBPACK_IMPORTED_MODULE_7__["RequestDetail"]();
         this.status = 'Waiting';
         this.Waypts = [];
         this.Markers = [];
@@ -1615,21 +1654,32 @@ var ShipmentPickingComponent = /** @class */ (function () {
     }
     ShipmentPickingComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.Markers = [];
+        this.Waypts = [];
         this.request.location = new _Location__WEBPACK_IMPORTED_MODULE_3__["Location"]();
         this.code = this.route.snapshot.paramMap.get('code');
         this.save.saveCode(this.code);
         this.service.getLocationPicking(this.code).subscribe(function (data) {
             _this.locationPicking = data;
+            var info = new _InfoRequest__WEBPACK_IMPORTED_MODULE_4__["InfoRequest"]();
+            info.code = "This is location picking";
+            info.status = "Active";
+            info.latlng = _this.InitLatlng(_this.locationPicking.latitude, _this.locationPicking.longitude);
+            _this.Waypts.unshift(info);
+            console.log(_this.locationPicking.latitude, _this.locationPicking.longitude);
         });
         this.refeshShipment(this.code);
         this.GetRequestList();
-        this.Origin = this.InitLatlng(10.7711799, 106.7004174);
-        this.Destination = this.InitLatlng(10.803780, 106.694184);
+        // this.Origin = this.InitLatlng(10.7711799, 106.7004174);
     };
     ShipmentPickingComponent.prototype.refeshShipment = function (code) {
         var _this = this;
         this.service.getShipmentDetail(this.code).subscribe(function (data) {
             _this.shipmentDetail = data;
+            if (_this.shipmentDetail.status == "Shipping") {
+                _this.Waypts[0].status = "unActive";
+                console.log(_this.save.waypts);
+            }
             if (_this.shipmentDetail.currentRequest == "") {
                 _this.feedback(_this.shipmentDetail, 'Completed');
                 _this.changeNav('List');
@@ -1643,6 +1693,10 @@ var ShipmentPickingComponent = /** @class */ (function () {
     };
     ShipmentPickingComponent.prototype.feedback = function (item, status) {
         var _this = this;
+        if (status == "Shipping") {
+            //  this.Waypts.splice(0, 1);
+            console.log(this.Waypts);
+        }
         var param = { 'code': item.code, 'status': status };
         this.service.changeStatusShipment(param).subscribe(function (data) {
             _this.shipmentDetail = data;
@@ -1654,6 +1708,7 @@ var ShipmentPickingComponent = /** @class */ (function () {
         this.service.changeStatusRequest(param).subscribe(function (data) {
             _this.request = data;
         });
+        this.GetRequestList();
         if (status == "Completed") {
             this.refeshShipment(this.code);
         }
@@ -1682,12 +1737,19 @@ var ShipmentPickingComponent = /** @class */ (function () {
         var _this = this;
         this.service.getListRequest(this.code).subscribe(function (data) {
             _this.requestList = data;
+            console.log(_this.requestList);
             for (var _i = 0, _a = _this.requestList; _i < _a.length; _i++) {
                 var item = _a[_i];
-                var latlng = _this.InitLatlng(item.location.latitude, item.location.longitude);
-                _this.Waypts.push(latlng);
+                var info = new _InfoRequest__WEBPACK_IMPORTED_MODULE_4__["InfoRequest"]();
+                info.latlng = _this.InitLatlng(item.location.latitude, item.location.longitude);
+                info.code = item.code;
+                info.status = "Active";
+                if (item.status != "Waiting") {
+                    info.status = "unActive";
+                }
+                _this.Waypts.push(info);
             }
-            console.log(_this.Waypts.length);
+            _this.save.waypts = _this.Waypts;
         });
     };
     ShipmentPickingComponent.prototype.InitLatlng = function (latitude, longitude) {
@@ -1705,8 +1767,8 @@ var ShipmentPickingComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
-            _shared_service_save_service__WEBPACK_IMPORTED_MODULE_5__["SaveService"],
-            _shipment_service__WEBPACK_IMPORTED_MODULE_7__["ShipmentService"]])
+            _shared_service_save_service__WEBPACK_IMPORTED_MODULE_6__["SaveService"],
+            _shipment_service__WEBPACK_IMPORTED_MODULE_8__["ShipmentService"]])
     ], ShipmentPickingComponent);
     return ShipmentPickingComponent;
 }());

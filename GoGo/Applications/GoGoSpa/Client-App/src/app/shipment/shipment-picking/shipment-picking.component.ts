@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from './Location';
+import { InfoRequest } from './InfoRequest';
 import { ShipmentAssigned } from '../ShipmentAssigned/ShipmentAssigned';
 import { SaveService } from '../../shared/service/save.service';
 import { RequestDetail } from '../../request/RequestDetail';
@@ -17,17 +18,15 @@ declare var google: any;
 export class ShipmentPickingComponent implements OnInit {
   data: any = {};
   statusNav = 'Request';
-  lock = 0;
   shipmentDetail = new ShipmentAssigned();
   request = new RequestDetail();
   status = 'Waiting';
   code: string;
   requestList: RequestDetail[];
 
-  Origin: LatLng;
   Destination: LatLng;
-  Waypts: LatLng[] = [];
-  Markers: Marker[] = [];
+  Waypts: InfoRequest[] = [];
+  Markers: any[] = [];
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -50,21 +49,33 @@ export class ShipmentPickingComponent implements OnInit {
 
 
   ngOnInit() {
+    this.Markers = [];
+    this.Waypts = [];
     this.request.location = new Location();
     this.code = this.route.snapshot.paramMap.get('code');
     this.save.saveCode(this.code);
     this.service.getLocationPicking(this.code).subscribe(data => {
       this.locationPicking = data;
+      var info = new InfoRequest();
+      info.code = "This is location picking";
+      info.status = "Active";
+      info.latlng = this.InitLatlng(this.locationPicking.latitude, this.locationPicking.longitude);
+      this.Waypts.unshift(info);
+      console.log(this.locationPicking.latitude, this.locationPicking.longitude);
     })
     this.refeshShipment(this.code);
     this.GetRequestList();
-    this.Origin = this.InitLatlng(10.7711799, 106.7004174);
-    this.Destination = this.InitLatlng(10.803780, 106.694184);
+    // this.Origin = this.InitLatlng(10.7711799, 106.7004174);
   }
 
   refeshShipment(code: string) {
     this.service.getShipmentDetail(this.code).subscribe(data => {
       this.shipmentDetail = data;
+      if (this.shipmentDetail.status == "Shipping") {
+        this.Waypts[0].status = "unActive";
+        
+        console.log(this.save.waypts)
+      }
       if (this.shipmentDetail.currentRequest == "") {
         this.feedback(this.shipmentDetail, 'Completed');
         this.changeNav('List');
@@ -76,8 +87,13 @@ export class ShipmentPickingComponent implements OnInit {
       }
     })
   }
- 
+
   feedback(item: ShipmentAssigned, status) {
+    if (status == "Shipping") {
+      //  this.Waypts.splice(0, 1);
+      console.log(this.Waypts);
+    }
+
     var param = { 'code': item.code, 'status': status }
     this.service.changeStatusShipment(param).subscribe(data => {
       this.shipmentDetail = data;
@@ -89,9 +105,9 @@ export class ShipmentPickingComponent implements OnInit {
     this.service.changeStatusRequest(param).subscribe(data => {
       this.request = data;
     })
+    this.GetRequestList();
     if (status == "Completed") {
       this.refeshShipment(this.code);
-
     }
   }
   viewRequest(item: RequestDetail) {
@@ -112,17 +128,23 @@ export class ShipmentPickingComponent implements OnInit {
   changeNav(status) {
     this.statusNav = status;
   }
-  
+
   GetRequestList() {
     this.service.getListRequest(this.code).subscribe(data => {
       this.requestList = data;
+      console.log(this.requestList);
       for (var item of this.requestList) {
-        var latlng = this.InitLatlng(item.location.latitude, item.location.longitude);
-        this.Waypts.push(latlng);
+        var info = new InfoRequest();
+        info.latlng = this.InitLatlng(item.location.latitude, item.location.longitude);
+        info.code = item.code;
+        info.status = "Active";
+        if (item.status != "Waiting") {
+          info.status = "unActive";
+        }
+        this.Waypts.push(info);
       }
-      console.log(this.Waypts.length);
+      this.save.waypts = this.Waypts;
     })
-
   }
 
   InitLatlng(latitude, longitude) {

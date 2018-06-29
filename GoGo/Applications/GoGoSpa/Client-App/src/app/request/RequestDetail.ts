@@ -6,4 +6,5 @@ export class RequestDetail {
   estimateDate: Date;
   address: string;
   location: any;
+  requestOrder: number;
 }

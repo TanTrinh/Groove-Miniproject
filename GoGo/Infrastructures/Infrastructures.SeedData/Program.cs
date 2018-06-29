@@ -422,8 +422,8 @@ namespace Infrastructures.SeedData
         {
             Random ran = new Random();
             string phonenumberHeader = "0909";
-            double latitudeBase = 10.762622;
-            double longitudeBase = 106.660172;
+            double latitudeBase = 10.767089;
+            double longitudeBase = 106.706589;
             for (double i = 0; i < 25; i++)
             {
                 long custormerID = (long)i + 77;

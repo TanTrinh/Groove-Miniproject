@@ -55,7 +55,29 @@
         </div>
         <div style="width:50%" class="pl-1">
           <button *ngIf="shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Reject')" class="btn btn-danger btn-block">Reject a shipment</button>
-          <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'" class="btn btn-danger btn-block">Have a problem</button>
+          <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Problem">Have a problem</button>
+
+          <div class="modal fade" id="Problem" tabindex="-1" role="dialog" aria-labelledby="Problem" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle" style="color:red">Your problem</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p style="font-size:16px">Request code: {{request.code}}</p>
+                  <input type="text" id="problem" class="form-control-plaintext" placeholder="Enter your problem">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -114,12 +136,13 @@
           <tbody data-spy="scroll" data-offset="50">
             <tr *ngFor="let item of requestList" (click)="viewRequest(item)">
               <td>
-                <span>{{item.code}}</span><br />
-                <span>{{item.location.address}}</span>
+                <span>{{item.code}} </span> <span class="badge badge-success">{{item.status}}</span><br />
+                <span style="font-size:12px">{{item.location.address}}</span><br />
               </td>
               <td>
-                <span>{{item.estimateDate | date:'short'}}</span>
+                <span style="font-size:12px">{{item.estimateDate | date:'short'}}</span>
               </td>
+          
             </tr>
           </tbody>
         </table>
@@ -128,6 +151,6 @@
     </div>
   </div>
   <div class="col-md-8">
-    <app-ggmap [Destination]="Destination" [Waypts]="Waypts" [Markers]="Markers"></app-ggmap>
+    <app-ggmap  [Waypts]="Waypts"></app-ggmap>
   </div>
 </div>

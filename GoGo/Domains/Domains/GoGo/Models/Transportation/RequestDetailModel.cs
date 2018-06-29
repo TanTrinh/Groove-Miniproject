@@ -15,6 +15,7 @@ namespace Domains.GoGo.Models.Transportation
         public DateTime EstimateDate { set; get; }
         public string Status { set; get; }
         public LocationModel Location { set; get; }
+        public int RequestOrder { set; get; }
     }
     public class RequestDetaiModelMapper : Profile
     {
