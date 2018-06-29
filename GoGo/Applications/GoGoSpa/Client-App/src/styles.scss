@@ -45,3 +45,13 @@ img {
 .hidden{
     visibility: hidden;
 }
+
+.validation-message{
+  display: block;
+  min-height: 26px;
+  color: red;
+}
+
+.note{
+  color: red;
+}

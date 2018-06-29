@@ -7,19 +7,17 @@ using System.Threading.Tasks;
 
 namespace Groove.AspNetCore.UnitOfWork.EntityFramework
 {
-    public class UnitOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork<TDbContext> : IUnitOfWork, IDisposable where TDbContext:DbContext
     {
         protected DbContext dbContext;
-        protected IUnitOfWorkContext context;
         protected IServiceProvider serviceProvider; 
         private bool disposed = false;
 
 
-        public UnitOfWork(IUnitOfWorkContext context, IServiceProvider serviceProvider)
+        public UnitOfWork(TDbContext context, IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
-            this.context = context;
-            this.dbContext = this.context.GetUnitOfWorkContext() as DbContext;
+            this.dbContext = context;
         }
 
         public IUnitOfWorkTransactionScope BeginTransaction()

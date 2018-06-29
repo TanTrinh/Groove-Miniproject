@@ -6,7 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Folder Include="Client-App\src\app\shared\components\dialog\" />
+    <Folder Include="Client-App\src\app\shared\configs\admin-config\" />
+    <Folder Include="Client-App\src\app\shared\configs\user-config\" />
+    <Folder Include="Client-App\src\app\shared\directives\" />
+    <Folder Include="Client-App\src\app\shared\services\authservices\" />
+    <Folder Include="Client-App\src\app\shared\services\roleguardservice\" />
   </ItemGroup>
 
   <ItemGroup>
