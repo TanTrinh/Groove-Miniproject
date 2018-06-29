@@ -12,7 +12,6 @@ import { Observable } from 'rxjs-compat/Observable';
   providedIn: 'root'
 })
 export class ShipmentService extends BehaviorSubject<any>  {
-  private BASE_URL: string = 'http://localhost:54520/api/Shipments/ShipmentList';
   private baseUrl = '';
 
   constructor(private http: Http, private configService: ConfigService, private https: HttpClient) {
@@ -32,19 +31,36 @@ export class ShipmentService extends BehaviorSubject<any>  {
     return this.http.post(this.baseUrl + '/Shipments/Create', body, options);
   }
 
+  UpdateShipment(id, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId): any {
 
-  //Request List Api
+    let body = JSON.stringify({id, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId });
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(this.baseUrl + '/Shipments/Update', body, options);
+  }
+
+
+  //Shipment List Api
   public fetch(state: DataSourceRequestState): Observable<GridDataResult> {
     const queryStr = `${toDataSourceRequestString(state)}`;
     const hasGroups = state.group && state.group.length;
 
     return this.https
-      .get(`${this.BASE_URL}?${queryStr}`).pipe(
+      .get(`${this.baseUrl}/shipments/datasource?${queryStr}`).pipe(
         map(response => (<GridDataResult>{
           data: response['Data'],
           total: parseInt(response['Total'], 10)
         }))
       );
+  }
+
+  public GetDetailByCode(Code)
+  {
+    let headers = new Headers();
+
+    return this.http.get(this.baseUrl + '/shipments/Detail?Code=' + Code, { headers });
   }
 
   public ChangeShipmentStatus(Code , value): any {

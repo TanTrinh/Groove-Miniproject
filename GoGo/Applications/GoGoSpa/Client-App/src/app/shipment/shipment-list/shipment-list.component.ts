@@ -32,6 +32,8 @@ export class ShipmentListComponent{
               private renderer: Renderer2, private zone: NgZone) {
     this.shipmentService.fetch(this.state).subscribe(response => this.shipments = response);
 
+    
+
   }
 
 
@@ -43,9 +45,22 @@ export class ShipmentListComponent{
 
 
   ChangeStatus(value: any) {
-    let fac = this.shipments.data[value.index].Code
-    this.shipmentService.ChangeShipmentStatus(fac, "Pending").subscribe();
+   
+    this.shipmentService.ChangeShipmentStatus(value, "Pending").subscribe();
   }
-  
 
+ 
+  onCreate()
+  {
+    this.sharingService.isNewShipment = true;
+    this.router.navigate(['/shipment/create']);
+  }
+
+  onUpdate(value: any)
+  {
+    this.sharingService.isNewShipment = false;
+    this.sharingService.shipmentCode = value;
+
+    this.router.navigate(['/shipment/create']);
+  }
 }

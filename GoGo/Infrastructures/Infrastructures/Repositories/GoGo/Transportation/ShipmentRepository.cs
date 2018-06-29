@@ -26,11 +26,6 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 			_mapper = mapper;
 		}
 
-        public IEnumerable<DriverModel> GetAllAssignedDriver()
-        {
-            return this.dbSet.MapQueryTo<DriverModel>(_mapper).ToList();
-        }
-
 		public DataSourceResult GetAllAsync(DataSourceRequest request)
 		{
 			return this.dbSet.MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
@@ -53,6 +48,12 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 						});
 			return await query.ToListAsync();
 		}
+
+		public ShipmentDetailModel GetShipmentByCode(string Code)
+		{
+			return this.dbSet.Where(p => p.Code == Code).MapQueryTo<ShipmentDetailModel>(_mapper).SingleOrDefault();
+		}
+
 
 		public async Task<int> ChangeStatus(string code, string status)
 		{

@@ -16,7 +16,7 @@ namespace Domains.GoGo.Services
 		Task<IEnumerable<DataSourceValue<int>>>  GetDataSource(string value, int warehouseId);
 
 		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
-        Task<RequestModel> GetRequestDetailAsync(string code);
+        Task<RequestModel> GetRequestByCode(string code);
     
     }
 }

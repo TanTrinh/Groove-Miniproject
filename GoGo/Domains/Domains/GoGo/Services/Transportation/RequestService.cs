@@ -37,6 +37,7 @@ namespace Domains.GoGo.Services
             return _repository.ChangeStatus(id, status);
         }
 
+		//V
         public Task<RequestDetailModel> GetRequestDetails(int? id)
         {
             return _repository.GetRequestDetailAsync(id);
@@ -47,9 +48,20 @@ namespace Domains.GoGo.Services
 			return await _repository.GetDataSource(value, warehouseId);
 		}
 
-        public Task<RequestModel> GetRequestDetailAsync(string code)
+        public Task<RequestModel> GetRequestByCode(string code)
         {
-            return _repository.GetRequestDetailAsync(code);
+            return _repository.GetRequestByCode(code);
         }
-    }
+
+		public IEnumerable<RequestModel> GetRequestsByShipmentId(int shipmentId)
+		{
+			return _repository.GetRequestsByShipmentId(shipmentId);
+		}
+
+		public IEnumerable<int> GetRequestIdList(int shipmentId)
+		{
+			return _repository.GetRequestIdList(shipmentId);
+		}
+
+	}
 }

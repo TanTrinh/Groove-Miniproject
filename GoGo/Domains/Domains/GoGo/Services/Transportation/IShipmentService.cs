@@ -15,5 +15,9 @@ namespace Domains.GoGo.Services.Transportation
 
 		Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id);
         Task<int> ChangeStatus(string code, string status);
-    }
+
+		ShipmentDetailModel GetShipmentByCode(string Code);
+		void UpdateShipment(CreateShipmentModel model);
+
+	}
 }

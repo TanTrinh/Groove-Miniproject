@@ -15,20 +15,25 @@ namespace Domains.GoGo.Services.Transportation
 {
 	public class ShipmentService : IShipmentService
 	{
-		private readonly IShipmentRepository _repository;
+		
+		private readonly IShipmentRepository _shipmentRepository;
+		private readonly IShipmentRequestRepository _shipmentRequestRepository;
+		private readonly IRequestRepository _requestRepository;
 		private readonly IUnitOfWork _uow;
 		private readonly IMapper _mapper;
 
-		public ShipmentService(IMapper mapper, IUnitOfWork uow, IShipmentRepository repository)
+		public ShipmentService(IMapper mapper, IUnitOfWork uow, IShipmentRepository repository, IRequestRepository requestRepository, IShipmentRequestRepository shipmentRequestRepository)
 		{
 			_uow = uow;
-			_repository = repository;
+			_shipmentRepository = repository;
 			_mapper = mapper;
+			_requestRepository = requestRepository;
+			_shipmentRequestRepository = shipmentRequestRepository;
 		}
 
         public async Task<int> ChangeStatus(string code, string status)
         {
-            return await _repository.ChangeStatus(code, status);
+            return await _shipmentRepository.ChangeStatus(code, status);
         }
 
         public async Task<int> CreateShipmentAsync(CreateShipmentModel model)
@@ -40,7 +45,7 @@ namespace Domains.GoGo.Services.Transportation
 
 			entity.Code = Helper.GenerateCode(DateTime.Now, 100);
 
-			entity.Status = "DeActive";
+			entity.Status = "inActive";
 
 			_uow.GetRepository<IShipmentRepository>().Create(entity);
 
@@ -49,15 +54,36 @@ namespace Domains.GoGo.Services.Transportation
 			return entity.Id;
 		}
 
+		public void  UpdateShipment(CreateShipmentModel model)
+		{
+			var entity = _mapper.Map<Shipment>(model);
+
+			_shipmentRequestRepository.UpdateShipmentReuqest(model.RequestIdList, model.Id);
+			_uow.GetRepository<IShipmentRepository>().Update(entity);
+			
+			_uow.SaveChangesAsync();
+		}
+
+
 		public DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request)
 		{
-			return _repository.GetAllAsync(request);
+			return _shipmentRepository.GetAllAsync(request);
 		}
 
 		public Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
         {
-            return _repository.GetShipmentAssignedModel(id);
+            return _shipmentRepository.GetShipmentAssignedModel(id);
         }
 
-    }
+		public ShipmentDetailModel GetShipmentByCode(string Code)
+		{
+			var result = _shipmentRepository.GetShipmentByCode(Code);
+
+			result.RequestList = _requestRepository.GetRequestsByShipmentId(result.Id);
+			result.RequestIdList = _requestRepository.GetRequestIdList(result.Id);
+
+			return result;
+		}
+
+	}
 }

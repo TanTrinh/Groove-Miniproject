@@ -47,7 +47,7 @@ namespace GoGoApi.Controllers.GoGo
         public async Task<IActionResult> GetRequestDetailAsync(string code)
         {
 
-            return Ok(await _service.GetRequestDetailAsync(code));
+            return Ok(await _service.GetRequestByCode(code));
         }
 
     }

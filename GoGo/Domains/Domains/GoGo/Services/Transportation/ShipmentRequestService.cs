@@ -11,18 +11,18 @@ namespace Domains.GoGo.Services.Transportation
 {
 	public class ShipmentRequestService : IShipmentRequestService
 	{
-		private readonly IShipmentRepository _repository;
+		private readonly IShipmentRequestRepository _repository;
 		private readonly IUnitOfWork _uow;
 		private readonly IMapper _mapper;
 
-		public ShipmentRequestService(IShipmentRepository repository, IUnitOfWork uow, IMapper mapper)
+		public ShipmentRequestService(IShipmentRequestRepository repository, IUnitOfWork uow, IMapper mapper)
 		{
 			_repository = repository;
 			_uow = uow;
 			_mapper = mapper;
 		}
 
-		public async Task CreateShipmentRequestAsync(List<int> requestIdList, int shipmentId)
+		public async Task CreateShipmentRequestAsync(IEnumerable<int> requestIdList, int shipmentId)
 		{
 			int i = 1;
 			foreach (int requestId in requestIdList)
@@ -32,13 +32,18 @@ namespace Domains.GoGo.Services.Transportation
 				entity.RequestId = requestId;
 				entity.ShipmentId = shipmentId;
 				entity.RequestOrder = i++;
-				entity.Note = "Pending";
-				entity.Status = "Pending";
+				entity.Note = "Created";
+				entity.Status = "Waiting";
 
 				_uow.GetRepository<IShipmentRequestRepository>().Create(entity);
 			}
 
 			await _uow.SaveChangesAsync();
+		}
+
+		public void UpdateShipmentReuqest(List<int> requestIdList, int shipmentId)
+		{
+			_repository.UpdateShipmentReuqest(requestIdList, shipmentId);
 		}
 	}
 }

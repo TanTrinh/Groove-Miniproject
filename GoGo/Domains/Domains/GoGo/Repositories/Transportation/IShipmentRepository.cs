@@ -17,7 +17,6 @@ namespace Domains.GoGo.Repositories.Transportation
         Task<int> ChangeStatus(string code, string status);
 
 		DataSourceResult GetAllAsync(DataSourceRequest request);
-
-        IEnumerable<DriverModel> GetAllAssignedDriver();
-    }
+		ShipmentDetailModel GetShipmentByCode(string Code);
+	}
 }

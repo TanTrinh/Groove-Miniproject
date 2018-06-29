@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SharingService } from '../../shared/sevices/sharing-service.service';
 import { RequestService } from '../../request/request.service';
 import { Observable } from 'rxjs-compat/Observable';
@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { map } from 'rxjs/operators';
 import { MasterDataService } from '../../shared/sevices/master-data.service';
+import { Subscription } from 'rxjs-compat/Subscription';
 
 
 @Component({
@@ -22,8 +23,13 @@ import { MasterDataService } from '../../shared/sevices/master-data.service';
   templateUrl: './shipment-creating.component.html',
   styleUrls: ['./shipment-creating.component.scss']
 })
-export class ShipmentCreatingComponent{
+export class ShipmentCreatingComponent implements OnInit, OnDestroy {
 
+  
+
+  private sub: Subscription;
+
+  public shipmentId: any;
   //Combobox
   private toggleText = 'Hide';
   private show = true;
@@ -65,7 +71,7 @@ export class ShipmentCreatingComponent{
   public requestIdList: any[] = new Array();
   public gridData: any = process(this.requestList, this.state);
 
-  constructor(private service: ShipmentService, private router: Router, private http: Http,
+  constructor(private shipmentService: ShipmentService, private router: Router, private http: Http,
               private requestService: RequestService, private masterDataService: MasterDataService,
               private sharingService: SharingService) {
     this.view = requestService;
@@ -74,16 +80,52 @@ export class ShipmentCreatingComponent{
     this.warehouseView = masterDataService;
   }
 
-  CreateShipment() {
-    if (this.requestIdList.length != 0) {
-      this.service.CreateShipment(this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
-        .subscribe(result => {
+  ngOnInit(): void {
+    if (this.sharingService.isNewShipment == false) {
+      this.shipmentService.GetDetailByCode(this.sharingService.shipmentCode).pipe(map(res => res.json())).subscribe
+        (
+        result => {
+          this.shipmentId = result.Id
+          this.driverDetail = result.Driver
+          this.vehicleDetail = result.Vehicle
+          this.requestIdList = result.RequestIdList
+          this.requestList = result.RequestList
+          this.pickingDate = new Date(result.EndDate)
+          this.deliveryDate = new Date(result.EndDate)
+          this.refreshGrid()
+        }
+        )
+    }
     
-          this.router.navigate(['/shipment/']);
-        },
-        errors => { this.errors = errors })
+  }
+
+  ngOnDestroy(): void {
+   
+  }
+
+  SaveShipment() {
+    if (this.requestIdList.length != 0) {
+      {
+        if (this.sharingService.isNewShipment == true) {
+          this.shipmentService.CreateShipment(this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
+            .subscribe(result => {
+
+              this.router.navigate(['/shipment/']);
+            },
+              errors => { this.errors = errors })
+        }
+        else if (this.sharingService.isNewShipment == false) {
+          this.shipmentService.UpdateShipment(this.shipmentId, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
+            .subscribe(result => {
+
+              this.router.navigate(['/shipment/']);
+            },
+              errors => { this.errors = errors })
+        }
+      }
     }
   }
+
 
   //Master Data
   //Driver code filter
@@ -168,5 +210,5 @@ export class ShipmentCreatingComponent{
       this.isValid = false
   }
 
- 
+
 }

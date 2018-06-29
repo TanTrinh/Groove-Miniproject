@@ -8,6 +8,8 @@ namespace Domains.GoGo.Models.Transportation
 {
     public class CreateShipmentModel
     {
+		public int Id { get; set; }
+		public int Code { get; set; }
 		public List<int> RequestIdList { get; set; }
 
 		public int RequestQuantity { get; set; }

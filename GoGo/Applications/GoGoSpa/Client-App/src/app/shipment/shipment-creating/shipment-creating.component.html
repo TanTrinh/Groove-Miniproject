@@ -20,14 +20,14 @@
               <button class="btn btn-primary btn-sm" (click)="GetVehicleDetail()" primary="true">Add</button>
             </span>
           </div>
-          <div >
+          <div>
             <div>
               <span>License Plate</span>
               <input class="k-textbox" [(ngModel)]="vehicleDetail.LicensePlate" name="LicensePlate" readonly required />
             </div>
             <div>
               <span>Vehicle Type</span>
-              <input class="k-textbox" [(ngModel)]="vehicleDetail.VehicleFeatureType" name="VehicleFeatureType" readonly required/>
+              <input class="k-textbox" [(ngModel)]="vehicleDetail.VehicleFeatureType" name="VehicleFeatureType" readonly required />
             </div>
           </div>
         </div>
@@ -57,7 +57,7 @@
             </div>
             <div>
               <span>Phone Number</span>
-              <input class="k-textbox" [(ngModel)]="driverDetail.PhoneNumber" name="DriverPhoneNumber" readonly/>
+              <input class="k-textbox" [(ngModel)]="driverDetail.PhoneNumber" name="DriverPhoneNumber" readonly />
             </div>
           </div>
         </div>
@@ -103,19 +103,19 @@
           </span>
         </div>
         <!--<div>
-        <div>
-          <span>Warehouse Name</span>
-          <input class="k-textbox" [(ngModel)]="warehouseDetail.WarehouseName" name="WarehouseName" readonly />
-        </div>
-        <div>
-          <span>Address</span>
-          <input class="k-textbox" [(ngModel)]="warehouseDetail.Address" name="WarehouseAddress" readonly />
-        </div>
-        <div>
-          <span>Phone Number</span>
-          <input class="k-textbox" [(ngModel)]="warehouseDetail.PhoneNumber" name="WarehousePhoneNumber" readonly />
-        </div>
-      </div>-->
+          <div>
+            <span>Warehouse Name</span>
+            <input class="k-textbox" [(ngModel)]="warehouseDetail.WarehouseName" name="WarehouseName" readonly />
+          </div>
+          <div>
+            <span>Address</span>
+            <input class="k-textbox" [(ngModel)]="warehouseDetail.Address" name="WarehouseAddress" readonly />
+          </div>
+          <div>
+            <span>Phone Number</span>
+            <input class="k-textbox" [(ngModel)]="warehouseDetail.PhoneNumber" name="WarehousePhoneNumber" readonly />
+          </div>
+        </div>-->
 
       </div>
       <div>
@@ -156,15 +156,17 @@
           <kendo-timepicker name="deliveryDate" required></kendo-timepicker>
         </ng-template>
       </kendo-grid-command-column>
-        <kendo-grid-command-column title="command" width="100">
-          <ng-template kendoGridCellTemplate>
-            <button kendoGridRemoveCommand [primary]="true">Delete</button>
-          </ng-template>
-        </kendo-grid-command-column>
+      <kendo-grid-command-column title="command" width="100">
+        <ng-template kendoGridCellTemplate>
+          <button kendoGridRemoveCommand [primary]="true">Delete</button>
+        </ng-template>
+      </kendo-grid-command-column>
     </kendo-grid>
     <div>
-      <button (click)="CreateShipment()" class="btn btn-primary mt-3" primary="true" [disabled]="form.invalid" [ngClass]="{active: isValid, disabled: !isValid}">Save</button>&nbsp;
+      <button (click)="SaveShipment()" class="btn btn-primary mt-3" primary="true" [disabled]="form.invalid">Save</button>&nbsp;
       <button class="btn btn-secondary  mt-3" primary="true">Cancel</button>
     </div>
   </form>
 </div>
+
+<!--[ngClass]="{active: isValid, disabled: !isValid}"-->

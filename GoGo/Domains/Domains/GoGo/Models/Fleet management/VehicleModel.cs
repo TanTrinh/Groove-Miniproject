@@ -11,9 +11,6 @@ namespace Domains.GoGo.Models.Fleet_management
         public int Id { get; set; }
         public string LicensePlate { get; set; }
         public string VehicleFeatureType { get; set; }
-        public float Height { get; set; }
-        public float Width { get; set; }
-        public float Lenght { get; set; }
     }
 
     public class VehicleModelMapper : Profile

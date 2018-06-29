@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.GoGo
 {
-    [Route("api/Shipments")]
-    [ApiController]
-    public class ShipmentsController : BaseController
+	[Route("api/Shipments")]
+	[ApiController]
+	public class ShipmentsController : BaseController
 	{
 		private readonly IRequestService _service;
 		private readonly IShipmentService _Shipmentservice;
@@ -39,19 +39,35 @@ namespace GoGoApi.Controllers.GoGo
 			return Ok();
 		}
 
-        [Route("update")]
-        [HttpPut]
-        public async Task<IActionResult> ChangeShipmentStatus(string code, string status)
-        {
-            return Ok(await _Shipmentservice.ChangeStatus(code, status));
-        }
 
-        [Route("ShipmentList")]
+		[Route("updateStatus")]
+		[HttpPut]
+		public async Task<IActionResult> ChangeShipmentStatus(string code, string status)
+		{
+			return Ok(await _Shipmentservice.ChangeStatus(code, status));
+		}
+
+		[Route("datasource")]
 		[HttpGet]
-		public IActionResult GetAllAsync([DataSourceRequest]DataSourceRequest request)
+		public IActionResult GetShipments([DataSourceRequest]DataSourceRequest request)
 		{
 
 			return Ok(_Shipmentservice.GetAllAsync(request));
+		}
+
+		[Route("Detail")]
+		[HttpGet]
+		public  IActionResult GetShipmentDetail(string Code)
+		{	
+			return Ok( _Shipmentservice.GetShipmentByCode(Code));
+		}
+
+		[Route("update")]
+		[HttpPut]
+		public IActionResult UpdateShipment(CreateShipmentModel model)
+		{
+			_Shipmentservice.UpdateShipment(model);
+			return Ok();
 		}
 	}
 }

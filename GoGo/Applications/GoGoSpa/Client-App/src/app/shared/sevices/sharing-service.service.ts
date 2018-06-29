@@ -17,6 +17,10 @@ export class SharingService {
     return this.array;
   }
 
+  public isNewShipment: boolean;
+  public shipmentCode: any;
+
+
   datimeFormat(string: string) {
     var tempString = new Date(string).toString().split(" ");
     console.log(tempString)
