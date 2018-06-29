@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
+import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
 
 const httpOptions = {
   headers: new HttpHeaders({

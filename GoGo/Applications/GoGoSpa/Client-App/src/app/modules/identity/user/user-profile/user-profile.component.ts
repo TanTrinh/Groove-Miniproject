@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserProfile } from './UserProfile';
 import { Location } from '@angular/common';
-import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
+import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
 import { UserConfigService } from '../../../../shared/configs/user-config/user-config.service';
 
 @Component({

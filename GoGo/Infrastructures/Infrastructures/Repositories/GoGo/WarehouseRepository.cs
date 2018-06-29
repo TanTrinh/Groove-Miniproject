@@ -22,7 +22,7 @@ namespace Infrastructures.Repositories.GoGo
     {
         private readonly IMapper _mapper;
 
-        public WarehouseRepository(IMapper mapper, IUnitOfWorkContext uoWContext) : base(uoWContext)
+        public WarehouseRepository(IMapper mapper, ApplicationDbContext uoWContext) : base(uoWContext)
         {
             _mapper = mapper;
         }

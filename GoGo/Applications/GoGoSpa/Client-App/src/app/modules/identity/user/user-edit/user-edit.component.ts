@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
-import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
+import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
 import { AdminConfigService } from '../../../../shared/configs/admin-config/admin-config.service';
 
 @Component({

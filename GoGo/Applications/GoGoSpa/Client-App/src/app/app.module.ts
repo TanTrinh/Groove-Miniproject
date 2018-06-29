@@ -34,7 +34,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
 
     // Do initing of services that is required before app loads
     // NOTE: this factory needs to return a function (that then returns a promise)
-    return () => ServiceRegistryService.load('http://localhost:49946/configuration/serviceRegistry').toPromise();
+    return () => ServiceRegistryService.load('http://localhost:62775/configuration/serviceRegistry').toPromise();
     //return () => ServiceRegistryService.load('http://localhost:50269/configuration/serviceRegistry').toPromise();
   },
   deps: [ServiceRegistryService],
@@ -72,7 +72,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
           return localStorage.getItem('tokenKey');
         }
       }
-    })
+    }),
     ShipmentModule,
     AccountModule,
     InputsModule,
