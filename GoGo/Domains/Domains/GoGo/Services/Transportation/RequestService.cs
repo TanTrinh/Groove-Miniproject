@@ -42,6 +42,11 @@ namespace Domains.GoGo.Services
         {
             var entity = this._mapper.Map<Request>(model);
 
+            // TODO: strings should be managed in constant class or enum
+            // Create RequestStatus constant class
+            // Then use 
+            // entity.Status = RequestStatus.InActive;
+
             entity.Status = "InActive";
             entity.CreatedDate = DateTime.Now;
             entity.Code = Helper.GenerateCode(DateTime.Now, 1);

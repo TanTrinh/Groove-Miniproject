@@ -27,6 +27,11 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
         public async Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync()
         {
+            // TODO: strings should be managed in constant class or enum
+            // Create RequestStatus constant class
+            // Then use 
+            // entity.Status = RequestStatus.Wait;
+
             return await this.dbSet.Where(p => p.Status == "Wait").MapQueryTo<WaitingRequestModel>(_mapper).ToListAsync();
         }
         public async Task<RequestDetailModel> GetRequestDetailAsync(int? id)
