@@ -108,9 +108,9 @@ namespace Domains.Identity.Services
         }
 
         //Get list of user with specific role by role id
-        public Task<IEnumerable<UserListModel>> GetUsersAsync(long? id)
+        public Task<IEnumerable<UserListModel>> GetUsersAsync()
         {
-            return _userRepository.GetUserListAsync(id);
+            return _userRepository.GetUserListAsync();
         }
 
         private UserDefinedException CreateException(IEnumerable<IdentityError> errors)

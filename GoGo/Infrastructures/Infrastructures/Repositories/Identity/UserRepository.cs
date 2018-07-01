@@ -59,20 +59,38 @@ namespace Infrastructures.Repositories.Identity
             return _mapper.Map<UserViewUpdateModel>(roleMap);
         }
 
-        public async Task<IEnumerable<UserListModel>> GetUserListAsync(long? id)
+        public async Task<IEnumerable<UserListModel>> GetUserListAsync()
         {
-            // Get all user ID in table userroles
-            var userIds = context.Set<IdentityUserRole<long>>()
-                            .Where(a => a.RoleId == id)
-                            .ToList();
+            //Get all user ID in table userroles
+            //var userIds = context.Set<IdentityUserRole<long>>()
+            //                .Where(a => a.RoleId == id)
+            //                .ToList();
 
-            // Find all users with specific role
-            return await context.Set<User>()
-                            .Where(a => userIds.Any(c => c.UserId == a.Id))
-                            .MapQueryTo<UserListModel>(_mapper)
-                            .ToListAsync();
+            //Find all users with specific role
+            //return await context.Set<User>()
+            //                .Where(a => userIds.Any(c => c.UserId == a.Id))
+            //                .MapQueryTo<UserListModel>(_mapper)
+            //                .ToListAsync();
 
-            // Get all users use below code
+            //Get all users use below code
+            var user = await _userManager.Users.ToListAsync();
+            List<UserListModel> userList = new List<UserListModel>();
+            for (int i = 1; i < user.Count; i++)
+            {
+                var role = await _userManager.GetRolesAsync(user[i]);
+                userList.Add(new UserListModel
+                {
+                    Id = user[i].Id,
+                    UserName = user[i].UserName,
+                    Email = user[i].Email,
+                    PhoneNumber = user[i].PhoneNumber,
+                    Role = role[0],
+                    Status = user[i].Status
+                });
+            }
+
+            return userList;
+
             //return await _userManager.Users.MapQueryTo<UserListModel>(_mapper).ToListAsync();
         }
     }

@@ -13,7 +13,9 @@ namespace Domains.Identity.Services
         Task<long> CreateUserAsync(UserCreateModel model, UserIdentity<long> issuer);
         Task<long> UpdateUserAsync(long id, UserUpdateModel model, UserIdentity<long> issuer);
         Task<long> UpdateUserProfileAsync(long id, UserProfileUpdateModel model, UserIdentity<long> issuer);
-        Task<IEnumerable<UserListModel>> GetUsersAsync(long? id);
+        // Get user list with specific role by role id
+        //Task<IEnumerable<UserListModel>> GetUsersAsync(long? id);
+        Task<IEnumerable<UserListModel>> GetUsersAsync();
         Task<UserReadModel> GetUserProfileAsync(long? id);
         Task<UserReadModel> GetUserDetailAsync(long? id);
         Task<UserViewUpdateModel> GetUserUpdateAsync(long? id);

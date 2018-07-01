@@ -40,41 +40,43 @@ export class UserListComponent implements OnInit {
           'Authorization': 'Bearer ' + currentKey.access_token
         })
       };
-      console.log(this.selectOption);
-      if (this.selectOption == 'Customer') {
-        this.id = 1;
-        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
-          this.data = result;
-          this.userList = this.data;
-        });
-      }
-      else if (this.selectOption == 'Driver') {
-        this.id = 2;
-        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
-          this.data = result;
-          this.userList = this.data;
-        });
-      }
-      else if (this.selectOption == 'Coordinator') {
-        this.id = 3;
-        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
-          this.data = result;
-          this.userList = this.data;
-        });
-      }
-      else {
-        this.id = 4
-        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
-          this.data = result;
-          this.userList = this.data;
-        });
-      }
+      //  console.log(this.selectOption);
+      //  if (this.selectOption == 'Customer') {
+      //    this.id = 1;
+      //    this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+      //      this.data = result;
+      //      this.userList = this.data;
+      //    });
+      //  }
+      //  else if (this.selectOption == 'Driver') {
+      //    this.id = 2;
+      //    this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+      //      this.data = result;
+      //      this.userList = this.data;
+      //    });
+      //  }
+      //  else if (this.selectOption == 'Coordinator') {
+      //    this.id = 3;
+      //    this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+      //      this.data = result;
+      //      this.userList = this.data;
+      //    });
+      //  }
+      //  else {
+      //    this.id = 4
+      //    this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+      //      this.data = result;
+      //      this.userList = this.data;
+      //    });
+      //  }
+      //}
+
+      this._http.get('http://localhost:62772/api/user/list', httpOptions).subscribe(result => {
+        console.log(result)
+        this.data = result;
+        this.userList = this.data;
+      });
     }
-    
-    //this.http.get('http://localhost:62772/api/user/userroles?id=' + id).subscribe(result => {
-    //  this.data = result;
-    //  this.userList = this.data;
-    //});
   }
 
   loadDetail(id) {

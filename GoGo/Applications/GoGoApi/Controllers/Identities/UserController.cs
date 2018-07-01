@@ -22,9 +22,9 @@ namespace GoGoApi.Controllers.Identities
         [Route("list")]
         [HttpGet]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> GetUsers(long? id)
+        public async Task<IActionResult> GetUsers()
         {
-            return Ok(await _userService.GetUsersAsync(id));
+            return Ok(await _userService.GetUsersAsync());
         }
 
         [Route("create")]

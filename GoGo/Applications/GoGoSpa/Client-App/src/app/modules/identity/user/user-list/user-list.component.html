@@ -1,13 +1,13 @@
 <h1>List account</h1>
 <button class="btn btn-success" (click)="create()">Create User</button>
-<div>
+<!--<div>
   <select class="float-right" [(ngModel)]="selectOption" (ngModelChange)="loadList()">
     <option value="Customer">Customer</option>
     <option value="Driver">Driver</option>
     <option value="Coordinator">Coordinator</option>
     <option value="Administrator">Administrator</option>
   </select>
-</div>
+</div>-->
 <div class="list clear">
   <table class="table table-hover">
     <thead id="head">
@@ -16,6 +16,7 @@
         <th>User Name</th>
         <th>Email</th>
         <th>Phone Number</th>
+        <th>Role</th>
         <th>Status</th>
         <th>Actions</th>
       </tr>
@@ -27,6 +28,7 @@
         <td>{{user.userName}}</td>
         <td>{{user.email}}</td>
         <td>{{user.phoneNumber}}</td>
+        <td>{{user.role}}</td>
         <td>{{user.status}}</td>
         <td>
           <button class="btn btn-default" (click)="loadDetail(user.id)">Detail</button>
