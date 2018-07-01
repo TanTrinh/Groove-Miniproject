@@ -106,7 +106,7 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
    
   }
 
-  SaveShipment() {
+  onSave() {
     if (this.requestIdList.length != 0) {
       {
         if (this.sharingService.isNewShipment == true) {
@@ -127,6 +127,11 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
         }
       }
     }
+  }
+
+  onCancel()
+  {
+    this.router.navigate(['/shipment/']);
   }
 
 

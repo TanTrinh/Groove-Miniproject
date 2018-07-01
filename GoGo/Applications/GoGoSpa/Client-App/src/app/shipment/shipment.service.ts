@@ -67,7 +67,7 @@ export class ShipmentService extends BehaviorSubject<any>  {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.https.put(this.baseUrl + `/shipments/update?code=${Code}&status=${value}`, Option);
+    return this.https.put(this.baseUrl + `/shipments/updateStatus?code=${Code}&status=${value}`, Option);
   }
 
 

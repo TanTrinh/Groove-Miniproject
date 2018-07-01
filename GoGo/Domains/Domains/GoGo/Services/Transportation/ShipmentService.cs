@@ -56,11 +56,13 @@ namespace Domains.GoGo.Services.Transportation
 
 		public void  UpdateShipment(CreateShipmentModel model)
 		{
-			var entity = _mapper.Map<Shipment>(model);
 
+     //       var entity = _uow.GetRepository<IShipmentRepository>().GetEntityById(model.Id);
 
+           var entity = _mapper.Map<Shipment>(model);
+            entity.Status = "Pending";
 
-			_shipmentRequestRepository.UpdateShipmentReuqest(model.RequestIdList, model.Id);
+            _shipmentRequestRepository.UpdateShipmentReuqest(model.RequestIdList, model.Id);
 			_uow.GetRepository<IShipmentRepository>().Update(entity);
 			
 			_uow.SaveChangesAsync();

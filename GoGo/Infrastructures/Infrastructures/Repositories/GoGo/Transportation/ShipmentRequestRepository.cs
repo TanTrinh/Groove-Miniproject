@@ -25,7 +25,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		public void UpdateShipmentReuqest(List<int> requestIdList, int shipmentId)
 		{
 			var shipmentRequestsInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status == "Waiting"))).ToList();
-			var shipmentRequestsIdList = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status == "Waiting"))).Select(p => p.RequestId).ToList();
+			var shipmentRequestIdListInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status == "Waiting"))).Select(p => p.RequestId).ToList();
 
 			for (int i = 0; i < shipmentRequestsInDb.Count; i++)
 			{
@@ -33,7 +33,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 				if (index != -1)
 				{
-					shipmentRequestsInDb[i].RequestOrder = index+1;
+					shipmentRequestsInDb[i].RequestOrder = index + 1;
 					this.dbSet.Update(shipmentRequestsInDb[i]);
 				}
 				else
@@ -46,12 +46,12 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 			for (int i = 0; i < requestIdList.Count; i++)
 			{
-				if (shipmentRequestsIdList.IndexOf(requestIdList[0]) == -1)
+				if (shipmentRequestIdListInDb.IndexOf(requestIdList[0]) == -1)
 				{
 					var entity = new ShipmentRequest();
 					entity.ShipmentId = shipmentId;
 					entity.RequestId = requestIdList[0];
-					entity.RequestOrder = i+1;
+					entity.RequestOrder = i + 1;
 					entity.Status = "Waiting";
 					entity.Note = "Created";
 					this.dbSet.Add(entity);

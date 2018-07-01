@@ -163,8 +163,8 @@
       </kendo-grid-command-column>
     </kendo-grid>
     <div>
-      <button (click)="SaveShipment()" class="btn btn-primary mt-3" primary="true" [disabled]="form.invalid">Save</button>&nbsp;
-      <button class="btn btn-secondary  mt-3" primary="true">Cancel</button>
+      <button (click)="onSave()" class="btn btn-primary mt-3" primary="true" [disabled]="form.invalid">Save</button>&nbsp;
+      <button (click)="onCancel()" class="btn btn-secondary  mt-3" primary="true">Cancel</button>
     </div>
   </form>
 </div>
