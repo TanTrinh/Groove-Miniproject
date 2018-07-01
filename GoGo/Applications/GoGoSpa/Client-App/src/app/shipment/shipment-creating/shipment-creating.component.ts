@@ -96,8 +96,9 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
           this.deliveryDate = new Date(result.EndDate)
           this.refreshGrid()
           console.log(this.sharingService.shipmentCode)
-        }
-        )
+        }    
+      )
+      this.isValid = true;
     }
     
   }

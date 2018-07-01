@@ -54,7 +54,7 @@ namespace Domains.GoGo.Services.Transportation
 			return entity.Id;
 		}
 
-		public void  UpdateShipment(CreateShipmentModel model)
+		public void UpdateShipment(CreateShipmentModel model)
 		{
 
      //       var entity = _uow.GetRepository<IShipmentRepository>().GetEntityById(model.Id);
@@ -62,11 +62,11 @@ namespace Domains.GoGo.Services.Transportation
            var entity = _mapper.Map<Shipment>(model);
             entity.Status = "Pending";
 
-            _shipmentRequestRepository.UpdateShipmentReuqest(model.RequestIdList, model.Id);
+            _shipmentRequestRepository.UpdateShipmentRequest(model.RequestIdList, model.Id);
 			_uow.GetRepository<IShipmentRepository>().Update(entity);
-			
-			_uow.SaveChangesAsync();
-		}
+				
+            _uow.SaveChangesAsync();
+        }
 
 
 		public DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request)

@@ -22,7 +22,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 			_mapper = mapper;
 		}
 
-		public void UpdateShipmentReuqest(List<int> requestIdList, int shipmentId)
+		public void UpdateShipmentRequest(List<int> requestIdList, int shipmentId)
 		{
 			var shipmentRequestsInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status == "Waiting"))).ToList();
 			var shipmentRequestIdListInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status == "Waiting"))).Select(p => p.RequestId).ToList();
@@ -55,9 +55,12 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 					entity.Status = "Waiting";
 					entity.Note = "Created";
 					this.dbSet.Add(entity);
-				}
+                    
+                }
 			}
-		}
+
+             this.context.SaveChanges();
+        }
 
 	}
 

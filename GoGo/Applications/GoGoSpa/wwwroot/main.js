@@ -1635,6 +1635,7 @@ var ShipmentCreatingComponent = /** @class */ (function () {
                 _this.refreshGrid();
                 console.log(_this.sharingService.shipmentCode);
             });
+            this.isValid = true;
         }
     };
     ShipmentCreatingComponent.prototype.ngOnDestroy = function () {

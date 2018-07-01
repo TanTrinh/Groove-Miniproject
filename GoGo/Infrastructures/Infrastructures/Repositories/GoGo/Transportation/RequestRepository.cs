@@ -43,7 +43,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId)
 		{
-			var requestedIdList = this.context.Set<ShipmentRequest>().Select(p => p.RequestId).ToList();
+			var requestedIdList = this.context.Set<ShipmentRequest>().Where(p => p.Status == "Waiting").Select(p => p.RequestId).ToList();
 
 			return await this.dbSet.Where(p => (( p.Code.Contains(value) || p.Address.Contains(value)) 
 									&& !requestedIdList.Contains(p.Id) && p.Status =="Pending" && p.WareHouseId == warehouseId ) )

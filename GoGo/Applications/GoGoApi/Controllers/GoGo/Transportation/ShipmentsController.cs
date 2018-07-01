@@ -40,14 +40,14 @@ namespace GoGoApi.Controllers.GoGo
 		}
 
 
-		[Route("updateStatus")]
-		[HttpPut]
-		public async Task<IActionResult> ChangeShipmentStatus(string code, string status)
-		{
-			return Ok(await _Shipmentservice.ChangeStatus(code, status));
-		}
+        [Route("updateStatus")]
+        [HttpPut]
+        public async Task<IActionResult> ChangeShipmentStatus(string code, string status)
+        {
+            return Ok(await _Shipmentservice.ChangeStatus(code, status));
+        }
 
-		[Route("datasource")]
+        [Route("datasource")]
 		[HttpGet]
 		public IActionResult GetShipments([DataSourceRequest]DataSourceRequest request)
 		{
@@ -66,8 +66,9 @@ namespace GoGoApi.Controllers.GoGo
 		[HttpPut]
 		public IActionResult UpdateShipment(CreateShipmentModel model)
 		{
-			_Shipmentservice.UpdateShipment(model);
-			return Ok();
+            _Shipmentservice.UpdateShipment(model);
+
+            return Ok();
 		}
 	}
 }

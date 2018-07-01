@@ -41,9 +41,9 @@ namespace Domains.GoGo.Services.Transportation
 			await _uow.SaveChangesAsync();
 		}
 
-		public void UpdateShipmentReuqest(List<int> requestIdList, int shipmentId)
+		public void UpdateShipmentRequest(List<int> requestIdList, int shipmentId)
 		{
-			_repository.UpdateShipmentReuqest(requestIdList, shipmentId);
+		  _repository.UpdateShipmentRequest(requestIdList, shipmentId);
 		}
 	}
 }
