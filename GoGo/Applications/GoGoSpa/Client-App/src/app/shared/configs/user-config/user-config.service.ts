@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+// TODO: Remove this service,
+// API host address (http://localhost:62772/) was managed in ServiceRegistryService, you do not need to create another service
 @Injectable({
   providedIn: 'root'
 })

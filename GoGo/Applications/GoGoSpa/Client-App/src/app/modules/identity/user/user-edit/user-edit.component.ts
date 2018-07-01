@@ -51,8 +51,16 @@ export class UserEditComponent implements OnInit {
 
       this.id = this.route.snapshot.paramMap.get('id');
 
+      // TODO: Move all HTTPs request relate to user API into seperated service
+      // You need to create UserService in ../../identity/user/user.service.ts
+      //
+      // then you call _userService.Get(this.id).subcrible(result=>{
+      // })
+      //
+      // httpOptions, API url... will be managed by API service
       this.http.get(this.baseUrlInfoBeEdit + this.id, httpOptions).subscribe(result => {
         if (result) {
+          // TODO: Remove console.log
           console.log(result);
           this.model = result;
         }
@@ -73,9 +81,17 @@ export class UserEditComponent implements OnInit {
 
       id = this.route.snapshot.paramMap.get('id');
 
+      // TODO: Move all HTTPs request relate to user API into seperated service
+      // You need to create UserService in ../../identity/user/user.service.ts
+      //
+      // then you call _userService.Update(this.id, this.model).subcrible(result=>{
+      // })
+      //
+      // httpOptions, API url... will be managed by API service
       this.http.put(this.baseUrlEdit + id, this.model, httpOptions).subscribe(result => {
         if (result) {
           this.data = result;
+          // TODO: remove console.log
           console.log(this.data);
           this.router.navigate(['account/detail', this.data.value]);
         }

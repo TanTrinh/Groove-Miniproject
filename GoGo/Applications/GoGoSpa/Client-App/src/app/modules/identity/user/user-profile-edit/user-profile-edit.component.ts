@@ -8,6 +8,9 @@ import { NotificationService } from 'src/app/shared/component/dialog/notificatio
 import { UserConfigService } from '../../../../shared/configs/user-config/user-config.service';
 import { UserCreateComponent } from '../user-create/user-create.component';
 
+// TODO: Move user-profile to another module, because user profile is not belong to user management or identity management
+// Move it to modules/user-profile/user-profile-edit
+
 @Component({
   selector: 'app-user-profile-edit',
   templateUrl: './user-profile-edit.component.html',
@@ -50,6 +53,13 @@ export class UserProfileEditComponent implements OnInit {
 
       this.id = this._route.snapshot.paramMap.get('id');
 
+      // TODO: Move all HTTPs request relate to user API into seperated service
+      // You need to create UserProfileService in modules/user-profile/user-profile.service.ts
+      //
+      // then you call _userProfileService.GetMine().subcrible(result=>{
+      // })
+      //
+      // httpOptions, API url... will be managed by API service
       this._http.get(this.baseUrlProfileInfoBeEdit + this.id, httpOptions).subscribe(result => {
         console.log(result);
         this.model = result;
@@ -68,6 +78,16 @@ export class UserProfileEditComponent implements OnInit {
         })
       };
 
+      // TODO: Move all HTTPs request relate to user API into seperated service
+      // You need to create UserProfileService in modules/user-profile/user-profile.service.ts
+      //
+      // then you call _userProfileService.Update().subcrible(result=>{
+      // })
+      //
+      // httpOptions, API url... will be managed by API service
+      //
+      // You do not need to pass user id to API, because you are updating self profile
+      // Backend will get user id via access token 
       this._http.put(this.baseUrlProfileEdit + id, this.model, httpOptions).subscribe(result => {
         if (result) {
           this._router.navigate(['home/profile']);
