@@ -41,8 +41,19 @@ export class UserListComponent implements OnInit {
         })
       };
       console.log(this.selectOption);
+      // TODO: replace this.id by role name
+      // TODO: Remove all if/else statement, use only one statement only
+
+      // TODO: Move all HTTPs request relate to user API into seperated service
+      // You need to create UserService in ../../identity/user/user.service.ts
+      //
+      // then you call _userService.GetAll({role:this.role}).subcrible(result=>{
+      // })
+      //
+      // httpOptions, API url... will be managed by API service
       if (this.selectOption == 'Customer') {
         this.id = 1;
+
         this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
           this.data = result;
           this.userList = this.data;
