@@ -95,6 +95,7 @@ namespace Domains.GoGo.Models.Transportation
 
     public class SummaryRequestModel
     {
+        public int Id { get; set; }
         public string Code { set; get; }
         public string Status { get; set; }
         public DateTime PickingDate { get; set; }

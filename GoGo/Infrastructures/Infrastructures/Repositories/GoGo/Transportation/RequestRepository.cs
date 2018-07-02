@@ -35,12 +35,12 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
         }
-        public async Task<RequestModel> FindCustomerRequestAsync(int id)
+        public async Task<RequestModel> FindCustomerRequestAsync(int requestId, int userId)
         {
-            //return await this.dbSet.Where(p => p.Id == id).Include(p => p.WareHouse).MapQueryTo<RequestModel>(_mapper).FirstAsync();
+            
             return await this.dbSet
                                  .Include(p => p.WareHouse)
-                                 .Where(p => p.Id == id)
+                                 .Where(p => p.Id == requestId && p.CustomerId == 77)
                                   .Select(p => new RequestModel
                                   {
                                       WareHouse = new DataSourceValue<int>()
@@ -64,16 +64,21 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         }
 
 
-        public Task<string> ChangeStatus(int? id, string status)
+        public async Task<string> ChangeStatusAsync(string code, string status)
         {
-            throw new NotImplementedException();
+            var entity = await this.dbSet.Where(p => p.Code == code).FirstAsync();
+            entity.Status = status;
+            this.context.Update(entity);
+            await this.context.SaveChangesAsync();
+            return entity.Status;
         }
 
-        public DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request)
+        public DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, int userId)
         { // 77 get from claim
             
             return this.dbSet.Include(p => p.WareHouse).Where(p => p.CustomerId == 77).Select(p => new SummaryRequestModel
             {
+                Id = p.Id,
                 WareHouse = p.WareHouse.NameWarehouse,
                 ExpectedDate = p.ExpectedDate,
                 Address = p.Address,

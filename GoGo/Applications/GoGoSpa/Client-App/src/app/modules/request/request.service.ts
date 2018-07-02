@@ -10,9 +10,17 @@ import 'rxjs/add/operator/map'
   providedIn: 'root'
 })
 export class RequestService  implements ICreateFormService, IViewFormService, IUpdateFormService, IDataSourceService  {
-  
+
+  GetRequestStatus(requestId: any): Observable<any> {
+    return this._apiHttp.get(`/api/shipment-request/${requestId}/status`);
+  }
+
+  changeStatus(code: string,status : string): Observable<any> {
+    return this._apiHttp.get(`/api/request/${code}/${status}`);
+  }
+
   getDataSource(): Observable<any> { 
-    return this._apiHttp.get(`/api/warehouse/customer/77`);
+    return this._apiHttp.get(``);
   }
 
   filterWarehouseList(displayName: string): Observable<any>{

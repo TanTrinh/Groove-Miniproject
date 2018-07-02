@@ -13,10 +13,10 @@ namespace Domains.GoGo.Services
     {
         Task<IEnumerable<WaitingRequestModel>> GetWaitingRequest();
         Task<RequestDetailModel> GetRequestDetails(int? id);
-        Task<string> ChangeStatus(int? id, string status);
-        Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
-        Task<int> UpdateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
-        Task<RequestModel> FindCustomerRequestAsync(int id);
-        DataSourceResult GetCustomerRequests(DataSourceRequest request);
+        Task<string> ChangeStatus(string code, string status);
+        Task<int> CreateCustomerRequest(RequestModel model, int userId);
+        Task<int> UpdateCustomerRequest(RequestModel model, int userId);
+        Task<RequestModel> FindCustomerRequestAsync(int id, int userId);
+        DataSourceResult GetCustomerRequests(DataSourceRequest request, int userId);
     }
 }

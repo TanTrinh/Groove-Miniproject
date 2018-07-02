@@ -29,21 +29,17 @@ namespace Domains.GoGo.Services
         {
             return _repository.GetWaitingRequestAsync();
         }
-        public Task<string> ChangeStatus(int? id, string status)
-        {
-            return _repository.ChangeStatus(id, status);
-        }
 
         public Task<RequestDetailModel> GetRequestDetails(int? id)
         {
             return _repository.GetRequestDetailAsync(id);
         }
 
-        public async Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer)
+        public async Task<int> CreateCustomerRequest(RequestModel model, int userId)
         {
             var entity = this._mapper.Map<Request>(model);
 
-            entity.Status = "InActive";
+            entity.Status = "Inactive";
             entity.CreatedDate = DateTime.Now;
             entity.Code = Helper.GenerateCode(DateTime.Now, 1);
             entity.IssuerId = 77; //take from claim
@@ -55,7 +51,7 @@ namespace Domains.GoGo.Services
             return entity.Id;
         }
 
-        public async Task<int> UpdateCustomerRequest(RequestModel model, UserIdentity<long> issuer)
+        public async Task<int> UpdateCustomerRequest(RequestModel model, int userId)
         {
             var entity = this._mapper.Map<Request>(model);
             _repository.Update(entity);
@@ -64,16 +60,19 @@ namespace Domains.GoGo.Services
             return entity.Id;
         }
 
-        public async Task<RequestModel> FindCustomerRequestAsync(int id)
+        public async Task<RequestModel> FindCustomerRequestAsync(int requestId, int userId)
         {
-            //var entity = _repository.GetEntityById(id);
-            //var entity = _repository.FindCustomerRequestAsync(id);
-            return await _repository.FindCustomerRequestAsync(id);
+            return await _repository.FindCustomerRequestAsync(requestId, userId);
         }
 
-        public DataSourceResult GetCustomerRequests(DataSourceRequest request)
+        public DataSourceResult GetCustomerRequests(DataSourceRequest request, int userId)
         {
-            return _repository.GetCustomerRequestsAsync(request);
+            return _repository.GetCustomerRequestsAsync(request, userId);
+        }
+
+        public Task<string> ChangeStatus(string code, string status)
+        {
+            return this._repository.ChangeStatusAsync(code, status);
         }
     }
 }

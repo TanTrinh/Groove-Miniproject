@@ -5,6 +5,7 @@ using Groove.AspNetCore.UnitOfWork;
 using Groove.AspNetCore.UnitOfWork.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
@@ -17,5 +18,10 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		{
 			_mapper = mapper;
 		}
+
+        public string GetRequestStatus(int requestId, int userId)
+        {
+            return this.dbSet.Where(p => p.RequestId == requestId).Select(p => p.Status).First();
+        }
 	}
 }

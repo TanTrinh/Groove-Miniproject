@@ -4,161 +4,153 @@
     <h1 [hidden]="!isUpdateFormMode">Update Request</h1>
     <h1 [hidden]="!isViewFormMode">Request Detail</h1>
   </div>
-  <div class="container-fluid pt-3">
-    
-    <div class="row">
-      <div class="col-lg-4">
-        <form #mainForm="ngForm" name="mainForm" (ngSubmit)="onSubmitForm(mainForm)">
+  <div class="d-flex justify-content-center">
+    <div class="col-lg-6 col-md-10 col-sm-11 col-xs-12 pt-3">
 
-          <div class="form-group">
-            <label for="receiverName">Receiver Name </label>
-            <input type="text" class="form-control" [(ngModel)]="formData.receiverName" name="receiverName" #receiverName="ngModel" required [readonly]="isViewFormMode">
-            <div *ngIf="receiverName.invalid && (receiverName.dirty || receiverName.touched)"
-                 class="alert alert-danger">
-              <div *ngIf="receiverName.errors.required">
-                Receiver Name is required.
+      <div class="card">
+        <div class="card-block">
+          <form class="k-form" #mainForm="ngForm" name="mainForm" (ngSubmit)="onSubmitForm(mainForm)">
+            <fieldset>
+              <legend>
+                <h5>{{formData.code}} - {{GetRequestStatus()}}</h5>
+              </legend>
+              <div class="btn-wrapper">
+                <!-- Create / View -->
+                <button *ngIf="!isUpdateFormMode" type="submit" class="btn btn-primary btn-sm mr-1" (click)="onNavigateToListPage()">Back to List</button>
+
+                <!-- Update -->
+                <button *ngIf="isUpdateFormMode" type="submit" class="btn btn-primary btn-sm mr-1" (click)="onNavigateToViewPage()">Cancel</button>
+
+                <!-- Create / Update -->
+                <button *ngIf="!isViewFormMode" type="submit" class="btn btn-primary btn-sm">Save</button>
+
+                <!-- View -->
+                <button *ngIf="isViewFormMode" routerLink="/request/form/update/{{formData?.id}}" class="btn btn-primary btn-sm">Update</button>
+
               </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="receiverPhoneNumber">Receiver PhoneNumber</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.receiverPhoneNumber" name="receiverPhoneNumber" #receiverPhoneNumber="ngModel" required [readonly]="isViewFormMode">
-            <div *ngIf="receiverPhoneNumber.invalid && (receiverPhoneNumber.dirty || receiverPhoneNumber.touched)"
-                 class="alert alert-danger">
-              <div *ngIf="receiverPhoneNumber.errors.required">
-                Receiver PhoneNumber is required.
+              <div class="form-group">
+                <label for="receiverName">Receiver Name </label>
+                <input type="text" class="form-control" [(ngModel)]="formData.receiverName" name="receiverName" #receiverName="ngModel" required [readonly]="isViewFormMode">
+                <div *ngIf="receiverName.invalid && (receiverName.dirty || receiverName.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="receiverName.errors.required">
+                    Receiver Name is required.
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div class="form-group">
-            <label for="packageQuantity">Package Quantity</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.packageQuantity" name="packageQuantity" #packageQuantity="ngModel" required [readonly]="isViewFormMode">
-            <div *ngIf="packageQuantity.invalid && (packageQuantity.dirty || packageQuantity.touched)"
-                 class="alert alert-danger">
-              <div *ngIf="packageQuantity.errors.required">
-                Package Quantity is required.
+              <div class="form-group">
+                <label for="receiverPhoneNumber">Receiver PhoneNumber</label>
+                <input type="text" class="form-control" [(ngModel)]="formData.receiverPhoneNumber" name="receiverPhoneNumber" #receiverPhoneNumber="ngModel" required [readonly]="isViewFormMode">
+                <div *ngIf="receiverPhoneNumber.invalid && (receiverPhoneNumber.dirty || receiverPhoneNumber.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="receiverPhoneNumber.errors.required">
+                    Receiver PhoneNumber is required.
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div class="form-group" *ngIf="!isViewFormMode">
-            <label>Picking Date</label>
-            <div class="row px-3">
-              <kendo-datepicker class="col form-control" [(ngModel)]="formData.pickingDate" name="formData.pickingDate"></kendo-datepicker>&nbsp;
-              <kendo-timepicker class="col form-control" [(ngModel)]="formData.pickingDate" name="formData.pickingDate"></kendo-timepicker>
-            </div>
-          </div>
-          <div class="form-group" *ngIf="isViewFormMode">
-            <label>Picking Date</label>
-            <div class="row px-3">
-              <input type="text" class="form-control" value="{{formData.pickingDate | date: 'M/d/y, h:mm a'}}" required readonly>
-            </div>
-          </div>
-
-          <div class="form-group" *ngIf="!isViewFormMode">
-            <label>Expected Date</label>
-            <div class="row px-3">
-              <kendo-datepicker class="col form-control" [(ngModel)]="formData.expectedDate" name="formData.expectedDate"></kendo-datepicker>&nbsp;
-              <kendo-timepicker class="col form-control" [(ngModel)]="formData.expectedDate" name="formData.expectedDate"></kendo-timepicker>
-            </div>
-          </div>
-          <div class="form-group" *ngIf="isViewFormMode">
-            <label>Expected Date</label>
-            <div class="row px-3">
-              <input type="text" class="form-control" value="{{formData.expectedDate | date: 'M/d/y, h:mm a'}}" required readonly>
-            </div>
-          </div>
-
-          <div class="form-group" *ngIf="!isViewFormMode">
-            <label for="wareHouse">Warehouse</label>
-            <kendo-combobox class="form-control" [(ngModel)]="formData.wareHouse" name="formData.wareHouse" #wareHouse="ngModel" required
-                            [data]="warehouseList"
-                            [valueField]="'value'"
-                            [textField]="'displayName'"
-                            [filterable]="true"
-                            (filterChange)="filterChange($event)">
-            </kendo-combobox>
-            <div *ngIf="wareHouse.invalid && (wareHouse.dirty || wareHouse.touched)"
-                 class="alert alert-danger">
-              <div *ngIf="wareHouse.errors.required">
-                Warehouse is required.
+              <div class="form-group">
+                <label for="packageQuantity">Package Quantity</label>
+                <input type="text" class="form-control" [(ngModel)]="formData.packageQuantity" name="packageQuantity" #packageQuantity="ngModel" required [readonly]="isViewFormMode">
+                <div *ngIf="packageQuantity.invalid && (packageQuantity.dirty || packageQuantity.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="packageQuantity.errors.required">
+                    Package Quantity is required.
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="form-group" *ngIf="isViewFormMode">
-            <label>Warehouse</label>
-            <input type="text" class="form-control" value="{{formData.wareHouse.displayName}}" required readonly>
-          </div>
 
-
-          <div class="form-group">
-            <label for="address">Delivery Address</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.address" name="address" #address="ngModel" required [readonly]="isViewFormMode">
-            <div *ngIf="address.invalid && (address.dirty || address.touched)"
-                 class="alert alert-danger">
-              <div *ngIf="address.errors.required">
-                Delivery Address is required.
+              <div class="form-group" *ngIf="!isViewFormMode">
+                <label>Picking Date</label>
+                <div class="row px-3">
+                  <kendo-datepicker class="col form-control" [(ngModel)]="formData.pickingDate" name="formData.pickingDate"></kendo-datepicker>&nbsp;
+                  <kendo-timepicker class="col form-control" [(ngModel)]="formData.pickingDate" name="formData.pickingDate"></kendo-timepicker>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="deliveryLatitude">Delivery Latitude</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.deliveryLatitude" name="deliveryLatitude" #deliveryLatitude="ngModel" required [readonly]="isViewFormMode">
-            <div *ngIf="deliveryLatitude.invalid && (deliveryLatitude.dirty || deliveryLatitude.touched)"
-                 class="alert alert-danger">
-              <div *ngIf="deliveryLatitude.errors.required">
-                Delivery Latitude is required.
+              <div class="form-group" *ngIf="isViewFormMode">
+                <label>Picking Date</label>
+                <div class="row px-3">
+                  <input type="text" class="form-control" value="{{formData.pickingDate | date: 'M/d/y, h:mm a'}}" required readonly>
+                </div>
               </div>
-            </div>
-          </div>
 
-
-
-          <div class="form-group ">
-            <label for="deliveryLongitude">Delivery Longitude</label>
-            <input type="text" class="form-control" [(ngModel)]="formData.deliveryLongitude" name="deliveryLongitude" #deliveryLongitude="ngModel" required [readonly]="isViewFormMode">
-            <div *ngIf="deliveryLongitude.invalid && (deliveryLongitude.dirty || deliveryLongitude.touched)"
-                 class="alert alert-danger">
-              <div *ngIf="deliveryLongitude.errors.required">
-                Delivery Longitude is required.
+              <div class="form-group" *ngIf="!isViewFormMode">
+                <label>Expected Date</label>
+                <div class="row px-3">
+                  <kendo-datepicker class="col form-control" [(ngModel)]="formData.expectedDate" name="formData.expectedDate"></kendo-datepicker>&nbsp;
+                  <kendo-timepicker class="col form-control" [(ngModel)]="formData.expectedDate" name="formData.expectedDate"></kendo-timepicker>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="btn-wrapper">
-            <!-- Create / View -->
-            <button *ngIf="!isUpdateFormMode" type="submit" class="btn btn-custom mr-1" (click)="onNavigateToListPage()">Back to List</button>
+              <div class="form-group" *ngIf="isViewFormMode">
+                <label>Expected Date</label>
+                <div class="row px-3">
+                  <input type="text" class="form-control" value="{{formData.expectedDate | date: 'M/d/y, h:mm a'}}" required readonly>
+                </div>
+              </div>
 
-            <!-- Update -->
-            <button *ngIf="isUpdateFormMode" type="submit" class="btn btn-custom mr-1" (click)="onNavigateToViewPage()">Cancel</button>
+              <div class="form-group" *ngIf="!isViewFormMode">
+                <label for="wareHouse">Warehouse</label>
+                <kendo-combobox class="form-control" [(ngModel)]="formData.wareHouse" name="formData.wareHouse" #wareHouse="ngModel" required
+                                [data]="warehouseList"
+                                [valueField]="'value'"
+                                [textField]="'displayName'"
+                                [filterable]="true"
+                                (filterChange)="filterChange($event)">
+                </kendo-combobox>
+                <div *ngIf="wareHouse.invalid && (wareHouse.dirty || wareHouse.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="wareHouse.errors.required">
+                    Warehouse is required.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" *ngIf="isViewFormMode">
+                <label>Warehouse</label>
+                <input type="text" class="form-control" value="{{formData.wareHouse.displayName}}" required readonly>
+              </div>
 
-            <!-- Create / Update -->
-            <button *ngIf="!isViewFormMode" type="submit" class="btn btn-custom">Save</button>
 
-            <!-- View -->
-            <button *ngIf="isViewFormMode" routerLink="/request/form/update/{{formData?.id}}" class="btn btn-custom">Update</button>
+              <div class="form-group">
+                <label for="address">Delivery Address</label>
+                <input type="text" class="form-control" [(ngModel)]="formData.address" name="address" #address="ngModel" required [readonly]="isViewFormMode">
+                <div *ngIf="address.invalid && (address.dirty || address.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="address.errors.required">
+                    Delivery Address is required.
+                  </div>
+                </div>
+              </div>
 
-          </div>
+              <div class="form-group">
+                <label for="deliveryLatitude">Delivery Latitude</label>
+                <input type="text" class="form-control" [(ngModel)]="formData.deliveryLatitude" name="deliveryLatitude" #deliveryLatitude="ngModel" required [readonly]="isViewFormMode">
+                <div *ngIf="deliveryLatitude.invalid && (deliveryLatitude.dirty || deliveryLatitude.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="deliveryLatitude.errors.required">
+                    Delivery Latitude is required.
+                  </div>
+                </div>
+              </div>
 
 
-        </form>
-      </div>
-      <div class="col-lg-8">
-        <div class="row pl-4" *ngIf="isViewFormMode">
-          <div class="col-7">
-            <h5>Code: {{formData.code}}</h5>
-          </div>
-          <div class="col-5">
-            <h5>Status: {{formData.status}}</h5>
-          </div>
-        </div>
-        <div class="row">
-          <p>Map here!</p>
+
+              <div class="form-group ">
+                <label for="deliveryLongitude">Delivery Longitude</label>
+                <input type="text" class="form-control" [(ngModel)]="formData.deliveryLongitude" name="deliveryLongitude" #deliveryLongitude="ngModel" required [readonly]="isViewFormMode">
+                <div *ngIf="deliveryLongitude.invalid && (deliveryLongitude.dirty || deliveryLongitude.touched)"
+                     class="alert alert-danger">
+                  <div *ngIf="deliveryLongitude.errors.required">
+                    Delivery Longitude is required.
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </form>
         </div>
       </div>
+
     </div>
   </div>
+ 
 </div>
-

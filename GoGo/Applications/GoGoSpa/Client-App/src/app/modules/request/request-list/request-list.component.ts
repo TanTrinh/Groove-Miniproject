@@ -23,7 +23,6 @@ export class RequestListComponent implements OnInit {
         result.data[i].expectedDate = new Date(result.data[i].expectedDate);
       }
       this.view = result;
-      console.log(result);
     });
 
   }
@@ -39,7 +38,34 @@ export class RequestListComponent implements OnInit {
     });
   }
 
+  public onLoadGrid(status) {
+    if (status == 'Inactive') {
+      return 'Activate';
+    }
+    else if (status == 'Active') {
+      return 'Deactivate'
+    }
+  }
+
+  public onClickStatus(dataItem) {
+    if (dataItem.status == 'Inactive') {
+      this._requestService.changeStatus(dataItem.code, 'Active').subscribe(
+        result => {
+          console.log(result.result)
+          dataItem.status = result.result;
+        }
+      );
+    }
+    else if (dataItem.status == 'Active') {
+      this._requestService.changeStatus(dataItem.code, 'Inactive').subscribe(
+        result => {
+          console.log(result.result)
+          dataItem.status = result.result;
+        });
+    }
+  }
+
   ngOnInit() {
-  } 
+  }
 
 }

@@ -8,6 +8,6 @@ namespace Domains.GoGo.Repositories.Transportation
 {
     public interface IShipmentRequestRepository : IGenericRepository<ShipmentRequest, int>
     {
-
+        string GetRequestStatus(int requestId, int userId);
     }
 }

@@ -51,6 +51,9 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   ngOnInit() {
   }
 
+  public GetRequestStatus() {
+  }
+
   public filterChange(value) {
     if (value != null && value != undefined && value != '') {
       this.requestService.filterWarehouseList(value).subscribe(data => {

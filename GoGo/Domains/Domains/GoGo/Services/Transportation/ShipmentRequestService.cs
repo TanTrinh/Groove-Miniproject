@@ -11,11 +11,11 @@ namespace Domains.GoGo.Services.Transportation
 {
 	public class ShipmentRequestService : IShipmentRequestService
 	{
-		private readonly IShipmentRepository _repository;
+		private readonly IShipmentRequestRepository _repository;
 		private readonly IUnitOfWork _uow;
 		private readonly IMapper _mapper;
 
-		public ShipmentRequestService(IShipmentRepository repository, IUnitOfWork uow, IMapper mapper)
+		public ShipmentRequestService(IShipmentRequestRepository repository, IUnitOfWork uow, IMapper mapper)
 		{
 			_repository = repository;
 			_uow = uow;
@@ -40,5 +40,11 @@ namespace Domains.GoGo.Services.Transportation
 
 			await _uow.SaveChangesAsync();
 		}
-	}
+
+        public string GetRequestStatus(int requestId, int userId)
+        {
+            return _repository.GetRequestStatus(requestId, userId);
+        }
+
+    }
 }

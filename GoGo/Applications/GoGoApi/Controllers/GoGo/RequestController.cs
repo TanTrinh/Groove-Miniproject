@@ -28,30 +28,18 @@ namespace GoGoApi.Controllers
         [HttpGet]
         public IActionResult GetRequests([DataSourceRequest]DataSourceRequest request)
         {
-            //if (this.User.Claims.Role = "Customer")
-            //{
-            //    var result = ;
-            //}
-            //else if (this.User.Claims.Role = "Coodinator")
-            //{
-            //    var result = ;
-            //}
-            var result = _requestService.GetCustomerRequests(request);
-            return  Ok(result);
+            var userId = GetCurrentUserId<int>();
+            var result = _requestService.GetCustomerRequests(request, userId);
+            return Ok(result);
         }
 
-        private IEnumerable products = new[] {
-           new { ProductName = "Chai", CategoryName = "Beverages", QuantityPerUnit = "10 boxes x 20 bags" },
-           new { ProductName = "Chang", CategoryName = "Beverages", QuantityPerUnit = "20 boxes x 20 bags" },
-           new { ProductName = "Aniseed Syrup", CategoryName = "Condiments", QuantityPerUnit = "12 - 550 ml bottles" },
-           new { ProductName = "Chef Anton's Cajun Seasoning", CategoryName = "Condiments", QuantityPerUnit = "48 - 6 oz jars" },
-           new { ProductName = "Chef Anton's Gumbo Mix", CategoryName = "Condiments", QuantityPerUnit = "36 boxes" },
-           new { ProductName = "Grandma's Boysenberry Spread", CategoryName = "Condiments", QuantityPerUnit = "12 - 8 oz jars" },
-           new { ProductName = "Uncle Bob's Organic Dried Pears", CategoryName = "Produce", QuantityPerUnit = "12 - 1 lb pkgs." },
-           new { ProductName = "Northwoods Cranberry Sauce", CategoryName = "Condiments", QuantityPerUnit = "12 - 12 oz jars" },
-           new { ProductName = "Mishi Kobe Niku", CategoryName = "Meat/Poultry", QuantityPerUnit = "18 - 500 g pkgs." },
-           new { ProductName = "Ikura", CategoryName = "Seafood", QuantityPerUnit = "12 - 200 ml jars" }
-       };
+        [Route("/api/request/{code}/{status}")]
+        [HttpGet]
+        public IActionResult ChangeStatus(string code, string status)
+        {
+            var result = _requestService.ChangeStatus(code, status);
+            return  Ok(result);
+        }
 
         [Route("")]
         [HttpPost]
@@ -62,22 +50,23 @@ namespace GoGoApi.Controllers
                 return BadRequest(ModelState);
             }
             
-            //var userIdentity = GetCurrentIdentity<long>();
-            var result = await this._requestService.CreateCustomerRequest(model, null);
+            var userId = GetCurrentUserId<int>();
+            var result = await this._requestService.CreateCustomerRequest(model, userId);
             return OkValueObject(result);
         }
 
-        [Route("{id}")]
+        [Route("{requestId}")]
         [HttpGet]
-        public async Task<IActionResult> GetRequestAsync(int id)
+        public async Task<IActionResult> GetRequestAsync(int requestId)
         {
-            var result = await _requestService.FindCustomerRequestAsync(id);
+            var userId = GetCurrentUserId<int>();
+            var result = await _requestService.FindCustomerRequestAsync(requestId,userId);
             return Ok(result);
         }
 
         [Route("{id}")]
         [HttpPut]
-        public async Task<IActionResult> UpateRequest([FromBody]RequestModel model)
+        public async Task<IActionResult> UpateRequest([FromBody]RequestModel model, int userId)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +74,7 @@ namespace GoGoApi.Controllers
             }
 
             //var userIdentity = GetCurrentIdentity<long>();
-            var result = await this._requestService.UpdateCustomerRequest(model, null);
+            var result = await this._requestService.UpdateCustomerRequest(model, userId);
             return OkValueObject(result);
         }
     }
