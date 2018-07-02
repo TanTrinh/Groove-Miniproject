@@ -621,9 +621,9 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\intern08\Documents\Groove\New folder (2)\gogogo\GoGo\Applications\GoGoSpa\Client-App\node_modules\@progress\kendo-theme-default\dist\all.css */"./node_modules/@progress/kendo-theme-default/dist/all.css");
-__webpack_require__(/*! C:\Users\intern08\Documents\Groove\New folder (2)\gogogo\GoGo\Applications\GoGoSpa\Client-App\node_modules\bootstrap\dist\css\bootstrap.css */"./node_modules/bootstrap/dist/css/bootstrap.css");
-module.exports = __webpack_require__(/*! C:\Users\intern08\Documents\Groove\New folder (2)\gogogo\GoGo\Applications\GoGoSpa\Client-App\src\styles.scss */"./src/styles.scss");
+__webpack_require__(/*! C:\Users\intern08\Documents\gogogo\GoGo\Applications\GoGoSpa\Client-App\node_modules\@progress\kendo-theme-default\dist\all.css */"./node_modules/@progress/kendo-theme-default/dist/all.css");
+__webpack_require__(/*! C:\Users\intern08\Documents\gogogo\GoGo\Applications\GoGoSpa\Client-App\node_modules\bootstrap\dist\css\bootstrap.css */"./node_modules/bootstrap/dist/css/bootstrap.css");
+module.exports = __webpack_require__(/*! C:\Users\intern08\Documents\gogogo\GoGo\Applications\GoGoSpa\Client-App\src\styles.scss */"./src/styles.scss");
 
 
 /***/ })

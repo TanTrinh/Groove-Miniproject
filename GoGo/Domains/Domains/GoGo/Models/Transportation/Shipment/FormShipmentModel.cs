@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Domains.GoGo.Models.Transportation
 {
-    public class CreateShipmentModel
+    public class FormShipmentModel
     {
 		public int Id { get; set; }
 		public string Code { get; set; }
@@ -22,12 +22,12 @@ namespace Domains.GoGo.Models.Transportation
 		public long CoordinatorId { get; set; }
 	}
 
-	public class CreateShipmentModelMapper : Profile
+	public class FormShipmentModelMapper : Profile
 	{
-		public CreateShipmentModelMapper()
+		public FormShipmentModelMapper()
 		{
-			CreateMap<Shipment, CreateShipmentModel>();
-			var mappers = CreateMap<CreateShipmentModel, Shipment>();
+			CreateMap<Shipment, FormShipmentModel>();
+			var mappers = CreateMap<FormShipmentModel, Shipment>();
 
 			mappers.ForMember(p => p.Id, opt => opt.MapFrom(s => s.Id));
 			mappers.ForMember(p => p.Code, opt => opt.MapFrom(s => s.Code));

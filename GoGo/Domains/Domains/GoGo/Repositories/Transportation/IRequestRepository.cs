@@ -19,9 +19,9 @@ namespace Domains.GoGo.Repositories.Transportation
 
 		Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId);
 
-        Task<RequestModel> GetRequestByCode(string code);
+        Task<RequestsModel> GetRequestByCode(string code);
 
-		IEnumerable<RequestModel> GetRequestsByShipmentId(int shipmentId);
+		IEnumerable<RequestsModel> GetRequestsByShipmentId(int shipmentId);
 		IEnumerable<int> GetRequestIdList(int shipmentId);
 
 	}

@@ -95,7 +95,6 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
           this.pickingDate = new Date(result.EndDate)
           this.deliveryDate = new Date(result.EndDate)
           this.refreshGrid()
-          console.log(this.sharingService.shipmentCode)
         }    
       )
       this.isValid = true;
@@ -219,6 +218,12 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
       this.isValid = false
   }
 
-  public valueNormalizer = (text: Observable<string>): any => text.pipe(switchMap(this.service));
-  public service = (text: string): any => this.http.post('normalize/url', { text });
+
+  onChange(Value)
+  {
+    this.masterDataService.getVehicleDetail(Value).pipe(map(res => res.json()))
+      .subscribe(result => {
+        this.vehicleDetail = result
+      });
+  }
 }

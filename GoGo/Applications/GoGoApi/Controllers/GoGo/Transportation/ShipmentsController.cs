@@ -29,7 +29,7 @@ namespace GoGoApi.Controllers.GoGo
 
 		[Route("Create")]
 		[HttpPost]
-		public async Task<IActionResult> CreateShipment(CreateShipmentModel model)
+		public async Task<IActionResult> CreateShipment(FormShipmentModel model)
 		{
 			//var userIdentity = GetCurrentIdentity<long>();
 
@@ -64,7 +64,7 @@ namespace GoGoApi.Controllers.GoGo
 
 		[Route("update")]
 		[HttpPut]
-		public async Task<IActionResult> UpdateShipment(CreateShipmentModel model)
+		public async Task<IActionResult> UpdateShipment(FormShipmentModel model)
 		{
             await _Shipmentservice.UpdateShipmentAsync(model);
 

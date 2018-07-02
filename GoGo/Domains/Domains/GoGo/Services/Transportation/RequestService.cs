@@ -48,12 +48,12 @@ namespace Domains.GoGo.Services
 			return await _repository.GetDataSource(value, warehouseId);
 		}
 
-        public Task<RequestModel> GetRequestByCode(string code)
+        public Task<RequestsModel> GetRequestByCode(string code)
         {
             return _repository.GetRequestByCode(code);
         }
 
-		public IEnumerable<RequestModel> GetRequestsByShipmentId(int shipmentId)
+		public IEnumerable<RequestsModel> GetRequestsByShipmentId(int shipmentId)
 		{
 			return _repository.GetRequestsByShipmentId(shipmentId);
 		}

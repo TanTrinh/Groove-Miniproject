@@ -38,7 +38,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 		public DataSourceResult GetAllAsync([DataSourceRequest] DataSourceRequest request)
 		{
-			return this.dbSet.MapQueryTo<RequestModel>(_mapper).ToDataSourceResult(request);
+			return this.dbSet.MapQueryTo<RequestsModel>(_mapper).ToDataSourceResult(request);
 		}
 
 		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId)
@@ -54,16 +54,16 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 									}).ToListAsync();
 		}
 
-        public async Task<RequestModel> GetRequestByCode(string code)
+        public async Task<RequestsModel> GetRequestByCode(string code)
         {
-            return await this.dbSet.Where(p => p.Code == code).MapQueryTo<RequestModel>(_mapper).FirstAsync();
+            return await this.dbSet.Where(p => p.Code == code).MapQueryTo<RequestsModel>(_mapper).FirstAsync();
         }
 
-		public IEnumerable<RequestModel> GetRequestsByShipmentId(int shipmentId)
+		public IEnumerable<RequestsModel> GetRequestsByShipmentId(int shipmentId)
 		{
 			var requestIdList = this.context.Set<ShipmentRequest>().Where(p =>( p.ShipmentId == shipmentId && p.Status == "Waiting")).Select(p => p.RequestId).ToList();
 
-			return this.dbSet.Where(p => (requestIdList.IndexOf(p.Id) != -1)).MapQueryTo<RequestModel>(_mapper).ToList();
+			return this.dbSet.Where(p => (requestIdList.IndexOf(p.Id) != -1)).MapQueryTo<RequestsModel>(_mapper).ToList();
 		}
 
 		public IEnumerable<int> GetRequestIdList(int shipmentId)

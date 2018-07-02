@@ -36,7 +36,7 @@ namespace Domains.GoGo.Services.Transportation
             return await _shipmentRepository.ChangeStatus(code, status);
         }
 
-        public async Task<int> CreateShipmentAsync(CreateShipmentModel model)
+        public async Task<int> CreateShipmentAsync(FormShipmentModel model)
 		{
 			var entity = _mapper.Map<Shipment>(model);
 
@@ -54,7 +54,7 @@ namespace Domains.GoGo.Services.Transportation
 			return entity.Id;
 		}
 
-		public async Task UpdateShipmentAsync(CreateShipmentModel model)
+		public async Task UpdateShipmentAsync(FormShipmentModel model)
 		{
 
      //       var entity = _uow.GetRepository<IShipmentRepository>().GetEntityById(model.Id);

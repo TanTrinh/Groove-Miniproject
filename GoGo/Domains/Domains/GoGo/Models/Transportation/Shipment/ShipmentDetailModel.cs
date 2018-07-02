@@ -10,7 +10,7 @@ namespace Domains.GoGo.Models.Transportation
 	public class ShipmentDetailModel
 	{
 		public int Id { get; set; }
-		public IEnumerable<RequestModel> RequestList { get; set; }
+		public IEnumerable<RequestsModel> RequestList { get; set; }
 		public IEnumerable<int> RequestIdList { get; set; }
 		public int RequestQuantity { get; set; }
 
