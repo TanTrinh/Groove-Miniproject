@@ -6,7 +6,6 @@
 $sidebar-color: #e6e6ff;
 $main-color: #0073e6;
 $btn-thead-color: #3399ff;
-
 // override kendo ui
 kendo-grid {
   .k-grid-header {
@@ -50,4 +49,14 @@ img {
 
 .hidden{
     visibility: hidden;
+}
+
+.validation-message{
+  display: block;
+  min-height: 26px;
+  color: red;
+}
+
+.note{
+  color: red;
 }

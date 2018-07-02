@@ -1,5 +1,6 @@
 using AutoMapper;
 using Domains.Core;
+using Domains.GoGo.Models.Transportation;
 using Domains.Identity.Entities;
 using Groove.AspNetCore.Domain.Entities;
 using System;
@@ -42,5 +43,12 @@ namespace Domains.GoGo.Entities
         //string IEntity<string>.Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 
-   
+    public class RequestMapper : Profile
+    {
+        public RequestMapper()
+        {
+            CreateMap<Request, RequestModel>()
+                .ForPath(destination => destination.WareHouse.Value, option => option.MapFrom(source => source.WareHouseId));
+        }
+    }
 }

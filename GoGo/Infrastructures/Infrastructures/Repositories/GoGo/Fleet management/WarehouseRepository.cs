@@ -19,7 +19,7 @@ namespace Infrastructures.Repositories.GoGo
 	{
 		private readonly IMapper _mapper;
 
-		public WarehouseRepository(IMapper mapper, IUnitOfWorkContext uoWContext) : base(uoWContext)
+		public WarehouseRepository(IMapper mapper, ApplicationDbContext uoWContext) : base(uoWContext)
 		{
 			_mapper = mapper;
 		}
@@ -40,6 +40,12 @@ namespace Infrastructures.Repositories.GoGo
 														DisplayName = $"{p.NameWarehouse}",
 														Value = p.Id
 													}).ToListAsync();
+		}
+
+		public async Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName)
+		{
+			return await this.dbSet.Where(p => p.NameWarehouse.Contains(displayName) && p.OwnerId == 77)
+				.MapQueryTo<DataSourceValue<int>>(_mapper).ToListAsync(); //77 is get on claim
 		}
 	}
 }

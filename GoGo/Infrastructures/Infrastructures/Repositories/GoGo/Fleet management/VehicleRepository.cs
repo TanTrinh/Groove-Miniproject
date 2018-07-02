@@ -20,7 +20,7 @@ namespace Infrastructures.Repositories.GoGo.Fleet_management
     {
         private readonly IMapper _mapper;
 
-        public VehicleRepository(IMapper mapper, IUnitOfWorkContext uoWContext) : base(uoWContext)
+        public VehicleRepository(IMapper mapper, ApplicationDbContext uoWContext) : base(uoWContext)
         {
             _mapper = mapper;
         }

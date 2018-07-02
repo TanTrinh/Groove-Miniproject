@@ -9,7 +9,7 @@ namespace FluentValidation
     {
         public static IRuleBuilderOptions<T, string> RequireUppercase<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
-            return ruleBuilder.Must(p=>p.Any(c => char.IsUpper(c))).WithMessage("Require uppercase character");
+            return ruleBuilder.Must(p=>p.Any(c => char.IsUpper(c))).WithMessage("Password require uppercase character");
         }
     }
 }

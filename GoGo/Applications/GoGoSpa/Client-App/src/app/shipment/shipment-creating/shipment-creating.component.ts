@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SharingService } from '../../shared/sevices/sharing-service.service';
-import { RequestService } from '../../request/request.service';
+import { RequestsService } from '../../request/request.service';
 import { Observable } from 'rxjs-compat/Observable';
 import { ShipmentService } from '../shipment.service';
 import { DataSourceRequestState } from '@progress/kendo-data-query';
@@ -73,7 +73,7 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
   public gridData: any = process(this.requestList, this.state);
 
   constructor(private shipmentService: ShipmentService, private router: Router, private http: Http,
-              private requestService: RequestService, private masterDataService: MasterDataService,
+              private requestService: RequestsService, private masterDataService: MasterDataService,
               private sharingService: SharingService) {
     this.view = requestService;
     this.vehicleView = masterDataService;

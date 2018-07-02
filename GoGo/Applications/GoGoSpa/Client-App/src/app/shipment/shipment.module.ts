@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AssignedComponent } from './ShipmentAssigned/assigned.component';
-import { ShipmentCreatingComponent } from './shipment-creating/shipment-creating.component';
-import { ShipmentComponent } from './shipment/shipment.component';
-import { ShipmentListComponent } from './shipment-list/shipment-list.component';
 
+// TODO: move shipment to ../modules
 @NgModule({
   imports: [
     CommonModule

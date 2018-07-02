@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
+import { NgModule, FactoryProvider, APP_INITIALIZER } from '@angular/core';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -10,23 +8,24 @@ import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
-import { GgmapComponent } from './ggmap/ggmap.component';
-import { AgmCoreModule, AgmDataLayer } from '@agm/core';
-import { AgmDirectionModule } from 'agm-direction';
-import { GridModule } from '@progress/kendo-angular-grid';
+import { AuthHttpService, LocalStorageService, ServiceRegistryService } from './shared';
+import { NotificationService } from './shared/component/dialog/notification.service';
+import { FormValidationService } from './shared/component/form';
+import { AuthenticationService } from './shared/services/authentication.service';
+//import { GgmapComponent } from './ggmap/ggmap.component';
+//import { AgmCoreModule, AgmDataLayer } from '@agm/core';
+//import { AgmDirectionModule } from 'agm-direction';
+
 import { LoginComponent } from './modules/account/login/login.component';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ShipmentModule } from './shipment/shipment.module';
-import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
 import { ConfigService } from './shared/sevices/config-service.service';
-import { RequestService } from './request/request.service';
+import { RequestsService } from './request/request.service';
 import { SharedModule } from './shared/shared.module';
-import { RequestListComponent } from './request/request-list/request-list.component';
 import { Request, HttpModule } from '@angular/http';
 import { CommonModule } from '@angular/common';
 // Import the Animations module
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 // Import the ButtonsModule
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { ShipmentCreatingComponent } from './shipment/shipment-creating/shipment-creating.component';
@@ -38,6 +37,29 @@ import { ButtonGroupModule } from '@progress/kendo-angular-buttons';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { MasterDataService } from './shared/sevices/master-data.service';
 
+import { FormsModule } from '@angular/forms';
+import { AccountModule } from './modules/account/account.module';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { UserModule } from './modules/identity/user/user.module';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { GridModule } from '@progress/kendo-angular-grid';
+import { RequestModule } from './modules/request/request.module';
+
+
+const APP_INITIALIZER_PROVIDER: FactoryProvider = {
+  provide: APP_INITIALIZER,
+  useFactory: (ServiceRegistryService: ServiceRegistryService) => {
+
+
+    // Do initing of services that is required before app loads
+    // NOTE: this factory needs to return a function (that then returns a promise)
+    return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
+    //return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
+  },
+  deps: [ServiceRegistryService],
+  multi: true
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,9 +69,7 @@ import { MasterDataService } from './shared/sevices/master-data.service';
     HeaderComponent,
     FooterComponent,
     NavigationComponent,
-    GgmapComponent,
     LoginComponent,
-    RequestListComponent,
     ShipmentCreatingComponent,
     ShipmentComponent,
     ShipmentListComponent,
@@ -59,10 +79,11 @@ import { MasterDataService } from './shared/sevices/master-data.service';
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     AppRoutingModule,
     SharedModule,
-    AgmDirectionModule,
     HttpClientModule,
     ShipmentModule,
     CommonModule,
@@ -76,13 +97,37 @@ import { MasterDataService } from './shared/sevices/master-data.service';
     DialogModule,
     ButtonGroupModule,
     DateInputsModule ,
+    AccountModule,
+    InputsModule,
+    RequestModule,
 
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
+    //AgmCoreModule.forRoot({
+    //  apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
+   
+    //}),
+    //AgmDirectionModule,
+    
+    UserModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('tokenKey');
+        }
+      }
     }),
   ],
   providers: [
-    NotificationService, ConfigService, RequestService
+    LocalStorageService,
+    ServiceRegistryService,
+    NotificationService,
+    AuthHttpService,
+    AuthenticationService,
+    FormValidationService,
+    //APP_INITIALIZER_PROVIDER,
+    JwtHelperService,
+    ConfigService,
+    RequestsService,
   ],
   bootstrap: [AppComponent]
 })

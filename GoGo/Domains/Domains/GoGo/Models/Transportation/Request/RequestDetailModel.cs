@@ -12,7 +12,7 @@ namespace Domains.GoGo.Models.Transportation
         public string Code { set; get; }
         public string ReceiverName { set; get; }
         public string ReceiverPhoneNumber { set; get; }
-
+        public string WarehouseName { set; get; }
     }
     public class RequestDetaiModelMapper : Profile
     {

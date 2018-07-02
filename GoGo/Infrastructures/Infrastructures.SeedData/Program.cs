@@ -112,19 +112,19 @@ namespace Infrastructures.SeedData
             if (!await dbContext.Set<User>().AnyAsync())
             {
                 Console.WriteLine("Start to seed user info");
-
                 var userManagement = _serviceProvider.GetService<UserManager<User>>();
                 var user = new User
                 {
                     UserName = "system",
                     Email = "GoGo@groovetechnology.com",
+                    PhoneNumber = "0909123007",
                     CreatedByUserId = 1,
                     CreatedDate = DateTimeOffset.UtcNow,
                     CreatedByUserName = "system",
                     UpdatedByUserId = 1,
                     UpdatedDate = DateTimeOffset.UtcNow,
                     UpdatedByUserName = "system",
-					PhoneNumber = "0909009909",
+			
                     Status = "Active"
                 };
 
@@ -162,13 +162,14 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        PhoneNumber = "0909" + random.Next(100000,999999).ToString(),
                         Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
                         UpdatedDate = DateTimeOffset.UtcNow,
-						PhoneNumber = "0909009909",
+				
                         UpdatedByUserName = "system"
                     };
                     IdentityResult rs = await userManagement.CreateAsync(user, "P@ssword123");
@@ -197,13 +198,14 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        PhoneNumber = "0909" + random.Next(100000, 999999).ToString(),
                         Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
                         UpdatedDate = DateTimeOffset.UtcNow,
-						PhoneNumber = "0909009909",
+			
 						UpdatedByUserName = "system"
                     };
                     IdentityResult rs = await userManagement.CreateAsync(user, "P@ssword123");
@@ -232,12 +234,13 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        PhoneNumber = "0909" + random.Next(100000,999999).ToString(),
                         Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
-						PhoneNumber = "0909009909",
+				
 						UpdatedDate = DateTimeOffset.UtcNow,
                         UpdatedByUserName = "system"
                     };
@@ -267,12 +270,12 @@ namespace Infrastructures.SeedData
                     {
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
+                        PhoneNumber = "0909" + random.Next(100000,999999).ToString(),
                         Status = "Active",
                         CreatedByUserId = 1,
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
-						PhoneNumber = "0909009909",
 						UpdatedDate = DateTimeOffset.UtcNow,
                         UpdatedByUserName = "system"
                     };
@@ -445,7 +448,7 @@ namespace Infrastructures.SeedData
             double longitudeBase = 106.660172;
             for (double i = 0; i < 25; i++)
             {
-                long custormerID = (long)i + 77;
+                long custormerID = (long)i + 76;
                 var warehouse = new WareHouse
                 {
                     NameWarehouse = "WH" + (i + 1).ToString(),

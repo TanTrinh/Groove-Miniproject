@@ -2,6 +2,8 @@ using Domains.Core;
 using Domains.GoGo.Models.Transportation;
 using Domains.Helpers;
 using Kendo.Mvc.UI;
+using Groove.AspNetCore.Common.Identity;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,6 +20,9 @@ namespace Domains.GoGo.Services
 		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
         Task<RequestsModel> GetRequestByCode(string code);
     
+        Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
+        Task<int> UpdateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
+        Task<RequestModel> FindCustomerRequestAsync(int id);
     }
 }
 	

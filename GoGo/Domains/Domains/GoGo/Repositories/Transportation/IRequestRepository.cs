@@ -2,6 +2,7 @@ using Domains.Core;
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
 using Kendo.Mvc.UI;
+using Groove.AspNetCore.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Domains.GoGo.Repositories.Transportation
 {
-    public interface IRequestRepository
+    public interface IRequestRepository : IGenericRepository<Request, int>
     {
 		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
 
@@ -24,5 +25,7 @@ namespace Domains.GoGo.Repositories.Transportation
 		IEnumerable<RequestsModel> GetRequestsByShipmentId(int shipmentId);
 		IEnumerable<int> GetRequestIdList(int shipmentId);
 
-	}
+	
+        Task<RequestModel> FindCustomerRequestAsync(int id);
+    }
 }

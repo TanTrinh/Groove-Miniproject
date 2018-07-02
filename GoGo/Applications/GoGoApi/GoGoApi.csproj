@@ -30,6 +30,7 @@
     <ProjectReference Include="..\..\BuildingBlocks\UnitOfWork\Groove.AspNetCore.UnitOfWork.EntityFramework\Groove.AspNetCore.UnitOfWork.EntityFramework.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\UnitOfWork\Groove.AspNetCore.UnitOfWork\Groove.AspNetCore.UnitOfWork.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\Validation\Groove.AspNetCore.FluentValidation\Groove.AspNetCore.FluentValidation.csproj" />
+    <ProjectReference Include="..\..\Domains\Domains\Domains.csproj" />
     <ProjectReference Include="..\..\Infrastructures\Infrastructures\Infrastructures.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Client-App\src\app\shared\components\dialog\" />
+<<<<<<< HEAD
+    <Folder Include="Client-App\src\app\shared\models\" />
+    <Folder Include="Client-App\src\app\shared\sevices\" />
+    <Folder Include="wwwroot\" />
+=======
+    <Folder Include="Client-App\src\app\shared\configs\admin-config\" />
+    <Folder Include="Client-App\src\app\shared\configs\user-config\" />
+    <Folder Include="Client-App\src\app\shared\directives\" />
+    <Folder Include="Client-App\src\app\shared\services\authservices\" />
+    <Folder Include="Client-App\src\app\shared\services\roleguardservice\" />
+>>>>>>> 6fd0c2515ad41da68a98dec0344b1d01823256e6
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+  </ItemGroup>
+
+</Project>

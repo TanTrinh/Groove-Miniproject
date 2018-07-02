@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructures
 {
-	public class ApplicationDbContext : IdentityDbContext<User, Role, long>, IUnitOfWorkContext
+	public class ApplicationDbContext : IdentityDbContext<User, Role, long>
 	{
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)

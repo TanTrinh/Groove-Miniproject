@@ -11,6 +11,6 @@ namespace Domains.GoGo.Repositories
     {
 		Task<WarehouseModel> GetWarehouseDetailAsync(int id);
 		Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value);
-
+		Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName);
 	}
 }

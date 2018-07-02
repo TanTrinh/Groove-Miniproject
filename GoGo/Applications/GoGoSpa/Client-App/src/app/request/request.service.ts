@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RequestService extends BehaviorSubject<any> {
+export class RequestsService extends BehaviorSubject<any> {
   private BASE_URL: string = 'http://localhost:54520/api/Requests/RequestList';
 
   baseUrl: string = '';
