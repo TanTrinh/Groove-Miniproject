@@ -145,6 +145,8 @@ namespace Infrastructures.SeedData
                 {
                     var user = new User
                     {
+                        FirstName = name[i],
+                        LastName = lastname[j],
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
                         Status = "Active",
@@ -179,6 +181,8 @@ namespace Infrastructures.SeedData
                 {
                     var user = new User
                     {
+                        FirstName = name[i],
+                        LastName = lastname[j],
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
                         Status = "Active",
@@ -213,6 +217,8 @@ namespace Infrastructures.SeedData
                 {
                     var user = new User
                     {
+                        FirstName = name[i],
+                        LastName = lastname[j],
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
                         Status = "Active",
@@ -247,6 +253,8 @@ namespace Infrastructures.SeedData
                 {
                     var user = new User
                     {
+                        FirstName = name[i],
+                        LastName = lastname[j],
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
                         Status = "Active",
@@ -434,7 +442,7 @@ namespace Infrastructures.SeedData
                     OwnerId = custormerID,
                     Latitude = Math.Round(latitudeBase + i * 0.0001, 6),
                     Longitude = Math.Round(longitudeBase + i * 0.0001, 6),
-                    Address = "This is my warehouse address"
+                    Address = "53 Đoàn Như Hài, Quận 4, Hồ Chí Minh, Vietnam"
                 };
                 dbContext.Add(warehouse);
                 dbContext.SaveChanges();
@@ -473,7 +481,7 @@ namespace Infrastructures.SeedData
                     Status = "Pending",
                     ReceiverName = name[ran.Next(0, 14)] + lastname[ran.Next(0, 4)],
                     ReceiverPhoneNumber = phonenumberHeader + ran.Next(100000, 999999).ToString(),
-                    Address = "This is my address",
+                    Address = "37 ĐT743C, Xã Bình Thắng, Dĩ An, Bình Dương, Vietnam",
                     Code = GenerateCode(createdDate, i + 76),
                     CustomerId = i + 76
                 };

@@ -109,7 +109,6 @@ export class GgmapComponent implements OnInit {
   }
 
   RefeshMarker(markers: any[]) {
-    console.log(markers.length)
     for (var i = 0; i < markers.length; i++)
       markers[i].setMap(null);
   }
@@ -119,7 +118,6 @@ export class GgmapComponent implements OnInit {
   //checkboxArray: the array of detination
   CalculateAndDisplayRoute(directionsService, directionsDisplay) {
     this.DrawMarkers();
-    console.log(this.Waypts);
     var waypts = [];
     this.oldMarkerOrigin.setMap(null);
     var markerOrigin = new google.maps.Marker({
@@ -152,7 +150,7 @@ export class GgmapComponent implements OnInit {
       if (status === 'OK') {
         directionsDisplay.setDirections(response);
         var route = response.routes[0];
-        //console.log(route);
+        console.log(route);
       }
       else {
         window.alert('Directions request failed due to ' + status);

@@ -16,6 +16,7 @@ namespace Domains.GoGo.Models.Transportation
         public string Status { set; get; }
         public LocationModel Location { set; get; }
         public int RequestOrder { set; get; }
+        public bool IsProblem { set; get; }
     }
     public class RequestDetaiModelMapper : Profile
     {

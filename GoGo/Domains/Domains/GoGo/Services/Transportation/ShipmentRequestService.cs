@@ -74,5 +74,10 @@ namespace Domains.GoGo.Services.Transportation
         {
             return _repository.GetTotalRequest(code);
         }
+
+        public async Task<string> HaveProblem(string requestCode, bool status)
+        {
+            return await _repository.HaveProblem(requestCode,status);
+        }
     }
 }

@@ -50,5 +50,9 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                 });
             return await query.FirstAsync();
         }
+       public async Task<int> GetRequestID(string code)
+        {
+            return await this.dbSet.Where(p => p.Code == code).Select(p => p.Id).FirstAsync();
+        }
     }
 }

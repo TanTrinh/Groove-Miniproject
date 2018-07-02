@@ -7,4 +7,6 @@ export class RequestDetail {
   address: string;
   location: any;
   requestOrder: number;
+  //isproblem: boolean;
+  //message: string;
 }

@@ -8,7 +8,6 @@ using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Services;
 using Domains.GoGo.Services.Transportation;
 using Microsoft.AspNetCore.Mvc;
-
 namespace GoGoApi.Controllers.GoGo
 {
     [Route("api/Driver")]
@@ -17,11 +16,13 @@ namespace GoGoApi.Controllers.GoGo
         private IRequestService _serviceRequest;
         private IShipmentService _serviceShipment;
         private IShipmentRequestService _serviceShipmentRequest;
-        public DriverController(IRequestService serviceRequest, IShipmentService serviceShipment, IShipmentRequestService serviceShipmentRequest)
+        private IProblemMessageService _serviceProblemMessage;
+        public DriverController(IRequestService serviceRequest, IShipmentService serviceShipment, IShipmentRequestService serviceShipmentRequest,IProblemMessageService serviceProblemMessage)
         {
             _serviceRequest = serviceRequest;
             _serviceShipment = serviceShipment;
             _serviceShipmentRequest = serviceShipmentRequest;
+           _serviceProblemMessage = serviceProblemMessage;
         }
         public class parameter
         {
@@ -95,6 +96,14 @@ namespace GoGoApi.Controllers.GoGo
         public async Task<IActionResult> changeOrder([FromBody]pama p)
         {
             return Ok();
+        }
+        [Route("shipment/request/haveProblem")]
+        [HttpPost]
+        public async Task<IActionResult> HaveProblemAsync([FromBody]ProblemMessageModel problemMessage)
+        {
+            string code = await _serviceProblemMessage.SaveProblemMessageAsync(problemMessage.RequestCode, problemMessage.Message);
+            return Ok(await _serviceShipmentRequest.GetCurrentRequestAsync(code));
+
         }
     }
 }

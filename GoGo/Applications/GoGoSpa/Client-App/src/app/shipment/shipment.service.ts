@@ -41,4 +41,8 @@ export class ShipmentService {
   changeOrderReqeust(paramerter: any): Observable<any> {
     return this.http.post(`${this.url}/shipment/changeOrder`, paramerter);
   }
+  sendProblem(paramerter: any): Observable<any> {
+    return this.http.post(`${this.url}/shipment/request/haveProblem`, paramerter)
+  }
+  
 }

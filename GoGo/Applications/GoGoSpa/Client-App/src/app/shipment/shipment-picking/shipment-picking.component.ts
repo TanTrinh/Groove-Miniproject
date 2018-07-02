@@ -9,6 +9,8 @@ import { RequestDetail } from '../../request/RequestDetail';
 import { ShipmentService } from '../shipment.service';
 import { LatLng } from '@agm/core';
 import { Marker } from '@agm/core/services/google-maps-types';
+
+
 declare var google: any;
 @Component({
   selector: 'app-shipment-picking',
@@ -23,6 +25,7 @@ export class ShipmentPickingComponent implements OnInit {
   status = 'Waiting';
   code: string;
   requestList: RequestDetail[];
+  problemMessage: string;
 
   Destination: LatLng;
   Waypts: InfoRequest[] = [];
@@ -61,11 +64,9 @@ export class ShipmentPickingComponent implements OnInit {
       info.status = "Active";
       info.latlng = this.InitLatlng(this.locationPicking.latitude, this.locationPicking.longitude);
       this.Waypts.unshift(info);
-      console.log(this.locationPicking.latitude, this.locationPicking.longitude);
     })
     this.refeshShipment(this.code);
     this.GetRequestList();
-    // this.Origin = this.InitLatlng(10.7711799, 106.7004174);
   }
 
   refeshShipment(code: string) {
@@ -73,8 +74,8 @@ export class ShipmentPickingComponent implements OnInit {
       this.shipmentDetail = data;
       if (this.shipmentDetail.status == "Shipping") {
         this.Waypts[0].status = "unActive";
-        
-        console.log(this.save.waypts)
+
+        console.log(this.shipmentDetail)
       }
       if (this.shipmentDetail.currentRequest == "") {
         this.feedback(this.shipmentDetail, 'Completed');
@@ -83,6 +84,7 @@ export class ShipmentPickingComponent implements OnInit {
       else {
         this.service.getRequest(this.shipmentDetail.currentRequest).subscribe(data => {
           this.request = data;
+          console.log(this.request);
         })
       }
     })
@@ -104,11 +106,22 @@ export class ShipmentPickingComponent implements OnInit {
     var param = { 'code': item.currentRequest, 'status': status }
     this.service.changeStatusRequest(param).subscribe(data => {
       this.request = data;
+      this.GetRequestList();
     })
-    this.GetRequestList();
     if (status == "Completed") {
       this.refeshShipment(this.code);
     }
+  }
+
+  sendProblem(item: RequestDetail) {
+    console.log(item);
+    console.log(this.problemMessage);
+    var temp;
+    var param = { 'requestcode': item.code, 'message': this.problemMessage }
+    this.service.sendProblem(param).subscribe(data => {
+      this.request = data;
+      this.GetRequestList();
+    });
   }
   viewRequest(item: RequestDetail) {
     this.changeNav('Request');
@@ -147,11 +160,12 @@ export class ShipmentPickingComponent implements OnInit {
     })
   }
 
+
   InitLatlng(latitude, longitude) {
     let latlng = new google.maps.LatLng(latitude, longitude);
     return latlng;
   }
   InitMarker(latitude, longitude) {
-
+  
   }
 }

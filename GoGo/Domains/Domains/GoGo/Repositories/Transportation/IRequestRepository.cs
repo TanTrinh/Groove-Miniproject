@@ -13,5 +13,6 @@ namespace Domains.GoGo.Repositories.Transportation
         Task<RequestDetailModel> GetRequestDetailAsync(int? id);
         Task<string> ChangeStatus(int? id, string status);
         Task<LocationModel> GetPositionWarehouseAsync(string code);
+        Task<int> GetRequestID(string code);
     }
 }

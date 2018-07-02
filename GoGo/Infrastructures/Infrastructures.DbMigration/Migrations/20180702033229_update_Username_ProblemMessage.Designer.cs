@@ -4,14 +4,16 @@ using Infrastructures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructures.DbMigration.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180702033229_update_Username_ProblemMessage")]
+    partial class update_Username_ProblemMessage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,11 +104,14 @@ namespace Infrastructures.DbMigration.Migrations
                     b.Property<string>("Message")
                         .IsRequired();
 
-                    b.Property<int>("RequestId");
+                    b.Property<string>("RequestId")
+                        .IsRequired();
+
+                    b.Property<int?>("RequestId1");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RequestId");
+                    b.HasIndex("RequestId1");
 
                     b.ToTable("ProblemMessage");
                 });
@@ -369,7 +374,7 @@ namespace Infrastructures.DbMigration.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FullName");
 
                     b.Property<string>("LastName");
 
@@ -547,7 +552,7 @@ namespace Infrastructures.DbMigration.Migrations
                 {
                     b.HasOne("Domains.GoGo.Entities.Request", "Request")
                         .WithMany()
-                        .HasForeignKey("RequestId")
+                        .HasForeignKey("RequestId1")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

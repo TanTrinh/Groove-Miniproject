@@ -10,7 +10,7 @@
     <div class="col-sm-12">
       <input *ngIf="shipmentDetail.status != 'Shipping'" type="text" class="form-control-plaintext yourAddress" readonly value={{locationPicking.address}}>
       <input *ngIf="shipmentDetail.status == 'Shipping'" type="text" class="form-control-plaintext yourAddress" readonly value={{request.location.address}}>
-    </div>  
+    </div>
 
     <div class="detail">
       <table class="table table-hover">
@@ -55,7 +55,8 @@
         </div>
         <div style="width:50%" class="pl-1">
           <button *ngIf="shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Reject')" class="btn btn-danger btn-block">Reject a shipment</button>
-          <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept'" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Problem">Have a problem</button>
+          <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==0" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Problem">Have a problem</button>
+          <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==1" class="btn btn-danger btn-block" >Resolved a problem</button>
 
           <div class="modal fade" id="Problem" tabindex="-1" role="dialog" aria-labelledby="Problem" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -68,11 +69,11 @@
                 </div>
                 <div class="modal-body">
                   <p style="font-size:16px">Request code: {{request.code}}</p>
-                  <input type="text" id="problem" class="form-control-plaintext" placeholder="Enter your problem">
+                  <input type="text" id="problem" class="form-control-plaintext" [(ngModel)]="problemMessage" name="problemMessage" placeholder="Enter your problem">
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Send</button>
+                  <button type="button" class="btn btn-primary" (click)="sendProblem(request)">Send</button>
                 </div>
               </div>
             </div>
@@ -135,14 +136,19 @@
         <table class="table table-hover">
           <tbody data-spy="scroll" data-offset="50">
             <tr *ngFor="let item of requestList" (click)="viewRequest(item)">
-              <td>
+              <td *ngIf="item.isProblem == 1">
+                <span>{{item.code}} </span> <span class="badge badge-success">{{item.status}}</span><br />
+                <span style="font-size:12px">{{item.location.address}}</span><br />
+                <span class="badge badge-warning">Pending</span>
+              </td>
+              
+              <td *ngIf="item.isProblem == 0">
                 <span>{{item.code}} </span> <span class="badge badge-success">{{item.status}}</span><br />
                 <span style="font-size:12px">{{item.location.address}}</span><br />
               </td>
               <td>
                 <span style="font-size:12px">{{item.estimateDate | date:'short'}}</span>
               </td>
-          
             </tr>
           </tbody>
         </table>
@@ -151,6 +157,6 @@
     </div>
   </div>
   <div class="col-md-8">
-    <app-ggmap  [Waypts]="Waypts"></app-ggmap>
+    <!--<app-ggmap  [Waypts]="Waypts"></app-ggmap>-->
   </div>
 </div>

@@ -13,8 +13,6 @@
   <ItemGroup>
     <Folder Include="Identity\Models\" />
     <Folder Include="Identity\Services\" />
-    <Folder Include="GoGo\Services\" />
-    <Folder Include="GoGo\Repositories\" />
   </ItemGroup>
 
   <ItemGroup>

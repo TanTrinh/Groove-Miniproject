@@ -41,5 +41,9 @@ namespace Domains.GoGo.Services
         {
             return _repository.GetPositionWarehouseAsync(code);
         }
+        public async Task<int> GetRequestID(string code)
+        {
+            return await _repository.GetRequestID(code);
+        }
     }
 }
