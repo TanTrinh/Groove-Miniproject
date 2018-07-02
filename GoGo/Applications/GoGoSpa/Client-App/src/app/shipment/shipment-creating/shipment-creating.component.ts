@@ -13,7 +13,7 @@ import { Validators } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { MasterDataService } from '../../shared/sevices/master-data.service';
 import { Subscription } from 'rxjs-compat/Subscription';
 
@@ -219,5 +219,6 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
       this.isValid = false
   }
 
-
+  public valueNormalizer = (text: Observable<string>): any => text.pipe(switchMap(this.service));
+  public service = (text: string): any => this.http.post('normalize/url', { text });
 }

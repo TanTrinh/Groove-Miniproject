@@ -64,9 +64,9 @@ namespace GoGoApi.Controllers.GoGo
 
 		[Route("update")]
 		[HttpPut]
-		public IActionResult UpdateShipment(CreateShipmentModel model)
+		public async Task<IActionResult> UpdateShipment(CreateShipmentModel model)
 		{
-            _Shipmentservice.UpdateShipment(model);
+            await _Shipmentservice.UpdateShipmentAsync(model);
 
             return Ok();
 		}

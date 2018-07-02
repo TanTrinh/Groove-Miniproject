@@ -13,6 +13,7 @@
                             [textField]="'DisplayName'"
                             [filterable]="true"
                             (filterChange)="handleVehicleFilter($event)"
+                            [valueNormalizer]="valueNormalizer"
                             style="width: 200px;"
                             class="mr-1 mb-1">
             </kendo-combobox>
@@ -23,11 +24,11 @@
           <div>
             <div>
               <span>License Plate</span>
-              <input class="k-textbox" [(ngModel)]="vehicleDetail.LicensePlate" name="LicensePlate" readonly required />
+              <input class="k-textbox" [(ngModel)]="vehicle.DisplayName" name="LicensePlate" readonly required />
             </div>
             <div>
               <span>Vehicle Type</span>
-              <input class="k-textbox" [(ngModel)]="vehicleDetail.VehicleFeatureType" name="VehicleFeatureType" readonly required />
+              <input class="k-textbox" [(ngModel)]="vehicle.DisplayName" name="VehicleFeatureType" readonly required />
             </div>
           </div>
         </div>

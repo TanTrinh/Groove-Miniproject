@@ -36,7 +36,7 @@ namespace Infrastructures.Repositories.GoGo.Fleet_management
         {
 			var vehicleIdList = this.context.Set<Shipment>().Select(p => p.VehicleId).ToList();
 
-			return await this.dbSet.Where(p => ((p.LicensePlate.Contains(value) || (p.VehicleType.TypeName.Contains(value))) && !vehicleIdList.Contains(p.Id)) 
+			return await this.dbSet.Where(p => ((p.LicensePlate.Contains(value) || (p.VehicleType.TypeName.Contains(value))) && !vehicleIdList.Contains(p.Id))
 													&& !vehicleIdList.Contains(p.Id))
 													.Select(p => new DataSourceValue<int>
 													{

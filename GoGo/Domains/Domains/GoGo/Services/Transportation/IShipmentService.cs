@@ -17,7 +17,7 @@ namespace Domains.GoGo.Services.Transportation
         Task<int> ChangeStatus(string code, string status);
 
 		ShipmentDetailModel GetShipmentByCode(string Code);
-		void UpdateShipment(CreateShipmentModel model);
+		Task UpdateShipmentAsync(CreateShipmentModel model);
 
 	}
 }
