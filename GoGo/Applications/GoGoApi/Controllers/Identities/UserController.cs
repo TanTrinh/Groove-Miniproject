@@ -19,7 +19,7 @@ namespace GoGoApi.Controllers.Identities
         {
             _userService = userService;
         }
-
+        // TODO: route should be ""
         [Route("list")]
         [HttpGet]
         [Authorize(Roles = "Administrator")]
@@ -29,6 +29,7 @@ namespace GoGoApi.Controllers.Identities
             return Ok(result);
         }
 
+        // TODO: route should be ""
         [Route("create")]
         [HttpPost]
         [Authorize(Roles = "Administrator")]
@@ -44,6 +45,7 @@ namespace GoGoApi.Controllers.Identities
             return OkValueObject(userId);
         }
 
+        // TODO: route shoule be "{id}"
         [Route("edit")]
         [HttpPut]
         [Authorize(Roles = "Administrator")]
@@ -58,8 +60,8 @@ namespace GoGoApi.Controllers.Identities
 
             return OkValueObject(userId);
         }
-
-        //Get the value of user need to update
+        // TODO: route should be "{id}/editview" or consider to remove this API & use GetUserDetail instead
+        // Get the value of user need to update
         [Route("edit")]
         [HttpGet]
         [Authorize(Roles = "Administrator")]
@@ -68,6 +70,10 @@ namespace GoGoApi.Controllers.Identities
             return Ok(await _userService.GetUserUpdateAsync(id));
         }
 
+        // TODO: Move to profile controller
+        // TODO: Remove Id, Id should be get from access token
+        // TODO: Rename function to UpdateMyUserProfile
+        // TODO: Route should be ""
         [Route("profile/edit")]
         [HttpPut]
         [Authorize]
@@ -83,6 +89,11 @@ namespace GoGoApi.Controllers.Identities
             return OkValueObject(userId);
         }
 
+        // TODO: Move to profile controller
+        // TODO: Remove Id, Id should be get from access token
+        // TODO: Rename function to GetMyUserProfileForUpdate or remove this API & use user GetUserProfile instead
+        // TODO: Route shoule be "myprofile/editview"
+
         [Route("profile/edit")]
         [HttpGet]
         [Authorize]
@@ -91,6 +102,10 @@ namespace GoGoApi.Controllers.Identities
             return Ok(await _userService.GetUserUpdateAsync(id));
         }
 
+        // TODO: Move to profile controller
+        // TODO: Remove Id, Id should be get from access token
+        // TODO: Rename function to GetMyUserProfile
+        // TODO: Route shoule be "myprofile"
         [Route("profile")]
         [HttpGet]
         [Authorize]
@@ -100,6 +115,8 @@ namespace GoGoApi.Controllers.Identities
             return Ok(await _userService.GetUserProfileAsync(GetCurrentUserId<long>()));
         }
 
+
+        // TODO: route should be {id}
         [Route("detail")]
         [HttpGet]
         [Authorize(Roles = "Administrator")]

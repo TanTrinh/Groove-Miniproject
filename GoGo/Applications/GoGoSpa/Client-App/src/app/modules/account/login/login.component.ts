@@ -34,8 +34,19 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    // TODO: console.log is used to troubleshooting only, It should be removed
     console.log(this.model);
 
+
+    // TODO: Move all HTTPs request relate to user API into seperated service
+    // You need to create UserService in modles/account/account.service.ts
+    //
+    // then you call _accountService.Login(this.userName, this.password).subcrible(result=>{
+    // 
+    // })
+    //
+    // httpOptions, API url... will be managed by API service
+    
     this._http.post('http://localhost:62772/api/authentication/token', this.model, httpOptions).subscribe(result => {
       var key = "tokenKey";
       console.log(result);

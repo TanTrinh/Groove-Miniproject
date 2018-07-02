@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
 import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
 import { UserConfigService } from '../../../../shared/configs/user-config/user-config.service';
 
+// TODO: Move user-profile to another module, because user profile is not belong to user management or identity management
+// Move it to modules/user-profile/my-profile
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -42,6 +44,13 @@ export class UserProfileComponent implements OnInit {
         })
       };
 
+      // TODO: Move all HTTPs request relate to user API into seperated service
+      // You need to create UserProfileService in modules/user-profile/user-profile.service.ts
+      //
+      // then you call _userProfileService.GetMine().subcrible(result=>{
+      // })
+      //
+      // httpOptions, API url... will be managed by API service
       this._http.get(this.baseUrl, httpOptions).subscribe(result => {
         this.data = result;
         this.userProfile = this.data;

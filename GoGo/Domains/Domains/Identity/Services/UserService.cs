@@ -37,6 +37,10 @@ namespace Domains.Identity.Services
         
         public async Task<long> CreateUserAsync(UserCreateModel model, UserIdentity<long> issuer)
         {
+            // TODO: values should be managed in Constant or enum
+            // Create UserStatus class to manage user status
+            // then use: 
+            // model.Status = UserStatus.Active
             model.Status = "Active";
             var user = _mapper.Map<User>(model);
             user.CreateBy(issuer).UpdateBy(issuer);
