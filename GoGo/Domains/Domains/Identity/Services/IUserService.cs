@@ -1,6 +1,7 @@
 ﻿using Domains.Identity.Entities;
 using Domains.Identity.Models;
 using Groove.AspNetCore.Common.Identity;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +16,8 @@ namespace Domains.Identity.Services
         Task<long> UpdateUserProfileAsync(long id, UserProfileUpdateModel model, UserIdentity<long> issuer);
         // Get user list with specific role by role id
         //Task<IEnumerable<UserListModel>> GetUsersAsync(long? id);
-        Task<IEnumerable<UserListModel>> GetUsersAsync();
+        //Task<IEnumerable<UserListModel>> GetUsersAsync();
+        DataSourceResult GetUsersAsync(DataSourceRequest request);
         Task<UserReadModel> GetUserProfileAsync(long? id);
         Task<UserReadModel> GetUserDetailAsync(long? id);
         Task<UserViewUpdateModel> GetUserUpdateAsync(long? id);

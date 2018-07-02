@@ -13,12 +13,16 @@ using Domains.Identity.Models;
 using Groove.AspNetCore.DataBinding.AutoMapperExtentions;
 using AutoMapper;
 using Groove.AspNetCore.UnitOfWork;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
+using Domains.Core;
 
 namespace Infrastructures.Repositories.Identity
 {
     public class UserRepository : GenericRepository<User, long>, IUserRepository
     {
         private readonly UserManager<User> _userManager;
+        private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
         public UserRepository(
             UserManager<User> userManager,
@@ -27,6 +31,7 @@ namespace Infrastructures.Repositories.Identity
             : base(dbContext)
         {
             _userManager = userManager;
+            _dbContext = dbContext;
             _mapper = mapper;
         }
 
@@ -59,39 +64,61 @@ namespace Infrastructures.Repositories.Identity
             return _mapper.Map<UserViewUpdateModel>(roleMap);
         }
 
-        public async Task<IEnumerable<UserListModel>> GetUserListAsync()
+        #region Old feature of get user list (use original table)
+        //public async Task<IEnumerable<UserListModel>> GetUserListAsync()
+        //{
+        //    //Get all user ID in table userroles
+        //    //var userIds = context.Set<IdentityUserRole<long>>()
+        //    //                .Where(a => a.RoleId == id)
+        //    //                .ToList();
+
+        //    //Find all users with specific role
+        //    //return await context.Set<User>()
+        //    //                .Where(a => userIds.Any(c => c.UserId == a.Id))
+        //    //                .MapQueryTo<UserListModel>(_mapper)
+        //    //                .ToListAsync();
+
+        //    //Get all users use below code
+        //    var user = await _userManager.Users.ToListAsync();
+        //    List<UserListModel> userList = new List<UserListModel>();
+        //    for (int i = 1; i < user.Count; i++)
+        //    {
+        //        var role = await _userManager.GetRolesAsync(user[i]);
+        //        userList.Add(new UserListModel
+        //        {
+        //            Id = user[i].Id,
+        //            UserName = user[i].UserName,
+        //            Email = user[i].Email,
+        //            PhoneNumber = user[i].PhoneNumber,
+        //            Role = role[0],
+        //            Status = user[i].Status
+        //        });
+        //    }
+
+        //    return userList;
+
+        //    //return await _userManager.Users.MapQueryTo<UserListModel>(_mapper).ToListAsync();
+        //}
+        #endregion
+
+        public DataSourceResult GetUserListAsync(DataSourceRequest request)
         {
-            //Get all user ID in table userroles
-            //var userIds = context.Set<IdentityUserRole<long>>()
-            //                .Where(a => a.RoleId == id)
-            //                .ToList();
+            //Get all users include role name, use below code
+            var query = (from uRole in _dbContext.UserRoles
+                         from user in _userManager.Users
+                         from role in _dbContext.Roles
+                         where uRole.UserId == user.Id && role.Id == uRole.RoleId
+                         select new UserListModel
+                         {
+                             Id = user.Id,
+                             UserName = user.UserName,
+                             Email = user.Email,
+                             PhoneNumber = user.PhoneNumber,
+                             Role = role.Name,
+                             Status = user.Status
+                         });
 
-            //Find all users with specific role
-            //return await context.Set<User>()
-            //                .Where(a => userIds.Any(c => c.UserId == a.Id))
-            //                .MapQueryTo<UserListModel>(_mapper)
-            //                .ToListAsync();
-
-            //Get all users use below code
-            var user = await _userManager.Users.ToListAsync();
-            List<UserListModel> userList = new List<UserListModel>();
-            for (int i = 1; i < user.Count; i++)
-            {
-                var role = await _userManager.GetRolesAsync(user[i]);
-                userList.Add(new UserListModel
-                {
-                    Id = user[i].Id,
-                    UserName = user[i].UserName,
-                    Email = user[i].Email,
-                    PhoneNumber = user[i].PhoneNumber,
-                    Role = role[0],
-                    Status = user[i].Status
-                });
-            }
-
-            return userList;
-
-            //return await _userManager.Users.MapQueryTo<UserListModel>(_mapper).ToListAsync();
+            return query.ToDataSourceResult(request);
         }
     }
 }

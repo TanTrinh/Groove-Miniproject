@@ -7,11 +7,13 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserProfileEditComponent } from './user-profile-edit/user-profile-edit.component';
+import { GridModule } from '@progress/kendo-angular-grid';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    GridModule
   ],
   declarations: [UserListComponent, UserProfileComponent, UserDetailComponent, UserCreateComponent, UserEditComponent, UserProfileEditComponent]
 })

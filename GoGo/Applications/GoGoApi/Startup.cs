@@ -45,6 +45,9 @@ namespace GoGoApi
 
             services.AddGrooveMvcApi().AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<Domains.AssemplyMarker>().RegisterValidatorsFromAssemblyContaining<GoGoApi.Startup>());
 
+            // Add Kendo UI services to the services container
+            services.AddKendo();
+
             services.AddAutoMapper(typeof(Domains.AssemplyMarker));
 
             // Add UoW 
@@ -108,10 +111,15 @@ namespace GoGoApi
                    .AllowAnyMethod()
                    .AllowAnyHeader()
            );
+
+            // Configure Kendo UI
+            app.UseKendo(env);
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc();
+
         }
     }
 }

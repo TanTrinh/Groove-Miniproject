@@ -25,6 +25,7 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserModule } from './modules/identity/user/user.module';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { GridModule } from '@progress/kendo-angular-grid';
 
 
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
@@ -34,7 +35,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
 
     // Do initing of services that is required before app loads
     // NOTE: this factory needs to return a function (that then returns a promise)
-    return () => ServiceRegistryService.load('http://localhost:64336/configuration/serviceRegistry').toPromise();
+    return () => ServiceRegistryService.load('http://localhost:62775/configuration/serviceRegistry').toPromise();
     //return () => ServiceRegistryService.load('http://localhost:50269/configuration/serviceRegistry').toPromise();
   },
   deps: [ServiceRegistryService],
@@ -77,7 +78,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     AccountModule,
     InputsModule,
     BrowserAnimationsModule,
-
+    GridModule
   ],
   providers: [
     LocalStorageService,

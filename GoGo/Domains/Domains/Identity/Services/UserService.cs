@@ -6,6 +6,7 @@ using Groove.AspNetCore.Common.Exceptions;
 using Groove.AspNetCore.Common.Identity;
 using Groove.AspNetCore.Common.Messages;
 using Groove.AspNetCore.UnitOfWork;
+using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -108,9 +109,9 @@ namespace Domains.Identity.Services
         }
 
         //Get list of user with specific role by role id
-        public Task<IEnumerable<UserListModel>> GetUsersAsync()
+        public DataSourceResult GetUsersAsync(DataSourceRequest request)
         {
-            return _userRepository.GetUserListAsync();
+            return _userRepository.GetUserListAsync(request);
         }
 
         private UserDefinedException CreateException(IEnumerable<IdentityError> errors)

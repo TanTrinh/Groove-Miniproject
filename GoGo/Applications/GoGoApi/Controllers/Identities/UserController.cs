@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Domains.Identity.Models;
 using Domains.Identity.Services;
 using Groove.AspNetCore.Mvc;
+using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,9 +23,10 @@ namespace GoGoApi.Controllers.Identities
         [Route("list")]
         [HttpGet]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> GetUsers()
+        public IActionResult GetUsers([DataSourceRequest]DataSourceRequest request)
         {
-            return Ok(await _userService.GetUsersAsync());
+            var result = _userService.GetUsersAsync(request);
+            return Ok(result);
         }
 
         [Route("create")]
