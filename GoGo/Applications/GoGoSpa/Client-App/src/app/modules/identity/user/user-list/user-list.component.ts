@@ -47,6 +47,17 @@ export class UserListComponent implements OnInit {
     //this.loadList();
   }
 
+  // TODO: replace this.id by role name
+  // TODO: Remove all if/else statement, use only one statement only
+
+  // TODO: Move all HTTPs request relate to user API into seperated service
+  // You need to create UserService in ../../identity/user/user.service.ts
+  //
+  // then you call _userService.GetAll({role:this.role}).subcrible(result=>{
+  // })
+  //
+  // httpOptions, API url... will be managed by API service
+
   public dataStateChange(state: DataStateChangeEvent): void {
     this.state = state;
     this._userService.fetch(state)

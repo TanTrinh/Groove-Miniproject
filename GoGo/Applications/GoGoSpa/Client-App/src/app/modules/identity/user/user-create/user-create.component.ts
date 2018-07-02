@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
-import { EmailvalidatorDirective } from 'src/app/shared/directives/emailvalidator.directive';
+//import { EmailvalidatorDirective } from 'src/app/shared/directives/emailvalidator.directive';
 import { AdminConfigService } from '../../../../shared/configs/admin-config/admin-config.service';
 
 @Component({

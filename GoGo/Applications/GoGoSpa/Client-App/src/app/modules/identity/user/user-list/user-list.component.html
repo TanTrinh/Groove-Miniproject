@@ -19,26 +19,23 @@
               [filter]="state.filter"
               (dataStateChange)="dataStateChange($event)">
 
-    <kendo-grid-column field="id" title="ID" width="40" [filterable]="false">
+    <kendo-grid-column field="id" title="ID" width="50" [filterable]="false">
     </kendo-grid-column>
-    <kendo-grid-column field="userName" title="User Name">
+    <kendo-grid-column field="userName" width="200" title="User Name">
     </kendo-grid-column>
-    <kendo-grid-column field="email" title="Email" width="240" format="{0:d}">
+    <kendo-grid-column field="email" title="Email" width="250" format="{0:d}">
     </kendo-grid-column>
     <kendo-grid-column field="phoneNumber" title="Phone Number" width="180" format="{0:n}">
     </kendo-grid-column>
-    <kendo-grid-column field="role" title="Role">
+    <kendo-grid-column field="role" width="140" title="Role">
     </kendo-grid-column>
-    <kendo-grid-column field="status" title="Status">
-    </kendo-grid-column>
-    <kendo-grid-column title="Actions" width="200">
+    <kendo-grid-column title="Actions" width="150">
       <ng-template kendoGridCellTemplate let-user>
         <button class="btn btn-primary mr-1" (click)="loadDetail(user.id)">Detail</button>
         <span> </span>
         <button class="btn btn-primary" (click)="loadUpdate(user.id)">Edit</button>
       </ng-template>
     </kendo-grid-column>
-
   </kendo-grid>
 
 </div>
