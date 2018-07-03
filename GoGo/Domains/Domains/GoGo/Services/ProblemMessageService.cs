@@ -19,7 +19,7 @@ namespace Domains.GoGo.Services
             _uow = uow;
             _repository = repository;
         }
-        public async Task<string> SaveProblemMessageAsync(string code, string message)
+        public async Task<int> SaveProblemMessageAsync(string code, string message)
         {
             return await _repository.SaveProblemMessageAsync(code, message);
         }

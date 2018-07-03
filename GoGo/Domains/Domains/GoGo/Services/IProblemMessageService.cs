@@ -8,6 +8,6 @@ namespace Domains.GoGo.Services
 {
     public interface IProblemMessageService
     {
-        Task<string> SaveProblemMessageAsync(string code, string message);
+        Task<int> SaveProblemMessageAsync(string code, string message);
     }
 }

@@ -10,6 +10,6 @@ namespace Domains.GoGo.Repositories
 {
     public interface IProblemMessageRepository : IGenericRepository<ProblemMessage, int>
     {
-       Task<string> SaveProblemMessageAsync(string code, string message);
+       Task<int> SaveProblemMessageAsync(string code, string message);
     }
 }

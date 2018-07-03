@@ -27,20 +27,17 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             _shipmentRequestRepository = shipmentRequestRepository;
         }
 
-        public async Task<string> SaveProblemMessageAsync(string code,string message)
+        public async Task<int> SaveProblemMessageAsync(string code, string message)
         {
             int RequestID = await _requestRepository.GetRequestID(code);
             var problem = new ProblemMessage()
             {
                 IsSolve = false,
                 Message = message,
-                RequestId=RequestID
+                RequestId = RequestID
             };
             this.context.Add(problem);
-            this.context.SaveChanges();
-
-            string requestCode = await _shipmentRequestRepository.HaveProblem(code,true);
-            return requestCode;
+            return this.context.SaveChanges();
         }
         //public async Task<string> ResolvedProblem(string code)
         //{
@@ -48,8 +45,6 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         //    //var request = this.dbSet.Where(p => p.RequestId == RequestID).FirstAsync();
         //    //var shipmentRqDbSet = this.context.Set<ShipmentRepository>();
         //    //var problemDbSet = this.context.Set<ProblemMessage>();
-
-         
         //}
 
     }

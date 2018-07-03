@@ -84,7 +84,6 @@ export class ShipmentPickingComponent implements OnInit {
       else {
         this.service.getRequest(this.shipmentDetail.currentRequest).subscribe(data => {
           this.request = data;
-          console.log(this.request);
         })
       }
     })
@@ -107,17 +106,20 @@ export class ShipmentPickingComponent implements OnInit {
     this.service.changeStatusRequest(param).subscribe(data => {
       this.request = data;
       this.GetRequestList();
+      if (status == "Completed") {
+        this.refeshShipment(this.code);
+      }
     })
-    if (status == "Completed") {
-      this.refeshShipment(this.code);
-    }
-  }
 
-  sendProblem(item: RequestDetail) {
+  }
+  nextRequest() {
+    this.refeshShipment(this.code);
+  }
+  sendProblem(item: RequestDetail,isSolve:boolean) {
     console.log(item);
     console.log(this.problemMessage);
     var temp;
-    var param = { 'requestcode': item.code, 'message': this.problemMessage }
+    var param = { 'requestcode': item.code, 'message': this.problemMessage, 'isSolve': isSolve }
     this.service.sendProblem(param).subscribe(data => {
       this.request = data;
       this.GetRequestList();
@@ -166,6 +168,6 @@ export class ShipmentPickingComponent implements OnInit {
     return latlng;
   }
   InitMarker(latitude, longitude) {
-  
+
   }
 }

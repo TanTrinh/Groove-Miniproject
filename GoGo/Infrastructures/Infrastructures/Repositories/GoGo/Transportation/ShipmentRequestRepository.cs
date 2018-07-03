@@ -87,6 +87,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             string status = "Waiting";
             int shippingRequest = this.dbSet.Include(p => p.Shipment)
                    .Where(p => p.Shipment.Code == shipmentCode)
+                   .Where(p => p.IsProblem == false)
                    .Count(p => p.Status == "Shipping");
             if (shippingRequest == 1)
             {
@@ -94,23 +95,48 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             }
             int unloadingRequest = this.dbSet.Include(p => p.Shipment)
                   .Where(p => p.Shipment.Code == shipmentCode)
+                  .Where(p => p.IsProblem == false)
                   .Count(p => p.Status == "Unloading");
             if (unloadingRequest == 1)
             {
                 status = "Unloading";
             }
+            int waitingRequest = this.dbSet.Include(p => p.Shipment)
+                 .Where(p => p.Shipment.Code == shipmentCode)
+                 .Where(p => p.IsProblem == false)
+                 .Count(p => p.Status == "Waiting");
+            if (waitingRequest > 0)
+            {
+                status = "Waiting";
+            }
+            if ((shippingRequest + unloadingRequest + waitingRequest) > 0)
+            {
+                var query = this.dbSet
+                       .Include(p => p.Shipment)
+                       .Include(p => p.Request)
+                       .Where(p => p.Shipment.Code == shipmentCode)
+                       .Where(p=>p.IsProblem==false)
+                       .Where(p => p.Status == status)
+                       .Select(p => p.Request.Code);
+                return await query.FirstAsync();
+            }
             int total = this.dbSet.Include(p => p.Shipment)
                         .Where(p => p.Shipment.Code == shipmentCode)
+                        .Where(p => p.IsProblem == false)
                         .Count(p => p.Status == "Completed");
-            if (total == this.dbSet.Count(p=>p.Shipment.Code==shipmentCode))
+            if (total == this.dbSet.Count(p => p.Shipment.Code == shipmentCode))
                 return "";
-            var query = this.dbSet
-                        .Include(p => p.Shipment)
-                        .Include(p => p.Request)
-                        .Where(p => p.Shipment.Code == shipmentCode)
-                        .Where(p => p.Status == status)
-                        .Select(p => p.Request.Code);
-            return await query.FirstAsync();
+            else
+            {
+                var pending = this.dbSet
+                             .Include(p => p.Shipment)
+                             .Include(p => p.Request)
+                             .Where(p => p.Shipment.Code == shipmentCode)
+                             .Where(p => p.IsProblem == true)
+                             .Select(p => p.Request.Code);
+                return await pending.FirstAsync();
+            }
+
         }
 
         public async Task<RequestDetailModel> GetCurrentRequestAsync(string requestCode)
@@ -206,16 +232,16 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             return oldOrder.ToList();
         }
 
-        public async Task<string> HaveProblem(string requestCode, bool status)
+        public async Task<string> Problem(string requestCode, bool status)
         {
-            var requestProblem = await this.dbSet
+            var request = await this.dbSet
                                             .Include(p => p.Request)
                                             .Where(p => p.Request.Code == requestCode)
                                             .FirstAsync();
-            requestProblem.IsProblem = status;
-            this.context.Update(requestProblem);
+            request.IsProblem = status;
+            this.context.Update(request);
             await this.context.SaveChangesAsync();
-            return requestProblem.Request.Code;
+            return request.Request.Code;
         }
     }
 }

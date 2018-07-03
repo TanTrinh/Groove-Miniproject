@@ -17,12 +17,12 @@ namespace GoGoApi.Controllers.GoGo
         private IShipmentService _serviceShipment;
         private IShipmentRequestService _serviceShipmentRequest;
         private IProblemMessageService _serviceProblemMessage;
-        public DriverController(IRequestService serviceRequest, IShipmentService serviceShipment, IShipmentRequestService serviceShipmentRequest,IProblemMessageService serviceProblemMessage)
+        public DriverController(IRequestService serviceRequest, IShipmentService serviceShipment, IShipmentRequestService serviceShipmentRequest, IProblemMessageService serviceProblemMessage)
         {
             _serviceRequest = serviceRequest;
             _serviceShipment = serviceShipment;
             _serviceShipmentRequest = serviceShipmentRequest;
-           _serviceProblemMessage = serviceProblemMessage;
+            _serviceProblemMessage = serviceProblemMessage;
         }
         public class parameter
         {
@@ -73,7 +73,7 @@ namespace GoGoApi.Controllers.GoGo
         {
             return Ok(await _serviceShipmentRequest.GetCurrentRequestAsync(code));
         }
-        
+
 
         [Route("shipment/requestList")]
         [HttpGet]
@@ -99,11 +99,13 @@ namespace GoGoApi.Controllers.GoGo
         }
         [Route("shipment/request/haveProblem")]
         [HttpPost]
-        public async Task<IActionResult> HaveProblemAsync([FromBody]ProblemMessageModel problemMessage)
+        public async Task<IActionResult> Problem([FromBody]ProblemMessageModel problemMessage)
         {
-            string code = await _serviceProblemMessage.SaveProblemMessageAsync(problemMessage.RequestCode, problemMessage.Message);
+            if (problemMessage.IsSolve == false) { 
+                int result = await _serviceProblemMessage.SaveProblemMessageAsync(problemMessage.RequestCode, problemMessage.Message);
+            }
+            string code = await _serviceShipmentRequest.Problem(problemMessage.RequestCode, !problemMessage.IsSolve);
             return Ok(await _serviceShipmentRequest.GetCurrentRequestAsync(code));
-
         }
     }
 }
