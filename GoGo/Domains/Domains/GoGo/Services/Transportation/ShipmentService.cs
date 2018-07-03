@@ -85,14 +85,14 @@ namespace Domains.GoGo.Services.Transportation
             return _shipmentRepository.GetShipmentAssignedModel(id);
         }
 
-		public ShipmentDetailModel GetShipmentById(string Id)
+		public ShipmentDetailModel GetShipmentById(string shipmentId)
 		{
-			var result = _shipmentRepository.GetShipmentById(Id);
+			var result = _shipmentRepository.GetShipmentById(shipmentId);
 
 			result.RequestList = _requestRepository.GetRequestsByShipmentId(result.Id);
 			result.RequestIdList = _requestRepository.GetRequestIdList(result.Id);
 
-			result.Warehouse = _warehouseRepository.GetWarehouseByIdlAsync(result.RequestIdList);
+			result.Warehouse = _warehouseRepository.GetWarehouseByIdlAsync(shipmentId);
 
 			return result;
 		}

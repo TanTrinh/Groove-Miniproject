@@ -100,7 +100,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
           this.vehicleDetail = result.Vehicle
           this.requestIdList = result.RequestIdList
           this.requestList = result.RequestList
-          this.warehouseDetail.Id = result.RequestList[0].WereHouseId
+          this.warehouseDetail = result.Warehouse
           this.pickingDate = new Date(result.StartDate)
           this.deliveryDate = new Date(result.EndDate)
           this.refreshGrid()

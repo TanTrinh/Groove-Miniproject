@@ -11,6 +11,6 @@ namespace Domains.GoGo.Services.Fleet_management
 	{
 		Task<WarehouseModel> GetWarehouseDetailAsync(int id);
 		Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value);
-		WarehouseModel GetWarehouseByIdlAsync(int requestId);
+	
 	}
 }
