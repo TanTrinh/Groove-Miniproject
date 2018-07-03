@@ -8,12 +8,14 @@ import { RequestOptions, Headers, Http} from '@angular/http';
 import { ConfigService } from 'src/app/shared/sevices/config-service.service';
 import { Observable } from 'rxjs-compat/Observable';
 
+// TODO: Use AuthHttpService instead of HttpClient, all headers will me managed in AuthHttpService
 @Injectable({
   providedIn: 'root'
 })
 export class ShipmentService extends BehaviorSubject<any>  {
   private baseUrl = '';
 
+  // TODO: Remove ConfigService & use ServiceRegistryService instead
   constructor(private http: Http, private configService: ConfigService, private https: HttpClient) {
     super(null);
 

@@ -76,7 +76,11 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
               private requestService: RequestsService, private masterDataService: MasterDataService,
               private sharingService: SharingService) {
     this.view = requestService;
-    this.vehicleView = masterDataService;
+
+    // TODO: If vehicleView & driverView should not share the same masterDataService, because they will share the same data
+    // Solution: replace vehicleView by vehicleList, when use call handleVehicleFilter(),
+    // it will call HTTP to get new data, then new data will be replace current vehicleList
+    this.vehicleView = masterDataService; 
     this.driverView = masterDataService;
     this.warehouseView = masterDataService;
   }

@@ -72,9 +72,11 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId)
 		{
-			var requestedIdList = this.context.Set<ShipmentRequest>().Where(p => p.Status == "Waiting").Select(p => p.RequestId).ToList();
+            // TODO: Create ShipmentStatus class for Constant instead of hard code
+            var requestedIdList = this.context.Set<ShipmentRequest>().Where(p => p.Status == "Waiting").Select(p => p.RequestId).ToList();
 
-			return await this.dbSet.Where(p => (( p.Code.Contains(value) || p.Address.Contains(value)) 
+            // TODO: Create RequestStatus class for Constant instead of hard code
+            return await this.dbSet.Where(p => (( p.Code.Contains(value) || p.Address.Contains(value)) 
 									&& !requestedIdList.Contains(p.Id) && p.Status =="Pending" && p.WareHouseId == warehouseId ) )
 									.Select(p => new DataSourceValue<int>
 									{
@@ -90,14 +92,16 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 		public IEnumerable<RequestsModel> GetRequestsByShipmentId(int shipmentId)
 		{
-			var requestIdList = this.context.Set<ShipmentRequest>().Where(p =>( p.ShipmentId == shipmentId && p.Status == "Waiting")).Select(p => p.RequestId).ToList();
+            // TODO: Create ShipmentRequestStatus class for Constant instead of hard code
+            var requestIdList = this.context.Set<ShipmentRequest>().Where(p =>( p.ShipmentId == shipmentId && p.Status == "Waiting")).Select(p => p.RequestId).ToList();
 
 			return this.dbSet.Where(p => (requestIdList.IndexOf(p.Id) != -1)).MapQueryTo<RequestsModel>(_mapper).ToList();
 		}
 
 		public IEnumerable<int> GetRequestIdList(int shipmentId)
 		{
-			return this.context.Set<ShipmentRequest>().Where(p => (p.ShipmentId == shipmentId && p.Status == "Waiting")).Select(p => p.RequestId).ToList();
+            // TODO: Create ShipmentRequestStatus class for Constant instead of hard code
+            return this.context.Set<ShipmentRequest>().Where(p => (p.ShipmentId == shipmentId && p.Status == "Waiting")).Select(p => p.RequestId).ToList();
 		}
 	}
 }

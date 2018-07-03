@@ -16,7 +16,9 @@ namespace GoGoApi.Controllers
         {
             _warehouseService = warehouseService;
         }
-       
+
+        // TODO: Remove {displayName} from route. {} synctax to use to identify an resource,
+        // In this case DisplayName is a query srring only, we should not pass it to the url
         [Route("filter-list/{displayName}")]
         [HttpGet]
         public async Task<IActionResult> GetOnFilter(string displayName)

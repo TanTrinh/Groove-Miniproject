@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.GoGo
 {
+    // TODO: change Requests to `Request` because Pluralizing is hard to manage and It's useless here
     [Route("api/Requests")]
     [ApiController]
     public class RequestsController : BaseController

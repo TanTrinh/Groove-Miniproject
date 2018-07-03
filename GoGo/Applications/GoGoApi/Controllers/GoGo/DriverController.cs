@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.GoGo
 {
+    // TODO: Move this controller to requestController or change the API url
     [Route("api/Request")]
     public class DriverController : Controller
     {
-        private IRequestService _serviceRequest;
-        private IShipmentService _serviceShipment;
+        private IRequestService _serviceRequest;        // TODO: change to _requestService
+        private IShipmentService _serviceShipment;      // TODO: change to _shipmentService
         public DriverController(IRequestService serviceRequest, IShipmentService serviceShipment)
         {
             _serviceRequest = serviceRequest;

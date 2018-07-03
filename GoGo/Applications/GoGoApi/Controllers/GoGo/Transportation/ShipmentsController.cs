@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.GoGo
 {
-	[Route("api/Shipments")]
+    // TODO: change `Shipments` to `Shipment` because Pluralizing is hard to manage and It's useless here
+    [Route("api/Shipments")]
 	[ApiController]
 	public class ShipmentsController : BaseController
 	{
@@ -26,7 +27,7 @@ namespace GoGoApi.Controllers.GoGo
 			_Shipmentservice = Shipmentservice;
 			_shipmentRequestService = shipmentRequestService;
 		}
-
+        // TODO: change route to POST ""
 		[Route("Create")]
 		[HttpPost]
 		public async Task<IActionResult> CreateShipment(FormShipmentModel model)
@@ -39,7 +40,8 @@ namespace GoGoApi.Controllers.GoGo
 			return Ok();
 		}
 
-
+        // TODO: replace route by PUT "{code}/activate"
+        // TODO: replace route by PUT "{code}/deactivate"
         [Route("updateStatus")]
         [HttpPut]
         public async Task<IActionResult> ChangeShipmentStatus(string code, string status)
@@ -55,6 +57,7 @@ namespace GoGoApi.Controllers.GoGo
 			return Ok(_Shipmentservice.GetAllAsync(request));
 		}
 
+        // TODO: change route to GET "{code}" instead of use the query string
 		[Route("Detail")]
 		[HttpGet]
 		public  IActionResult GetShipmentDetail(string Code)
@@ -62,7 +65,8 @@ namespace GoGoApi.Controllers.GoGo
 			return Ok( _Shipmentservice.GetShipmentByCode(Code));
 		}
 
-		[Route("update")]
+        // TODO: change route to PUT "{code}" 
+        [Route("update")]
 		[HttpPut]
 		public async Task<IActionResult> UpdateShipment(FormShipmentModel model)
 		{

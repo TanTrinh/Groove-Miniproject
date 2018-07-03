@@ -58,9 +58,12 @@ export class ShipmentListComponent{
 
   onUpdate(value: any)
   {
+    
     this.sharingService.isNewShipment = false;
     this.sharingService.shipmentCode = value;
 
+    // TODO: Remove sharing service. State ofr update/creation form should be managed by URL instead of sharing service
+    // It should navigate to /shipment/update/{shipmentCode}
     this.router.navigate(['/shipment/create']);
   }
 }
