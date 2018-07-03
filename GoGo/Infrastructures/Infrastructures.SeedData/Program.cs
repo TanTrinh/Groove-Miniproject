@@ -81,10 +81,11 @@ namespace Infrastructures.SeedData
             SeedDriverAbilityData(dbContext);
             SeedFeatureOfVehicleData(dbContext);
 
-            SeedRequestData(dbContext);
-            SeedShipmentData(dbContext);
-            SeedShipmentRequestData(dbContext);
-        }
+			SeedRequestData(dbContext);
+			SeedShipmentData(dbContext);
+			SeedShipmentRequestData(dbContext);
+			SeedVehicleFeatureRequest(dbContext);
+		}
 
         private static string ConverIntToString(int input)
         {
@@ -123,6 +124,7 @@ namespace Infrastructures.SeedData
                     UpdatedByUserId = 1,
                     UpdatedDate = DateTimeOffset.UtcNow,
                     UpdatedByUserName = "system",
+			
                     Status = "Active"
                 };
 
@@ -131,7 +133,21 @@ namespace Infrastructures.SeedData
                 Console.WriteLine("Finish seed user info");
             }
         }
-        private static async Task SeedCustomerDataAsync(ApplicationDbContext dbContext)
+		private static void SeedVehicleFeatureRequest(ApplicationDbContext dbContext)
+		{
+			for (int i = 1; i < 25; i++)
+			{
+				var vehicleFeatureRequest = new VehicleFeatureRequest
+				{
+					RequestId = i,
+					VehicleFeatureId = 1
+				};
+
+				dbContext.Add(vehicleFeatureRequest);
+			}
+			dbContext.SaveChanges();
+		}
+		private static async Task SeedCustomerDataAsync(ApplicationDbContext dbContext)
         {
             Console.WriteLine("Start to seed user info");
             string[] name = { "Chi", "Cong", "Cuong", "Cao", "Cuc" };
@@ -153,6 +169,7 @@ namespace Infrastructures.SeedData
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
                         UpdatedDate = DateTimeOffset.UtcNow,
+				
                         UpdatedByUserName = "system"
                     };
                     IdentityResult rs = await userManagement.CreateAsync(user, "P@ssword123");
@@ -188,7 +205,8 @@ namespace Infrastructures.SeedData
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
                         UpdatedDate = DateTimeOffset.UtcNow,
-                        UpdatedByUserName = "system"
+			
+						UpdatedByUserName = "system"
                     };
                     IdentityResult rs = await userManagement.CreateAsync(user, "P@ssword123");
                     if (rs.Succeeded)
@@ -222,7 +240,8 @@ namespace Infrastructures.SeedData
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
-                        UpdatedDate = DateTimeOffset.UtcNow,
+				
+						UpdatedDate = DateTimeOffset.UtcNow,
                         UpdatedByUserName = "system"
                     };
                     IdentityResult rs = await userManagement.CreateAsync(user, "P@ssword123");
@@ -257,7 +276,7 @@ namespace Infrastructures.SeedData
                         CreatedDate = DateTimeOffset.UtcNow,
                         CreatedByUserName = "system",
                         UpdatedByUserId = 1,
-                        UpdatedDate = DateTimeOffset.UtcNow,
+						UpdatedDate = DateTimeOffset.UtcNow,
                         UpdatedByUserName = "system"
                     };
                     IdentityResult rs = await userManagement.CreateAsync(user, "P@ssword123");

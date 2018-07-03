@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     //
     // httpOptions, API url... will be managed by API service
     
-    this._http.post('http://localhost:62772/api/authentication/token', this.model, httpOptions).subscribe(result => {
+    this._http.post('http://localhost:54520/api/authentication/token', this.model, httpOptions).subscribe(result => {
       var key = "tokenKey";
       console.log(result);
       if (result) {

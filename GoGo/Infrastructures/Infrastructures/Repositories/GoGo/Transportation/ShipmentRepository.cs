@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
+using Domains.GoGo.Models.Fleet_management;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -22,29 +25,43 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		{
 			_mapper = mapper;
 		}
-        public async Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
-        {
-            var query = this.dbSet
-                        .Include(p => p.Vehicle)
-                        .Where(p => p.DriverId == id)
-                        .Select(p => new ShipmentAssignedModel
-                        {
-                            Code = p.Code,
-                            LicensePlate = p.Vehicle.LicensePlate,
-                            EndDate = p.EndDate,
-                            StartDate = p.StartDate,
-                            VehicleID = p.VehicleId,
-                            RequestQuality = p.RequestQuantity,
-                            Status = p.Status
-                        });
-            return await query.ToListAsync();
-        }
-        public async Task<int> ChangeStatus(string code, string status)
-        {
-            var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
-            shipment.Status = status;
-            this.context.Update(shipment);
-            return await this.context.SaveChangesAsync();
-        }
-    }
+
+		public DataSourceResult GetAllAsync(DataSourceRequest request)
+		{
+			return this.dbSet.MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
+		}
+
+		public async Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
+		{
+			var query = this.dbSet
+						.Include(p => p.Vehicle)
+						.Where(p => p.DriverId == id)
+						.Select(p => new ShipmentAssignedModel
+						{
+							Code = p.Code,
+							LicensePlate = p.Vehicle.LicensePlate,
+							EndDate = p.EndDate,
+							StartDate = p.StartDate,
+							VehicleID = p.VehicleId,
+							RequestQuality = p.RequestQuantity,
+							Status = p.Status
+						});
+			return await query.ToListAsync();
+		}
+
+		public ShipmentDetailModel GetShipmentByCode(string Code)
+		{
+			return this.dbSet.Where(p => p.Code == Code).MapQueryTo<ShipmentDetailModel>(_mapper).SingleOrDefault();
+		}
+
+
+		public async Task<int> ChangeStatus(string code, string status)
+		{
+			var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
+			shipment.Status = status;
+			this.context.Update(shipment);
+			return await this.context.SaveChangesAsync();
+		}
+	}	
+
 }

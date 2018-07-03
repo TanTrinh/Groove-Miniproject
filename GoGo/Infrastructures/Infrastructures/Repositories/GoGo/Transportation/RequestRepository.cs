@@ -13,6 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo;
 using Domains.Core;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
+
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -25,16 +28,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync()
-        {
-            // TODO: strings should be managed in constant class or enum
-            // Create RequestStatus constant class
-            // Then use 
-            // entity.Status = RequestStatus.Wait;
-
-            return await this.dbSet.Where(p => p.Status == "Wait").MapQueryTo<WaitingRequestModel>(_mapper).ToListAsync();
-        }
-        public async Task<RequestDetailModel> GetRequestDetailAsync(int? id)
+		public async Task<RequestDetailModel> GetRequestDetailAsync(int? id)
         {
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
         }
@@ -70,5 +64,40 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             throw new NotImplementedException();
         }
-    }
+
+		public DataSourceResult GetAllAsync([DataSourceRequest] DataSourceRequest request)
+		{
+			return this.dbSet.MapQueryTo<RequestsModel>(_mapper).ToDataSourceResult(request);
+		}
+
+		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId)
+		{
+			var requestedIdList = this.context.Set<ShipmentRequest>().Where(p => p.Status == "Waiting").Select(p => p.RequestId).ToList();
+
+			return await this.dbSet.Where(p => (( p.Code.Contains(value) || p.Address.Contains(value)) 
+									&& !requestedIdList.Contains(p.Id) && p.Status =="Pending" && p.WareHouseId == warehouseId ) )
+									.Select(p => new DataSourceValue<int>
+									{
+										Value = p.Id,
+										DisplayName = p.Code
+									}).ToListAsync();
+		}
+
+        public async Task<RequestsModel> GetRequestByCode(string code)
+        {
+            return await this.dbSet.Where(p => p.Code == code).MapQueryTo<RequestsModel>(_mapper).FirstAsync();
+        }
+
+		public IEnumerable<RequestsModel> GetRequestsByShipmentId(int shipmentId)
+		{
+			var requestIdList = this.context.Set<ShipmentRequest>().Where(p =>( p.ShipmentId == shipmentId && p.Status == "Waiting")).Select(p => p.RequestId).ToList();
+
+			return this.dbSet.Where(p => (requestIdList.IndexOf(p.Id) != -1)).MapQueryTo<RequestsModel>(_mapper).ToList();
+		}
+
+		public IEnumerable<int> GetRequestIdList(int shipmentId)
+		{
+			return this.context.Set<ShipmentRequest>().Where(p => (p.ShipmentId == shipmentId && p.Status == "Waiting")).Select(p => p.RequestId).ToList();
+		}
+	}
 }

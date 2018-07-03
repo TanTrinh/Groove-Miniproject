@@ -5,13 +5,13 @@
     <main class="main-section col">
       <!--BODY BEGIN-->
       <router-outlet></router-outlet>
-<<<<<<< HEAD
-=======
 
->>>>>>> 2c3347003fb8a57d383be8a0ab579fcb710d087e
       <!--BODY END-->
 
     </main>
   </div>
-  <app-footer></app-footer>
+<<<<<<< HEAD
+=======
+  <app-footer class="pt-1"></app-footer>
+>>>>>>> 6fd0c2515ad41da68a98dec0344b1d01823256e6
 </div>

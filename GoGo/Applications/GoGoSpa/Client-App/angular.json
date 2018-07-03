@@ -27,11 +27,11 @@
               "src/assets"
             ],
             "styles": [
-              {
-                "input": "node_modules/@progress/kendo-theme-default/scss/all.scss"
-              },
+              "./node_modules/@progress/kendo-theme-default/dist/all.css",
               "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.scss"
+
+
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.js",

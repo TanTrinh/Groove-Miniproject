@@ -9,6 +9,7 @@ import { AssignedComponent } from './ShipmentAssigned/assigned.component';
   ],
   declarations: [
     AssignedComponent,
+    
   ]
 })
 export class ShipmentModule { }

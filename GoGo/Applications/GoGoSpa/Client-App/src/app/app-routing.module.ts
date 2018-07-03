@@ -15,6 +15,9 @@ import { UserEditComponent } from './modules/identity/user/user-edit/user-edit.c
 import { UserProfileEditComponent } from './modules/identity/user/user-profile-edit/user-profile-edit.component';
 import { AuthGuardService as AuthGuard } from './shared/services/authservices/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './shared/services/roleguardservice/role-guard.service';
+import { ShipmentCreatingComponent } from './shipment/shipment-creating/shipment-creating.component';
+import { ShipmentComponent } from './shipment/shipment/shipment.component';
+import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -26,7 +29,13 @@ const routes: Routes = [
       { path: 'account/create', component: UserCreateComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
       { path: 'account/detail/:id', component: UserDetailComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
       { path: 'account/edit/:id', component: UserEditComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
-      { path: 'request', loadChildren: './modules/request/request.module#RequestModule' }
+      { path: 'request', loadChildren: './modules/request/request.module#RequestModule' },
+      {
+        path: 'shipment', component: ShipmentComponent, children: [
+          { path: 'create', component: ShipmentCreatingComponent },
+          { path: '', component: ShipmentListComponent }
+        ]
+      },
     ]
   },
   {

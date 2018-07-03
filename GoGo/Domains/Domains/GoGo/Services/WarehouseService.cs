@@ -23,11 +23,6 @@ namespace Domains.GoGo.Services
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<DataSourceValue<int>>> GetWarehousesOfCustomer(int id)
-        {
-            return _repository.WarehouseOfCustomerModelAsync(id);
-        }
-
         public Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName)
         {
             return _repository.GetOnFilter(displayName);

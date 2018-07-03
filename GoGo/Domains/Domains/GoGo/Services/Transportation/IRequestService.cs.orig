@@ -1,29 +1,34 @@
-<<<<<<< HEAD
-﻿using Domains.GoGo.Models.Transportation;
-using Groove.AspNetCore.Common.Identity;
-=======
-using Domains.GoGo.Entities;
+using Domains.Core;
 using Domains.GoGo.Models.Transportation;
->>>>>>> 2c3347003fb8a57d383be8a0ab579fcb710d087e
+<<<<<<< HEAD
+using Domains.Helpers;
+using Kendo.Mvc.UI;
+=======
+using Groove.AspNetCore.Common.Identity;
 using System;
+>>>>>>> 6fd0c2515ad41da68a98dec0344b1d01823256e6
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-<<<<<<< HEAD
-namespace Domains.GoGo.Services.Transportation
-{
-    public interface IRequestService
-    {
-        Task<int> CreateAsync(RequestModel model, UserIdentity<long> issuer);
-=======
 namespace Domains.GoGo.Services
 {
-    public interface IRequestService
+	public interface IRequestService
     {
-        Task<IEnumerable<WaitingRequestModel>> GetWaitingRequest();
-        Task<RequestDetailModel> GetRequestDetails(int? id);
+		Task<RequestDetailModel> GetRequestDetails(int? id);
+
         Task<string> ChangeStatus(int? id, string status);
->>>>>>> 2c3347003fb8a57d383be8a0ab579fcb710d087e
+<<<<<<< HEAD
+
+		Task<IEnumerable<DataSourceValue<int>>>  GetDataSource(string value, int warehouseId);
+
+		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
+        Task<RequestsModel> GetRequestByCode(string code);
+    
+=======
+        Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
+        Task<int> UpdateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
+        Task<RequestModel> FindCustomerRequestAsync(int id);
+>>>>>>> 6fd0c2515ad41da68a98dec0344b1d01823256e6
     }
 }
+	

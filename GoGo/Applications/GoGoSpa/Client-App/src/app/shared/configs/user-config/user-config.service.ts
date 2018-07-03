@@ -11,9 +11,9 @@ export class UserConfigService {
   userProfileEdit: string;
 
   constructor() {
-    this.userProfileURI = 'http://localhost:62772/api/user/profile';
-    this.userProfileInfoBeEdit = 'http://localhost:62772/api/user/profile/edit?id=';
-    this.userProfileEdit = 'http://localhost:62772/api/user/profile/edit?id=';
+    this.userProfileURI = 'http://localhost:54520/api/user/profile';
+    this.userProfileInfoBeEdit = 'http://localhost:54520/api/user/profile/edit?id=';
+    this.userProfileEdit = 'http://localhost:54520/api/user/profile/edit?id=';
   }
 
   getUserProfileURI() {
