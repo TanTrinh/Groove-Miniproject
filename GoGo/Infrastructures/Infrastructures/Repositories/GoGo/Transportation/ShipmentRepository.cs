@@ -26,8 +26,13 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 			_mapper = mapper;
 		}
 
-		public DataSourceResult GetAllAsync(DataSourceRequest request)
+		public DataSourceResult GetAllAsync(DataSourceRequest request, string userId)
 		{
+			if (userId != null)
+			{
+				return this.dbSet.Where(p => p.DriverId.ToString() == userId).MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
+			}
+
 			return this.dbSet.MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
 		}
 

@@ -20,10 +20,10 @@ import { Subscription } from 'rxjs-compat/Subscription';
 
 @Component({
   selector: 'app-shipment-creating',
-  templateUrl: './shipment-creating.component.html',
-  styleUrls: ['./shipment-creating.component.scss']
+  templateUrl: './shipment-form.component.html',
+  styleUrls: ['./shipment-form.component.scss']
 })
-export class ShipmentCreatingComponent implements OnInit, OnDestroy {
+export class ShipmentFormComponent implements OnInit, OnDestroy {
 
   
 
@@ -92,7 +92,7 @@ export class ShipmentCreatingComponent implements OnInit, OnDestroy {
           this.vehicleDetail = result.Vehicle
           this.requestIdList = result.RequestIdList
           this.requestList = result.RequestList
-          this.pickingDate = new Date(result.EndDate)
+          this.pickingDate = new Date(result.StartDate)
           this.deliveryDate = new Date(result.EndDate)
           this.refreshGrid()
         }    

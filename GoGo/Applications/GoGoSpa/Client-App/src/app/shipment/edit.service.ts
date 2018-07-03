@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-const CREATE_ACTION = 'create';
+const CREATE_ACTION = 'form';
 const UPDATE_ACTION = 'update';
 const REMOVE_ACTION = 'destroy';
 

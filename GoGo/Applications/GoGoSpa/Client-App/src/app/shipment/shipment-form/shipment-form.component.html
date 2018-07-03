@@ -13,13 +13,10 @@
                             [textField]="'DisplayName'"
                             [filterable]="true"
                             (filterChange)="handleVehicleFilter($event)"
-                            [value]="vehicle.id"
+                            (ngModelChange) ="GetVehicleDetail()"
                             style="width: 200px;"
                             class="mr-1 mb-1">
             </kendo-combobox>
-            <span class="input-group-btn">
-              <button class="btn btn-primary btn-sm" (click)="GetVehicleDetail()" primary="true">Add</button>
-            </span>
           </div>
           <div>
             <div>
@@ -43,12 +40,10 @@
                             [textField]="'DisplayName'"
                             [filterable]="true"
                             (filterChange)="handleDriverFilter($event)"
+                            (ngModelChange) ="GetDriverDetail()"
                             style="width: 200px;"
                             class="mr-1 mb-1">
             </kendo-combobox>
-            <span class="input-group-btn">
-              <button class="btn btn-primary btn-sm" (click)="GetDriverDetail()" primary="true">Add</button>
-            </span>
           </div>
 
           <div>
@@ -95,13 +90,11 @@
                           [textField]="'DisplayName'"
                           [filterable]="true"
                           (filterChange)="handleWarehouseFilter($event)"
+                          (ngModelChange) ="GetWarehouseDetail()"
                           style="width: 200px;"
                           class="mr-1 mb-1"
                           [disabled]="isValid">
           </kendo-combobox>
-          <span class="input-group-btn">
-            <button class="btn btn-primary btn-sm" (click)="GetWarehouseDetail()" primary="true">Add </button>
-          </span>
         </div>
         <!--<div>
           <div>
@@ -145,18 +138,12 @@
                 [pageSize]="state.take"
                 (remove)="removeHandler($event)"
                 required>
-      <kendo-grid-column field="Code" title="Code"></kendo-grid-column>
-      <kendo-grid-column field="CustomerName" title="Customer Name"></kendo-grid-column>
+      <kendo-grid-column field="Code" title="Code" ></kendo-grid-column>
+      <kendo-grid-column field="CustomerName" title="Customer Name"  ></kendo-grid-column>
       <kendo-grid-column field="PickingDate" title="Expected Picking Date"></kendo-grid-column>
-      <kendo-grid-column field="ExpectedDate" title="Expected Delivery Date"></kendo-grid-column>
-      <kendo-grid-column field="PackageQuantity" title="Packages" width="150"></kendo-grid-column>
-      <kendo-grid-column field="DeliveryAddress" title="Delivery Address"></kendo-grid-column>
-      <kendo-grid-command-column title="Delivery Date">
-        <ng-template kendoGridCellTemplate>
-          <kendo-datepicker name="deliveryDate" required></kendo-datepicker>
-          <kendo-timepicker name="deliveryDate" required></kendo-timepicker>
-        </ng-template>
-      </kendo-grid-command-column>
+      <kendo-grid-column field="ExpectedDate" title="Expected Delivery Date"  ></kendo-grid-column>
+      <kendo-grid-column field="PackageQuantity" title="Packages" ></kendo-grid-column>
+      <kendo-grid-column field="DeliveryAddress" title="Delivery Address" ></kendo-grid-column>
       <kendo-grid-command-column title="command" width="100">
         <ng-template kendoGridCellTemplate>
           <button kendoGridRemoveCommand [primary]="true">Delete</button>

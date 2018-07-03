@@ -28,7 +28,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Import the ButtonsModule
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
-import { ShipmentCreatingComponent } from './shipment/shipment-creating/shipment-creating.component';
+import { ShipmentFormComponent } from './shipment/shipment-form/shipment-form.component';
 import { ShipmentComponent } from './shipment/shipment/shipment.component';
 import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.component';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
@@ -70,7 +70,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     FooterComponent,
     NavigationComponent,
     LoginComponent,
-    ShipmentCreatingComponent,
+    ShipmentFormComponent,
     ShipmentComponent,
     ShipmentListComponent,
 

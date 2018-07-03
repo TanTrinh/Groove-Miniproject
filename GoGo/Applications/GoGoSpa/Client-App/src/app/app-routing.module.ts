@@ -15,7 +15,7 @@ import { UserEditComponent } from './modules/identity/user/user-edit/user-edit.c
 import { UserProfileEditComponent } from './modules/identity/user/user-profile-edit/user-profile-edit.component';
 import { AuthGuardService as AuthGuard } from './shared/services/authservices/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './shared/services/roleguardservice/role-guard.service';
-import { ShipmentCreatingComponent } from './shipment/shipment-creating/shipment-creating.component';
+import { ShipmentFormComponent } from './shipment/shipment-form/shipment-form.component';
 import { ShipmentComponent } from './shipment/shipment/shipment.component';
 import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.component';
 import { RequestModule } from './modules/request/request.module';
@@ -33,8 +33,8 @@ const routes: Routes = [
       { path: 'request', loadChildren: () => RequestModule }, // Remove LazyLoad because current version of angular-cli not support mixing / nested routing https://github.com/angular/angular-cli/issues/9651, https://github.com/angular/angular-cli/issues/9488
       {
         path: 'shipment', component: ShipmentComponent, children: [
-          { path: 'create', component: ShipmentCreatingComponent },
-          { path: '', component: ShipmentListComponent } // TODO: Move this before create It's easier to review
+          { path: '', component: ShipmentListComponent } ,
+          { path: 'form/:id', component: ShipmentFormComponent },
         ]
       }
     ]

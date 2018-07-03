@@ -45,7 +45,7 @@ export class ShipmentListComponent{
 
 
   ChangeStatus(value: any) {
-   
+    
     this.shipmentService.ChangeShipmentStatus(value, "Pending").subscribe();
   }
 
@@ -53,7 +53,7 @@ export class ShipmentListComponent{
   onCreate()
   {
     this.sharingService.isNewShipment = true;
-    this.router.navigate(['/shipment/create']);
+    this.router.navigate(['/shipment/form']);
   }
 
   onUpdate(value: any)
@@ -61,6 +61,6 @@ export class ShipmentListComponent{
     this.sharingService.isNewShipment = false;
     this.sharingService.shipmentCode = value;
 
-    this.router.navigate(['/shipment/create']);
+    this.router.navigate(['/shipment/form']);
   }
 }

@@ -69,9 +69,9 @@ namespace Domains.GoGo.Services.Transportation
         }
 
 
-		public DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request)
+		public DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request, string userId)
 		{
-			return _shipmentRepository.GetAllAsync(request);
+			return _shipmentRepository.GetAllAsync(request, userId);
 		}
 
 		public Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)

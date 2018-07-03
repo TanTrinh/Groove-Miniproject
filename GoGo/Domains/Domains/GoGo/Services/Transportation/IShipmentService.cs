@@ -11,7 +11,7 @@ namespace Domains.GoGo.Services.Transportation
 	public interface IShipmentService
     {
 		Task<int> CreateShipmentAsync(FormShipmentModel model);
-		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
+		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request, string userId);
 
 		Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id);
         Task<int> ChangeStatus(string code, string status);

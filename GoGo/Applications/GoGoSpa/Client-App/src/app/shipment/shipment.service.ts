@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataSourceRequestState, toDataSourceRequestString } from '@progress/kendo-data-query';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { map } from 'rxjs/internal/operators/map';
@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { RequestOptions, Headers, Http} from '@angular/http';
 import { ConfigService } from 'src/app/shared/sevices/config-service.service';
 import { Observable } from 'rxjs-compat/Observable';
+import { SharingService } from '../shared/sevices/sharing-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { Observable } from 'rxjs-compat/Observable';
 export class ShipmentService extends BehaviorSubject<any>  {
   private baseUrl = '';
 
-  constructor(private http: Http, private configService: ConfigService, private https: HttpClient) {
+  constructor(private http: Http, private configService: ConfigService, private https: HttpClient, private auth: SharingService) {
     super(null);
 
     this.baseUrl = configService.getApiURI();
@@ -25,20 +26,20 @@ export class ShipmentService extends BehaviorSubject<any>  {
 
     let body = JSON.stringify({ requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId });
 
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    let headers = new Headers();
+    headers = this.auth.AddTokenToHeaders();
 
-    return this.http.post(this.baseUrl + '/Shipments/Create', body, options);
+    return this.http.post(this.baseUrl + '/Shipments/Create', body, { headers });
   }
 
   UpdateShipment(id, code, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId): any {
 
     let body = JSON.stringify({id, code, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId });
 
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.put(this.baseUrl + '/Shipments/Update', body, options);
+    let headers = new Headers();
+    headers = this.auth.AddTokenToHeaders();
+   
+    return this.http.put(this.baseUrl + '/Shipments/Update', body, { headers });
   }
 
 
@@ -47,8 +48,12 @@ export class ShipmentService extends BehaviorSubject<any>  {
     const queryStr = `${toDataSourceRequestString(state)}`;
     const hasGroups = state.group && state.group.length;
 
+    let headers = new HttpHeaders();
+    headers = this.auth.AddTokenToHeader();
+
+    console.log(headers)
     return this.https
-      .get(`${this.baseUrl}/shipments/datasource?${queryStr}`).pipe(
+      .get(`${this.baseUrl}/shipments/datasource?${queryStr}`, { headers }).pipe(
         map(response => (<GridDataResult>{
           data: response['Data'],
           total: parseInt(response['Total'], 10)
@@ -59,6 +64,7 @@ export class ShipmentService extends BehaviorSubject<any>  {
   public GetDetailByCode(Code)
   {
     let headers = new Headers();
+    headers = this.auth.AddTokenToHeaders();
 
     return this.http.get(this.baseUrl + '/shipments/Detail?Code=' + Code, { headers });
   }
@@ -69,7 +75,6 @@ export class ShipmentService extends BehaviorSubject<any>  {
 
     return this.https.put(this.baseUrl + `/shipments/updateStatus?code=${Code}&status=${value}`, Option);
   }
-
 
 
 }

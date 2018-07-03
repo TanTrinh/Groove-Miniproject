@@ -16,7 +16,7 @@ namespace Domains.GoGo.Repositories.Transportation
         Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id);
         Task<int> ChangeStatus(string code, string status);
 
-		DataSourceResult GetAllAsync(DataSourceRequest request);
+		DataSourceResult GetAllAsync(DataSourceRequest request, string userId);
 		ShipmentDetailModel GetShipmentByCode(string Code);
 	}
 }

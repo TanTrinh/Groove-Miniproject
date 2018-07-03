@@ -8,7 +8,7 @@
               [skip]="state.skip"
               [sort]="state.sort"
               [sortable]="true"
-              [pageable]="true"          
+              [pageable]="true"
               [group]="state.group"
               filterable="menu"
               [filter]="state.filter"
@@ -16,22 +16,22 @@
               [selectable]="true"
               [height]="380">
 
-    <kendo-grid-column field="Code" title="Code">
+    <kendo-grid-column field="Code" title="Code" [width]="200">
     </kendo-grid-column>
-    <kendo-grid-column field="RequestQuantity" title="Request Quantity">
+    <kendo-grid-column field="StartDate" title="Start Date" [width]="250">
     </kendo-grid-column>
-    <kendo-grid-column field="StartDate" title="Start Date">
+    <kendo-grid-column field="EndDate" title="End Date" [width]="250">
     </kendo-grid-column>
-    <kendo-grid-column field="EndDate" title="End Date">
+    <kendo-grid-column field="DriverName" title="Driver" >
     </kendo-grid-column>
-    <kendo-grid-column field="DriverName" title="Driver">
+    <kendo-grid-column field="VehicleLicensePlate" title="Vehicle" >
     </kendo-grid-column>
-    <kendo-grid-column field="VehicleLicensePlate" title="Vehicle">
+    <kendo-grid-column field="RequestQuantity" title="Requests">
     </kendo-grid-column>
     <kendo-grid-command-column title="Command">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <button  class="btn btn-primary btn-sm mr-1" (click)="ChangeStatus(dataItem.Code)">Active</button>
-        <button class="btn btn-info  btn-sm" (click)="onUpdate(dataItem.Code)">Update</button>
+        <button class="btn btn-primary btn-sm mr-1 mb-1 btn-width" (click)="ChangeStatus(dataItem.Code)">Active</button>
+        <button class="btn btn-info  btn-sm mb-1 btn-width" (click)="onUpdate(dataItem.Code)">Update</button>
       </ng-template>
     </kendo-grid-command-column>
   </kendo-grid>

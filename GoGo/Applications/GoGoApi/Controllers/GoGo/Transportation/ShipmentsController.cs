@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Services;
@@ -9,6 +10,7 @@ using Groove.AspNetCore.Mvc;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace GoGoApi.Controllers.GoGo
 {
@@ -51,8 +53,19 @@ namespace GoGoApi.Controllers.GoGo
 		[HttpGet]
 		public IActionResult GetShipments([DataSourceRequest]DataSourceRequest request)
 		{
+			var userIdentity = GetCurrentIdentity<long>();
+			var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).ToList();
 
-			return Ok(_Shipmentservice.GetAllAsync(request));
+
+			if (roles.Any<Claim>())
+			{
+				return Ok(_Shipmentservice.GetAllAsync(request, null));
+			}
+			else
+			{
+				return  Ok(_Shipmentservice.GetAllAsync(request, userIdentity.Id.ToString()));
+			}
+
 		}
 
 		[Route("Detail")]
