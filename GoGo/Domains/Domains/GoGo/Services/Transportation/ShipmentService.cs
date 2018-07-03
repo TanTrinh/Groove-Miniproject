@@ -41,11 +41,11 @@ namespace Domains.GoGo.Services.Transportation
 			var entity = _mapper.Map<Shipment>(model);
 
 			//get Created Date
-			entity.CreatedDate = DateTime.Parse(String.Format("{0:G}", DateTime.Now));
+			entity.CreatedDate = DateTime.Parse(String.Format("{0:G}", DateTime.Now)); // TODO: Use DateTime.Now only
 
 			entity.Code = Helper.GenerateCode(DateTime.Now, 100);
 
-			entity.Status = "inActive";
+			entity.Status = "inActive"; // TODO: Create ShipmentStatus class for Constant instead of hard code
 
 			_uow.GetRepository<IShipmentRepository>().Create(entity);
 
@@ -59,8 +59,9 @@ namespace Domains.GoGo.Services.Transportation
 
      //       var entity = _uow.GetRepository<IShipmentRepository>().GetEntityById(model.Id);
 
+            // TODO: Get Old entity from database first, then copy new data to Old Entity, then update
            var entity = _mapper.Map<Shipment>(model);
-            entity.Status = "Pending";
+            entity.Status = "Pending"; // TODO: Create ShipmentStatus class for Constant instead of hard code
 
             _shipmentRequestRepository.UpdateShipmentRequest(model.RequestIdList, model.Id);
 			_uow.GetRepository<IShipmentRepository>().Update(entity);
