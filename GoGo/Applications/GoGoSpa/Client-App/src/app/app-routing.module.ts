@@ -7,12 +7,12 @@ import { LayoutComponent } from './layout/layout.component';
 import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.component';
 import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './modules/identity/user/user-list/user-list.component';
-import { UserProfileComponent } from './modules/identity/user/user-profile/user-profile.component';
+import { UserProfileComponent } from './modules/user-profile/my-profile/user-profile.component';
 import { FormsModule } from '@angular/forms';
 import { UserDetailComponent } from './modules/identity/user/user-detail/user-detail.component';
 import { UserCreateComponent } from './modules/identity/user/user-create/user-create.component';
 import { UserEditComponent } from './modules/identity/user/user-edit/user-edit.component';
-import { UserProfileEditComponent } from './modules/identity/user/user-profile-edit/user-profile-edit.component';
+import { UserProfileEditComponent } from './modules/user-profile/user-profile-edit/user-profile-edit.component';
 import { AuthGuardService as AuthGuard } from './shared/services/authservices/auth-guard.service';
 import { RoleGuardService as RoleGuard } from './shared/services/roleguardservice/role-guard.service';
 

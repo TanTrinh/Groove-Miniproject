@@ -107,10 +107,10 @@ namespace Domains.Identity.Services
         }
 
         //Get the value of user need to edit
-        public Task<UserViewUpdateModel> GetUserUpdateAsync(long? id)
-        {
-            return _userRepository.GetUserUpdateByIdAsync(id);
-        }
+        //public Task<UserViewUpdateModel> GetUserUpdateAsync(long? id)
+        //{
+        //    return _userRepository.GetUserUpdateByIdAsync(id);
+        //}
 
         //Get list of user with specific role by role id
         public DataSourceResult GetUsersAsync(DataSourceRequest request)
@@ -135,5 +135,10 @@ namespace Domains.Identity.Services
 
             return exception;
         }
+
+        //public Task<UserViewUpdateModel> GetUserUpdateAsync(long? id)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

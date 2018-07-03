@@ -46,17 +46,28 @@ export class AuthHttpService {
     // Show loading affect
   }
 
+  AddTokenToHeaders(): HttpHeaders {
+    let headers: HttpHeaders = new HttpHeaders();
+    if (localStorage.length != 0) {
+      var key = localStorage.getItem('tokenKey');
+      var currentKey = JSON.parse(key) ;
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
+    }
+    return headers;
+  }
+
   public get(url: string): Observable<any> {
     this.beforeSendRequest();
-    return this.subscribeForRequest(this._http.get(this.getAbsoluteUrl(url)));
+    return this.subscribeForRequest(this._http.get(this.getAbsoluteUrl(url), { headers: this.AddTokenToHeaders() }));
   }
   public post(url: string, body: any): Observable<any> {
     this.beforeSendRequest();
-    return this.subscribeForRequest(this._http.post(this.getAbsoluteUrl(url), body));
+    return this.subscribeForRequest(this._http.post(this.getAbsoluteUrl(url), body, { headers: this.AddTokenToHeaders() }));
   }
   public put(url: string, body: any): Observable<any> {
     this.beforeSendRequest();
-    return this.subscribeForRequest(this._http.put(this.getAbsoluteUrl(url), body));
+    return this.subscribeForRequest(this._http.put(this.getAbsoluteUrl(url), body, { headers: this.AddTokenToHeaders() }));
   }
   public patch(url: string, body: any): Observable<any> {
     this.beforeSendRequest();

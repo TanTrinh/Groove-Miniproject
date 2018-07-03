@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
+import { AccountService } from '../account.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -28,7 +29,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private _http: HttpClient,
     private _router: Router,
-    private _notificationService: NotificationService) { }
+    private _notificationService: NotificationService,
+    private _accountService: AccountService
+  ) { }
 
   ngOnInit() {
   }
@@ -46,8 +49,8 @@ export class LoginComponent implements OnInit {
     // })
     //
     // httpOptions, API url... will be managed by API service
-    
-    this._http.post('http://localhost:62772/api/authentication/token', this.model, httpOptions).subscribe(result => {
+
+    this._accountService.login(this.model).subscribe(result => {
       var key = "tokenKey";
       console.log(result);
       if (result) {

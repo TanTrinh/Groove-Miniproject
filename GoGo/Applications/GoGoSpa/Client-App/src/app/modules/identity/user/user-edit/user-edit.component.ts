@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
 import { AdminConfigService } from '../../../../shared/configs/admin-config/admin-config.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -29,84 +30,75 @@ export class UserEditComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private route: ActivatedRoute,
+    private _route: ActivatedRoute,
     private location: Location,
     private _notificationService: NotificationService,
-    private _configService: AdminConfigService
+    private _configService: AdminConfigService,
+    private _userService: UserService
   ) {
     this.baseUrlInfoBeEdit = _configService.getUerInfoBeEditURI();
     this.baseUrlEdit = _configService.getEditUserURI()
   }
 
   ngOnInit() {
-    var key = localStorage.getItem('tokenKey');
-    var currentKey = JSON.parse(key);
-    if (this.lStorage != 0) {
-      var httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + currentKey.access_token
-        })
-      };
+    //var key = localStorage.getItem('tokenKey');
+    //var currentKey = JSON.parse(key);
+    //if (this.lStorage != 0) {
+    //  var httpOptions = {
+    //    headers: new HttpHeaders({
+    //      'Content-Type': 'application/json',
+    //      'Authorization': 'Bearer ' + currentKey.access_token
+    //    })
+    //  };
 
-      this.id = this.route.snapshot.paramMap.get('id');
+    //  this.id = this.route.snapshot.paramMap.get('id');
 
-      // TODO: Move all HTTPs request relate to user API into seperated service
-      // You need to create UserService in ../../identity/user/user.service.ts
-      //
-      // then you call _userService.Get(this.id).subcrible(result=>{
-      // })
-      //
-      // httpOptions, API url... will be managed by API service
-      this.http.get(this.baseUrlInfoBeEdit + this.id, httpOptions).subscribe(result => {
-        if (result) {
-          // TODO: Remove console.log
-          console.log(result);
-          this.model = result;
-        }
-      });
-    }
+    //  // TODO: Move all HTTPs request relate to user API into seperated service
+    //  // You need to create UserService in ../../identity/user/user.service.ts
+    //  //
+    //  // then you call _userService.Get(this.id).subcrible(result=>{
+    //  // })
+    //  //
+    //  // httpOptions, API url... will be managed by API service
+    //  this.http.get(this.baseUrlInfoBeEdit + this.id, httpOptions).subscribe(result => {
+    //    if (result) {
+    //      // TODO: Remove console.log
+    //      console.log(result);
+    //      this.model = result;
+    //    }
+    //  });
+    //}
+    this.id = this._route.snapshot.paramMap.get('id');
+    this._userService.getFormData(this.id).subscribe(result => {
+      this.model = result;
+    });
   }
 
   save(id) {
-    var key = localStorage.getItem('tokenKey');
-    var currentKey = JSON.parse(key);
-    if (this.lStorage != 0) {
-      var httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + currentKey.access_token
-        })
-      };
 
-      id = this.route.snapshot.paramMap.get('id');
+    // TODO: Move all HTTPs request relate to user API into seperated service
+    // You need to create UserService in ../../identity/user/user.service.ts
+    //
+    // then you call _userService.Update(this.id, this.model).subcrible(result=>{
+    // })
+    //
+    // httpOptions, API url... will be managed by API service
+    this._userService.edit(id, this.model).subscribe(result => {
+      if (result) {
+        this.data = result;
+        this.router.navigate(['account/detail', this.data.value]);
+      }
+    }, error => {
+      this.isError = true;
 
-      // TODO: Move all HTTPs request relate to user API into seperated service
-      // You need to create UserService in ../../identity/user/user.service.ts
-      //
-      // then you call _userService.Update(this.id, this.model).subcrible(result=>{
-      // })
-      //
-      // httpOptions, API url... will be managed by API service
-      this.http.put(this.baseUrlEdit + id, this.model, httpOptions).subscribe(result => {
-        if (result) {
-          this.data = result;
-          // TODO: remove console.log
-          console.log(this.data);
-          this.router.navigate(['account/detail', this.data.value]);
-        }
-      }, error => {
-        this.isError = true;
+      let httpError: HttpErrorResponse = error;
+      if (httpError.status === 400) {
 
-        let httpError: HttpErrorResponse = error;
-        if (httpError.status === 400) {
-
-          this.message = httpError.error.message;
-        } else {
-          this._notificationService.prompError(httpError.message);
-        }
-      });
-    }
+        this.message = httpError.error.message;
+      } else {
+        this._notificationService.prompError(httpError.message);
+      }
+    });
   }
 
   back() {

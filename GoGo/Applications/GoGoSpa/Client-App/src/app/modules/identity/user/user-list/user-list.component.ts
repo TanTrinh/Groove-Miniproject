@@ -6,7 +6,7 @@ import { HttpParamsOptions, HttpParams } from '@angular/common/http/src/params';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
-import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { GridDataResult, DataStateChangeEvent, SelectableSettings } from '@progress/kendo-angular-grid';
 import { DataSourceRequestState, DataResult } from '@progress/kendo-data-query';
 
 @Component({
@@ -37,14 +37,11 @@ export class UserListComponent implements OnInit {
     this._userService.fetch(this.state).subscribe(result => {
       console.log(result);
       this.users = result;
-
     });
   }
 
   paginators = [];
   ngOnInit() {
-    //this.selectOption = 'Customer';
-    //this.loadList();
   }
 
   // TODO: replace this.id by role name
@@ -105,7 +102,7 @@ export class UserListComponent implements OnInit {
   //    //  }
   //    //}
 
-  //    this._http.get('http://localhost:62772/api/user/list', httpOptions).subscribe(result => {
+  //    this._http.get('http://localhost:62772/api/user', httpOptions).subscribe(result => {
   //      console.log(result)
   //      this.data = result;
   //      this.userList = this.data;

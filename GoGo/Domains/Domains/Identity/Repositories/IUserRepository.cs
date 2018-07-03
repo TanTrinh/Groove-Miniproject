@@ -9,14 +9,18 @@ using System.Threading.Tasks;
 
 namespace Domains.Identity.Repositories
 {
-	public interface IUserRepository : IGenericRepository<User,long>
-	{
-		Task<User> FindByUserNameAsync(string userName);
+    public interface IUserRepository : IGenericRepository<User, long>
+    {
+        Task<User> FindByUserNameAsync(string userName);
+        DataSourceResult GetUserListAsync(DataSourceRequest request);
+        Task<UserReadModel> FindByUserIdAsync(long? id);
+        #region Old get user list with specific role by role id
         // Get user list with specific role by role id
         //Task<IEnumerable<UserListModel>> GetUserListAsync(long? id);
         //Task<IEnumerable<UserListModel>> GetUserListAsync();
-        DataSourceResult GetUserListAsync(DataSourceRequest request);
-        Task<UserReadModel> FindByUserIdAsync(long? id);
-        Task<UserViewUpdateModel> GetUserUpdateByIdAsync(long? id);
-	}
+        #endregion
+        #region Old feature of get user to edit in list by id
+        //Task<UserViewUpdateModel> GetUserUpdateByIdAsync(long? id);
+        #endregion
+    }
 }

@@ -10,6 +10,7 @@ import {
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
+import { AuthHttpService } from 'src/app/shared';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,15 @@ import 'rxjs/add/operator/map';
 export class UserService {
   public lStorage = localStorage.length;
 
-  private BASE_URL = 'http://localhost:62772/api/user/list';
+  //private BASE_URL = 'http://localhost:62772/api/user';
+  private BASE_URL: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private _apiHttp: AuthHttpService
+  ) {
+    this.BASE_URL = _apiHttp.getAbsoluteUrl(`/api/user`)
+  }
 
   public fetch(state: DataSourceRequestState): Observable<DataResult> {
     var key = localStorage.getItem('tokenKey');
@@ -44,5 +51,17 @@ export class UserService {
           //aggregateResult: translateAggregateResults(aggregateResults)
         })
       )
+  }
+
+  edit(id: any, formData: any): Observable<any> {
+    return this._apiHttp.put(`/api/user/${id}`, formData);
+  }
+
+  getFormData(id: any): Observable<any> {
+    return this._apiHttp.get(`/api/user/${id}`);
+  }
+
+  create(formData: any): Observable<any> {
+    return this._apiHttp.post(`/api/user`, formData);
   }
 }

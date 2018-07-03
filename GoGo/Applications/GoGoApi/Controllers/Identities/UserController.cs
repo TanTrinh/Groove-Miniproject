@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Domains.Identity.Models;
 using Domains.Identity.Services;
@@ -20,7 +21,7 @@ namespace GoGoApi.Controllers.Identities
             _userService = userService;
         }
         // TODO: route should be ""
-        [Route("list")]
+        [Route("")]
         [HttpGet]
         [Authorize(Roles = "Administrator")]
         public IActionResult GetUsers([DataSourceRequest]DataSourceRequest request)
@@ -30,7 +31,7 @@ namespace GoGoApi.Controllers.Identities
         }
 
         // TODO: route should be ""
-        [Route("create")]
+        [Route("")]
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateUser([FromBody]UserCreateModel model)
@@ -46,7 +47,7 @@ namespace GoGoApi.Controllers.Identities
         }
 
         // TODO: route shoule be "{id}"
-        [Route("edit")]
+        [Route("{id}")]
         [HttpPut]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateUser(long id, [FromBody]UserUpdateModel model)
@@ -62,62 +63,17 @@ namespace GoGoApi.Controllers.Identities
         }
         // TODO: route should be "{id}/editview" or consider to remove this API & use GetUserDetail instead
         // Get the value of user need to update
-        [Route("edit")]
-        [HttpGet]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> ViewUserUpdate(long id)
-        {
-            return Ok(await _userService.GetUserUpdateAsync(id));
-        }
-
-        // TODO: Move to profile controller
-        // TODO: Remove Id, Id should be get from access token
-        // TODO: Rename function to UpdateMyUserProfile
-        // TODO: Route should be ""
-        [Route("profile/edit")]
-        [HttpPut]
-        [Authorize]
-        public async Task<IActionResult> UpdateUserProfile(long id, [FromBody]UserProfileUpdateModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var userId = await _userService.UpdateUserProfileAsync(id, model, GetCurrentIdentity<long>());
-
-            return OkValueObject(userId);
-        }
-
-        // TODO: Move to profile controller
-        // TODO: Remove Id, Id should be get from access token
-        // TODO: Rename function to GetMyUserProfileForUpdate or remove this API & use user GetUserProfile instead
-        // TODO: Route shoule be "myprofile/editview"
-
-        [Route("profile/edit")]
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> ViewUserProfileUpdate(long id)
-        {
-            return Ok(await _userService.GetUserUpdateAsync(id));
-        }
-
-        // TODO: Move to profile controller
-        // TODO: Remove Id, Id should be get from access token
-        // TODO: Rename function to GetMyUserProfile
-        // TODO: Route shoule be "myprofile"
-        [Route("profile")]
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> GetUserProfile()
-        {
-            //var result = await _userService.GetUserProfileAsync(GetCurrentUserId<long>());
-            return Ok(await _userService.GetUserProfileAsync(GetCurrentUserId<long>()));
-        }
+        //[Route("editview")]
+        //[HttpGet]
+        //[Authorize(Roles = "Administrator")]
+        //public async Task<IActionResult> ViewUserUpdate(long id)
+        //{
+        //    return Ok(await _userService.GetUserUpdateAsync(id));
+        //}
 
 
         // TODO: route should be {id}
-        [Route("detail")]
+        [Route("{id}")]
         [HttpGet]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetUserDetail(long? id)

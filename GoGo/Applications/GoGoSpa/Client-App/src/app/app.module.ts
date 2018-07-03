@@ -9,6 +9,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { AuthHttpService, LocalStorageService, ServiceRegistryService } from './shared';
+
 import { NotificationService } from './shared/component/dialog/notification.service';
 import { FormValidationService } from './shared/component/form';
 import { AuthenticationService } from './shared/services/authentication.service';
@@ -17,6 +18,8 @@ import { AuthenticationService } from './shared/services/authentication.service'
 //import { AgmDirectionModule } from 'agm-direction';
 
 import { LoginComponent } from './modules/account/login/login.component';
+import { UserProfileComponent } from './modules/user-profile/my-profile/user-profile.component'
+import { UserProfileEditComponent } from './modules/user-profile/user-profile-edit/user-profile-edit.component'
 import { HttpClientModule } from '@angular/common/http';
 import { ShipmentModule } from './shipment/shipment.module';
 import { FormsModule } from '@angular/forms';
@@ -52,7 +55,9 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     FooterComponent,
     NavigationComponent,
     //GgmapComponent,
-    LoginComponent
+    LoginComponent,
+    UserProfileComponent,
+    UserProfileEditComponent
   ],
   imports: [
     BrowserModule,

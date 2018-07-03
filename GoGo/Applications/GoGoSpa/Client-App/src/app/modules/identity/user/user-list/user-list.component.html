@@ -17,6 +17,7 @@
               [group]="state.group"
               filterable="menu"
               [filter]="state.filter"
+              [selectable]="true"
               (dataStateChange)="dataStateChange($event)">
 
     <kendo-grid-column field="id" title="ID" width="50" [filterable]="false">
@@ -33,7 +34,7 @@
       <ng-template kendoGridCellTemplate let-user>
         <button class="btn btn-primary mr-1" (click)="loadDetail(user.id)">Detail</button>
         <span> </span>
-        <button class="btn btn-primary" (click)="loadUpdate(user.id)">Edit</button>
+        <button class="btn btn-primary" (click)="loadUpdate(user.id)">Update</button>
       </ng-template>
     </kendo-grid-column>
   </kendo-grid>

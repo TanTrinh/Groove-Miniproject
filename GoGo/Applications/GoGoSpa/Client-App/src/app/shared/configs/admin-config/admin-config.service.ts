@@ -12,9 +12,9 @@ export class AdminConfigService {
   userInfoBeEdit: string;
 
   constructor() {
-    this.createUserURI = 'http://localhost:62772/api/user/create';
+    this.createUserURI = 'http://localhost:62772/api/user';
     this.userDetailURI = 'http://localhost:62772/api/user/detail?id=';
-    this.userInfoBeEdit = 'http://localhost:62772/api/user/edit?id=';
+    this.userInfoBeEdit = 'http://localhost:62772/api/user/editview?id=';
     this.editUserURI = 'http://localhost:62772/api/user/edit?id=';
   }
 
