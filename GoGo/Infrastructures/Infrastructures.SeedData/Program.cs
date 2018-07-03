@@ -185,6 +185,7 @@ namespace Infrastructures.SeedData
         }
         private static async Task SeedDriverDataAsync(ApplicationDbContext dbContext)
         {
+            // TODO: Refact Seed data to be English base
             Console.WriteLine("Start to seed user info");
             string[] name = { "Dung", "Danh", "Diem", "Duy", "Diep" };
             string[] lastname = { "Tran", "Nguyen", "Trinh", "Le", "Mai" };

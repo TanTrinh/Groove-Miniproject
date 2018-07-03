@@ -18,6 +18,7 @@ import { RoleGuardService as RoleGuard } from './shared/services/roleguardservic
 import { ShipmentCreatingComponent } from './shipment/shipment-creating/shipment-creating.component';
 import { ShipmentComponent } from './shipment/shipment/shipment.component';
 import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.component';
+import { RequestModule } from './modules/request/request.module';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -29,13 +30,13 @@ const routes: Routes = [
       { path: 'account/create', component: UserCreateComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
       { path: 'account/detail/:id', component: UserDetailComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
       { path: 'account/edit/:id', component: UserEditComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
-      { path: 'request', loadChildren: './modules/request/request.module#RequestModule' },
+      { path: 'request', loadChildren: () => RequestModule }, // Remove LazyLoad because current version of angular-cli not support mixing / nested routing https://github.com/angular/angular-cli/issues/9651, https://github.com/angular/angular-cli/issues/9488
       {
         path: 'shipment', component: ShipmentComponent, children: [
           { path: 'create', component: ShipmentCreatingComponent },
-          { path: '', component: ShipmentListComponent }
+          { path: '', component: ShipmentListComponent } // TODO: Move this before create It's easier to review
         ]
-      },
+      }
     ]
   },
   {
