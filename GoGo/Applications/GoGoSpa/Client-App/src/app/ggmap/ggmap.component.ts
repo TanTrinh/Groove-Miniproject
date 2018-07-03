@@ -10,11 +10,11 @@ declare var google: any;
 
 
 
-@Component({
-  selector: 'app-ggmap',
-  templateUrl: './ggmap.component.html',
-  styleUrls: ['./ggmap.component.scss']
-})
+//@Component({
+//  selector: 'app-ggmap',
+//  templateUrl: './ggmap.component.html',
+//  styleUrls: ['./ggmap.component.scss']
+//})
 
 
 export class GgmapComponent implements OnInit {
@@ -35,15 +35,14 @@ export class GgmapComponent implements OnInit {
   map: undefined;
   oldMarkerOrigin = new google.maps.Marker();
 
+//  //The location of you
+//  yourAddress: any;
+//  yourlat: number;
+//  yourlng: number;
 
-  //The location of you
-  yourAddress: any;
-  yourlat: number = 10.7725133;
-  yourlng: number = 106.70578479999999;
-
-  //Location of trip
-  latlngOrigin: LatLng;
-  latlngDestination: LatLng;
+//  //Location of trip
+//  latlngOrigin: LatLng;
+//  latlngDestination: LatLng;
 
 
   //The array of waypoints
@@ -211,11 +210,11 @@ export class GgmapComponent implements OnInit {
     }
   }
 
-  //Get the Latlng
-  GetLatlng(latitude, longitude) {
-    let latlng = new google.maps.LatLng(latitude, longitude);
-    return latlng;
-  }
+//  //Get the Latlng
+//  GetLatlng(latitude, longitude) {
+//    let latlng = new google.maps.LatLng(latitude, longitude);
+//    return latlng;
+//  }
 
   GetMarker(latitue, longitude, urlIcon, map) {
     var marker = new google.maps.Marker({

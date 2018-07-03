@@ -19,4 +19,6 @@ namespace Domains.GoGo.Repositories.Transportation
         Task<string> ChangeStatusRequestAsync(string code, string status);
         Task<string> Problem(string requestCode, bool status);
     }
+		void UpdateShipmentRequest(List<int> requestIdList, int shipmentId);
+	}
 }

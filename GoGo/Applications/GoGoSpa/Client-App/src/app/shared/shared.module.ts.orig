@@ -1,0 +1,13 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2c3347003fb8a57d383be8a0ab579fcb710d087e
+@NgModule({
+  imports: [
+    CommonModule
+  ],
+  declarations: []
+})
+export class SharedModule { }

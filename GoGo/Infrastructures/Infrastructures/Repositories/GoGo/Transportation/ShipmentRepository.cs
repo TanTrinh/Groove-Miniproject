@@ -11,7 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using Domains.GoGo.Models;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
+using Domains.GoGo.Models.Fleet_management;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -23,6 +25,10 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             _mapper = mapper;
             _shipmentRequestRepository = shipmentRequestRepository;
+        }
+        public DataSourceResult GetAllAsync(DataSourceRequest request)
+        {
+            return this.dbSet.MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
         }
         public async Task<string> ChangeStatus(string code, string status)
         {
@@ -71,6 +77,19 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                             CurrentRequest=firstRequestCode
                         });
             return await query.FirstAsync();
+        }
+        public ShipmentDetailModel GetShipmentByCode(string Code)
+        {
+            return this.dbSet.Where(p => p.Code == Code).MapQueryTo<ShipmentDetailModel>(_mapper).SingleOrDefault();
+        }
+
+
+        public async Task<int> ChangeStatus(string code, string status)
+        {
+            var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
+            shipment.Status = status;
+            this.context.Update(shipment);
+            return await this.context.SaveChangesAsync();
         }
     }
 }

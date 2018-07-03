@@ -10,7 +10,8 @@ using Domains.GoGo.Services.Transportation;
 using Microsoft.AspNetCore.Mvc;
 namespace GoGoApi.Controllers.GoGo
 {
-    [Route("api/Driver")]
+    // TODO: Move this controller to requestController or change the API url
+    [Route("api/Request")]
     public class DriverController : Controller
     {
         private IRequestService _serviceRequest;
@@ -29,10 +30,11 @@ namespace GoGoApi.Controllers.GoGo
             public string code { set; get; }
             public string status { set; get; }
         }
-        public class parameterCode
+        [Route("detail")]
+        [HttpGet]
+        public async Task<IActionResult> GetRequestDetail(int? id)
         {
-            public string ShipmentCode { set; get; }
-            public string RequestCode { set; get; }
+            return Ok(await _serviceRequest.GetRequestDetails(id));
         }
 
         [Route("changeStatus")]

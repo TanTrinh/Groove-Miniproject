@@ -28,9 +28,9 @@ namespace Domains.GoGo.Services.Transportation
             return await _repository.ChangeStatusRequestAsync(code, status);
         }
 
-        public async Task CreateShipmentRequestAsync(List<int> requestIdList, int shipmentId)
-		{
-			int i = 1;
+        public async Task CreateShipmentRequestAsync(IEnumerable<int> requestIdList, int shipmentId)
+        {
+            int i = 1;
 			foreach (int requestId in requestIdList)
 			{
 				var entity = new ShipmentRequest();
@@ -38,8 +38,8 @@ namespace Domains.GoGo.Services.Transportation
 				entity.RequestId = requestId;
 				entity.ShipmentId = shipmentId;
 				entity.RequestOrder = i++;
-				entity.Note = "Initial";
-				entity.Status = "Initial";
+				entity.Note = "Created";
+				entity.Status = "Waiting";
 
 				_uow.GetRepository<IShipmentRequestRepository>().Create(entity);
 			}
@@ -79,5 +79,11 @@ namespace Domains.GoGo.Services.Transportation
         {
             return await _repository.Problem(requestCode,status);
         }
-    }
+    
+
+		public void UpdateShipmentRequest(List<int> requestIdList, int shipmentId)
+		{
+		  _repository.UpdateShipmentRequest(requestIdList, shipmentId);
+		}
+	}
 }
