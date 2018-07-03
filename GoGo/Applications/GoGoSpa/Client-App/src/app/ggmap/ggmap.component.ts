@@ -59,10 +59,10 @@ export class GgmapComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    setInterval(() => { this.GetYourPosition() }, 5000);
+    setInterval(() => {
+      this.GetYourPosition()
+    }, 5000);
     this.InitMap(this.latcenter, this.lngcenter);
-   
-    this.latlngDestination = this.GetLatlng(10.803780, 106.694184);
    
     setInterval(() => {
       setTimeout(() => { this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay) }, 5000)
@@ -140,6 +140,7 @@ export class GgmapComponent implements OnInit {
         });
       }
     }
+
     directionsService.route({
       origin: markerOrigin.get('position'),
       destination: markerDetination.get('position'),
@@ -197,24 +198,10 @@ export class GgmapComponent implements OnInit {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
-          //this.yourlat = position.coords.latitude;
-          //this.yourlng = position.coords.longitude;
-          this.yourlat = this.yourlat + 0.0001;
-          this.yourlng = this.yourlng + 0.0001;
+          this.yourlat = position.coords.latitude;
+          this.yourlng = position.coords.longitude;
           let geocoder = new google.maps.Geocoder();
           let latlng = new google.maps.LatLng(this.yourlat, this.yourlng)
-          //let request = {
-          //  latLng: latlng
-          //};
-          //geocoder.geocode(request, (results, status) => {
-          //  if (status == google.maps.GeocoderStatus.OK) {
-          //    if (results[0] != null) {
-          //      this.ngZone.run(() => { this.yourAddress = results[0].formatted_address });
-          //    } else {
-          //      alert("No address available");
-          //    }
-          //  }
-          //});
           return latlng;
         },
         error => {
