@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
+using Domains.GoGo.Repositories;
 using Domains.GoGo.Repositories.Transportation;
 using Domains.Helpers;
 using Groove.AspNetCore.Common.Identity;
@@ -18,17 +19,21 @@ namespace Domains.GoGo.Services.Transportation
 		
 		private readonly IShipmentRepository _shipmentRepository;
 		private readonly IShipmentRequestRepository _shipmentRequestRepository;
+		private readonly IWarehouseRepository _warehouseRepository;
 		private readonly IRequestRepository _requestRepository;
 		private readonly IUnitOfWork _uow;
 		private readonly IMapper _mapper;
 
-		public ShipmentService(IMapper mapper, IUnitOfWork uow, IShipmentRepository repository, IRequestRepository requestRepository, IShipmentRequestRepository shipmentRequestRepository)
+		public ShipmentService(IMapper mapper, IUnitOfWork uow, 
+			IShipmentRepository repository, IRequestRepository requestRepository, 
+			IShipmentRequestRepository shipmentRequestRepository, IWarehouseRepository warehouseRepository)
 		{
 			_uow = uow;
 			_shipmentRepository = repository;
 			_mapper = mapper;
 			_requestRepository = requestRepository;
 			_shipmentRequestRepository = shipmentRequestRepository;
+			_warehouseRepository = warehouseRepository;
 		}
 
         public async Task<int> ChangeShipmentStatusById(string id, string status)
@@ -86,6 +91,8 @@ namespace Domains.GoGo.Services.Transportation
 
 			result.RequestList = _requestRepository.GetRequestsByShipmentId(result.Id);
 			result.RequestIdList = _requestRepository.GetRequestIdList(result.Id);
+
+			result.Warehouse = _warehouseRepository.GetWarehouseByIdlAsync(result.RequestIdList);
 
 			return result;
 		}

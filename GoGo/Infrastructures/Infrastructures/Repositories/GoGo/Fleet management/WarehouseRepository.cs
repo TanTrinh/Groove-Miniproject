@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using Groove.AspNetCore.DataBinding.AutoMapperExtentions;
 using System.Threading.Tasks;
+using Domains.GoGo.Entities;
 
 namespace Infrastructures.Repositories.GoGo
 {
@@ -48,6 +49,10 @@ namespace Infrastructures.Repositories.GoGo
 				.MapQueryTo<DataSourceValue<int>>(_mapper).ToListAsync(); //77 is get on claim
 		}
 
+		public WarehouseModel GetWarehouseByIdlAsync(int requestId)
+		{
+			return this.context.Set<Request>().Where(p => p.Id == requestId).Select(p => p.WareHouse).MapQueryTo<WarehouseModel>(_mapper).SingleOrDefault();
+		}
 	}
 }
 
