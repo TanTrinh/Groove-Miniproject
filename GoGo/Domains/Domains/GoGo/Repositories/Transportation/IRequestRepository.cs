@@ -12,9 +12,9 @@ namespace Domains.GoGo.Repositories.Transportation
     public interface IRequestRepository : IGenericRepository<Request, int>
     {
         Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync();
-        DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, int userId);
+        DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, long userId);
         Task<RequestDetailModel> GetRequestDetailAsync(int? id);
         Task<string> ChangeStatusAsync(string code, string status);
-        Task<RequestModel> FindCustomerRequestAsync(int requestId, int userId);
+        Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId);
     }
 }

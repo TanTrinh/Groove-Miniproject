@@ -11,6 +11,7 @@ using Domains.GoGo.Services;
 using System.Collections;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using System.Security.Claims;
 
 namespace GoGoApi.Controllers
 {
@@ -28,8 +29,9 @@ namespace GoGoApi.Controllers
         [HttpGet]
         public IActionResult GetRequests([DataSourceRequest]DataSourceRequest request)
         {
-            var userId = GetCurrentUserId<int>();
-            var result = _requestService.GetCustomerRequests(request, userId);
+            var userIdentity = GetCurrentIdentity<long>();
+            var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).ToList();
+            var result = _requestService.GetCustomerRequests(request, 1);
             return Ok(result);
         }
 
@@ -50,7 +52,7 @@ namespace GoGoApi.Controllers
                 return BadRequest(ModelState);
             }
             
-            var userId = GetCurrentUserId<int>();
+            var userId = GetCurrentUserId<long>();
             var result = await this._requestService.CreateCustomerRequest(model, userId);
             return OkValueObject(result);
         }
@@ -59,21 +61,21 @@ namespace GoGoApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRequestAsync(int requestId)
         {
-            var userId = GetCurrentUserId<int>();
+            var userId = GetCurrentUserId<long>();
             var result = await _requestService.FindCustomerRequestAsync(requestId,userId);
             return Ok(result);
         }
 
         [Route("{id}")]
         [HttpPut]
-        public async Task<IActionResult> UpateRequest([FromBody]RequestModel model, int userId)
+        public async Task<IActionResult> UpateRequest([FromBody]RequestModel model)
         {
             if (ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            //var userIdentity = GetCurrentIdentity<long>();
+            var userId = GetCurrentUserId<long>();
             var result = await this._requestService.UpdateCustomerRequest(model, userId);
             return OkValueObject(result);
         }

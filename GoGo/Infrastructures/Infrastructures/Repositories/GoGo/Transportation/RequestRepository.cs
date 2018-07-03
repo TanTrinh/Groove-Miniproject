@@ -35,7 +35,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
         }
-        public async Task<RequestModel> FindCustomerRequestAsync(int requestId, int userId)
+        public async Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId)
         {
             
             return await this.dbSet
@@ -73,7 +73,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             return entity.Status;
         }
 
-        public DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, int userId)
+        public DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, long userId)
         { // 77 get from claim
             
             return this.dbSet.Include(p => p.WareHouse).Where(p => p.CustomerId == 77).Select(p => new SummaryRequestModel

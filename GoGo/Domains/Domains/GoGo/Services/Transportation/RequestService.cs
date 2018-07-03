@@ -35,7 +35,7 @@ namespace Domains.GoGo.Services
             return _repository.GetRequestDetailAsync(id);
         }
 
-        public async Task<int> CreateCustomerRequest(RequestModel model, int userId)
+        public async Task<int> CreateCustomerRequest(RequestModel model, long userId)
         {
             var entity = this._mapper.Map<Request>(model);
 
@@ -51,21 +51,20 @@ namespace Domains.GoGo.Services
             return entity.Id;
         }
 
-        public async Task<int> UpdateCustomerRequest(RequestModel model, int userId)
+        public async Task<int> UpdateCustomerRequest(RequestModel model, long userId)
         {
             var entity = this._mapper.Map<Request>(model);
             _repository.Update(entity);
-            //entity.WareHouse = null;
             await _uow.SaveChangesAsync();
             return entity.Id;
         }
 
-        public async Task<RequestModel> FindCustomerRequestAsync(int requestId, int userId)
+        public async Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId)
         {
             return await _repository.FindCustomerRequestAsync(requestId, userId);
         }
 
-        public DataSourceResult GetCustomerRequests(DataSourceRequest request, int userId)
+        public DataSourceResult GetCustomerRequests(DataSourceRequest request, long userId)
         {
             return _repository.GetCustomerRequestsAsync(request, userId);
         }

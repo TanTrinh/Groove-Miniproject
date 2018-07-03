@@ -14,9 +14,9 @@ namespace Domains.GoGo.Services
         Task<IEnumerable<WaitingRequestModel>> GetWaitingRequest();
         Task<RequestDetailModel> GetRequestDetails(int? id);
         Task<string> ChangeStatus(string code, string status);
-        Task<int> CreateCustomerRequest(RequestModel model, int userId);
-        Task<int> UpdateCustomerRequest(RequestModel model, int userId);
-        Task<RequestModel> FindCustomerRequestAsync(int id, int userId);
-        DataSourceResult GetCustomerRequests(DataSourceRequest request, int userId);
+        Task<int> CreateCustomerRequest(RequestModel model, long userId);
+        Task<int> UpdateCustomerRequest(RequestModel model, long userId);
+        Task<RequestModel> FindCustomerRequestAsync(int id, long userId);
+        DataSourceResult GetCustomerRequests(DataSourceRequest request, long userId);
     }
 }
