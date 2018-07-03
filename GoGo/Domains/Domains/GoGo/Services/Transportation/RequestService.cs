@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,21 +39,22 @@ namespace Domains.GoGo.Services
             return _repository.ChangeStatus(id, status);
         }
 
-		//V
         public Task<RequestDetailModel> GetRequestDetails(int? id)
         {
             return _repository.GetRequestDetailAsync(id);
+        }
+
+
+		//V
+        public Task<RequestsModel> GetRequestByIdAsync(string id)
+        {
+            return _repository.GetRequestByIdAsync(id);
         }
 
 		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId)
 		{
 			return await _repository.GetDataSource(value, warehouseId);
 		}
-
-        public Task<RequestsModel> GetRequestByCode(string code)
-        {
-            return _repository.GetRequestByCode(code);
-        }
 
 		public IEnumerable<RequestsModel> GetRequestsByShipmentId(int shipmentId)
 		{
@@ -65,6 +66,8 @@ namespace Domains.GoGo.Services
 			return _repository.GetRequestIdList(shipmentId);
 		}
 
+
+		//Đ
 		public async Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer)
 		{
 			var entity = this._mapper.Map<Request>(model);

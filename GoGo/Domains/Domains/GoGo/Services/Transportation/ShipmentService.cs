@@ -31,9 +31,9 @@ namespace Domains.GoGo.Services.Transportation
 			_shipmentRequestRepository = shipmentRequestRepository;
 		}
 
-        public async Task<int> ChangeStatus(string code, string status)
+        public async Task<int> ChangeShipmentStatusById(string id, string status)
         {
-            return await _shipmentRepository.ChangeStatus(code, status);
+            return await _shipmentRepository.ChangeShipmentStatusById(id, status);
         }
 
         public async Task<int> CreateShipmentAsync(FormShipmentModel model)
@@ -41,11 +41,11 @@ namespace Domains.GoGo.Services.Transportation
 			var entity = _mapper.Map<Shipment>(model);
 
 			//get Created Date
-			entity.CreatedDate = DateTime.Parse(String.Format("{0:G}", DateTime.Now));
+			entity.CreatedDate = DateTime.Parse(String.Format("{0:G}", DateTime.Now)); // TODO: Use DateTime.Now only
 
 			entity.Code = Helper.GenerateCode(DateTime.Now, 100);
 
-			entity.Status = "inActive";
+			entity.Status = "inActive"; // TODO: Create ShipmentStatus class for Constant instead of hard code
 
 			_uow.GetRepository<IShipmentRepository>().Create(entity);
 
@@ -54,15 +54,16 @@ namespace Domains.GoGo.Services.Transportation
 			return entity.Id;
 		}
 
-		public async Task UpdateShipmentAsync(FormShipmentModel model)
+		public async Task UpdateShipmentByIdAsync(string code, FormShipmentModel model)
 		{
 
-     //       var entity = _uow.GetRepository<IShipmentRepository>().GetEntityById(model.Id);
+            //var entity = _uow.GetRepository<IShipmentRepository>().GetEntityById(model.Id);
 
-           var entity = _mapper.Map<Shipment>(model);
-            entity.Status = "Pending";
+		    var entity = _mapper.Map<Shipment>(model);
 
-            _shipmentRequestRepository.UpdateShipmentRequest(model.RequestIdList, model.Id);
+            entity.Status = "Pending"; // TODO: Create ShipmentStatus class for Constant instead of hard code
+
+		    _shipmentRequestRepository.UpdateShipmentRequest(model.RequestIdList, model.Id);
 			_uow.GetRepository<IShipmentRepository>().Update(entity);
 				
             await _uow.SaveChangesAsync();
@@ -79,9 +80,9 @@ namespace Domains.GoGo.Services.Transportation
             return _shipmentRepository.GetShipmentAssignedModel(id);
         }
 
-		public ShipmentDetailModel GetShipmentByCode(string Code)
+		public ShipmentDetailModel GetShipmentById(string Id)
 		{
-			var result = _shipmentRepository.GetShipmentByCode(Code);
+			var result = _shipmentRepository.GetShipmentById(Id);
 
 			result.RequestList = _requestRepository.GetRequestsByShipmentId(result.Id);
 			result.RequestIdList = _requestRepository.GetRequestIdList(result.Id);

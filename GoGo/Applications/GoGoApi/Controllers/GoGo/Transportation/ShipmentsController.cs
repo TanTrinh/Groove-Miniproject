@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Domains.Core;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Services;
 using Domains.GoGo.Services.Transportation;
@@ -14,6 +15,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace GoGoApi.Controllers.GoGo
 {
+	// TODO: change `Shipments` to `Shipment` because Pluralizing is hard to manage and It's useless here
 	[Route("api/Shipments")]
 	[ApiController]
 	public class ShipmentsController : BaseController
@@ -28,60 +30,70 @@ namespace GoGoApi.Controllers.GoGo
 			_Shipmentservice = Shipmentservice;
 			_shipmentRequestService = shipmentRequestService;
 		}
-
-		[Route("Create")]
+		// TODO: change route to POST ""
+		// Done
+		[Route("")]
 		[HttpPost]
 		public async Task<IActionResult> CreateShipment(FormShipmentModel model)
 		{
-			//var userIdentity = GetCurrentIdentity<long>();
-
 			var shipmentId = await _Shipmentservice.CreateShipmentAsync(model);
 			await _shipmentRequestService.CreateShipmentRequestAsync(model.RequestIdList, shipmentId);
 
 			return Ok();
 		}
 
+		// TODO: replace route by PUT "{code}/activate"
+		// TODO: replace route by PUT "{code}/deactivate"
+		// Done
+		[Route("{id}/activate")]
+		[HttpPut]
+		public async Task<IActionResult> ActivateShipment(string id)
+		{
+			return Ok(await _Shipmentservice.ChangeShipmentStatusById(id, ShipmentStatus.PENDING));
+		}
 
-        [Route("updateStatus")]
-        [HttpPut]
-        public async Task<IActionResult> ChangeShipmentStatus(string code, string status)
-        {
-            return Ok(await _Shipmentservice.ChangeStatus(code, status));
-        }
+		[Route("{id}/deactivate")]
+		[HttpPut]
+		public async Task<IActionResult> DeactivateShipment(string id)
+		{
+			return Ok(await _Shipmentservice.ChangeShipmentStatusById(id, ShipmentStatus.INACTIVE));
+		}
 
-        [Route("datasource")]
+		[Route("list/{queryString}")]
 		[HttpGet]
-		public IActionResult GetShipments([DataSourceRequest]DataSourceRequest request)
+		public IActionResult GetShipments(DataSourceRequest queryString)
 		{
 			var userIdentity = GetCurrentIdentity<long>();
-			var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).ToList();
+			var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).Select(p=>p.Value).ToList();
 
 
-			if (roles.Any<Claim>())
+			if (roles.Any(p=> p == ApplicationRoles.COORDINATOR))
 			{
-				return Ok(_Shipmentservice.GetAllAsync(request, null));
+				return Ok(_Shipmentservice.GetAllAsync(queryString, null));
 			}
 			else
 			{
-				return  Ok(_Shipmentservice.GetAllAsync(request, userIdentity.Id.ToString()));
+				return Ok(_Shipmentservice.GetAllAsync(queryString, userIdentity.Id.ToString()));
 			}
 
 		}
 
-		[Route("Detail")]
+		[Route("{id}")]
 		[HttpGet]
-		public  IActionResult GetShipmentDetail(string Code)
-		{	
-			return Ok( _Shipmentservice.GetShipmentByCode(Code));
+		public IActionResult GetShipmentDetail(string id)
+		{
+			return Ok(_Shipmentservice.GetShipmentById(id));
 		}
 
-		[Route("update")]
+		// TODO: change route to PUT "{code}" 
+		// Done
+		[Route("{id}")]
 		[HttpPut]
-		public async Task<IActionResult> UpdateShipment(FormShipmentModel model)
+		public async Task<IActionResult> UpdateShipment(string id, FormShipmentModel model)
 		{
-            await _Shipmentservice.UpdateShipmentAsync(model);
+			await _Shipmentservice.UpdateShipmentByIdAsync(id, model);
 
-            return Ok();
+			return Ok();
 		}
 	}
 }

@@ -47,6 +47,7 @@ namespace Infrastructures.Repositories.GoGo
 			return await this.dbSet.Where(p => p.NameWarehouse.Contains(displayName) && p.OwnerId == 77)
 				.MapQueryTo<DataSourceValue<int>>(_mapper).ToListAsync(); //77 is get on claim
 		}
+
 	}
 }
 

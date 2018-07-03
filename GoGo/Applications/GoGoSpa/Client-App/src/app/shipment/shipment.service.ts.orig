@@ -16,8 +16,12 @@ import { SharingService } from '../shared/sevices/sharing-service.service';
 export class ShipmentService extends BehaviorSubject<any>  {
   private baseUrl = '';
 
-  // TODO: Remove ConfigService & use ServiceRegistryService instead
+<<<<<<< HEAD
   constructor(private http: Http, private configService: ConfigService, private https: HttpClient, private auth: SharingService) {
+=======
+  // TODO: Remove ConfigService & use ServiceRegistryService instead
+  constructor(private http: Http, private configService: ConfigService, private https: HttpClient) {
+>>>>>>> 1036d0c0b183bc304ffebeeb60cd531896efa5e8
     super(null);
 
     this.baseUrl = configService.getApiURI();
@@ -31,7 +35,7 @@ export class ShipmentService extends BehaviorSubject<any>  {
     let headers = new Headers();
     headers = this.auth.AddTokenToHeaders();
 
-    return this.http.post(this.baseUrl + '/Shipments/', body, { headers });
+    return this.http.post(this.baseUrl + '/Shipments/Create', body, { headers });
   }
 
   UpdateShipment(id, code, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId): any {
@@ -41,20 +45,21 @@ export class ShipmentService extends BehaviorSubject<any>  {
     let headers = new Headers();
     headers = this.auth.AddTokenToHeaders();
    
-    return this.http.put(this.baseUrl + `/Shipments/${id}`, body, { headers });
+    return this.http.put(this.baseUrl + '/Shipments/Update', body, { headers });
   }
 
 
   //Shipment List Api
   public fetch(state: DataSourceRequestState): Observable<GridDataResult> {
-    const queryString = `${toDataSourceRequestString(state)}`;
+    const queryStr = `${toDataSourceRequestString(state)}`;
     const hasGroups = state.group && state.group.length;
 
     let headers = new HttpHeaders();
     headers = this.auth.AddTokenToHeader();
 
+    console.log(headers)
     return this.https
-      .get(`${this.baseUrl}/shipments/list/${queryString}`, { headers }).pipe(
+      .get(`${this.baseUrl}/shipments/datasource?${queryStr}`, { headers }).pipe(
         map(response => (<GridDataResult>{
           data: response['Data'],
           total: parseInt(response['Total'], 10)
@@ -62,19 +67,19 @@ export class ShipmentService extends BehaviorSubject<any>  {
       );
   }
 
-  public GetDetailById(id)
+  public GetDetailByCode(Code)
   {
     let headers = new Headers();
     headers = this.auth.AddTokenToHeaders();
 
-    return this.http.get(this.baseUrl + '/shipments/' + id, { headers });
+    return this.http.get(this.baseUrl + '/shipments/Detail?Code=' + Code, { headers });
   }
 
-  public ActivateShipment(id): any {
+  public ChangeShipmentStatus(Code , value): any {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.https.put(this.baseUrl + `/shipments/${id}/activate`, Option);
+    return this.https.put(this.baseUrl + `/shipments/updateStatus?code=${Code}&status=${value}`, Option);
   }
 
 

@@ -30,8 +30,8 @@
     </kendo-grid-column>
     <kendo-grid-command-column title="Command">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <button class="btn btn-primary btn-sm mr-1 mb-1 btn-width" (click)="ChangeStatus(dataItem.Code)">Active</button>
-        <button class="btn btn-info  btn-sm mb-1 btn-width" (click)="onUpdate(dataItem.Code)">Update</button>
+        <button class="btn btn-primary btn-sm mr-1 mb-1 btn-width" (click)="ChangeStatus(dataItem.Id)">Active</button>
+        <button class="btn btn-info  btn-sm mb-1 btn-width" (click)="onUpdate(dataItem.Id)">Update</button>
       </ng-template>
     </kendo-grid-command-column>
   </kendo-grid>

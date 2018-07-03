@@ -14,10 +14,10 @@ namespace Domains.GoGo.Services.Transportation
 		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request, string userId);
 
 		Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id);
-        Task<int> ChangeStatus(string code, string status);
+        Task<int> ChangeShipmentStatusById(string id, string status);
 
-		ShipmentDetailModel GetShipmentByCode(string Code);
-		Task UpdateShipmentAsync(FormShipmentModel model);
+		ShipmentDetailModel GetShipmentById(string id);
+		Task UpdateShipmentByIdAsync( string code, FormShipmentModel model);
 
 	}
 }

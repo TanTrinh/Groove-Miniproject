@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.GoGo
 {
+    // TODO: change Requests to `Request` because Pluralizing is hard to manage and It's useless here
     [Route("api/Requests")]
     [ApiController]
     public class RequestsController : BaseController
@@ -34,20 +35,20 @@ namespace GoGoApi.Controllers.GoGo
 			return Ok(_service.GetAllAsync(request));
 		}
 
-		[Route("datasource")]
+		[Route("filter/{warehouseId}/{value}")]
 		[HttpGet]
-		public async Task<IActionResult> GetDataSource(string value, int warehouseId)
+		public async Task<IActionResult> GetDataSource(int warehouseId, string value)
 		{
 	
 			return Ok(await _service.GetDataSource(value, warehouseId));
 		}
 
-        [Route("GetDetail")]
+        [Route("{id}")]
         [HttpGet]
-        public async Task<IActionResult> GetRequestDetailAsync(string code)
+        public async Task<IActionResult> GetRequestDetailByIdAsync(string id)
         {
 
-            return Ok(await _service.GetRequestByCode(code));
+            return Ok(await _service.GetRequestByIdAsync(id));
         }
 
     }

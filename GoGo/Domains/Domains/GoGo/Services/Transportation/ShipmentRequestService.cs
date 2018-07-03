@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domains.Core;
 using Domains.GoGo.Entities;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.UnitOfWork;
@@ -32,8 +33,8 @@ namespace Domains.GoGo.Services.Transportation
 				entity.RequestId = requestId;
 				entity.ShipmentId = shipmentId;
 				entity.RequestOrder = i++;
-				entity.Note = "Created";
-				entity.Status = "Waiting";
+				entity.Note = ShipmentRequestStatus.CREATED; ;
+				entity.Status = ShipmentRequestStatus.PENDING;
 
 				_uow.GetRepository<IShipmentRequestRepository>().Create(entity);
 			}

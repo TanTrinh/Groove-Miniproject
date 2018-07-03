@@ -544,7 +544,7 @@ namespace Infrastructures.SeedData
                         RequestId = (i * 5) + j + 1,
                         RequestOrder = j + 1,
                         Note = "",
-                        Status = "Waiting",
+                        Status = "Pending",
                         RequestEstimateDate = RequestEstimateDate.AddDays(ran.Next(0, i % 2 + 1)),
                         RequestDeliveriedDate = RequestEstimateDate.AddDays(ran.Next(2, i % 7 + 3))
                     };

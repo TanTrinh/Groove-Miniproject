@@ -33,8 +33,9 @@ const routes: Routes = [
       { path: 'request', loadChildren: () => RequestModule }, // Remove LazyLoad because current version of angular-cli not support mixing / nested routing https://github.com/angular/angular-cli/issues/9651, https://github.com/angular/angular-cli/issues/9488
       {
         path: 'shipment', component: ShipmentComponent, children: [
-          { path: '', component: ShipmentListComponent } ,
-          { path: 'form/:id', component: ShipmentFormComponent },
+          { path: '', component: ShipmentListComponent },
+          { path: 'create', component: ShipmentFormComponent },
+          { path: 'update/:id', component: ShipmentFormComponent },
         ]
       }
     ]

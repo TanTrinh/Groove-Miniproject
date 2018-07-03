@@ -3,6 +3,8 @@ import { ShipmentAssigned } from './ShipmentAssigned';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpParamsOptions, HttpParams } from '@angular/common/http/src/params';
+
+// TODO: what is the purpose of AssignedComponent ?, can you remove this Component
 @Component({
   selector: 'app-assigned',
   templateUrl: './assigned.component.html',

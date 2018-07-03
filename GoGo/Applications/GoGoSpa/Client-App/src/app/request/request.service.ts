@@ -12,7 +12,6 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class RequestsService extends BehaviorSubject<any> {
-  private BASE_URL: string = 'http://localhost:54520/api/Requests/RequestList';
 
   baseUrl: string = '';
 
@@ -22,37 +21,22 @@ export class RequestsService extends BehaviorSubject<any> {
     this.baseUrl = configService.getApiURI();
   }
 
-
-  //Request List Api
-  public fetch(state: DataSourceRequestState): Observable<GridDataResult> {
-    const queryStr = `${toDataSourceRequestString(state)}`; 
-    const hasGroups = state.group && state.group.length;
-
-    return this.https
-      .get(`${this.BASE_URL}?${queryStr}`).pipe(
-        map(response => (<GridDataResult>{
-          data: response['Data'],
-          total: parseInt(response['Total'], 10)
-        }))
-      );
-  }
-
   //Request filter Api
   public query(value, werehouseId): void {
     this.getdatasource(value, werehouseId).subscribe(x => super.next(x));
   }
 
   public getdatasource(value, werehouseId): Observable<any> {
-    return this.https.get(this.baseUrl + `/Requests/dataSource?value=${value}&warehouseId=${werehouseId}`);
+    return this.https.get(this.baseUrl + `/Requests/filter/${werehouseId}/${value}`);
   }
 
   //Request Detail Api
-  public getRequestDetail(code: string): Observable<any>
+  public getRequestDetail(id: any): Observable<any>
   {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(this.baseUrl + '/Requests/getDetail?code=' + code, options);
+    return this.http.get(this.baseUrl + `/Requests/${id}`, options);
   }
 
 

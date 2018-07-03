@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RequestOptions, Headers, Http } from '@angular/http';
 
+// TODO: Remove sharing service. State ofr update/creation form should be managed by URL instead of sharing service
 @Injectable({
   providedIn: 'root'
 })

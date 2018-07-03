@@ -11,11 +11,12 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Route, ActivatedRoute } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { map, switchMap } from 'rxjs/operators';
 import { MasterDataService } from '../../shared/sevices/master-data.service';
 import { Subscription } from 'rxjs-compat/Subscription';
+
 
 
 @Component({
@@ -72,18 +73,25 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   public requestIdList: any[] = new Array();
   public gridData: any = process(this.requestList, this.state);
 
+
   constructor(private shipmentService: ShipmentService, private router: Router, private http: Http,
-              private requestService: RequestsService, private masterDataService: MasterDataService,
-              private sharingService: SharingService) {
+    private requestService: RequestsService, private masterDataService: MasterDataService,
+    private sharingService: SharingService, private route: ActivatedRoute) {
     this.view = requestService;
-    this.vehicleView = masterDataService;
+
+    // TODO: If vehicleView & driverView should not share the same masterDataService, because they will share the same data
+    // Solution: replace vehicleView by vehicleList, when use call handleVehicleFilter(),
+    // it will call HTTP to get new data, then new data will be replace current vehicleList
+    this.vehicleView = masterDataService; 
     this.driverView = masterDataService;
     this.warehouseView = masterDataService;
+
+    this.shipmentId = this.route.snapshot.paramMap.get('id');
   }
 
   ngOnInit(): void {
     if (this.sharingService.isNewShipment == false) {
-      this.shipmentService.GetDetailByCode(this.sharingService.shipmentCode).pipe(map(res => res.json())).subscribe
+      this.shipmentService.GetDetailById(this.shipmentId).pipe(map(res => res.json())).subscribe
         (
         result => {
           this.shipmentId = result.Id
@@ -92,6 +100,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
           this.vehicleDetail = result.Vehicle
           this.requestIdList = result.RequestIdList
           this.requestList = result.RequestList
+          this.warehouseDetail.Id = result.RequestList[0].WereHouseId
           this.pickingDate = new Date(result.StartDate)
           this.deliveryDate = new Date(result.EndDate)
           this.refreshGrid()
@@ -118,7 +127,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
               errors => { this.errors = errors })
         }
         else if (this.sharingService.isNewShipment == false) {
-          this.shipmentService.UpdateShipment(this.shipmentId, this.sharingService.shipmentCode, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
+          this.shipmentService.UpdateShipment(this.shipmentId, this.shipmentCode, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
             .subscribe(result => {
 
               this.router.navigate(['/shipment/']);
@@ -182,7 +191,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
 
   //Add Request Tolist
   AddRequestToList() {
-    this.requestService.getRequestDetail(this.request.DisplayName).pipe(map(res => res.json()))
+    this.requestService.getRequestDetail(this.request.Value).pipe(map(res => res.json()))
       .subscribe(result => {
         this.requestDetail = result
         this.requestDetail.PickingDate = this.sharingService.datimeFormat(this.requestDetail.PickingDate);
