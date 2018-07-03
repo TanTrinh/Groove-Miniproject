@@ -57,8 +57,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                                       Code = p.Code,
                                       PackageQuantity = p.PackageQuantity,
                                       ReceiverName = p.ReceiverName,
-                                      ReceiverPhoneNumber = p.ReceiverPhoneNumber,
-                                      CreatedDate = p.CreatedDate,
+                                      ReceiverPhoneNumber = p.ReceiverPhoneNumber, 
                                       PickingDate = p.PickingDate,
                                   }).SingleOrDefaultAsync();
         }
@@ -86,6 +85,28 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                 Code = p.Code,
                 PickingDate = p.PickingDate,
             }).ToDataSourceResult(request);
+        }
+
+        public async Task<int> UpdateCustomerRequest(RequestModel model, long userId)
+        {
+            var entity = this._mapper.Map<Request>(model); 
+
+            var temp = await this.dbSet.Where(p => p.Id == model.Id).Select(p => new Request{
+                IssuerId = p.IssuerId,
+                CustomerId = p.CustomerId,
+                CreatedDate = p.CreatedDate,
+                Status = p.Status,
+            }).SingleOrDefaultAsync();
+
+            entity.IssuerId = temp.IssuerId;
+            entity.CustomerId = temp.CustomerId;
+            entity.CreatedDate = temp.CreatedDate;
+            entity.Status = temp.Status;
+            entity.WareHouse = null;
+
+            this.context.Update(entity);
+            await this.context.SaveChangesAsync();
+            return entity.Id;
         }
     }
 }

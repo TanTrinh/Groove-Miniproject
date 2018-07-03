@@ -16,10 +16,42 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   public warehouseList: Array<any> = [];
   formData: any = {
     wareHouse: '',
+    status: '',
+  }
+  public requestStatus: string = 'none';
+
+  public onLoadGrid(status) {
+    if (status == 'Inactive') {
+      return 'Activate';
+    }
+    else if (status == 'Active') {
+      return 'Deactivate'
+    }
+  }
+
+  public onClickStatus(dataItem) {
+    if (dataItem.status == 'Inactive') {
+      this.requestService.changeStatus(dataItem.code, 'Active').subscribe(
+        result => {
+          dataItem.status = result.result;
+        }
+      );
+    }
+    else if (dataItem.status == 'Active') {
+      this.requestService.changeStatus(dataItem.code, 'Inactive').subscribe(
+        result => {
+          dataItem.status = result.result;
+        });
+    }
+  }
+
+  public resetData(data) {
+    this.formData.wareHouse = '';
   }
 
   public onBeforeInitFormData(data) {
-
+    // Get status
+    this.requestStatus = this.GetRequestStatus(data.id);
     // Date parse
     if (data.pickingDate == null || data.pickingDate == undefined || data.expectedDate == null || data.expectedDate == undefined) {
       data.pickingDate = new Date();
@@ -42,16 +74,23 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     private _notificationService: NotificationService,
   ) {
     super(route, router, notificationService, requestService, validationService);
+    this.resetFormData = (data) => { this.resetData(data) };
     this.formConfiguration.events.onAfterInitFormData = (data)=> {
       this.onBeforeInitFormData(data);
     };
 
     super.formOnInit("Request", {});
   }
-  ngOnInit() {
-  }
 
-  public GetRequestStatus() {
+  public GetRequestStatus(requestId: any) {
+    if (requestId != null && requestId != undefined) {
+      this.requestService.GetRequestStatus(requestId).subscribe(data => {
+        if (data != null && data != undefined) {
+          this.requestStatus = data.result;
+        }
+      });
+    }
+    return this.requestStatus;
   }
 
   public filterChange(value) {
@@ -65,5 +104,7 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     }
   }
 
+  ngOnInit() {
+  }
 
 }

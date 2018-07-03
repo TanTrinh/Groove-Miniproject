@@ -143,9 +143,8 @@ export abstract class FormBaseComponent {
     });
   }
 
-  public GetData() {
-    return this.formData;
-  }
+  public resetFormData: Function = function () { };
+ 
 
   public deepClone(source) {
     return JSON.parse(JSON.stringify(source));
@@ -181,7 +180,7 @@ export abstract class FormBaseComponent {
       default:
         throw new Error(`Form mode = <${_formMode}> is not valid.`);
     }
-
+    this.resetFormData(this.formData);
     this.formLinks.listPageUrl = this.getListPageUrl();
     this.formLinks.viewFormUrl = this.getViewFormUrl(this.formId);
   }
@@ -287,16 +286,16 @@ export abstract class FormBaseComponent {
       } else {
         this.navigateToViewPage(this.formId);
       }
-    },
-      err => {
-        console.log(err);
-        if (err.status === 400) {
-          this.notificationService.prompError(err.error.message);
-        } else {
-          this.notificationService.prompError(err.message)
-        }
+    })
+      //err => {
+      //  console.log(err);
+      //  if (err.status === 400) {
+      //    this.notificationService.prompError(err.error.message);
+      //  } else {
+      //    this.notificationService.prompError(err.message)
+      //  }
 
-      })
+      //})
   }
 
   public changeToMode(formMode: string, id: any) {

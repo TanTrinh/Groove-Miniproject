@@ -51,12 +51,9 @@ namespace Domains.GoGo.Services
             return entity.Id;
         }
 
-        public async Task<int> UpdateCustomerRequest(RequestModel model, long userId)
+        public Task<int> UpdateCustomerRequest(RequestModel model, long userId)
         {
-            var entity = this._mapper.Map<Request>(model);
-            _repository.Update(entity);
-            await _uow.SaveChangesAsync();
-            return entity.Id;
+            return _repository.UpdateCustomerRequest(model, userId);
         }
 
         public async Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId)

@@ -28,6 +28,7 @@ export class RequestService  implements ICreateFormService, IViewFormService, IU
   }
 
   edit(id: any, formData: any): Observable<any> {
+    formData.warehouseId = formData.wareHouse.value;
     return this._apiHttp.put(`/api/request/${id}`, formData);
   }
 

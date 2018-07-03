@@ -22,9 +22,8 @@ namespace GoGoApi.Controllers.GoGo
         [HttpGet]
         public IActionResult GetRequestStatus(int requestId)
         {
-            var userId = GetCurrentUserId<int>();
-            var result = _shipmentRequestService.GetRequestStatus(requestId, userId);
-            return Ok(result);
+            var result = _shipmentRequestService.GetRequestStatus(requestId, 1);
+            return Ok(new {result});
         }
     }
 }

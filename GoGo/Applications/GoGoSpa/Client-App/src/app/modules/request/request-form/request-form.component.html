@@ -11,8 +11,8 @@
         <div class="card-block">
           <form class="k-form" #mainForm="ngForm" name="mainForm" (ngSubmit)="onSubmitForm(mainForm)">
             <fieldset>
-              <legend>
-                <h5>{{formData.code}} - {{GetRequestStatus()}}</h5>
+              <legend *ngIf="!isCreateFormMode">
+                <h5>{{formData.code}} - {{requestStatus}}</h5>
               </legend>
               <div class="btn-wrapper">
                 <!-- Create / View -->
@@ -26,6 +26,11 @@
 
                 <!-- View -->
                 <button *ngIf="isViewFormMode" routerLink="/request/form/update/{{formData?.id}}" class="btn btn-primary btn-sm">Update</button>
+
+                <button class="btn btn-primary btn-sm btn-width" *ngIf="isViewFormMode && (formData.status == 'Active' || formData.status == 'Inactive')"
+                        (click)="onClickStatus(formData)">
+                  {{onLoadGrid(formData.status)}}
+                </button>
 
               </div>
               <div class="form-group">
