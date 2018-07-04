@@ -8,7 +8,7 @@
         <div class="form-group validate">
           <div class="form-group col-md-9 row">
             <button class="btn btn-success" (click)="save(model.id)">Save</button>&nbsp;
-            <button class="btn btn-secondary" (click)="back()">Back</button>&nbsp;
+            <button class="btn btn-secondary" (click)="back(model.id)">Back</button>&nbsp;
           </div>
           <div [hidden]="!isError" class="validation-message">
             {{message}}

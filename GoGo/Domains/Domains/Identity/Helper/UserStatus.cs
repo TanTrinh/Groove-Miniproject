@@ -6,11 +6,11 @@ namespace Domains.Identity.Helper
 {
     public class UserStatus
     {
-        public string Active { get; }
+        public const string  Active = "Active";
 
-        public UserStatus()
-        {
-            this.Active = "Active";
-        }
+        //public UserStatus()
+        //{
+        //    this.Active = "Active";
+        //}
     }
 }

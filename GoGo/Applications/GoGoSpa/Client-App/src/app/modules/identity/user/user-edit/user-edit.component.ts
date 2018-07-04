@@ -78,7 +78,7 @@ export class UserEditComponent implements OnInit {
     });
   }
 
-  back() {
-    this.router.navigate(['account']);
+  back(id) {
+    this.router.navigate(['account/detail', id]);
   }
 }

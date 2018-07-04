@@ -42,8 +42,8 @@ namespace Domains.Identity.Services
             // Create UserStatus class to manage user status
             // then use: 
             // model.Status = UserStatus.Active
-            var userStatus = new UserStatus();
-            model.Status = userStatus.Active;
+
+            model.Status = UserStatus.Active;
 
             var user = _mapper.Map<User>(model);
             user.CreateBy(issuer).UpdateBy(issuer);
