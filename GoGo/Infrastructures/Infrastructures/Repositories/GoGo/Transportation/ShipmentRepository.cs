@@ -14,6 +14,7 @@ using System.Linq;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using Domains.GoGo.Models.Fleet_management;
+using Domains.GoGo.Models;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -21,7 +22,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
     {
         private readonly IMapper _mapper;
         private readonly IShipmentRequestRepository _shipmentRequestRepository;
-        public ShipmentRepository(IMapper mapper, IShipmentRequestRepository shipmentRequestRepository, IUnitOfWorkContext uoWContext) : base(uoWContext)
+        public ShipmentRepository(IMapper mapper, IShipmentRequestRepository shipmentRequestRepository, ApplicationDbContext dbContext) : base(dbContext)
         {
             _mapper = mapper;
             _shipmentRequestRepository = shipmentRequestRepository;
@@ -30,7 +31,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             return this.dbSet.MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
         }
-        public async Task<string> ChangeStatus(string code, string status)
+        public async Task<string> ChangeDeliveryStatus(string code, string status)
         {
             var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
             shipment.Status = status;
@@ -38,24 +39,24 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             await this.context.SaveChangesAsync();
             return shipment.Code;
         }
-        public async Task<IEnumerable<ShipmentViewModel>> GetShipmentAssignedModel(long? id)
-        {
-            var query = this.dbSet
-                        .Include(p => p.Vehicle)
-                        .Where(p => p.DriverId == id)
-                        .Select(p => new ShipmentViewModel
-                        {
-                            Code = p.Code,
-                            LicensePlate = p.Vehicle.LicensePlate,
-                            EndDate = p.EndDate,
-                            StartDate = p.StartDate,
-                            VehicleID = p.VehicleId,
-                            RequestQuality = p.RequestQuantity,
-                            Status = p.Status,
+        //public async Task<IEnumerable<ShipmentViewModel>> GetShipmentAssignedModel(long? id)
+        //{
+        //    var query = this.dbSet
+        //                .Include(p => p.Vehicle)
+        //                .Where(p => p.DriverId == id)
+        //                .Select(p => new ShipmentViewModel
+        //                {
+        //                    Code = p.Code,
+        //                    LicensePlate = p.Vehicle.LicensePlate,
+        //                    EndDate = p.EndDate,
+        //                    StartDate = p.StartDate,
+        //                    VehicleID = p.VehicleId,
+        //                    RequestQuality = p.RequestQuantity,
+        //                    Status = p.Status,
                             
-                        });
-            return await query.ToListAsync();
-        }
+        //                });
+        //    return await query.ToListAsync();
+        //}
 
 
         public async Task<ShipmentViewModel> GetShipmentAsync(string code)

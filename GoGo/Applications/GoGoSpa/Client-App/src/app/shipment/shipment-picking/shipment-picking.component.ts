@@ -3,12 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from './Location';
 import { InfoRequest } from './InfoRequest';
-import { ShipmentAssigned } from '../ShipmentAssigned/ShipmentAssigned';
+
 import { SaveService } from '../../shared/service/save.service';
-import { RequestDetail } from '../../request/RequestDetail';
+import { RequestDetail } from './RequestDetail';
 import { ShipmentService } from '../shipment.service';
 import { LatLng } from '@agm/core';
 import { Marker } from '@agm/core/services/google-maps-types';
+import { ShipmentDetail } from './ShipmentDetail';
+import { Shipment } from '../../shared/models/request';
 
 
 declare var google: any;
@@ -20,7 +22,7 @@ declare var google: any;
 export class ShipmentPickingComponent implements OnInit {
   data: any = {};
   statusNav = 'Request';
-  shipmentDetail = new ShipmentAssigned();
+  shipmentDetail= new ShipmentDetail();
   request = new RequestDetail();
   status = 'Waiting';
   code: string;
@@ -56,9 +58,11 @@ export class ShipmentPickingComponent implements OnInit {
     this.Waypts = [];
     this.request.location = new Location();
     this.code = this.route.snapshot.paramMap.get('code');
+    console.log(this.code)
     this.save.saveCode(this.code);
-    this.service.getLocationPicking(this.code).subscribe(data => {
+    this.service.GetLocationPicking(this.code).subscribe(data => {
       this.locationPicking = data;
+      console.log(this.locationPicking)
       var info = new InfoRequest();
       info.code = "This is location picking";
       info.status = "Active";
@@ -69,12 +73,16 @@ export class ShipmentPickingComponent implements OnInit {
     this.GetRequestList();
   }
 
+  //Tested
   refeshShipment(code: string) {
-    this.service.getShipmentDetail(this.code).subscribe(data => {
+    this.service.GetShipmentDetail(this.code).subscribe(data => {
+
+      console.log(data)
       this.shipmentDetail = data;
+      
+      console.log(this.shipmentDetail.status)
       if (this.shipmentDetail.status == "Shipping") {
         this.Waypts[0].status = "unActive";
-
         console.log(this.shipmentDetail)
       }
       if (this.shipmentDetail.currentRequest == "") {
@@ -82,29 +90,31 @@ export class ShipmentPickingComponent implements OnInit {
         this.changeNav('List');
       }
       else {
-        this.service.getRequest(this.shipmentDetail.currentRequest).subscribe(data => {
+        console.log(data);
+        this.service.GetRequest(this.shipmentDetail.currentRequest).subscribe(data => {
           this.request = data;
+          console.log(this.request);
         })
       }
     })
   }
 
-  feedback(item: ShipmentAssigned, status) {
+  feedback(item: ShipmentDetail, status) {
     if (status == "Shipping") {
       //  this.Waypts.splice(0, 1);
       console.log(this.Waypts);
     }
-
-    var param = { 'code': item.code, 'status': status }
-    this.service.changeStatusShipment(param).subscribe(data => {
+    this.service.ChangeDeliveryShipmentStatus(item.code,status).subscribe(data => {
       this.shipmentDetail = data;
+      console.log(this.shipmentDetail)
+      console.log(this.request)
     })
   }
 
-  changeStatus(item: ShipmentAssigned, status) {
-    var param = { 'code': item.currentRequest, 'status': status }
-    this.service.changeStatusRequest(param).subscribe(data => {
+  changeStatus(item: ShipmentDetail, status) {
+    this.service.ChangeStatusRequest(item.currentRequest, status).subscribe(data => {
       this.request = data;
+      console.log(this.request)
       this.GetRequestList();
       if (status == "Completed") {
         this.refeshShipment(this.code);
@@ -115,28 +125,26 @@ export class ShipmentPickingComponent implements OnInit {
   nextRequest() {
     this.refeshShipment(this.code);
   }
-  sendProblem(item: RequestDetail,isSolve:boolean) {
+  sendProblem(item: RequestDetail, problem: boolean) {
     console.log(item);
     console.log(this.problemMessage);
-    var temp;
-    var param = { 'requestcode': item.code, 'message': this.problemMessage, 'isSolve': isSolve }
-    this.service.sendProblem(param).subscribe(data => {
+    this.service.SendProblem(item.code,problem, this.problemMessage).subscribe(data => {
       this.request = data;
       this.GetRequestList();
     });
   }
   viewRequest(item: RequestDetail) {
     this.changeNav('Request');
-    this.service.getRequest(item.code).subscribe(data => {
+    this.service.GetRequest(item.code).subscribe(data => {
       console.log(data);
       this.request = data;
     })
   }
   returnList() {
-    this.router.navigate(['./home/assigned']);
+    this.router.navigate(['./shipment']);
   }
   gotoCurrentRequest() {
-    this.service.getRequest(this.shipmentDetail.currentRequest).subscribe(data => {
+    this.service.GetRequest(this.shipmentDetail.currentRequest).subscribe(data => {
       this.request = data;
     })
   }
@@ -145,7 +153,8 @@ export class ShipmentPickingComponent implements OnInit {
   }
 
   GetRequestList() {
-    this.service.getListRequest(this.code).subscribe(data => {
+    this.service.GetListRequest(this.code).subscribe(data => {
+      console.log(data);
       this.requestList = data;
       console.log(this.requestList);
       for (var item of this.requestList) {

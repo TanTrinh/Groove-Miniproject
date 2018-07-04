@@ -8,7 +8,7 @@ namespace Domains.GoGo.Services.Transportation
 {
     public interface IShipmentRequestService
     {
-        Task CreateShipmentRequestAsync(List<int> requestIdList, int shipmentId);
+        //Task CreateShipmentRequestAsync(List<int> requestIdList, int shipmentId);
         Task<LocationModel> GetPositionPicking(string code);
         int GetTotalRequest(string code);
         RequestDetailModel GetRequestDetailModel(string code);

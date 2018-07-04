@@ -6,6 +6,7 @@ namespace Domains.GoGo.Models
 {
     public class ShipmentViewModel
     {
+        public int Id { set; get; }
         public string Code { set; get; }
         public string LicensePlate { set; get; }
         public DateTime StartDate { set; get; }

@@ -10,11 +10,11 @@ declare var google: any;
 
 
 
-//@Component({
-//  selector: 'app-ggmap',
-//  templateUrl: './ggmap.component.html',
-//  styleUrls: ['./ggmap.component.scss']
-//})
+@Component({
+  selector: 'app-ggmap',
+  templateUrl: './ggmap.component.html',
+  styleUrls: ['./ggmap.component.scss']
+})
 
 
 export class GgmapComponent implements OnInit {
@@ -23,7 +23,7 @@ export class GgmapComponent implements OnInit {
   @Input('Origin') Origin: any;
   @Input('Destination') Destination: LatLng;
   @Input('Waypts') Waypts: InfoRequest[] = [];
-//  @Input('Markers') Markers: any[] = [];
+  //  @Input('Markers') Markers: any[] = [];
 
   //parameter 
   //parameter of map
@@ -35,14 +35,14 @@ export class GgmapComponent implements OnInit {
   map: undefined;
   oldMarkerOrigin = new google.maps.Marker();
 
-//  //The location of you
-//  yourAddress: any;
-//  yourlat: number;
-//  yourlng: number;
+  //  //The location of you
+  yourAddress: any;
+  yourlat: number;
+  yourlng: number;
 
-//  //Location of trip
-//  latlngOrigin: LatLng;
-//  latlngDestination: LatLng;
+  //  //Location of trip
+  //latlngOrigin: LatLng;
+  //latlngDestination: LatLng;
 
 
   //The array of waypoints
@@ -58,15 +58,14 @@ export class GgmapComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    setInterval(() => {
+   // setInterval(() => {
       this.GetYourPosition()
-    }, 5000);
+    //}, 5000);
     this.InitMap(this.latcenter, this.lngcenter);
-   
-    setInterval(() => {
+
+//    setInterval(() => {
       setTimeout(() => { this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay) }, 5000)
-    }, 3000);
-    //setTimeout(() => { this.DrawMarkers() }, 1000)
+  //  }, 3000);
   }
 
   //Init the map
@@ -132,7 +131,7 @@ export class GgmapComponent implements OnInit {
     });
     var index;
     for (index = 0; index < this.Waypts.length; index++) {
-      if (index < (this.Waypts.length - 1) && this.Waypts[index].status!='unActive') {
+      if (index < (this.Waypts.length - 1) && this.Waypts[index].status != 'unActive') {
         waypts.push({
           location: this.Waypts[index].latlng,
           stopover: true,
@@ -183,7 +182,7 @@ export class GgmapComponent implements OnInit {
       }
     });
   }
-  
+
   RemoveAllMarkers() {
     //for (var i = 0; i < this.markers.length; i++) {
     //  this.markers[i].setMap(null);
@@ -210,11 +209,11 @@ export class GgmapComponent implements OnInit {
     }
   }
 
-//  //Get the Latlng
-//  GetLatlng(latitude, longitude) {
-//    let latlng = new google.maps.LatLng(latitude, longitude);
-//    return latlng;
-//  }
+  //Get the Latlng
+  GetLatlng(latitude, longitude) {
+    let latlng = new google.maps.LatLng(latitude, longitude);
+    return latlng;
+  }
 
   GetMarker(latitue, longitude, urlIcon, map) {
     var marker = new google.maps.Marker({

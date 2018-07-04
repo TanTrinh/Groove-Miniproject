@@ -1,4 +1,6 @@
-export class ShipmentAssigned {
+export class ShipmentDetail
+{
+  id: number;
   code: string;
   licensePlate: string;
   startDate: Date;

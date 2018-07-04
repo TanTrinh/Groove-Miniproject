@@ -37,24 +37,24 @@ namespace GoGoApi.Controllers.GoGo
             return Ok(await _serviceRequest.GetRequestDetails(id));
         }
 
-        [Route("changeStatus")]
+        [Route("{code}/changestatus")]
         [HttpPost]
-        public async Task<IActionResult> changeStatus([FromBody]parameter p)
+        public async Task<IActionResult> changeStatus([FromBody]string requestCode,string status)
         {
-            string code = await _serviceShipmentRequest.ChangeStatusRequestAsync(p.code, p.status);
+            string code = await _serviceShipmentRequest.ChangeStatusRequestAsync(requestCode, status);
             return Ok(await _serviceShipmentRequest.GetCurrentRequestAsync(code));
         }
-        [Route("shipmentAssigned")]
-        [HttpGet]
-        public async Task<IActionResult> GetShipmentAssigned(long? id)
-        {
-            return Ok(await _serviceShipment.GetShipmentAssignedModel(id));
-        }
+        //[Route("shipmentAssigned")]
+        //[HttpGet]
+        //public async Task<IActionResult> GetShipmentAssigned(long? id)
+        //{
+        //    return Ok(await _serviceShipment.GetShipmentAssignedModel(id));
+        //}
         [Route("shipmentFeedback")]
         [HttpPost]
         public async Task<IActionResult> ShipmentFeedback([FromBody]parameter p)
         {
-            string code = await _serviceShipment.ChangeStatus(p.code, p.status);
+            string code = await _serviceShipment.ChangeDeliveryStatus(p.code, p.status);
             return Ok(await _serviceShipment.GetShipmentAsync(code));
         }
         [Route("getLocationPicking")]
@@ -88,17 +88,8 @@ namespace GoGoApi.Controllers.GoGo
             public double latitude { set; get; }
             public double longitude { set; get; }
         }
-        public class pama
-        {
-            public string code { set; get; }
-            public LocationModel[] order { set; get; }
-        }
-        [Route("shipment/changeOrder")]
-        [HttpPost]
-        public async Task<IActionResult> changeOrder([FromBody]pama p)
-        {
-            return Ok();
-        }
+        
+
         [Route("shipment/request/haveProblem")]
         [HttpPost]
         public async Task<IActionResult> Problem([FromBody]ProblemMessageModel problemMessage)

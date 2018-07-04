@@ -32,10 +32,11 @@ namespace Domains.GoGo.Services.Transportation
 			_shipmentRequestRepository = shipmentRequestRepository;
 		}
 
-        public async Task<string> ChangeStatus(string code, string status)
+        public async Task<string> ChangeDeliveryStatus(string code, string status)
         {
-            return await _shipmentRepository.ChangeStatus(code, status);
+            return await _shipmentRepository.ChangeDeliveryStatus(code, status);
         }
+
 
         public async Task<int> CreateShipmentAsync(FormShipmentModel model)
 		{
@@ -76,10 +77,10 @@ namespace Domains.GoGo.Services.Transportation
 			return _shipmentRepository.GetAllAsync(request);
 		}
 
-		public Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
-        {
-            return _shipmentRepository.GetShipmentAssignedModel(id);
-        }
+		//public Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
+  //      {
+  //          return _shipmentRepository.GetShipmentAssignedModel(id);
+  //      }
 
 		public ShipmentDetailModel GetShipmentByCode(string Code)
 		{
@@ -91,5 +92,14 @@ namespace Domains.GoGo.Services.Transportation
 			return result;
 		}
 
-	}
+        public async Task<int> ChangeStatus(string code, string status)
+        {
+            return await _shipmentRepository.ChangeStatus(code, status);
+        }
+
+        public Task<ShipmentViewModel> GetShipmentAsync(string code)
+        {
+            return _shipmentRepository.GetShipmentAsync(code);
+        }
+    }
 }

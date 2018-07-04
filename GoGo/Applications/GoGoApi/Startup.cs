@@ -58,13 +58,8 @@ namespace GoGoApi
             });
 
             services.AddGrooveMvcApi().AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<Domains.AssemplyMarker>().RegisterValidatorsFromAssemblyContaining<GoGoApi.Startup>());
-			services.AddCors();
+			//services.AddCors();
             services.AddAutoMapper(typeof(Domains.AssemplyMarker));
-
-			services.AddMvc()
-					.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
-
-			services.AddKendo();
 
 			// Add Kendo UI services to the services container
 			services.AddKendo();
@@ -124,7 +119,7 @@ namespace GoGoApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("AllowAll");
+            app.UseCors(CorsPolicies.AllowAny);
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthentication();

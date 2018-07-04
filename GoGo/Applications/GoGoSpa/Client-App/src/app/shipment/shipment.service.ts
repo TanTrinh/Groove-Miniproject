@@ -14,7 +14,7 @@ import { Observable } from 'rxjs-compat/Observable';
 })
 export class ShipmentService extends BehaviorSubject<any>  {
   private baseUrl = '';
-
+  private url = 'http://localhost:54520/api/shipments';
   // TODO: Remove ConfigService & use ServiceRegistryService instead
   constructor(private http: Http, private configService: ConfigService, private https: HttpClient) {
     super(null);
@@ -75,32 +75,35 @@ export class ShipmentService extends BehaviorSubject<any>  {
     return this.http.get(`${this.url}/shipmentAssigned?id=${DriverID}`);
   }
 
-  getLocationPicking(shipmentCode: string): Observable<any> {
-    return this.http.get(`${this.url}/getLocationPicking?code=${shipmentCode}`);
+  GetLocationPicking(shipmentCode: string): Observable<any> {
+    return this.https.get(`${this.url}/${shipmentCode}/locationpicking`);
   }
 
-  getShipmentDetail(shipmentCode: string): Observable<any> {
-    return this.http.get(`${this.url}/shipmentDetail?code=${shipmentCode}`);
+  GetShipmentDetail(shipmentCode: string): Observable<any> {
+    return this.https.get(`${this.url}/${shipmentCode}`);
   }
 
-  changeStatusShipment(parameter: any): Observable<any> {
-    return this.http.post(`${this.url}/shipmentFeedback`, parameter);
+  ChangeDeliveryShipmentStatus(shipmentCode: string, status: string): Observable<any> {
+
+    return this.https.put(`${this.url}/${shipmentCode}/changestatus/${status}`, null);
   }
 
-  getRequest(requestCode: string): Observable<any> {
-    return this.http.get(`${this.url}/shipment/request?code=${requestCode}`);
+  GetRequest(requestCode: string): Observable<any> {
+    return this.https.get(`${this.url}/request/${requestCode}`);
   }
-  changeStatusRequest(parameter: any): Observable<any> {
-    return this.http.post(`${this.url}/changeStatus`, parameter);
+
+  ChangeStatusRequest(requestCode: string, status: string): Observable<any> {
+    return this.https.put(`${this.url}/request/${requestCode}/changestatus/${status}`,null);
   }
-  getListRequest(shipmentCode: string): Observable<any> {
-    return this.http.get(`${this.url}/shipment/requestList?code=${shipmentCode}`);
+
+  GetListRequest(shipmentCode: string): Observable<any> {
+    return this.https.get(`${this.url}/${shipmentCode}/requestList`);
   }
-  changeOrderReqeust(paramerter: any): Observable<any> {
-    return this.http.post(`${this.url}/shipment/changeOrder`, paramerter);
+  ChangeOrderReqeust(paramerter: any): Observable<any> {
+    return this.https.post(`${this.url}/shipment/changeOrder`, paramerter);
   }
-  sendProblem(paramerter: any): Observable<any> {
-    return this.http.post(`${this.url}/shipment/request/haveProblem`, paramerter)
+  SendProblem(requestCode: string, problem: boolean, message: string): Observable<any> {
+    return this.https.post(`${this.url}/request/${requestCode}/problem/${problem}`, { parameter: { 'message': message }})
   }
 
 

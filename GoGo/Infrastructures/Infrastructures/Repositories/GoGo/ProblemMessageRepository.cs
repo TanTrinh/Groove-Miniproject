@@ -20,7 +20,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         private readonly IMapper _mapper;
         private readonly IRequestRepository _requestRepository;
         private readonly IShipmentRequestRepository _shipmentRequestRepository;
-        public ProblemMessageRepository(IMapper mapper, IRequestRepository requestRepository, IShipmentRequestRepository shipmentRequestRepository, IUnitOfWorkContext uoWContext) : base(uoWContext)
+        public ProblemMessageRepository(IMapper mapper, IRequestRepository requestRepository, IShipmentRequestRepository shipmentRequestRepository, ApplicationDbContext dbContext) : base(dbContext)
         {
             _mapper = mapper;
             _requestRepository = requestRepository;

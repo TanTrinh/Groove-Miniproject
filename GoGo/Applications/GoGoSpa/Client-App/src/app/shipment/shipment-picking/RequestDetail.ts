@@ -1,6 +1,7 @@
 import { Location } from "@angular/common";
 
 export class RequestDetail {
+  id: number;
   code: string;
   status: string;
   estimateDate: Date;

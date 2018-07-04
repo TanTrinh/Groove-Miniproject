@@ -50,7 +50,7 @@ namespace GoGoApi.Controllers.GoGo
         [HttpPut]
         public async Task<IActionResult> ShipmentFeedback([FromBody]string shipmentCode, string status)
         {
-            string code = await _serviceShipment.ChangeStatus(shipmentCode, status);
+            string code = await _serviceShipment.ChangeDeliveryStatus(shipmentCode, status);
             return Ok(await _serviceShipment.GetShipmentAsync(shipmentCode));
         }
 

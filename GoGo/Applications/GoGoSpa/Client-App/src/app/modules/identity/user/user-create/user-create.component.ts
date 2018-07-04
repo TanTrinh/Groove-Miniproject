@@ -65,6 +65,7 @@ export class UserCreateComponent implements OnInit {
       // httpOptions, API url... will be managed by API service
       this._http.post(this.baseUrl, this.model, httpOptions).subscribe(result => {
         this.data = result;
+        console.log(result)
         this._router.navigate(['account/detail', this.data.value]);
       }, error => {
         this.isError = true;

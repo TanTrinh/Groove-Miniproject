@@ -13,16 +13,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domains;
+using Domains.Helpers;
+
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
     public class ShipmentRequestRepository : GenericRepository<ShipmentRequest, int>, IShipmentRequestRepository
     {
         private readonly IMapper _mapper;
 
-        public ShipmentRequestRepository(IMapper mapper, IUnitOfWorkContext uoWContext) : base(uoWContext)
+        public ShipmentRequestRepository(IMapper mapper, ApplicationDbContext uoWContext) : base(uoWContext)
         {
             _mapper = mapper;
         }
+
+        public void UpdateShipmentRequest(List<int> requestIdList, int shipmentId)
+        {
+            var shipmentRequestsInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status == "Waiting"))).ToList();
+            var shipmentRequestIdListInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status == "Waiting"))).Select(p => p.RequestId).ToList();
+
+            for (int i = 0; i < shipmentRequestsInDb.Count; i++)
+            {
+                var index = requestIdList.IndexOf(shipmentRequestsInDb[i].RequestId);
+
+                if (index != -1)
+                {
+                    shipmentRequestsInDb[i].RequestOrder = index + 1;
+                    this.dbSet.Update(shipmentRequestsInDb[i]);
+                }
+                else
+                {
+                    shipmentRequestsInDb[i].Status = "InActive";
+                    shipmentRequestsInDb[i].Note = "Updated";
+                    this.dbSet.Update(shipmentRequestsInDb[i]);
+                }
+            }
+
+            for (int i = 0; i < requestIdList.Count; i++)
+            {
+                if (shipmentRequestIdListInDb.IndexOf(requestIdList[0]) == -1)
+                {
+                    var entity = new ShipmentRequest();
+                    entity.ShipmentId = shipmentId;
+                    entity.RequestId = requestIdList[0];
+                    entity.RequestOrder = i + 1;
+                    entity.Status = "Waiting";
+                    entity.Note = "Created";
+                    this.dbSet.Add(entity);
+
+                }
+            }
+
+            this.context.SaveChanges();
+        }
+
+
 
         public async Task<string> ChangeStatusRequestAsync(string code, string status)
         {
@@ -66,13 +110,13 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                              ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
                              EstimateDate = p.RequestEstimateDate,
                              Status = p.Status,
-                             //ProblemMessage = problemMsgDbSet.Where(msg => msg.RequestId == p.RequestId).OrderByDescending(msg => msg.Id).Select(msg => new ProblemMessage
-                             //{
-                             //    Message = msg.Message,
-                             //    Id = msg.Id,
-                             //    IsSolve = msg.IsSolve
-                             //}).FirstOrDefault(),
-                             IsProblem = p.IsProblem,
+                         //ProblemMessage = problemMsgDbSet.Where(msg => msg.RequestId == p.RequestId).OrderByDescending(msg => msg.Id).Select(msg => new ProblemMessage
+                         //{
+                         //    Message = msg.Message,
+                         //    Id = msg.Id,
+                         //    IsSolve = msg.IsSolve
+                         //}).FirstOrDefault(),
+                         IsProblem = p.IsProblem,
                              RequestOrder = p.RequestOrder,
                              Location = new LocationModel()
                              {
@@ -117,7 +161,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                        .Include(p => p.Shipment)
                        .Include(p => p.Request)
                        .Where(p => p.Shipment.Code == shipmentCode)
-                       .Where(p=>p.IsProblem==false)
+                       .Where(p => p.IsProblem == false)
                        .Where(p => p.Status == status)
                        .Select(p => p.Request.Code);
                 return await query.FirstAsync();
@@ -172,6 +216,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                            .Include(p => p.Shipment)
                            .Include(p => p.Request)
                            .Where(p => p.Shipment.Code == code)
+                           .Where(p=>p.Status!="Active" && p.Status!="InActive")
                            .OrderBy(p => p.RequestOrder)
                            .Select(p => new RequestDetailModel
                            {
@@ -203,36 +248,36 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             return sum;
         }
 
-        public async Task<IEnumerable<RequestDetailModel>> ChangeOrder(string shipmentCode, LocationModel[] newOrder)
-        {
-            List<RequestDetailModel> oldOrder = new List<RequestDetailModel>();
-            var query = this.dbSet
-                         .Include(p => p.Shipment)
-                         .Include(p => p.Request)
-                         .Where(p => p.Shipment.Code == shipmentCode)
-                         .Select(p => new RequestDetailModel
-                         {
-                             Code = p.Request.Code,
-                             PackageQuantity = p.Request.PackageQuantity,
-                             ReceiverName = p.Request.ReceiverName,
-                             ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
-                             EstimateDate = p.RequestEstimateDate,
-                             Status = p.Request.Status,
-                             IsProblem = p.IsProblem,
-                             Location = new LocationModel()
-                             {
-                                 Address = Helper.ResizeAddress(p.Request.Address),
-                                 Latitude = p.Request.DeliveryLatitude,
-                                 Longitude = p.Request.DeliveryLongitude
-                             }
-                         });
-            oldOrder = await query.ToListAsync();
-            for (int i = 0; i < newOrder.Length; i++)
-            {
-                oldOrder.Where(p => Helper.sub(p.Location.Latitude, newOrder[i].Latitude) > 0.0001);
-            }
-            return oldOrder.ToList();
-        }
+        //public async Task<IEnumerable<RequestDetailModel>> ChangeOrder(string shipmentCode, LocationModel[] newOrder)
+        //{
+        //    List<RequestDetailModel> oldOrder = new List<RequestDetailModel>();
+        //    var query = this.dbSet
+        //                 .Include(p => p.Shipment)
+        //                 .Include(p => p.Request)
+        //                 .Where(p => p.Shipment.Code == shipmentCode)
+        //                 .Select(p => new RequestDetailModel
+        //                 {
+        //                     Code = p.Request.Code,
+        //                     PackageQuantity = p.Request.PackageQuantity,
+        //                     ReceiverName = p.Request.ReceiverName,
+        //                     ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
+        //                     EstimateDate = p.RequestEstimateDate,
+        //                     Status = p.Request.Status,
+        //                     IsProblem = p.IsProblem,
+        //                     Location = new LocationModel()
+        //                     {
+        //                         Address = Helper.ResizeAddress(p.Request.Address),
+        //                         Latitude = p.Request.DeliveryLatitude,
+        //                         Longitude = p.Request.DeliveryLongitude
+        //                     }
+        //                 });
+        //    oldOrder = await query.ToListAsync();
+        //    for (int i = 0; i < newOrder.Length; i++)
+        //    {
+        //        oldOrder.Where(p => Helper.sub(p.Location.Latitude, newOrder[i].Latitude) > 0.0001);
+        //    }
+        //    return oldOrder.ToList();
+        //}
 
         public async Task<string> Problem(string requestCode, bool status)
         {
@@ -245,5 +290,10 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             await this.context.SaveChangesAsync();
             return request.Request.Code;
         }
+    }
+    internal class requestOrder
+    {
+        public int RequestId { get; set; }
+        public int RequestOrder { get; set; }
     }
 }

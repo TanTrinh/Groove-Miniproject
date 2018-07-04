@@ -20,17 +20,14 @@ import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.co
 import { RequestModule } from './modules/request/request.module';
 import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.component';
 import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
-import { RequestListComponent } from './request/request-list/request-list.component';
-import { RequestDetail } from './request/RequestDetail';
-import { RequestDetailComponent } from './request/request-detail/request-detail.component';
-import { CurrentRequestComponent } from './request/current-request/current-request.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
     path: '', component: LayoutComponent, children: [
-      { path: 'assigned', component: AssignedComponent },
+     
       { path: 'account', component: UserListComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' }},
       { path: 'account/create', component: UserCreateComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
       { path: 'account/detail/:id', component: UserDetailComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
@@ -38,6 +35,7 @@ const routes: Routes = [
       { path: 'request', loadChildren: () => RequestModule }, // Remove LazyLoad because current version of angular-cli not support mixing / nested routing https://github.com/angular/angular-cli/issues/9651, https://github.com/angular/angular-cli/issues/9488
       {
         path: 'shipment', component: ShipmentComponent, children: [
+          { path: ':code', component: ShipmentPickingComponent },
           { path: 'create', component: ShipmentCreatingComponent }, // TODO, what is the url for update. Route for update shoulde be update/{id}
           { path: '', component: ShipmentListComponent } // TODO: Move this before create It's easier to review
         ]
