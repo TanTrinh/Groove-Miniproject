@@ -4,11 +4,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Domains.Core;
+using Domains.GoGo.Models;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Services;
 using Domains.GoGo.Services.Transportation;
 using Groove.AspNetCore.Mvc;
 using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -23,8 +25,8 @@ namespace GoGoApi.Controllers.GoGo
 		private readonly IRequestService _service;
 		private readonly IShipmentService _Shipmentservice;
 		private readonly IShipmentRequestService _shipmentRequestService;
-
-		public ShipmentsController(IRequestService service, IShipmentService Shipmentservice, IShipmentRequestService shipmentRequestService)
+        private readonly IProblemMessageService _problemMessageService;
+        public ShipmentsController(IRequestService service, IShipmentService Shipmentservice, IShipmentRequestService shipmentRequestService,IProblemMessageService problemMessageService)
 		{
 			_service = service;
 			_Shipmentservice = Shipmentservice;
@@ -95,5 +97,73 @@ namespace GoGoApi.Controllers.GoGo
 
 			return Ok();
 		}
-	}
+
+        //DUC
+        [Route("{shipmentCode}/deliverydetail")]
+        [HttpGet]
+        public async Task<IActionResult> GetShipmentDetailAsync(string shipmentCode)
+        {
+            var t = await _Shipmentservice.GetShipmentAsync(shipmentCode);
+            return Ok(t);
+        }
+
+        
+        [Route("{code}/request/{requestCode}/changestatus")]
+        [Authorize(Roles = "Driver,Coordinator")]
+        [HttpPut]
+        public async Task<IActionResult> ChangeDeliveryStatus([FromBody]string requestCode, string status)
+        {
+            string code = await _shipmentRequestService.ChangeStatusRequestAsync(requestCode, status);
+            return Ok(await _shipmentRequestService.GetCurrentRequestAsync(code));
+        }
+
+        [Route("{shipmentCode}/locationpicking")]
+        [HttpGet]
+        public async Task<IActionResult> GetLocationPicking(string shipmentCode)
+        {
+            return Ok(await _shipmentRequestService.GetPositionPicking(shipmentCode));
+        }
+
+        [Route("request/{requestCode}")]
+        //[Authorize(Roles = "Driver,Coordinator")]
+        [HttpGet]
+        public async Task<IActionResult> GetRequestDetailAsync(string requestCode)
+        {
+            return Ok(await _shipmentRequestService.GetCurrentRequestAsync(requestCode));
+        }
+
+        [Route("{shipmentCode}/requestList")]
+        [HttpGet]
+        public async Task<IActionResult> GetRequestList(string shipmentCode)
+        {
+            return Ok(await _shipmentRequestService.GetRequestListAsync(shipmentCode));
+        }
+
+        [Route("{shipmentCode}/changestatus/{status}")]
+        [HttpPut]
+        public async Task<IActionResult> ShipmentFeedback(string shipmentCode,string status)
+        {
+            string code = await _Shipmentservice.ChangeDeliveryStatus(shipmentCode, status);
+            return Ok(await _Shipmentservice.GetShipmentAsync(code));
+        }
+        [Route("request/{requestCode}/changestatus/{status}")]
+        [HttpPut]
+        public async Task<IActionResult> ChangeStatusRequest(string requestCode, string status)
+        {
+            string code = await _shipmentRequestService.ChangeStatusRequestAsync(requestCode, status);
+            return Ok(await _shipmentRequestService.GetCurrentRequestAsync(code));
+        }
+        [Route("request/{requestCode}/problem/{problem}")]
+        [HttpPost]
+        public async Task<IActionResult> ChangeStatusRequest(string requestCode, bool problem,string message)
+        {
+            if (problem == true)
+            {
+                int result = await _problemMessageService.SaveProblemMessageAsync(requestCode, message);
+            }
+            string code = await _shipmentRequestService.Problem(requestCode,problem);
+            return Ok(await _shipmentRequestService.GetCurrentRequestAsync(code));
+        }
+       
+    }
 }

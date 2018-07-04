@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domains.Core;
 using Domains.GoGo.Entities;
+using Domains.GoGo.Models;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories;
 using Domains.GoGo.Repositories.Transportation;
@@ -42,7 +43,12 @@ namespace Domains.GoGo.Services.Transportation
             return await _shipmentRepository.ChangeShipmentStatusById(id, status);
         }
 
-        public async Task<int> CreateShipmentAsync(FormShipmentModel model)
+		public async Task<string> ChangeDeliveryStatus(string code, string status)
+		{
+			return await _shipmentRepository.ChangeDeliveryStatus(code, status);
+		}
+
+		public async Task<int> CreateShipmentAsync(FormShipmentModel model)
 		{
 			var entity = _mapper.Map<Shipment>(model);
 
@@ -79,11 +85,6 @@ namespace Domains.GoGo.Services.Transportation
 			return _shipmentRepository.GetAllAsync(request, userId);
 		}
 
-		public Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
-        {
-            return _shipmentRepository.GetShipmentAssignedModel(id);
-        }
-
 		public ShipmentDetailModel GetShipmentById(string shipmentId)
 		{
 			var result = _shipmentRepository.GetShipmentById(shipmentId);
@@ -95,6 +96,10 @@ namespace Domains.GoGo.Services.Transportation
 
 			return result;
 		}
-
-	}
+      
+        public Task<ShipmentViewModel> GetShipmentAsync(string code)
+        {
+            return _shipmentRepository.GetShipmentAsync(code);
+        }
+    }
 }

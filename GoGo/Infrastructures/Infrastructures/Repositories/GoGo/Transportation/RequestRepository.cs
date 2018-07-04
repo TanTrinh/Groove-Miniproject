@@ -108,5 +108,22 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 			// Done
             return this.context.Set<ShipmentRequest>().Where(p => (p.ShipmentId == shipmentId && p.Status == ShipmentStatus.PENDING)).Select(p => p.RequestId).ToList();
 		}
-	}
+        public async Task<LocationModel> GetPositionWarehouseAsync(string code)
+        {
+            var query = this.dbSet
+                .Include(p => p.WareHouse)
+                .Where(p => p.Code == code)
+                .Select(p => new LocationModel
+                {
+                    Address = p.Address,
+                    Latitude = p.WareHouse.Latitude,
+                    Longitude = p.WareHouse.Longitude
+                });
+            return await query.FirstAsync();
+        }
+        public async Task<int> GetRequestID(string code)
+        {
+            return await this.dbSet.Where(p => p.Code == code).Select(p => p.Id).FirstAsync();
+        }
+    }
 }

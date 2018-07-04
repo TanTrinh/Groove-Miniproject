@@ -15,27 +15,24 @@ import { AuthHttpService } from '../shared';
   providedIn: 'root'
 })
 export class ShipmentService extends BehaviorSubject<any>  {
-  private baseUrl = '';
-
+  private url = 'http://localhost:54520/api/shipments';
   // TODO: Remove ConfigService & use ServiceRegistryService instead
-  constructor(private configService: ConfigService, private https: AuthHttpService, private auth: SharingService) {
-    super(null);
-
-    this.baseUrl = configService.getApiURI();
+  constructor(private configService: ConfigService, private http: AuthHttpService, private auth: SharingService, private https: HttpClient) {
+    super(null); 
   }
 
   CreateShipment(requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId): any {
 
     let body = JSON.stringify({ requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId });
 
-    return this.https.post('/api/Shipments/', body);
+    return this.http.post('/api/Shipments/', body);
   }
 
   UpdateShipment(id, code, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId): any {
 
     let body = JSON.stringify({id, code, requestIdList, requestQuantity, startDate, endDate, vehicleId, driverId, coordinatorId });
 
-    return this.https.put(`/api/Shipments/${id}`, body);
+    return this.http.put(`/api/Shipments/${id}`, body);
   }
 
 
@@ -44,7 +41,7 @@ export class ShipmentService extends BehaviorSubject<any>  {
     const queryString = `${toDataSourceRequestString(state)}`;
     const hasGroups = state.group && state.group.length;
 
-    return this.https
+    return this.http
       .get(`/api/Shipments?${queryString}`).pipe(
         map(response => (<GridDataResult>{
           data: response['data'],
@@ -55,14 +52,47 @@ export class ShipmentService extends BehaviorSubject<any>  {
 
   public GetDetailById(id)
   {
-  
-    return this.https.get('/api/shipments/' + id);
+    return this.http.get(`/api/shipments/${id}`);
   }
 
   public ActivateShipment(id): any {
    
-    return this.https.put(`/api/shipments/${id}/activate`, null);
+    return this.http.put(`/api/shipments/${id}/activate`, null);
   }
 
+  getListShipmentAssigned(DriverID: number): Observable<any> {
+    return this.https.get(`${this.url}/shipmentAssigned?id=${DriverID}`);
+  }
+
+  GetLocationPicking(shipmentCode: string): Observable<any> {
+    return this.https.get(`${this.url}/${shipmentCode}/locationpicking`);
+  }
+
+  GetShipmentDetail(shipmentCode: string): Observable<any> {
+    return this.https.get(`${this.url}/${shipmentCode}/deliverydetail`);
+  }
+
+  ChangeDeliveryShipmentStatus(shipmentCode: string, status: string): Observable<any> {
+
+    return this.https.put(`${this.url}/${shipmentCode}/changestatus/${status}`, null);
+  }
+
+  GetRequest(requestCode: string): Observable<any> {
+    return this.https.get(`${this.url}/request/${requestCode}`);
+  }
+
+  ChangeStatusRequest(requestCode: string, status: string): Observable<any> {
+    return this.https.put(`${this.url}/request/${requestCode}/changestatus/${status}`,null);
+  }
+
+  GetListRequest(shipmentCode: string): Observable<any> {
+    return this.https.get(`${this.url}/${shipmentCode}/requestList`);
+  }
+  ChangeOrderReqeust(paramerter: any): Observable<any> {
+    return this.https.post(`${this.url}/shipment/changeOrder`, paramerter);
+  }
+  SendProblem(requestCode: string, problem: boolean, message: string): Observable<any> {
+    return this.https.post(`${this.url}/request/${requestCode}/problem/${problem}`, { parameter: { 'message': message }})
+  }
 
 }

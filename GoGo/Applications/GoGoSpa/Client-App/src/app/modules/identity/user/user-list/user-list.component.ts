@@ -54,35 +54,35 @@ export class UserListComponent implements OnInit {
       if (this.selectOption == 'Customer') {
         this.id = 1;
 
-        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+        this._http.get('http://localhost:54520/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
           this.data = result;
           this.userList = this.data;
         });
       }
       else if (this.selectOption == 'Driver') {
         this.id = 2;
-        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+        this._http.get('http://localhost:54520/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
           this.data = result;
           this.userList = this.data;
         });
       }
       else if (this.selectOption == 'Coordinator') {
         this.id = 3;
-        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+        this._http.get('http://localhost:54520/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
           this.data = result;
           this.userList = this.data;
         });
       }
       else {
         this.id = 4
-        this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+        this._http.get('http://localhost:54520/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
           this.data = result;
           this.userList = this.data;
         });
       }
     }
     
-    //this.http.get('http://localhost:62772/api/user/userroles?id=' + id).subscribe(result => {
+    //this.http.get('http://localhost:54520/api/user/userroles?id=' + id).subscribe(result => {
     //  this.data = result;
     //  this.userList = this.data;
     //});

@@ -17,6 +17,9 @@
               [height]="380">
 
     <kendo-grid-column field="code" title="Code" [width]="200">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <a routerLink="/shipment/{{dataItem.code}}" routerLinkActive="active">{{dataItem.code}}</a>
+      </ng-template>
     </kendo-grid-column>
     <kendo-grid-column field="startDate" title="Start Date" [width]="250">
     </kendo-grid-column>

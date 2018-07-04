@@ -23,6 +23,8 @@ namespace Domains.GoGo.Services
         Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
         Task<int> UpdateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
         Task<RequestModel> FindCustomerRequestAsync(int id);
+        Task<LocationModel> GetPositionWarehouse(string code);
+        Task<int> GetRequestID(string code);
     }
 }
 	
