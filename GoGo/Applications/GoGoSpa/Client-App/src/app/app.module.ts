@@ -124,7 +124,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     AuthHttpService,
     AuthenticationService,
     FormValidationService,
-    //APP_INITIALIZER_PROVIDER,
+    APP_INITIALIZER_PROVIDER,
     JwtHelperService,
     ConfigService,
     RequestsService,

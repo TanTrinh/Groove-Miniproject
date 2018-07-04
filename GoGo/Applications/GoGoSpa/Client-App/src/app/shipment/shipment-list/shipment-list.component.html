@@ -16,22 +16,24 @@
               [selectable]="true"
               [height]="380">
 
-    <kendo-grid-column field="Code" title="Code" [width]="200">
+    <kendo-grid-column field="code" title="Code" [width]="200">
     </kendo-grid-column>
-    <kendo-grid-column field="StartDate" title="Start Date" [width]="250">
+    <kendo-grid-column field="startDate" title="Start Date" [width]="250">
     </kendo-grid-column>
-    <kendo-grid-column field="EndDate" title="End Date" [width]="250">
+    <kendo-grid-column field="endDate" title="End Date" [width]="250">
     </kendo-grid-column>
-    <kendo-grid-column field="DriverName" title="Driver" >
+    <kendo-grid-column field="driverName" title="Driver">
     </kendo-grid-column>
-    <kendo-grid-column field="VehicleLicensePlate" title="Vehicle" >
+    <kendo-grid-column field="vehicleLicensePlate" title="Vehicle">
     </kendo-grid-column>
-    <kendo-grid-column field="RequestQuantity" title="Requests">
+    <kendo-grid-column field="requestQuantity" title="Requests">
+    </kendo-grid-column>
+    <kendo-grid-column field="status" title="Status">
     </kendo-grid-column>
     <kendo-grid-command-column title="Command">
       <ng-template kendoGridCellTemplate let-dataItem>
-        <button class="btn btn-primary btn-sm mr-1 mb-1 btn-width" (click)="ChangeStatus(dataItem.Id)">Active</button>
-        <button class="btn btn-info  btn-sm mb-1 btn-width" (click)="onUpdate(dataItem.Id)">Update</button>
+        <button class="btn btn-primary btn-sm mr-1 mb-1 btn-width" (click)="ChangeStatus(dataItem.id)">Active</button>
+        <button class="btn btn-info  btn-sm mb-1 btn-width" (click)="onUpdate(dataItem.id)">Update</button>
       </ng-template>
     </kendo-grid-command-column>
   </kendo-grid>

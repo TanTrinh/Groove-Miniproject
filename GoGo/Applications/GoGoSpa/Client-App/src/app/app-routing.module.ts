@@ -34,8 +34,7 @@ const routes: Routes = [
       {
         path: 'shipment', component: ShipmentComponent, children: [
           { path: '', component: ShipmentListComponent },
-          { path: 'create', component: ShipmentFormComponent },
-          { path: 'update/:id', component: ShipmentFormComponent },
+          { path: 'form/:mode/:id', component: ShipmentFormComponent}        
         ]
       }
     ]

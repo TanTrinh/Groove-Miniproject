@@ -51,7 +51,7 @@ namespace Infrastructures.Repositories.GoGo
 
         public WarehouseModel GetWarehouseByIdlAsync(string shipmentId)
         {
-            var requestId = this.context.Set<ShipmentRequest>().Where(p => p.ShipmentId.ToString() == shipmentId).Select(p => p.RequestId).FirstOrDefault();
+            var requestId = this.context.Set<ShipmentRequest>().Where(p => ((p.ShipmentId.ToString() == shipmentId) &&(p.Status != ShipmentRequestStatus.INACTIVE)) ).Select(p => p.RequestId).FirstOrDefault();
             return this.context.Set<Request>().Where(p => p.Id == requestId).Select(p => p.WareHouse).MapQueryTo<WarehouseModel>(_mapper).SingleOrDefault();
         }
     }

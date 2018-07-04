@@ -13,10 +13,10 @@ import { Validators } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { MasterDataService } from '../../shared/sevices/master-data.service';
 import { Subscription } from 'rxjs-compat/Subscription';
-
+import { map } from 'rxjs/internal/operators/map';
 
 
 @Component({
@@ -26,7 +26,7 @@ import { Subscription } from 'rxjs-compat/Subscription';
 })
 export class ShipmentFormComponent implements OnInit, OnDestroy {
 
-  
+  private formMode: string;
 
   private sub: Subscription;
 
@@ -35,19 +35,19 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   //Combobox
   private toggleText = 'Hide';
   private show = true;
-  private view: Observable<any>;
+  private requestView: Observable<any>;
   public request: any = {
   };
 
-  private vehicleView: Observable<any>;
+  private vehicleView: any;
   public vehicle: any = {
   };
 
-  private driverView: Observable<any>;
+  private driverView: any;
   public driver: any = {
   };
 
-  private warehouseView: Observable<any>;
+  private warehouseView: any;
   public warehouse: any = {
   };
 
@@ -77,32 +77,29 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   constructor(private shipmentService: ShipmentService, private router: Router, private http: Http,
     private requestService: RequestsService, private masterDataService: MasterDataService,
     private sharingService: SharingService, private route: ActivatedRoute) {
-    this.view = requestService;
-
+ 
     // TODO: If vehicleView & driverView should not share the same masterDataService, because they will share the same data
     // Solution: replace vehicleView by vehicleList, when use call handleVehicleFilter(),
     // it will call HTTP to get new data, then new data will be replace current vehicleList
-    this.vehicleView = masterDataService; 
-    this.driverView = masterDataService;
-    this.warehouseView = masterDataService;
+    // Done
 
     this.shipmentId = this.route.snapshot.paramMap.get('id');
+    this.formMode = this.route.snapshot.paramMap.get('mode');
   }
 
   ngOnInit(): void {
-    if (this.sharingService.isNewShipment == false) {
-      this.shipmentService.GetDetailById(this.shipmentId).pipe(map(res => res.json())).subscribe
-        (
-        result => {
-          this.shipmentId = result.Id
-          this.shipmentCode = result.Code
-          this.driverDetail = result.Driver
-          this.vehicleDetail = result.Vehicle
-          this.requestIdList = result.RequestIdList
-          this.requestList = result.RequestList
-          this.warehouseDetail = result.Warehouse
-          this.pickingDate = new Date(result.StartDate)
-          this.deliveryDate = new Date(result.EndDate)
+    if (this.formMode == "update") {
+      this.shipmentService.GetDetailById(this.shipmentId).subscribe(
+        result => {        
+          this.shipmentId = result.id
+          this.shipmentCode = result.code
+          this.driverDetail = result.driver
+          this.vehicleDetail = result.vehicle
+          this.requestIdList = result.requestIdList
+          this.requestList = result.requestList
+          this.warehouseDetail = result.warehouse
+          this.pickingDate = new Date(result.startDate)
+          this.deliveryDate = new Date(result.endDate)
           this.refreshGrid()
         }    
       )
@@ -119,7 +116,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
     if (this.requestIdList.length != 0) {
       {
         if (this.sharingService.isNewShipment == true) {
-          this.shipmentService.CreateShipment(this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
+          this.shipmentService.CreateShipment(this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.id, this.driverDetail.id, '3')
             .subscribe(result => {
 
               this.router.navigate(['/shipment/']);
@@ -127,7 +124,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
               errors => { this.errors = errors })
         }
         else if (this.sharingService.isNewShipment == false) {
-          this.shipmentService.UpdateShipment(this.shipmentId, this.shipmentCode, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.Id, this.driverDetail.Id, '3')
+          this.shipmentService.UpdateShipment(this.shipmentId, this.shipmentCode, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.id, this.driverDetail.id, '3')
             .subscribe(result => {
 
               this.router.navigate(['/shipment/']);
@@ -147,67 +144,97 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   //Master Data
   //Driver code filter
   public handleDriverFilter(value) {
-    this.masterDataService.driverQuery(value)
+    if (value != null && value != undefined && value != '') {
+      this.masterDataService.getDriverDataSource(value).subscribe(result => {
+        this.driverView = result;
+      })
+    }
   }
 
   //get Driver Detail
   GetDriverDetail() {
-    this.masterDataService.getDriverDetail(this.driver.Value).pipe(map(res => res.json()))
-      .subscribe(result => {
-        this.driverDetail = result
-      });
+    if (this.driver != undefined ) {
+      this.masterDataService.getDriverDetail(this.driver.value)
+        .subscribe(result => {
+          this.driverDetail = result
+        });
+    }
+    
   }
 
   //Vehicles code filter
   public handleVehicleFilter(value) {
-    this.masterDataService.vehicleQuery(value)
+    if (value != null && value != undefined && value != '' ) {
+       this.masterDataService.getVehicleDataSouce(value).subscribe(result => {
+         this.vehicleView = result;
+       })
+    }
+   
   }
 
   //get Vehicles Detail
   GetVehicleDetail() {
-    this.masterDataService.getVehicleDetail(this.vehicle.Value).pipe(map(res => res.json()))
-      .subscribe(result => {
-        this.vehicleDetail = result
-      });
+    if (this.vehicle != undefined) {
+      this.masterDataService.getVehicleDetail(this.vehicle.value)
+        .subscribe(result => {
+          this.vehicleDetail = result
+        });
+    }
+
+   
   }
 
   //Warehouse code filter
   public handleWarehouseFilter(value) {
-    this.masterDataService.werehouseQuery(value)
+    if (value != null && value != undefined && value != '') {
+      this.masterDataService.getWarehouseDataSource(value).subscribe(result => {
+        this.warehouseView = result;
+      })
+    }
   }
 
   //get Warehouse Detail
   GetWarehouseDetail() {
-    this.masterDataService.getWarehouseDetail(this.warehouse.Value).pipe(map(res => res.json()))
-      .subscribe(result => {
-        this.warehouseDetail = result
-      });
+    if (this.warehouse != undefined) {
+      console.log(this.warehouse.value)
+      this.masterDataService.getWarehouseDetail(this.warehouse.value)
+        .subscribe(result => {
+          this.warehouseDetail = result
+        });
+    }
   }
 
   //Request code filter
   public handleFilter(value) {
-    this.requestService.query(value, this.warehouseDetail.Id)
+    if (value != null && value != undefined && value != '') {
+      this.requestService.getdatasource(value, this.warehouseDetail.id).subscribe(result => {
+        this.requestView = result;
+      })
+    }
   }
 
   //Add Request Tolist
   AddRequestToList() {
-    this.requestService.getRequestDetail(this.request.Value).pipe(map(res => res.json()))
-      .subscribe(result => {
-        this.requestDetail = result
-        this.requestDetail.PickingDate = this.sharingService.datimeFormat(this.requestDetail.PickingDate);
-        this.requestDetail.ExpectedDate = this.sharingService.datimeFormat(this.requestDetail.ExpectedDate);
-        this.pushRequest()
-      });
+    if (this.request != undefined) {
+      this.requestService.getRequestDetail(this.request.value)
+        .subscribe(result => {
+          this.requestDetail = result
+          this.requestDetail.pickingDate = this.sharingService.datimeFormat(this.requestDetail.pickingDate);
+          this.requestDetail.expectedDate = this.sharingService.datimeFormat(this.requestDetail.expectedDate);
+          this.pushRequest()
+        });
+    }
+       
   }
 
   //Grid table
   pushRequest()
   {
     if (this.requestList.indexOf(this.requestDetail) != -1
-      || this.requestIdList.indexOf(this.requestDetail.Id) != -1) {
+      || this.requestIdList.indexOf(this.requestDetail.id) != -1) {
     } else {
       this.requestList.push(this.requestDetail);
-      this.requestIdList.push(this.requestDetail.Id);
+      this.requestIdList.push(this.requestDetail.id);
       this.refreshGrid();
       this.isValid = true;
     }
@@ -230,7 +257,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
 
   onChange(Value)
   {
-    this.masterDataService.getVehicleDetail(Value).pipe(map(res => res.json()))
+    this.masterDataService.getVehicleDetail(Value)
       .subscribe(result => {
         this.vehicleDetail = result
       });

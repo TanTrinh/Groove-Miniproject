@@ -23,6 +23,7 @@ import { SharingService } from '../../shared/sevices/sharing-service.service';
 export class ShipmentListComponent{
   public shipments: GridDataResult;
   private currentSubscription: Subscription;
+  private isCoordinator: boolean;
 
   public state: DataSourceRequestState = {
     skip: 0,
@@ -53,7 +54,7 @@ export class ShipmentListComponent{
   onCreate()
   {
     this.sharingService.isNewShipment = true;
-    this.router.navigate(['/shipment/create']);
+    this.router.navigate(['/shipment/form/create', '']);
   }
 
   onUpdate(id: any)
@@ -64,6 +65,7 @@ export class ShipmentListComponent{
 
     // TODO: Remove sharing service. State ofr update/creation form should be managed by URL instead of sharing service
     // It should navigate to /shipment/update/{shipmentCode}
-    this.router.navigate(['/shipment/update', id]);
+    // Done
+    this.router.navigate(['/shipment/form/update', id]);
   }
 }

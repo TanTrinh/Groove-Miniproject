@@ -18,5 +18,6 @@ namespace Domains.GoGo.Repositories.Transportation
 
 		DataSourceResult GetAllAsync(DataSourceRequest request, string userId);
 		ShipmentDetailModel GetShipmentById(string id);
+		Shipment GetShipment(string id);
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Domains.Core;
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories;
@@ -50,7 +51,7 @@ namespace Domains.GoGo.Services.Transportation
 
 			entity.Code = Helper.GenerateCode(DateTime.Now, 100);
 
-			entity.Status = "inActive"; // TODO: Create ShipmentStatus class for Constant instead of hard code
+			entity.Status = ShipmentStatus.INACTIVE; 
 
 			_uow.GetRepository<IShipmentRepository>().Create(entity);
 
@@ -62,12 +63,10 @@ namespace Domains.GoGo.Services.Transportation
 		public async Task UpdateShipmentByIdAsync(string code, FormShipmentModel model)
 		{
 
-            //var entity = _uow.GetRepository<IShipmentRepository>().GetEntityById(model.Id);
+			var entity = _shipmentRepository.GetShipment(model.Id.ToString());
 
-		    var entity = _mapper.Map<Shipment>(model);
-
-            entity.Status = "Pending"; // TODO: Create ShipmentStatus class for Constant instead of hard code
-
+			 _mapper.Map<FormShipmentModel, Shipment>(model, entity);
+         
 		    _shipmentRequestRepository.UpdateShipmentRequest(model.RequestIdList, model.Id);
 			_uow.GetRepository<IShipmentRepository>().Update(entity);
 				

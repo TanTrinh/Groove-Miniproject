@@ -7,6 +7,7 @@ import { GridDataResult } from '@progress/kendo-angular-grid';
 import { map } from 'rxjs/internal/operators/map';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { AuthHttpService } from '../shared';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class RequestsService extends BehaviorSubject<any> {
 
   baseUrl: string = '';
 
-  constructor(private http: Http, private configService: ConfigService, private https: HttpClient) {
+  constructor(private http: Http, private configService: ConfigService, private https: AuthHttpService) {
     super(null);
 
     this.baseUrl = configService.getApiURI();
@@ -27,16 +28,13 @@ export class RequestsService extends BehaviorSubject<any> {
   }
 
   public getdatasource(value, werehouseId): Observable<any> {
-    return this.https.get(this.baseUrl + `/Requests/filter/${werehouseId}/${value}`);
+    return this.https.get(`/api/Requests/filter/${werehouseId}/${value}`);
   }
 
   //Request Detail Api
   public getRequestDetail(id: any): Observable<any>
-  {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.get(this.baseUrl + `/Requests/${id}`, options);
+  { 
+    return this.https.get(`/api/Requests/${id}`);
   }
 
 

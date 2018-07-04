@@ -67,6 +67,11 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 			this.context.Update(shipment);
 			return await this.context.SaveChangesAsync();
 		}
+
+		public Shipment GetShipment(string id)
+		{
+			return this.dbSet.Where(p => p.Id.ToString() == id).SingleOrDefault();
+		}
 	}	
 
 }

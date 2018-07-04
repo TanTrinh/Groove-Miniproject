@@ -59,9 +59,9 @@ namespace GoGoApi.Controllers.GoGo
 			return Ok(await _Shipmentservice.ChangeShipmentStatusById(id, ShipmentStatus.INACTIVE));
 		}
 
-		[Route("list/{queryString}")]
+		[Route("")]
 		[HttpGet]
-		public IActionResult GetShipments(DataSourceRequest queryString)
+		public IActionResult GetShipments([FromQuery]DataSourceRequest queryString)
 		{
 			var userIdentity = GetCurrentIdentity<long>();
 			var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).Select(p=>p.Value).ToList();
