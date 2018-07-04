@@ -28,7 +28,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Import the ButtonsModule
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
-import { ShipmentCreatingComponent } from './shipment/shipment-creating/shipment-creating.component';
+import { ShipmentFormComponent } from './shipment/shipment-form/shipment-form.component';
 import { ShipmentComponent } from './shipment/shipment/shipment.component';
 import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.component';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
@@ -57,7 +57,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
 
     // Do initing of services that is required before app loads
     // NOTE: this factory needs to return a function (that then returns a promise)
-    return () => ServiceRegistryService.load('http://localhost:54520/configuration/serviceRegistry').toPromise();
+    return () => ServiceRegistryService.load('http://localhost:54526/configuration/serviceRegistry').toPromise();
     //return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
   },
   deps: [ServiceRegistryService],
@@ -74,7 +74,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     FooterComponent,
     NavigationComponent,
     LoginComponent,
-    ShipmentCreatingComponent,
+    ShipmentFormComponent,
     ShipmentComponent,
     ShipmentListComponent,
     GgmapComponent,
@@ -128,7 +128,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     AuthHttpService,
     AuthenticationService,
     FormValidationService,
-    //APP_INITIALIZER_PROVIDER,
+    APP_INITIALIZER_PROVIDER,
     JwtHelperService,
     ConfigService,
     RequestsService,

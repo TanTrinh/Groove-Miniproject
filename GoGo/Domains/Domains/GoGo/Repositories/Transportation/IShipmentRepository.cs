@@ -14,14 +14,14 @@ namespace Domains.GoGo.Repositories.Transportation
 	public interface IShipmentRepository : IGenericRepository<Shipment, int>
     {
         
-       // Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id);
-        Task<int> ChangeStatus(string code, string status);
+        //Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id);
+        Task<int> ChangeShipmentStatusById(string id, string status);
 
-		DataSourceResult GetAllAsync(DataSourceRequest request);
-		ShipmentDetailModel GetShipmentByCode(string Code);
-	
-        Task<string> ChangeDeliveryStatus(string code, string status);
-       // Task<IEnumerable<ShipmentViewModel>> GetShipmentAssignedModel(long? id);
-        Task<ShipmentViewModel> GetShipmentAsync(string code);
-    }
+		DataSourceResult GetAllAsync(DataSourceRequest request, string userId);
+		ShipmentDetailModel GetShipmentById(string id);
+		Shipment GetShipment(string id);
+		Task<string> ChangeDeliveryStatus(string code, string status);
+		// Task<IEnumerable<ShipmentViewModel>> GetShipmentAssignedModel(long? id);
+		Task<ShipmentViewModel> GetShipmentAsync(string code);
+	}
 }

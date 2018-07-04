@@ -4,14 +4,13 @@ import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-gr
 import { Observable, Subscription, fromEvent,  } from 'rxjs';
 import { State, process, toDataSourceRequestString, DataSourceRequestState } from '@progress/kendo-data-query';
 import { map, tap} from 'rxjs/operators';
-
+import { EditService } from 'src/app/shipment/edit.service';
 import { HttpClient } from '@angular/common/http';
 import { ShipmentService } from '../shipment.service';
 import { Router } from '@angular/router';
-
+import { SharingService } from 'src/app/shared/sevices/sharing-service.service';
 import { Renderer2, NgZone, AfterViewInit,  EventEmitter, OnDestroy } from '@angular/core';
 import { take } from 'rxjs/operators/take';
-import { SharingService } from '../../shared/sevices/sharing-service.service';
 //import { fromEvent } from 'rxjs/observable/fromEvent';
 
 
@@ -23,7 +22,6 @@ import { SharingService } from '../../shared/sevices/sharing-service.service';
 export class ShipmentListComponent{
   public shipments: GridDataResult;
   private currentSubscription: Subscription;
-  private isCoordinator: boolean;
 
   public state: DataSourceRequestState = {
     skip: 0,
@@ -34,7 +32,8 @@ export class ShipmentListComponent{
               private renderer: Renderer2, private zone: NgZone) {
     this.shipmentService.fetch(this.state).subscribe(response => this.shipments = response);
 
-   
+    
+
   }
 
 
@@ -47,25 +46,28 @@ export class ShipmentListComponent{
 
   ChangeStatus(value: any) {
     
-    this.shipmentService.ActivateShipment(value).subscribe();
+    this.shipmentService.ChangeShipmentStatus(value, "Pending").subscribe();
   }
 
  
   onCreate()
   {
     this.sharingService.isNewShipment = true;
-    this.router.navigate(['/shipment/form/create', '']);
+    this.router.navigate(['/shipment/form']);
   }
 
-  onUpdate(id: any)
+  onUpdate(value: any)
   {
     
     this.sharingService.isNewShipment = false;
-    this.sharingService.shipmentCode = id;
+    this.sharingService.shipmentCode = value;
 
+<<<<<<< HEAD
+    this.router.navigate(['/shipment/form']);
+=======
     // TODO: Remove sharing service. State ofr update/creation form should be managed by URL instead of sharing service
     // It should navigate to /shipment/update/{shipmentCode}
-    // Done
-    this.router.navigate(['/shipment/form/update', id]);
+    this.router.navigate(['/shipment/create']);
+>>>>>>> 1036d0c0b183bc304ffebeeb60cd531896efa5e8
   }
 }

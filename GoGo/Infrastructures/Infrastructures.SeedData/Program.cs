@@ -553,9 +553,9 @@ namespace Infrastructures.SeedData
                         RequestId = (i * 5) + j + 1,
                         RequestOrder = j + 1,
                         Note = "",
-                        Status = "Waiting",
-                        RequestEstimateDate = RequestEstimateDate.AddDays(ran.Next(2, i % 4 + 3)),
-                        RequestDeliveriedDate = RequestEstimateDate.AddDays(ran.Next(4, i % 7 + 5))
+                        Status = "Pending",
+                        RequestEstimateDate = RequestEstimateDate.AddDays(ran.Next(0, i % 2 + 1)),
+                        RequestDeliveriedDate = RequestEstimateDate.AddDays(ran.Next(2, i % 7 + 3))
                     };
                     dbContext.Add(shipmentRequest);
                     dbContext.SaveChanges();

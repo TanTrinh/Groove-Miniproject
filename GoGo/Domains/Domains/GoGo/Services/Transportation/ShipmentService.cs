@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Domains.Core;
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models;
 using Domains.GoGo.Models.Transportation;
+using Domains.GoGo.Repositories;
 using Domains.GoGo.Repositories.Transportation;
 using Domains.Helpers;
 using Groove.AspNetCore.Common.Identity;
@@ -19,26 +21,34 @@ namespace Domains.GoGo.Services.Transportation
 		
 		private readonly IShipmentRepository _shipmentRepository;
 		private readonly IShipmentRequestRepository _shipmentRequestRepository;
+		private readonly IWarehouseRepository _warehouseRepository;
 		private readonly IRequestRepository _requestRepository;
 		private readonly IUnitOfWork _uow;
 		private readonly IMapper _mapper;
 
-		public ShipmentService(IMapper mapper, IUnitOfWork uow, IShipmentRepository repository, IRequestRepository requestRepository, IShipmentRequestRepository shipmentRequestRepository)
+		public ShipmentService(IMapper mapper, IUnitOfWork uow, 
+			IShipmentRepository repository, IRequestRepository requestRepository, 
+			IShipmentRequestRepository shipmentRequestRepository, IWarehouseRepository warehouseRepository)
 		{
 			_uow = uow;
 			_shipmentRepository = repository;
 			_mapper = mapper;
 			_requestRepository = requestRepository;
 			_shipmentRequestRepository = shipmentRequestRepository;
+			_warehouseRepository = warehouseRepository;
 		}
 
-        public async Task<string> ChangeDeliveryStatus(string code, string status)
+        public async Task<int> ChangeShipmentStatusById(string id, string status)
         {
-            return await _shipmentRepository.ChangeDeliveryStatus(code, status);
+            return await _shipmentRepository.ChangeShipmentStatusById(id, status);
         }
 
+		public async Task<string> ChangeDeliveryStatus(string code, string status)
+		{
+			return await _shipmentRepository.ChangeDeliveryStatus(code, status);
+		}
 
-        public async Task<int> CreateShipmentAsync(FormShipmentModel model)
+		public async Task<int> CreateShipmentAsync(FormShipmentModel model)
 		{
 			var entity = _mapper.Map<Shipment>(model);
 
@@ -47,7 +57,7 @@ namespace Domains.GoGo.Services.Transportation
 
 			entity.Code = Helper.GenerateCode(DateTime.Now, 100);
 
-			entity.Status = "inActive"; // TODO: Create ShipmentStatus class for Constant instead of hard code
+			entity.Status = ShipmentStatus.INACTIVE; 
 
 			_uow.GetRepository<IShipmentRepository>().Create(entity);
 
@@ -56,47 +66,37 @@ namespace Domains.GoGo.Services.Transportation
 			return entity.Id;
 		}
 
-		public async Task UpdateShipmentAsync(FormShipmentModel model)
+		public async Task UpdateShipmentByIdAsync(string code, FormShipmentModel model)
 		{
 
-     //       var entity = _uow.GetRepository<IShipmentRepository>().GetEntityById(model.Id);
+			var entity = _shipmentRepository.GetShipment(model.Id.ToString());
 
-            // TODO: Get Old entity from database first, then copy new data to Old Entity, then update
-           var entity = _mapper.Map<Shipment>(model);
-            entity.Status = "Pending"; // TODO: Create ShipmentStatus class for Constant instead of hard code
-
-            _shipmentRequestRepository.UpdateShipmentRequest(model.RequestIdList, model.Id);
+			 _mapper.Map<FormShipmentModel, Shipment>(model, entity);
+         
+		    _shipmentRequestRepository.UpdateShipmentRequest(model.RequestIdList, model.Id);
 			_uow.GetRepository<IShipmentRepository>().Update(entity);
 				
             await _uow.SaveChangesAsync();
         }
 
 
-		public DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request)
+		public DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request, string userId)
 		{
-			return _shipmentRepository.GetAllAsync(request);
+			return _shipmentRepository.GetAllAsync(request, userId);
 		}
 
-		//public Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id)
-  //      {
-  //          return _shipmentRepository.GetShipmentAssignedModel(id);
-  //      }
-
-		public ShipmentDetailModel GetShipmentByCode(string Code)
+		public ShipmentDetailModel GetShipmentById(string shipmentId)
 		{
-			var result = _shipmentRepository.GetShipmentByCode(Code);
+			var result = _shipmentRepository.GetShipmentById(shipmentId);
 
 			result.RequestList = _requestRepository.GetRequestsByShipmentId(result.Id);
 			result.RequestIdList = _requestRepository.GetRequestIdList(result.Id);
 
+			result.Warehouse = _warehouseRepository.GetWarehouseByIdlAsync(shipmentId);
+
 			return result;
 		}
-
-        public async Task<int> ChangeStatus(string code, string status)
-        {
-            return await _shipmentRepository.ChangeStatus(code, status);
-        }
-
+      
         public Task<ShipmentViewModel> GetShipmentAsync(string code)
         {
             return _shipmentRepository.GetShipmentAsync(code);

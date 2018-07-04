@@ -10,6 +10,7 @@ namespace Domains.GoGo.Models.Transportation
 	public class ShipmentDetailModel
 	{
 		public int Id { get; set; }
+		public string Code { get; set; }
 		public IEnumerable<RequestsModel> RequestList { get; set; }
 		public IEnumerable<int> RequestIdList { get; set; }
 		public int RequestQuantity { get; set; }
@@ -17,6 +18,7 @@ namespace Domains.GoGo.Models.Transportation
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
 
+		public WarehouseModel Warehouse { get; set; }
 		public VehicleModel Vehicle { get; set; }
 		public DriverModel Driver { get; set; }
 	}

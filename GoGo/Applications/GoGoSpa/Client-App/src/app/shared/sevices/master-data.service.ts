@@ -3,68 +3,48 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 import { ConfigService } from './config-service.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { AuthHttpService } from 'src/app/shared';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MasterDataService extends BehaviorSubject<any> {
   private baseUrl = '';
-  constructor(private http: Http, private configService: ConfigService, private https: HttpClient) {
+  constructor(private http: Http, private configService: ConfigService, private https: AuthHttpService) {
     super(null);
 
-    this.baseUrl = configService.getApiURI();
   }
 
-  //Master Data
-  //Vehicles filter Api
-  public vehicleQuery(licensePlate): void {
-    this.getVehicleDataSouce(licensePlate).subscribe(x => super.next(x));
+
+  ///api/Vehicles filter Api
+  public getVehicleDataSouce(licensePlate): Observable<any>{
+    return this.https.get(`/api/Vehicles?licensePlate=${licensePlate}`);
   }
 
-  public getVehicleDataSouce(licensePlate): Observable<any> {
-    return this.https.get(this.baseUrl + `/Vehicles/dataSource?licensePlate=${licensePlate}`);
-  }
-
-  //Vehicles Detail Api
-  public getVehicleDetail(Id: string): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.get(this.baseUrl + '/Vehicles/getDetail?Id=' + Id, options);
+  public getVehicleDetail(id: string): Observable<any> {
+    
+    return this.https.get(`/api/Vehicles/${id}`);
   }
 
   //Driver filter Api
-  public driverQuery(driverName): void {
-    this.getDriverDataSource(driverName).subscribe(x => super.next(x));
-  }
-
+ 
   public getDriverDataSource(driverName): Observable<any> {
-    return this.https.get(this.baseUrl + `/MasterData/Drivers/dataSource?driverName=${driverName}`);
+    return this.https.get(`/api/MasterData/Drivers?driverName=${driverName}`);
   }
 
-  //Driver filter Api
-  public getDriverDetail(Id: string): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.get(this.baseUrl + '/MasterData/Drivers/getDetail?Id=' + Id, options);
+  public getDriverDetail(id: string): Observable<any> {
+ 
+    return this.https.get(`/api/MasterData/Drivers/${id}`) ;
   }
 
   //Warehouse filter Api
-  public werehouseQuery(value): void {
-    this.getWarehouseDataSource(value).subscribe(x => super.next(x));
-  }
-
   public getWarehouseDataSource(value): Observable<any> {
-    return this.https.get(this.baseUrl + `/MasterData/Warehouses/dataSource?value=${value}`);
+    return this.https.get(`/api/MasterData/Warehouses?value=${value}`);
   }
 
-  //Warehouse filter Api
-  public getWarehouseDetail(Id: string): Observable<any> {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.get(this.baseUrl + '/MasterData/Warehouses/getDetail?Id=' + Id, options);
+  public getWarehouseDetail(id: string): Observable<any> {
+   
+    return this.https.get(`/api/MasterData/Warehouses/${id}`);
   }
 
 

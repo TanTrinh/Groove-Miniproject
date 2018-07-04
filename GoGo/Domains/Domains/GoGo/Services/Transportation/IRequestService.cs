@@ -18,7 +18,7 @@ namespace Domains.GoGo.Services
 		Task<IEnumerable<DataSourceValue<int>>>  GetDataSource(string value, int warehouseId);
 
 		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
-        Task<RequestsModel> GetRequestByCode(string code);
+        Task<RequestsModel> GetRequestByIdAsync(string id);
     
         Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
         Task<int> UpdateCustomerRequest(RequestModel model, UserIdentity<long> issuer);
