@@ -20,6 +20,9 @@ import { AccountModule } from './modules/account/account.module';
 import { InputsModule } from '@progress/kendo-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AgmCoreModule } from '@agm/core';
+import { GgmapComponent } from './ggmap/ggmap.component';
+
 
 
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
@@ -45,7 +48,6 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     HeaderComponent,
     FooterComponent,
     NavigationComponent,
-    //GgmapComponent,
     LoginComponent
   ],
   imports: [
@@ -53,10 +55,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    //AgmCoreModule.forRoot({
-    //  apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
-    //}),
-    //AgmDirectionModule,
+    
     HttpClientModule,
     ShipmentModule,
     AccountModule,

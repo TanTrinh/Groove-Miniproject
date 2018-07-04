@@ -10,7 +10,6 @@ namespace Domains.GoGo.Repositories
 {
     public interface IWarehouseRepository : IGenericRepository<WareHouse, int>
     {
-        Task<IEnumerable<DataSourceValue<int>>> WarehouseOfCustomerModelAsync(int id);
-        Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName);
+        Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName, long userId);
     }
 }

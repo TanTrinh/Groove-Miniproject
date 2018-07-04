@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domains.GoGo.Services;
 using Groove.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers
@@ -17,19 +18,13 @@ namespace GoGoApi.Controllers
             _warehouseService = warehouseService;
         }
 
-        [Route("customer/{id}")]
-        [HttpGet]
-        public async Task<IActionResult> GetWarehousesOfCustomerAsync(int id)
-        {
-            var result = await _warehouseService.GetWarehousesOfCustomer(id);
-            return Ok(result);
-        }
-
         [Route("filter-list/{displayName}")]
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetOnFilter(string displayName)
         {
-            var result = await _warehouseService.GetOnFilter(displayName);
+            var userId = GetCurrentUserId<long>();
+            var result = await _warehouseService.GetOnFilter(displayName, userId);
             return Ok(result);
         }
     }

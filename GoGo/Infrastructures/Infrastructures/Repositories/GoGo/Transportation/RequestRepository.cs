@@ -15,6 +15,7 @@ using Domains.GoGo;
 using Domains.Core;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
+using Domains.GoGo.Entities.Fleet;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -62,7 +63,6 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                                   }).SingleOrDefaultAsync();
         }
 
-
         public async Task<string> ChangeStatusAsync(string code, string status)
         {
             var entity = await this.dbSet.Where(p => p.Code == code).FirstAsync();
@@ -87,26 +87,16 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             }).ToDataSourceResult(request);
         }
 
-        public async Task<int> UpdateCustomerRequest(RequestModel model, long userId)
-        {
-            var entity = this._mapper.Map<Request>(model); 
+        
 
-            var temp = await this.dbSet.Where(p => p.Id == model.Id).Select(p => new Request{
-                IssuerId = p.IssuerId,
-                CustomerId = p.CustomerId,
-                CreatedDate = p.CreatedDate,
-                Status = p.Status,
-            }).SingleOrDefaultAsync();
+        //public Task<int> CreateCustomerRequest(RequestModel model, long userId)
+        //{
+        //    // Add request
+        //    //var vehicleFeatureDbSet = this.context.Set<VehicleFeatureRequest>();
+        //    //var vehicleFeatureRequest = new VehicleFeatureRequest();
 
-            entity.IssuerId = temp.IssuerId;
-            entity.CustomerId = temp.CustomerId;
-            entity.CreatedDate = temp.CreatedDate;
-            entity.Status = temp.Status;
-            entity.WareHouse = null;
-
-            this.context.Update(entity);
-            await this.context.SaveChangesAsync();
-            return entity.Id;
-        }
+        //    //vehicleFeatureDbSet.Add(vehicleFeatureRequest);
+        //    return 1;
+        //}
     }
 }

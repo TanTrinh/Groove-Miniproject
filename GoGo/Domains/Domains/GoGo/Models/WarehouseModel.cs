@@ -16,8 +16,6 @@ namespace Domains.GoGo.Models
     {
         public WarehouseOfCustomerModelMaper()
         {
-            CreateMap<WarehouseOfCustomerModel, WareHouse>();
-            CreateMap<WareHouse, WarehouseOfCustomerModel>();
             CreateMap<WareHouse, DataSourceValue<int>>()
                 .ForMember(desination => desination.Value, option => option.MapFrom(source => source.Id))
                 .ForMember(desination => desination.DisplayName, option => option.MapFrom(source => source.NameWarehouse));

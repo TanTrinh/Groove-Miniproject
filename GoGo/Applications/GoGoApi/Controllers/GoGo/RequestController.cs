@@ -12,6 +12,7 @@ using System.Collections;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GoGoApi.Controllers
 {
@@ -27,6 +28,7 @@ namespace GoGoApi.Controllers
 
         [Route("/api/request")]
         [HttpGet]
+        [Authorize]
         public IActionResult GetRequests([DataSourceRequest]DataSourceRequest request)
         {
             var userIdentity = GetCurrentIdentity<long>();
@@ -37,14 +39,20 @@ namespace GoGoApi.Controllers
 
         [Route("/api/request/{code}/{status}")]
         [HttpGet]
+        [Authorize]
         public IActionResult ChangeStatus(string code, string status)
         {
+            if (status != "Inactive" && status != "Pending")
+            {
+                return BadRequest();
+            }
             var result = _requestService.ChangeStatus(code, status);
             return  Ok(result);
         }
 
         [Route("")]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateRequest([FromBody]RequestModel model)
         {
             if (ModelState.IsValid)
@@ -59,6 +67,7 @@ namespace GoGoApi.Controllers
 
         [Route("{requestId}")]
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetRequestAsync(int requestId)
         {
             var userId = GetCurrentUserId<long>();
@@ -68,6 +77,7 @@ namespace GoGoApi.Controllers
 
         [Route("{id}")]
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpateRequest([FromBody]RequestModel model)
         {
             if (ModelState.IsValid)

@@ -13,31 +13,28 @@ import { Observable } from 'rxjs';
 })
 
 export class RequestFormComponent extends FormBaseComponent implements OnInit {
-  public warehouseList: Array<any> = [];
-  formData: any = {
-    wareHouse: '',
-    status: '',
-  }
-  public requestStatus: string = 'none';
+  public warehouseList: Array<any> = []; 
+  public vehicleFeatureList: Array<any> = [];
+  public requestStatus: string = '';
 
   public onLoadGrid(status) {
     if (status == 'Inactive') {
       return 'Activate';
     }
-    else if (status == 'Active') {
+    else if (status == 'Pending') {
       return 'Deactivate'
     }
   }
 
   public onClickStatus(dataItem) {
     if (dataItem.status == 'Inactive') {
-      this.requestService.changeStatus(dataItem.code, 'Active').subscribe(
+      this.requestService.changeStatus(dataItem.code, 'Pending').subscribe(
         result => {
           dataItem.status = result.result;
         }
       );
     }
-    else if (dataItem.status == 'Active') {
+    else if (dataItem.status == 'Pending') {
       this.requestService.changeStatus(dataItem.code, 'Inactive').subscribe(
         result => {
           dataItem.status = result.result;
@@ -47,6 +44,8 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
 
   public resetData(data) {
     this.formData.wareHouse = '';
+    this.formData.vehicleFeature = '';
+    this.requestStatus = '';
   }
 
   public onBeforeInitFormData(data) {
@@ -87,20 +86,34 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
       this.requestService.GetRequestStatus(requestId).subscribe(data => {
         if (data != null && data != undefined) {
           this.requestStatus = data.result;
+          if (this.requestStatus == null || this.requestStatus == undefined) {
+            this.requestStatus = 'not accepted';
+          }
         }
       });
     }
     return this.requestStatus;
   }
 
-  public filterChange(value) {
+  public filterWarehouse(value) {
     if (value != null && value != undefined && value != '') {
-      this.requestService.filterWarehouseList(value).subscribe(data => {
+      this.requestService.filterWarehouse(value).subscribe(data => {
         if (data != null && data != undefined) {
           this.warehouseList = data;
         }
       });
       
+    }
+  }
+
+  public filterVehicleFeature(value) {
+    if (value != null && value != undefined && value != '') {
+      this.requestService.filterVehicleFeature(value).subscribe(data => {
+        if (data != null && data != undefined) {
+          this.vehicleFeatureList = data;
+        }
+      });
+
     }
   }
 

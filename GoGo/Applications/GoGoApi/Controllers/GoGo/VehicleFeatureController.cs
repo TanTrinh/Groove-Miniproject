@@ -2,17 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domains.GoGo.Services.Fleet_management;
 using Groove.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.GoGo
 {
+    [Route("api/vehicle-feature")]
     public class VehicleFeatureController : BaseController
     {
-        //[Route("/api/vehicle-feature/datasource")]
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        private readonly IVehicleFeatureService _vehicleFeatureService;
+        public VehicleFeatureController(IVehicleFeatureService vehicleFeatureService)
+        {
+            _vehicleFeatureService = vehicleFeatureService;
+        }
+
+        [Route("filter-list/{displayName}")]
+        [HttpGet]
+        public async Task<IActionResult> GetOnFilter(string displayName)
+        {
+            var result = await _vehicleFeatureService.GetOnFilter(displayName);
+            return Ok(result);
+        }
     }
 }

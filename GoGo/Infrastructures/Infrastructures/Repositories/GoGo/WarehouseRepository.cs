@@ -31,9 +31,9 @@ namespace Infrastructures.Repositories.GoGo
             return await this.dbSet.Where(p => p.OwnerId == id).MapQueryTo<DataSourceValue<int>>(_mapper).ToListAsync();
         }
 
-        public async Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName)
+        public async Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName, long userId)
         {
-            return await this.dbSet.Where(p => p.NameWarehouse.Contains(displayName) && p.OwnerId == 77 )
+            return await this.dbSet.Where(p => p.NameWarehouse.Contains(displayName) && p.OwnerId == userId)
                 .MapQueryTo<DataSourceValue<int>>(_mapper).ToListAsync(); //77 is get on claim
         }
     }

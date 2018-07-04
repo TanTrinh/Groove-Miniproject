@@ -21,7 +21,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
         public string GetRequestStatus(int requestId, int userId)
         {
-            return this.dbSet.Where(p => p.RequestId == requestId).Select(p => p.Status).First();
+            return this.dbSet.Where(p => p.RequestId == requestId).Select(p => p.Status).FirstOrDefault();
         }
 	}
 }

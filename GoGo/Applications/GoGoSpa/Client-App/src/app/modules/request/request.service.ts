@@ -22,9 +22,13 @@ export class RequestService  implements ICreateFormService, IViewFormService, IU
   getDataSource(): Observable<any> { 
     return this._apiHttp.get(``);
   }
-
-  filterWarehouseList(displayName: string): Observable<any>{
+  
+  filterWarehouse(displayName: string): Observable<any>{
     return this._apiHttp.get(`/api/warehouse/filter-list/${displayName}`);
+  }
+
+  filterVehicleFeature(displayName: string): Observable<any> {
+    return this._apiHttp.get(`/api/vehicle-feature/filter-list/${displayName}`);
   }
 
   edit(id: any, formData: any): Observable<any> {

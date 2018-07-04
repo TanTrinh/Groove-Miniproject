@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domains.GoGo.Services.Transportation;
 using Groove.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.GoGo
@@ -20,6 +21,7 @@ namespace GoGoApi.Controllers.GoGo
 
         [Route("{requestId}/status")]
         [HttpGet]
+        [Authorize]
         public IActionResult GetRequestStatus(int requestId)
         {
             var result = _shipmentRequestService.GetRequestStatus(requestId, 1);

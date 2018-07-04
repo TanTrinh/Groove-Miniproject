@@ -56,7 +56,9 @@ namespace Domains.GoGo.Models.Transportation
         public string ReceiverPhoneNumber { set; get; }
         
         //public int WareHouseId { get; set; }
+        //public int VehicleFeatureId { get; set; }
         public DataSourceValue<int> WareHouse { get; set; }
+        public DataSourceValue<int> VehicleFeature { get; set; }
 
     }
 

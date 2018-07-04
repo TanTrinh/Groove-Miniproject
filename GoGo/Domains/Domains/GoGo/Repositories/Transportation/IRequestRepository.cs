@@ -16,6 +16,7 @@ namespace Domains.GoGo.Repositories.Transportation
         Task<RequestDetailModel> GetRequestDetailAsync(int? id);
         Task<string> ChangeStatusAsync(string code, string status);
         Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId);
-        Task<int> UpdateCustomerRequest(RequestModel model, long userId);
+        //void UpdateCustomerRequest(RequestModel model, long userId);
+        //Task<int> CreateCustomerRequest(RequestModel model, long userId);
     }
 }
