@@ -59,7 +59,7 @@
         <div style="width:50%" class="pl-1">
           <button *ngIf="shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Reject')" class="btn btn-danger btn-block">Reject a shipment</button>
           <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==0" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Problem">Have a problem</button>
-          <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==1" (click)="sendProblem(request,false)" class="btn btn-danger btn-block" >Resolved a problem</button>
+          <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==1" (click)="resovleProblem(request)" class="btn btn-danger btn-block" >Resolved a problem</button>
 
           <div class="modal fade" id="Problem" tabindex="-1" role="dialog" aria-labelledby="Problem" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -166,6 +166,6 @@
     </div>
   </div>
   <div class="col-md-8">
-    <app-ggmap  [Waypts]="Waypts"></app-ggmap>
+    <app-ggmap [waypts]="wayptsSubject"></app-ggmap>
   </div>
 </div>

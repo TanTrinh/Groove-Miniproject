@@ -11,6 +11,7 @@ import { LatLng } from '@agm/core';
 import { Marker } from '@agm/core/services/google-maps-types';
 import { ShipmentDetail } from './ShipmentDetail';
 import { Shipment } from '../../shared/models/request';
+import { BehaviorSubject } from 'rxjs';
 
 
 declare var google: any;
@@ -20,6 +21,7 @@ declare var google: any;
   styleUrls: ['./shipment-picking.component.scss']
 })
 export class ShipmentPickingComponent implements OnInit {
+  public wayptsSubject: BehaviorSubject<InfoRequest[]> = new BehaviorSubject<InfoRequest[]>([]);
   data: any = {};
   statusNav = 'Request';
   shipmentDetail= new ShipmentDetail();
@@ -60,7 +62,7 @@ export class ShipmentPickingComponent implements OnInit {
     this.code = this.route.snapshot.paramMap.get('code');
     console.log(this.code)
     this.save.saveCode(this.code);
-    this.service.GetLocationPicking(this.code).subscribe(data => {
+    this.service.getLocationPicking(this.code).subscribe(data => {
       this.locationPicking = data;
       console.log(this.locationPicking)
       var info = new InfoRequest();
@@ -68,14 +70,18 @@ export class ShipmentPickingComponent implements OnInit {
       info.status = "Active";
       info.latlng = this.InitLatlng(this.locationPicking.latitude, this.locationPicking.longitude);
       this.Waypts.unshift(info);
+      this.onChangeWaypts();
     })
     this.refeshShipment(this.code);
     this.GetRequestList();
   }
 
-  //Tested
+  onChangeWaypts() {
+    this.wayptsSubject.next(this.Waypts);
+  }
+
   refeshShipment(code: string) {
-    this.service.GetShipmentDetail(this.code).subscribe(data => {
+    this.service.getShipmentDetail(this.code).subscribe(data => {
 
       console.log(data)
       this.shipmentDetail = data;
@@ -84,6 +90,7 @@ export class ShipmentPickingComponent implements OnInit {
       if (this.shipmentDetail.status == "Shipping") {
         this.Waypts[0].status = "unActive";
         console.log(this.shipmentDetail)
+        this.onChangeWaypts();
       }
       if (this.shipmentDetail.currentRequest == "") {
         this.feedback(this.shipmentDetail, 'Completed');
@@ -91,7 +98,7 @@ export class ShipmentPickingComponent implements OnInit {
       }
       else {
         console.log(data);
-        this.service.GetRequest(this.shipmentDetail.currentRequest).subscribe(data => {
+        this.service.getRequest(this.shipmentDetail.currentRequest).subscribe(data => {
           this.request = data;
           console.log(this.request);
         })
@@ -104,7 +111,7 @@ export class ShipmentPickingComponent implements OnInit {
       //  this.Waypts.splice(0, 1);
       console.log(this.Waypts);
     }
-    this.service.ChangeDeliveryShipmentStatus(item.code,status).subscribe(data => {
+    this.service.changeDeliveryShipmentStatus(item.code,status).subscribe(data => {
       this.shipmentDetail = data;
       console.log(this.shipmentDetail)
       console.log(this.request)
@@ -112,7 +119,7 @@ export class ShipmentPickingComponent implements OnInit {
   }
 
   changeStatus(item: ShipmentDetail, status) {
-    this.service.ChangeStatusRequest(item.currentRequest, status).subscribe(data => {
+    this.service.changeStatusRequest(item.currentRequest, status).subscribe(data => {
       this.request = data;
       console.log(this.request)
       this.GetRequestList();
@@ -122,38 +129,54 @@ export class ShipmentPickingComponent implements OnInit {
     })
 
   }
+
   nextRequest() {
     this.refeshShipment(this.code);
   }
+
   sendProblem(item: RequestDetail, problem: boolean) {
-    console.log(item);
-    console.log(this.problemMessage);
-    this.service.SendProblem(item.code,problem, this.problemMessage).subscribe(data => {
+    console.log(this.problemMessage)
+    console.log(item.code)
+
+    this.service.sendProblem(item.code, this.problemMessage).subscribe(data => {
+      console.log(item.code)
+      console.log(this.problemMessage)
       this.request = data;
       this.GetRequestList();
     });
   }
+
+  resovleProblem(item: RequestDetail) {
+    this.service.resolveProblem(item.code).subscribe(data => {
+      this.request = data;
+      this.GetRequestList();
+    })
+  }
+
   viewRequest(item: RequestDetail) {
     this.changeNav('Request');
-    this.service.GetRequest(item.code).subscribe(data => {
+    this.service.getRequest(item.code).subscribe(data => {
       console.log(data);
       this.request = data;
     })
   }
+
   returnList() {
     this.router.navigate(['./shipment']);
   }
+
   gotoCurrentRequest() {
-    this.service.GetRequest(this.shipmentDetail.currentRequest).subscribe(data => {
+    this.service.getRequest(this.shipmentDetail.currentRequest).subscribe(data => {
       this.request = data;
     })
   }
+
   changeNav(status) {
     this.statusNav = status;
   }
 
   GetRequestList() {
-    this.service.GetListRequest(this.code).subscribe(data => {
+    this.service.getListRequest(this.code).subscribe(data => {
       console.log(data);
       this.requestList = data;
       console.log(this.requestList);
@@ -166,11 +189,11 @@ export class ShipmentPickingComponent implements OnInit {
           info.status = "unActive";
         }
         this.Waypts.push(info);
+        this.onChangeWaypts();
       }
       this.save.waypts = this.Waypts;
     })
   }
-
 
   InitLatlng(latitude, longitude) {
     let latlng = new google.maps.LatLng(latitude, longitude);

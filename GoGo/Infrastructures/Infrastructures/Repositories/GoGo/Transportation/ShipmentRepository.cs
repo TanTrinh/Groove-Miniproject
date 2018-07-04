@@ -68,6 +68,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                         .Where(p => p.Code == code)
                         .Select(p => new ShipmentViewModel
                         {
+                            Id=p.Id,
                             Code = p.Code,
                             StartDate = p.StartDate,
                             EndDate = p.EndDate,

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ShipmentAssigned } from './ShipmentAssigned';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpParamsOptions, HttpParams } from '@angular/common/http/src/params';
@@ -7,6 +6,7 @@ import { HttpParamsOptions, HttpParams } from '@angular/common/http/src/params';
 // TODO: what is the purpose of AssignedComponent ?, can you remove this Component
 import { SaveService } from '../../shared/service/save.service';
 import { ShipmentService } from '../shipment.service';
+import { ShipmentDetail } from '../shipment-picking/ShipmentDetail';
 @Component({
   selector: 'app-assigned',
   templateUrl: './assigned.component.html',
@@ -14,7 +14,7 @@ import { ShipmentService } from '../shipment.service';
 })
 export class AssignedComponent implements OnInit {
   data: any = {};
-  shipmentAssigned: ShipmentAssigned[];
+  shipmentAssigned: ShipmentDetail[];
   total: number;
   currentpage: number;
 
@@ -47,7 +47,7 @@ export class AssignedComponent implements OnInit {
   goToShipmentDeatil(code) {
     this.router.navigate(['./home/shipmentPicking', code]);
   }
-  changeStatus(item: ShipmentAssigned, status) {
+  changeStatus(item: ShipmentDetail, status) {
     var param = { 'code': item.code, 'status': status }
     var httpOptions = {
       headers: new HttpHeaders({
