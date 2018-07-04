@@ -44,6 +44,10 @@ import { UserModule } from './modules/identity/user/user.module';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { RequestModule } from './modules/request/request.module';
+import { GgmapComponent } from './ggmap/ggmap.component';
+
+import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
@@ -53,7 +57,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
 
     // Do initing of services that is required before app loads
     // NOTE: this factory needs to return a function (that then returns a promise)
-    return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
+    return () => ServiceRegistryService.load('http://localhost:54520/configuration/serviceRegistry').toPromise();
     //return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
   },
   deps: [ServiceRegistryService],
@@ -73,9 +77,9 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     ShipmentCreatingComponent,
     ShipmentComponent,
     ShipmentListComponent,
-
-   
- 
+    GgmapComponent,
+    LoginComponent,
+    ShipmentPickingComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,11 +104,10 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     AccountModule,
     InputsModule,
     RequestModule,
-
-    //AgmCoreModule.forRoot({
-    //  apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
    
-    //}),
+    }),
     //AgmDirectionModule,
     
     UserModule,
@@ -116,6 +119,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
         }
       }
     }),
+    HttpClientModule
   ],
   providers: [
     LocalStorageService,

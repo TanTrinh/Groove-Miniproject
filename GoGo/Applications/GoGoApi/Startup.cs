@@ -36,6 +36,19 @@ namespace GoGoApi
             var jwtSecurityKey = Configuration.GetValue<string>("Security:Jwt:SecurityKey");
             var tokenTimeOutMinutes = Configuration.GetValue<long>("Security:Jwt:TokenTimeOutMinutes");
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(defaultConnectionString, sqlServerOptions =>
@@ -45,13 +58,8 @@ namespace GoGoApi
             });
 
             services.AddGrooveMvcApi().AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<Domains.AssemplyMarker>().RegisterValidatorsFromAssemblyContaining<GoGoApi.Startup>());
-			services.AddCors();
+			//services.AddCors();
             services.AddAutoMapper(typeof(Domains.AssemplyMarker));
-
-			services.AddMvc()
-					.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
-
-			services.AddKendo();
 
 			// Add Kendo UI services to the services container
 			services.AddKendo();
@@ -104,19 +112,14 @@ namespace GoGoApi
             return autofactServiceProvider;
         }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(builder =>
-                   builder
-                   .AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader()
-           );
+            app.UseCors(CorsPolicies.AllowAny);
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthentication();

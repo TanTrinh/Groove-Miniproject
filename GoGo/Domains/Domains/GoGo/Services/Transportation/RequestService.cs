@@ -101,6 +101,13 @@ namespace Domains.GoGo.Services
 			//var entity = _repository.FindCustomerRequestAsync(id);
 			return await _repository.FindCustomerRequestAsync(id);
 		}
-
-	}    
+        public Task<LocationModel> GetPositionWarehouse(string code)
+        {
+            return _repository.GetPositionWarehouseAsync(code);
+        }
+        public async Task<int> GetRequestID(string code)
+        {
+            return await _repository.GetRequestID(code);
+        }
+    }    
 }

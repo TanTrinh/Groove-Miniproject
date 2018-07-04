@@ -3,27 +3,28 @@
   <table class="table table-hover">
     <thead id="head">
       <tr>
-        <th>ShipmentCode</th>
+        <th>Shipment Code</th>
         <th>License plate</th>
-        <th>StartDate</th>
-        <th>EndDate</th>
-        <th>RequestQuality</th>
-        <th>Assign</th>
+        <th>Start date</th>
+        <th>End date</th>
+        <th>Total request</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
 
-      <tr *ngFor="let item of shipmentAssigned" >
+      <tr *ngFor="let item of shipmentAssigned" (click)="goToPageDetail(item.code)">
         <td>{{item.code}}</td>
         <td>{{item.licensePlate}}</td>
-        <td>{{item.startDate}}</td>
-        <td>{{item.status}}</td>
+        <td>{{item.startDate | date:'short'}}</td>
+        <td>{{item.endDate| date:'short'}}</td>
         <td>{{item.requestQuality}}</td>
         <td>
-          <a *ngIf="item.status == 'Pending' || item.status == 'Reject'" class="btn btn-outline-success" (click)="changeStatus(item.code, 'Accept')">Accept</a>
-          <a *ngIf="item.status == 'Pending'" class="btn btn-outline-danger" (click)="changeStatus(item.code, 'Reject')">Reject</a>
-          <a *ngIf="item.status == 'Accept'" class="btn btn-outline-primary" (click)="changeStatus(item.code, 'Picking')">Picking</a>
+          <span *ngIf="item.status=='Pending' || item.status=='Accept' || item.status=='Reject'"> {{item.status}}</span>
+          <span *ngIf="item.status!='Pending' && item.status!='Accept' && item.status!='Reject'&& item.status!='Completed' " id="picking"> {{item.status}}</span>
+          <span *ngIf="item.status=='Completed'" id="complete"> {{item.status}}</span>
         </td>
+        
       </tr>
     </tbody>
   </table>

@@ -26,5 +26,22 @@ namespace Domains.Helpers
 			else output = input.ToString();
 			return output;
 		}
-	}
+        public static double sub(double val1, double val2)
+        {
+            return Math.Abs(val1 - val2);
+        }
+        public static string ResizeAddress(string address)
+        {
+            address = address.Replace("Thanh pho", "TP. ");
+            address = address.Replace("Phường", "P.");
+            address = address.Replace("Quận", "Q.");
+            address = address.Replace("Thanh pho", "");
+            address = address.Replace("Thành phố", "");
+            address = address.Replace("Việt Nam", "VN");
+            address = address.Replace("Vietnam", "VN");
+            address = address.Replace("Ho Chi Minh", "HCM");
+            address = address.Replace("Hồ Chí Minh", "HCM");
+            return address;
+        }
+    }
 }

@@ -102,6 +102,7 @@ namespace Infrastructures.SeedData
             string month = ConverIntToString(dateTime.Month);
             string hour = ConverIntToString(dateTime.Hour);
             string minute = ConverIntToString(dateTime.Minute);
+
             string code = day + month + dateTime.Year.ToString() + hour + minute + "GG" + id.ToString();
             return code;
         }
@@ -160,6 +161,8 @@ namespace Infrastructures.SeedData
                 {
                     var user = new User
                     {
+                        FirstName = name[i],
+                        LastName = lastname[j],
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
                         PhoneNumber = "0909" + random.Next(100000,999999).ToString(),
@@ -197,6 +200,8 @@ namespace Infrastructures.SeedData
                 {
                     var user = new User
                     {
+                        FirstName = name[i],
+                        LastName = lastname[j],
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
                         PhoneNumber = "0909" + random.Next(100000, 999999).ToString(),
@@ -233,6 +238,8 @@ namespace Infrastructures.SeedData
                 {
                     var user = new User
                     {
+                        FirstName = name[i],
+                        LastName = lastname[j],
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
                         PhoneNumber = "0909" + random.Next(100000,999999).ToString(),
@@ -269,6 +276,8 @@ namespace Infrastructures.SeedData
                 {
                     var user = new User
                     {
+                        FirstName = name[i],
+                        LastName = lastname[j],
                         UserName = name[i] + lastname[j],
                         Email = name[i] + "." + lastname[j] + (i + j).ToString() + "@groovetechnology.com",
                         PhoneNumber = "0909" + random.Next(100000,999999).ToString(),
@@ -445,8 +454,8 @@ namespace Infrastructures.SeedData
         {
             Random ran = new Random();
             string phonenumberHeader = "0909";
-            double latitudeBase = 10.762622;
-            double longitudeBase = 106.660172;
+            double latitudeBase = 10.767089;
+            double longitudeBase = 106.706589;
             for (double i = 0; i < 25; i++)
             {
                 long custormerID = (long)i + 76;
@@ -457,7 +466,7 @@ namespace Infrastructures.SeedData
                     OwnerId = custormerID,
                     Latitude = Math.Round(latitudeBase + i * 0.0001, 6),
                     Longitude = Math.Round(longitudeBase + i * 0.0001, 6),
-                    Address = "This is my warehouse address"
+                    Address = "53 Đoàn Như Hài, Quận 4, Hồ Chí Minh, Vietnam"
                 };
                 dbContext.Add(warehouse);
                 dbContext.SaveChanges();
@@ -489,14 +498,14 @@ namespace Infrastructures.SeedData
                     PickingDate = pickingDate,
                     ExpectedDate = pickingDate.AddDays(i % 5 + 2),
                     PackageQuantity = i,
-                    DeliveryLatitude = Math.Round(latitudeBase + i * 0.0001, 6),
-                    DeliveryLongitude = Math.Round(longitudeBase + i * 0.0001, 6),
+                    DeliveryLatitude = Math.Round(latitudeBase + i * 0.01, 6),
+                    DeliveryLongitude = Math.Round(longitudeBase + i * 0.01, 6),
                     WareHouseId = i,
                     IssuerId = i + 76,
                     Status = "Pending",
                     ReceiverName = name[ran.Next(0, 14)] + lastname[ran.Next(0, 4)],
                     ReceiverPhoneNumber = phonenumberHeader + ran.Next(100000, 999999).ToString(),
-                    Address = "This is my address",
+                    Address = "37 ĐT743C, Xã Bình Thắng, Dĩ An, Bình Dương, Vietnam",
                     Code = GenerateCode(createdDate, i + 76),
                     CustomerId = i + 76
                 };
@@ -545,8 +554,8 @@ namespace Infrastructures.SeedData
                         RequestOrder = j + 1,
                         Note = "",
                         Status = "Waiting",
-                        RequestEstimateDate = RequestEstimateDate.AddDays(ran.Next(0, i % 2 + 1)),
-                        RequestDeliveriedDate = RequestEstimateDate.AddDays(ran.Next(2, i % 7 + 3))
+                        RequestEstimateDate = RequestEstimateDate.AddDays(ran.Next(2, i % 4 + 3)),
+                        RequestDeliveriedDate = RequestEstimateDate.AddDays(ran.Next(4, i % 7 + 5))
                     };
                     dbContext.Add(shipmentRequest);
                     dbContext.SaveChanges();

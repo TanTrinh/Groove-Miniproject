@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domains.GoGo.Entities;
+using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.UnitOfWork;
 using System;
@@ -22,9 +23,14 @@ namespace Domains.GoGo.Services.Transportation
 			_mapper = mapper;
 		}
 
-		public async Task CreateShipmentRequestAsync(IEnumerable<int> requestIdList, int shipmentId)
-		{
-			int i = 1;
+        public async Task<string> ChangeStatusRequestAsync(string code, string status)
+        {
+            return await _repository.ChangeStatusRequestAsync(code, status);
+        }
+
+        public async Task CreateShipmentRequestAsync(IEnumerable<int> requestIdList, int shipmentId)
+        {
+            int i = 1;
 			foreach (int requestId in requestIdList)
 			{
 				var entity = new ShipmentRequest();
@@ -40,6 +46,40 @@ namespace Domains.GoGo.Services.Transportation
 
 			await _uow.SaveChangesAsync();
 		}
+        
+        public Task<LocationModel> GetPositionPicking(string code)
+        {
+            return _repository.GetPositionPickingAsync(code);
+        }
+
+        public RequestDetailModel GetRequestDetailModel(string code)
+        {
+            return _repository.GetRequestDetailModel(code);
+        }
+        public async Task<string> GetFirstRequestCode(string shipmentCode)
+        {
+            return await _repository.GetFirstRequestCode(shipmentCode);
+        }
+        public async Task<RequestDetailModel> GetCurrentRequestAsync(string requestCode)
+        {
+            return await _repository.GetCurrentRequestAsync(requestCode);
+        }
+
+        public async Task<IEnumerable<RequestDetailModel>> GetRequestListAsync(string code)
+        {
+            return await _repository.GetRequestListAsync(code);
+        }
+
+        public int GetTotalRequest(string code)
+        {
+            return _repository.GetTotalRequest(code);
+        }
+
+        public async Task<string> Problem(string requestCode, bool status)
+        {
+            return await _repository.Problem(requestCode,status);
+        }
+    
 
 		public void UpdateShipmentRequest(List<int> requestIdList, int shipmentId)
 		{

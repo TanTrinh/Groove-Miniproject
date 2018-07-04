@@ -14,7 +14,7 @@ import { Observable } from 'rxjs-compat/Observable';
 })
 export class ShipmentService extends BehaviorSubject<any>  {
   private baseUrl = '';
-
+  private url = 'http://localhost:54520/api/shipments';
   // TODO: Remove ConfigService & use ServiceRegistryService instead
   constructor(private http: Http, private configService: ConfigService, private https: HttpClient) {
     super(null);
@@ -71,7 +71,40 @@ export class ShipmentService extends BehaviorSubject<any>  {
 
     return this.https.put(this.baseUrl + `/shipments/updateStatus?code=${Code}&status=${value}`, Option);
   }
+  getListShipmentAssigned(DriverID: number): Observable<any> {
+    return this.http.get(`${this.url}/shipmentAssigned?id=${DriverID}`);
+  }
 
+  GetLocationPicking(shipmentCode: string): Observable<any> {
+    return this.https.get(`${this.url}/${shipmentCode}/locationpicking`);
+  }
+
+  GetShipmentDetail(shipmentCode: string): Observable<any> {
+    return this.https.get(`${this.url}/${shipmentCode}`);
+  }
+
+  ChangeDeliveryShipmentStatus(shipmentCode: string, status: string): Observable<any> {
+
+    return this.https.put(`${this.url}/${shipmentCode}/changestatus/${status}`, null);
+  }
+
+  GetRequest(requestCode: string): Observable<any> {
+    return this.https.get(`${this.url}/request/${requestCode}`);
+  }
+
+  ChangeStatusRequest(requestCode: string, status: string): Observable<any> {
+    return this.https.put(`${this.url}/request/${requestCode}/changestatus/${status}`,null);
+  }
+
+  GetListRequest(shipmentCode: string): Observable<any> {
+    return this.https.get(`${this.url}/${shipmentCode}/requestList`);
+  }
+  ChangeOrderReqeust(paramerter: any): Observable<any> {
+    return this.https.post(`${this.url}/shipment/changeOrder`, paramerter);
+  }
+  SendProblem(requestCode: string, problem: boolean, message: string): Observable<any> {
+    return this.https.post(`${this.url}/request/${requestCode}/problem/${problem}`, { parameter: { 'message': message }})
+  }
 
 
 }
