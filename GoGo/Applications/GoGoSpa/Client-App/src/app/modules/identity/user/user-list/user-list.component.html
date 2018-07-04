@@ -20,9 +20,10 @@
               [selectable]="true"
               (dataStateChange)="dataStateChange($event)">
 
-    <kendo-grid-column field="id" title="ID" width="50" [filterable]="false">
-    </kendo-grid-column>
     <kendo-grid-column field="userName" width="200" title="User Name">
+      <ng-template kendoGridCellTemplate let-user>
+        <a routerLink="/account/detail/{{user.id}}">{{user.userName}}</a>
+      </ng-template>
     </kendo-grid-column>
     <kendo-grid-column field="email" title="Email" width="250" format="{0:d}">
     </kendo-grid-column>
@@ -30,13 +31,13 @@
     </kendo-grid-column>
     <kendo-grid-column field="role" width="140" title="Role">
     </kendo-grid-column>
-    <kendo-grid-column title="Actions" width="150">
+    <!--<kendo-grid-column title="Actions" width="150">
       <ng-template kendoGridCellTemplate let-user>
         <button class="btn btn-primary mr-1" (click)="loadDetail(user.id)">Detail</button>
         <span> </span>
         <button class="btn btn-primary" (click)="loadUpdate(user.id)">Update</button>
       </ng-template>
-    </kendo-grid-column>
+    </kendo-grid-column>-->
   </kendo-grid>
 
 </div>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserList } from './UserList';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpParamsOptions, HttpParams } from '@angular/common/http/src/params';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../user.service';
@@ -30,7 +29,6 @@ export class UserListComponent implements OnInit {
   };
 
   constructor(
-    private _http: HttpClient,
     private _router: Router,
     private _userService: UserService
   ) {
@@ -60,55 +58,6 @@ export class UserListComponent implements OnInit {
     this._userService.fetch(state)
       .subscribe(r => this.users = r);
   }
-
-  //loadList() {
-  //  var key = localStorage.getItem('tokenKey');
-  //  var currentKey = JSON.parse(key);
-  //  if (this.lStorage != 0) {
-  //    var httpOptions = {
-  //      headers: new HttpHeaders({
-  //        'Content-Type': 'application/json',
-  //        'Authorization': 'Bearer ' + currentKey.access_token
-  //      })
-  //    };
-  //    //  console.log(this.selectOption);
-  //    //  if (this.selectOption == 'Customer') {
-  //    //    this.id = 1;
-  //    //    this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
-  //    //      this.data = result;
-  //    //      this.userList = this.data;
-  //    //    });
-  //    //  }
-  //    //  else if (this.selectOption == 'Driver') {
-  //    //    this.id = 2;
-  //    //    this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
-  //    //      this.data = result;
-  //    //      this.userList = this.data;
-  //    //    });
-  //    //  }
-  //    //  else if (this.selectOption == 'Coordinator') {
-  //    //    this.id = 3;
-  //    //    this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
-  //    //      this.data = result;
-  //    //      this.userList = this.data;
-  //    //    });
-  //    //  }
-  //    //  else {
-  //    //    this.id = 4
-  //    //    this._http.get('http://localhost:62772/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
-  //    //      this.data = result;
-  //    //      this.userList = this.data;
-  //    //    });
-  //    //  }
-  //    //}
-
-  //    this._http.get('http://localhost:62772/api/user', httpOptions).subscribe(result => {
-  //      console.log(result)
-  //      this.data = result;
-  //      this.userList = this.data;
-  //    });
-  //  }
-  //}
 
   loadDetail(id) {
     this._router.navigate(['account/detail', id]);

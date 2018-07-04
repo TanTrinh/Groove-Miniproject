@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from "@angular/router";
 import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
@@ -30,7 +29,6 @@ export class UserCreateComponent implements OnInit {
   public lStorage = localStorage.length;
 
   constructor(
-    private _http: HttpClient,
     private _router: Router,
     private _location: Location,
     private _notificationService: NotificationService,
@@ -41,11 +39,9 @@ export class UserCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(1)
   }
 
   onCreate() {
-
     // TODO: Move all HTTPs request relate to user API into seperated service
     // You need to create UserService in ../../identity/user/user.service.ts
     //

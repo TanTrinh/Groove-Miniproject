@@ -4,10 +4,18 @@
   </div>
   <div class="container pt-2">
     <div class="row">
+      <div class="col-3"></div>
+      <div class="row col-9 ml-2">
+        <button class="btn btn-primary" (click)="update(userDetail.id)">Update</button>&nbsp;
+        <button class="btn btn-secondary" (click)="pageBack()">Back</button>&nbsp;
+      </div>
+    </div>
+    <div class="row pt-2">
       <div class="col-md-3 col-lg-3 " align="center">
         <img alt="User Pic" src="https://image.flaticon.com/icons/svg/3/3641.svg" class="img-circle">
       </div>
-      <div class="col-md-9 col-lg-9">
+      <div class="col-md-9 col-lg-9 ">
+
         <table class="table">
           <tbody>
             <tr>
@@ -36,9 +44,6 @@
             </tr>
           </tbody>
         </table>
-        <div class="row justify-content-center">
-          <button class="btn btn-primary" (click)="pageBack()">Back</button>&nbsp;
-        </div>
       </div>
     </div>
   </div>

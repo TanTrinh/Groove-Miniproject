@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domains.Identity.Entities;
+using Domains.Identity.Helper;
 using Domains.Identity.Models;
 using Domains.Identity.Repositories;
 using Groove.AspNetCore.Common.Exceptions;
@@ -41,7 +42,9 @@ namespace Domains.Identity.Services
             // Create UserStatus class to manage user status
             // then use: 
             // model.Status = UserStatus.Active
-            model.Status = "Active";
+            var userStatus = new UserStatus();
+            model.Status = userStatus.Active;
+
             var user = _mapper.Map<User>(model);
             user.CreateBy(issuer).UpdateBy(issuer);
 
@@ -135,10 +138,5 @@ namespace Domains.Identity.Services
 
             return exception;
         }
-
-        //public Task<UserViewUpdateModel> GetUserUpdateAsync(long? id)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

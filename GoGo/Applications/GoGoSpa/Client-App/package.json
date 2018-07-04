@@ -44,6 +44,7 @@
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
     "tether": "^1.4.4",
+    "toastr": "^2.1.4",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

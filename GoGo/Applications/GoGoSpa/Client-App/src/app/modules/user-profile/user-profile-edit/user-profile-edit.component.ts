@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -30,7 +29,6 @@ export class UserProfileEditComponent implements OnInit {
   public lStorage = localStorage.length;
 
   constructor(
-    private _http: HttpClient,
     private _router: Router,
     private _route: ActivatedRoute,
     private _location: Location,
