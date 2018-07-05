@@ -11,5 +11,6 @@ namespace Domains.GoGo.Repositories.Fleet_management
     public interface IVehicleFeatureRepository : IGenericRepository<VehicleFeature, int>
     {
         Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName);
+
     }
 }

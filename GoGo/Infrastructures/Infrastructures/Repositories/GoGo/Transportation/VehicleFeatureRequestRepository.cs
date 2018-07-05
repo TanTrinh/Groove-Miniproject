@@ -4,6 +4,7 @@ using Domains.GoGo.Entities.Fleet;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.UnitOfWork;
 using Groove.AspNetCore.UnitOfWork.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,17 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         public VehicleFeatureRequestRepository(IMapper mapper, IUnitOfWorkContext uoWContext) : base(uoWContext)
         {
             _mapper = mapper;
+        }
+
+        public VehicleFeatureRequest FindVehicleFeatureAsync(int requestId)
+        {
+            var result = this.dbSet.Include(p => p.VehicleFeature).Where(p => p.RequestId == requestId).FirstOrDefault();
+            return result;
+        }
+
+        public async Task<VehicleFeatureRequest> GetByRequestIdAsync(int requestId)
+        {
+            return await this.dbSet.Where(p => p.RequestId == requestId).FirstOrDefaultAsync(); ;
         }
 
         //public void SaveChangesAsync(VehicleFeatureRequest entity)

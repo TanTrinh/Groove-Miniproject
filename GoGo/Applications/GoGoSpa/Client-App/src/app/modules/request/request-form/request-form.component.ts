@@ -62,7 +62,11 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     }
 
     // Push warehouse to warehouse list so that it can show in combobox
+
+    this.warehouseList = [];
+    this.vehicleFeatureList = [];
     this.warehouseList.push(data.wareHouse);
+    this.vehicleFeatureList.push(data.vehicleFeature);
   }
 
   constructor(protected route: ActivatedRoute,

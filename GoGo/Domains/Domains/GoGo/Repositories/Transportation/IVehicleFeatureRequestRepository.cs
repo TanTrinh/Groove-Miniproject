@@ -9,5 +9,7 @@ namespace Domains.GoGo.Repositories.Transportation
 {
     public interface IVehicleFeatureRequestRepository : IGenericRepository<VehicleFeatureRequest, int>
     {
+        VehicleFeatureRequest FindVehicleFeatureAsync(int requestId);
+        Task<VehicleFeatureRequest> GetByRequestIdAsync(int requestId);
     }
 }

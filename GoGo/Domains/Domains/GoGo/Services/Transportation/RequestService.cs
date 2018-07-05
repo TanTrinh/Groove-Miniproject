@@ -40,37 +40,38 @@ namespace Domains.GoGo.Services
 
         public async Task<int> CreateCustomerRequest(RequestModel model, long userId)
         {
-            using (var transactionScope = _uow.BeginTransaction())
-            {
-                // Step 1: Add Request
-                // Save to Request Table
-                var entity = this._mapper.Map<Request>(model);
+            //using (var transactionScope = _uow.BeginTransaction())
+            //{
 
-                entity.Status = "Inactive";
-                entity.CreatedDate = DateTime.Now;
-                entity.Code = Helper.GenerateCode(DateTime.Now, 1);
-                entity.IssuerId = userId; //take from claim
-                entity.CustomerId = userId;
-                entity.WareHouse = null;
+            //    transactionScope.Commit();
+            //} 
+            // Step 1: Add Request
+            // Save to Request Table
+            var entity = this._mapper.Map<Request>(model);
 
-                _repository.Create(entity);
-                await _uow.SaveChangesAsync();
+            entity.Status = "Inactive";
+            entity.CreatedDate = DateTime.Now;
+            entity.Code = Helper.GenerateCode(DateTime.Now, 1);
+            entity.IssuerId = userId; //take from claim
+            entity.CustomerId = userId;
+            entity.WareHouse = null;
 
-                // Step 2: Add request details
-                // Save to FeatureOfVehicle
-                var featureEnity = new VehicleFeatureRequest()
-                {
-                    RequestId = entity.Id,
-                    VehicleFeatureId = model.VehicleFeature.Value
-                };
+            _repository.Create(entity);
+            await _uow.SaveChangesAsync();
 
-                _vehicleFeatureRequestRepository.Create(featureEnity);
+            // Step 2: Add request details
+            // Save to FeatureOfVehicle
+            //var featureEnity = new VehicleFeatureRequest()
+            //{
+            //    RequestId = entity.Id,
+            //    VehicleFeatureId = model.VehicleFeature.Value
+            //};
 
-                await _uow.SaveChangesAsync();
+            //_vehicleFeatureRequestRepository.Create(featureEnity);
 
-                transactionScope.Commit();
-                return entity.Id;
-            }
+            //await _uow.SaveChangesAsync();
+
+            return entity.Id;
         }
 
         public async Task<int> UpdateCustomerRequest(RequestModel model, long userId)
@@ -91,7 +92,7 @@ namespace Domains.GoGo.Services
             //entity.CustomerId = temp.CustomerId;
             //entity.CreatedDate = temp.CreatedDate;
             //entity.Status = temp.Status;
-            //entity.WareHouse = null;
+            entity.WareHouse = null;
 
             _repository.Update(entity);
             //_repository(model, userId);

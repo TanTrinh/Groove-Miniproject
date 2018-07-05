@@ -286,16 +286,15 @@ export abstract class FormBaseComponent {
       } else {
         this.navigateToViewPage(this.formId);
       }
-    })
-      //err => {
-      //  console.log(err);
-      //  if (err.status === 400) {
-      //    this.notificationService.prompError(err.error.message);
-      //  } else {
-      //    this.notificationService.prompError(err.message)
-      //  }
-
-      //})
+    },
+      err => {
+        console.log(err);
+        if (err.status === 400) {
+          this.notificationService.prompError(err.error.message);
+        } else {
+          this.notificationService.prompError(err.message)
+        }
+      })
   }
 
   public changeToMode(formMode: string, id: any) {
@@ -307,10 +306,12 @@ export abstract class FormBaseComponent {
     if (this.isUpdateFormMode) {
       return this.editFormService.edit(this.formId, this.formData);
     }
-    else
-      if (this.isCreateFormMode) {
-        return this.createFormService.create(this.formData);
-      }
+    else if (this.isCreateFormMode) {
+      return this.createFormService.create(this.formData);
+    }
+    else if (this.isViewFormMode) {
+
+    } 
     return throwError(new FormError(`Mode not support`));
   }
 

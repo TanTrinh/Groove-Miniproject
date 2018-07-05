@@ -20,10 +20,12 @@ namespace GoGoApi.Controllers
     public class RequestController : BaseController
     {
         private readonly IRequestService _requestService;
+        private readonly IVehicleFeatureRequestService _vehicleFeatureRequestService;
 
-        public RequestController(IRequestService requestService)
+        public RequestController(IRequestService requestService, IVehicleFeatureRequestService vehicleFeatureRequestService)
         {
             _requestService = requestService;
+            _vehicleFeatureRequestService = vehicleFeatureRequestService;
         }
 
         [Route("/api/request")]
@@ -31,9 +33,9 @@ namespace GoGoApi.Controllers
         [Authorize]
         public IActionResult GetRequests([DataSourceRequest]DataSourceRequest request)
         {
-            var userIdentity = GetCurrentIdentity<long>();
-            var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).ToList();
-            var result = _requestService.GetCustomerRequests(request, 1);
+            var userId = GetCurrentUserId<long>();
+            //var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).ToList();
+            var result = _requestService.GetCustomerRequests(request, userId);
             return Ok(result);
         }
 
@@ -61,8 +63,9 @@ namespace GoGoApi.Controllers
             }
             
             var userId = GetCurrentUserId<long>();
-            var result = await this._requestService.CreateCustomerRequest(model, userId);
-            return OkValueObject(result);
+            var requestResult = await this._requestService.CreateCustomerRequest(model, userId);
+            var saveToFeature = await this._vehicleFeatureRequestService.CreateVehicleFeatureRequest(requestResult, model.VehicleFeature.Value);
+            return OkValueObject(requestResult);
         }
 
         [Route("{requestId}")]
@@ -71,14 +74,16 @@ namespace GoGoApi.Controllers
         public async Task<IActionResult> GetRequestAsync(int requestId)
         {
             var userId = GetCurrentUserId<long>();
-            var result = await _requestService.FindCustomerRequestAsync(requestId,userId);
-            return Ok(result);
+            var requestResult = await _requestService.FindCustomerRequestAsync(requestId,userId);
+            var featureResult = _vehicleFeatureRequestService.FindVehicleFeature(requestId);
+            requestResult.VehicleFeature = featureResult;
+            return Ok(requestResult);
         }
 
         [Route("{id}")]
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> UpateRequest([FromBody]RequestModel model)
+        public async Task<IActionResult> UpdateRequest([FromBody]RequestModel model)
         {
             if (ModelState.IsValid)
             {
@@ -86,8 +91,9 @@ namespace GoGoApi.Controllers
             }
 
             var userId = GetCurrentUserId<long>();
-            var result = await this._requestService.UpdateCustomerRequest(model, userId);
-            return OkValueObject(result);
+            var requestResult = await this._requestService.UpdateCustomerRequest(model, userId);
+            var featureResult = await this._vehicleFeatureRequestService.UpdateVehicleFeatureAsync(requestResult, model.VehicleFeature.Value);
+            return OkValueObject(requestResult);
         }
     }
 }

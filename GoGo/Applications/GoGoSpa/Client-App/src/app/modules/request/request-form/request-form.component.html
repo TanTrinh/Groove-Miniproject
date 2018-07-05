@@ -18,11 +18,11 @@
             </legend>
 
             <div class="btn-wrapper">
-              <button *ngIf="!isUpdateFormMode" type="submit" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToListPage()">Back to List</button>
-              <button *ngIf="isUpdateFormMode" type="submit" class="btn btn-primary btn-sm mr-1 mb-1" (click)="onNavigateToViewPage()">Cancel</button>
-              <button *ngIf="!isViewFormMode" type="submit" class="btn btn-primary btn-sm mb-1">Save</button>
+              <button *ngIf="!isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToListPage()">Back to List</button>
+              <button *ngIf="isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToViewPage()">Cancel</button>
+              <button *ngIf="!isViewFormMode" type="button" class="btn btn-primary btn-sm mb-1">Save</button>
               <button *ngIf="isViewFormMode" routerLink="/request/form/update/{{formData?.id}}" class="btn btn-info btn-sm mr-1 mb-1">Update</button>
-              <button class="btn btn-primary btn-sm btn-width mr-1 mb-1" *ngIf="isViewFormMode && (requestStatus == 'not accepted')"
+              <button type="button" class="btn btn-primary btn-sm btn-width mr-1 mb-1" *ngIf="isViewFormMode && (requestStatus == 'not accepted')"
                       (click)="onClickStatus(formData)">
                 {{onLoadGrid(formData.status)}}
               </button>
@@ -167,7 +167,7 @@
         </form>
       </div>
     </div>
-    <div class="col-lg-8 col-md-6 col-sm-12">
+    <div class="col-lg-8 col-md-6 col-sm-12"> 
       <app-ggmap></app-ggmap>
     </div>
 
