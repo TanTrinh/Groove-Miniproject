@@ -65,9 +65,12 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             return this.dbSet.Where(p => p.Code == Code).MapQueryTo<ShipmentDetailModel>(_mapper).SingleOrDefault();
         }
+        public ShipmentDetailModel GetShipmentById(string id)
+        {
+            return this.dbSet.Where(p => p.Id.ToString() == id).MapQueryTo<ShipmentDetailModel>(_mapper).SingleOrDefault();
+        }
 
-
-		public async Task<int> ChangeStatus(string code, string status)
+        public async Task<int> ChangeStatus(string code, string status)
 		{
 			var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
 			shipment.Status = status;

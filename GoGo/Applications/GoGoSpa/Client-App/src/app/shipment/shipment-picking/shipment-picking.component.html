@@ -50,8 +50,8 @@
           <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code!=shipmentDetail.currentRequest && request.isProblem==0" class="btn btn-primary btn-block diable">Start to delivery</button>
           <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Shipping' && request.code==shipmentDetail.currentRequest && request.isProblem==0" (click)="changeStatus(shipmentDetail,'Unloading')" class="btn btn-warning btn-block">Start to unloading</button>
           <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Unloading' && request.isProblem==0" class="btn btn-success btn-block" (click)="changeStatus(shipmentDetail,'Completed')">Complete to delivery</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Completed' && request.isProblem==0" (click)="nextRequest()" class="btn btn-success btn-block">Start to next request</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.isProblem==1" (click)="nextRequest()" class="btn btn-success btn-block">Start to next request</button>
+          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Completed' && request.isProblem==0" (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
+          <button *ngIf="shipmentDetail.status == 'Shipping' && request.isProblem==1" (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
 
           <button *ngIf="shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'" (click)="returnList()" class="btn btn-primary btn-block">Return to list</button>
 

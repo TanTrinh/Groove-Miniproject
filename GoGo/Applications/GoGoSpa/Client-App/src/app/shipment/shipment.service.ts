@@ -69,7 +69,7 @@ export class ShipmentService extends BehaviorSubject<any>  {
   }
 
   getShipmentDetail(shipmentCode: string): Observable<any> {
-    return this.https.get(`${this.url}/${shipmentCode}`);
+    return this.https.get(`${this.url}/${shipmentCode}/deliverydetail`);
   }
 
   changeDeliveryShipmentStatus(shipmentCode: string, status: string): Observable<any> {

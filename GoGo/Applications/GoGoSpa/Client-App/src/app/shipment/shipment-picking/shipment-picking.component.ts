@@ -70,7 +70,7 @@ export class ShipmentPickingComponent implements OnInit {
       info.status = "Active";
       info.latlng = this.InitLatlng(this.locationPicking.latitude, this.locationPicking.longitude);
       this.Waypts.unshift(info);
-      this.onChangeWaypts();
+   //   this.onChangeWaypts();
     })
     this.refeshShipment(this.code);
     this.GetRequestList();

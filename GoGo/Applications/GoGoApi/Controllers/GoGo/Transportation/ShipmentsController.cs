@@ -31,6 +31,7 @@ namespace GoGoApi.Controllers.GoGo
 			_service = service;
 			_Shipmentservice = Shipmentservice;
 			_shipmentRequestService = shipmentRequestService;
+            _problemMessageService = problemMessageService;
 		}
 		// TODO: change route to POST ""
 		// Done
