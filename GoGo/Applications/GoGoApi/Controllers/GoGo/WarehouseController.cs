@@ -17,14 +17,8 @@ namespace GoGoApi.Controllers
             _warehouseService = warehouseService;
         }
 
-        [Route("customer/{id}")]
-        [HttpGet]
-        public async Task<IActionResult> GetWarehousesOfCustomerAsync(int id)
-        {
-            var result = await _warehouseService.GetWarehousesOfCustomer(id);
-            return Ok(result);
-        }
-
+        // TODO: Remove {displayName} from route. {} synctax to use to identify an resource,
+        // In this case DisplayName is a query srring only, we should not pass it to the url
         [Route("filter-list/{displayName}")]
         [HttpGet]
         public async Task<IActionResult> GetOnFilter(string displayName)

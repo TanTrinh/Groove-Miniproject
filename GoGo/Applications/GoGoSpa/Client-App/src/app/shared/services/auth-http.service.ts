@@ -23,7 +23,7 @@ export class AuthHttpService {
    * x-client-id: this is client-id in OAUTH standard to indicate where the request comming from
    * 
    */
-
+  public apiUrl = 'http://localhost:54520';
   constructor(
     private _serviceRegistryService: ServiceRegistryService
     , private _notificationService: NotificationService
@@ -71,11 +71,11 @@ export class AuthHttpService {
   }
   public patch(url: string, body: any): Observable<any> {
     this.beforeSendRequest();
-    return this.subscribeForRequest(this._http.patch(this.getAbsoluteUrl(url), body));
+    return this.subscribeForRequest(this._http.patch(this.getAbsoluteUrl(url), body, {headers: this.AddTokenToHeaders() }));
   }
 
   public getAbsoluteUrl(path: string): string {
-    return this._serviceRegistryService.registry.apiUrl + path;
+    return this.apiUrl + path;
   }
 
 
@@ -83,8 +83,20 @@ export class AuthHttpService {
     return Guid.newGuid();
   }
 
-  //private getClientId() {
+  AddTokenToHeaders(): HttpHeaders {
+    let headers: HttpHeaders = new HttpHeaders();
+    if (localStorage.length != 0) {
+      var key = localStorage.getItem('tokenKey');
+      var currentKey = JSON.parse(key);
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
+    }
+    return headers;
+  }
+
+   //private getClientId() {
   //  return APP_SETTINGS.clientId;
   //}
-
 }
+
+

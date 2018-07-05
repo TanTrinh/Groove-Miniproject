@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
 
 namespace GoGoApi
 {
@@ -35,6 +36,19 @@ namespace GoGoApi
             var jwtSecurityKey = Configuration.GetValue<string>("Security:Jwt:SecurityKey");
             var tokenTimeOutMinutes = Configuration.GetValue<long>("Security:Jwt:TokenTimeOutMinutes");
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(defaultConnectionString, sqlServerOptions =>
@@ -43,15 +57,16 @@ namespace GoGoApi
                 });
             });
 
+
             services.AddGrooveMvcApi().AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<Domains.AssemplyMarker>().RegisterValidatorsFromAssemblyContaining<GoGoApi.Startup>());
-
-            // Add Kendo UI services to the services container
-            services.AddKendo();
-
+			//services.AddCors();
             services.AddAutoMapper(typeof(Domains.AssemplyMarker));
 
-            // Add UoW 
-            services.AddUnitOfWork<ApplicationDbContext>();
+			// Add Kendo UI services to the services container
+			services.AddKendo();
+
+			// Add UoW 
+			services.AddUnitOfWork<ApplicationDbContext>();
 
             // Add Identity
             services.AddIdentity<User, Role>()
@@ -98,28 +113,27 @@ namespace GoGoApi
             return autofactServiceProvider;
         }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(builder =>
-                   builder
-                   .AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader()
-           );
-
-            // Configure Kendo UI
-            app.UseKendo(env);
-
+           // app.UseCors(builder =>
+           //        builder
+           //        .AllowAnyOrigin()
+           //        .AllowAnyMethod()
+           //        .AllowAnyHeader()
+           //);
+            app.UseCors(CorsPolicies.AllowAny);
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseMvc();
-
+#pragma warning disable CS0618 // Type or member is obsolete
+			app.UseKendo(env);
+#pragma warning restore CS0618 // Type or member is obsolete
+			app.UseMvc();
         }
     }
 }

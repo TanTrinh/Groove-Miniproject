@@ -17,6 +17,7 @@ using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using Domains.Core;
 
+
 namespace Infrastructures.Repositories.Identity
 {
     public class UserRepository : GenericRepository<User, long>, IUserRepository
