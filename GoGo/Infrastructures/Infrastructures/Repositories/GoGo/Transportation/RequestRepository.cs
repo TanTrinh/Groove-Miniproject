@@ -143,5 +143,20 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             return await this.dbSet.Where(p => p.Code == code).Select(p => p.Id).FirstAsync();
         }
+
+        public Task<string> ChangeStatus(int? id, string status)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RequestModel> FindCustomerRequestAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

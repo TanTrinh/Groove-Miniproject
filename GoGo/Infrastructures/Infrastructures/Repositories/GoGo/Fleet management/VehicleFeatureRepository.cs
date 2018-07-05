@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Groove.AspNetCore.DataBinding.AutoMapperExtentions;
 using Microsoft.EntityFrameworkCore;
+using Infrastructures;
 
 namespace Domains.GoGo.Repositories.Fleet_management
 {
@@ -18,7 +19,7 @@ namespace Domains.GoGo.Repositories.Fleet_management
     {
         private readonly IMapper _mapper;
 
-        public VehicleFeatureRepository(IMapper mapper, IUnitOfWorkContext uoWContext) : base(uoWContext)
+        public VehicleFeatureRepository(IMapper mapper, ApplicationDbContext uoWContext) : base(uoWContext)
         {
             _mapper = mapper;
         }

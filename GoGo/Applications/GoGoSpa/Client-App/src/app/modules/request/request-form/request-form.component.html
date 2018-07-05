@@ -11,17 +11,17 @@
         <form class="k-form" #mainForm="ngForm" name="mainForm" (ngSubmit)="onSubmitForm(mainForm)">
           <fieldset>
             <legend *ngIf="!isCreateFormMode">
-              <h5>{{formData.code}} - {{requestStatus}}</h5>
+              <span>{{formData.code}} - {{requestStatus}}</span>
             </legend>
             <legend *ngIf="isCreateFormMode">
-              <h5>Create</h5>
+              <span>Create</span>
             </legend>
 
             <div class="btn-wrapper">
               <button *ngIf="!isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToListPage()">Back to List</button>
               <button *ngIf="isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToViewPage()">Cancel</button>
-              <button *ngIf="!isViewFormMode" type="button" class="btn btn-primary btn-sm mb-1">Save</button>
-              <button *ngIf="isViewFormMode" routerLink="/request/form/update/{{formData?.id}}" class="btn btn-info btn-sm mr-1 mb-1">Update</button>
+              <button *ngIf="!isViewFormMode" type="submit" class="btn btn-primary btn-sm mb-1">Save</button>
+              <button *ngIf="isViewFormMode" type="button" routerLink="/request/form/update/{{formData?.id}}" class="btn btn-info btn-sm mr-1 mb-1">Update</button>
               <button type="button" class="btn btn-primary btn-sm btn-width mr-1 mb-1" *ngIf="isViewFormMode && (requestStatus == 'not accepted')"
                       (click)="onClickStatus(formData)">
                 {{onLoadGrid(formData.status)}}

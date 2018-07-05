@@ -159,7 +159,7 @@ export abstract class FormBaseComponent {
     
 
     switch (this._formMode) {
-      case "form":
+      case "create":
         this.isCreateFormMode = true;
         this.formTitle = `Create ${this.formName}`;
         this.formModeName = "Create";

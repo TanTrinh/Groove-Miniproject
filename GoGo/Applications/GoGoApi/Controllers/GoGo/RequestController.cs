@@ -29,30 +29,9 @@ namespace GoGoApi.Controllers
             _vehicleFeatureRequestService = vehicleFeatureRequestService;
         }
 
-        [Route("/api/request")]
-        [HttpGet]
-        [Authorize]
-        public IActionResult GetRequests([DataSourceRequest]DataSourceRequest request)
-        {
-            var userId = GetCurrentUserId<long>();
-            //var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).ToList();
-            var result = _requestService.GetCustomerRequests(request, userId);
-            return Ok(result);
-        }
+        // Đ
 
-        [Route("/api/request/{code}/{status}")]
-        [HttpGet]
-        [Authorize]
-        public IActionResult ChangeStatus(string code, string status)
-        {
-            if (status != "Inactive" && status != "Pending")
-            {
-                return BadRequest();
-            }
-            var result = _requestService.ChangeStatus(code, status);
-            return  Ok(result);
-        }
-
+        // POST /api/request
         [Route("")]
         [HttpPost]
         [Authorize]
@@ -62,26 +41,15 @@ namespace GoGoApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
+
             var userId = GetCurrentUserId<long>();
             var requestResult = await this._requestService.CreateCustomerRequest(model, userId);
             var saveToFeature = await this._vehicleFeatureRequestService.CreateVehicleFeatureRequest(requestResult, model.VehicleFeature.Value);
             return OkValueObject(requestResult);
         }
 
+        // PUT /api/request/{requestId}
         [Route("{requestId}")]
-        [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> GetRequestAsync(int requestId)
-        {
-            var userId = GetCurrentUserId<long>();
-            var requestResult = await _requestService.FindCustomerRequestAsync(requestId,userId);
-            var featureResult = _vehicleFeatureRequestService.FindVehicleFeature(requestId);
-            requestResult.VehicleFeature = featureResult;
-            return Ok(requestResult);
-        }
-
-        [Route("{id}")]
         [HttpPut]
         [Authorize]
         public async Task<IActionResult> UpdateRequest([FromBody]RequestModel model)
@@ -96,5 +64,45 @@ namespace GoGoApi.Controllers
             var featureResult = await this._vehicleFeatureRequestService.UpdateVehicleFeatureAsync(requestResult, model.VehicleFeature.Value);
             return OkValueObject(requestResult);
         }
+
+        // GET /api/request
+        [Route("/api/request")]
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetRequests([DataSourceRequest]DataSourceRequest request)
+        {
+            var userId = GetCurrentUserId<long>();
+            //var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).ToList();
+            var result = _requestService.GetCustomerRequests(request, userId);
+            return Ok(result);
+        }
+
+        // GET /api/request/{requestId}
+        [Route("{requestId}")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetRequestAsync(int requestId)
+        {
+            var userId = GetCurrentUserId<long>();
+            var requestResult = await _requestService.FindCustomerRequestAsync(requestId, userId);
+            var featureResult = _vehicleFeatureRequestService.FindVehicleFeature(requestId);
+            requestResult.VehicleFeature = featureResult;
+            return Ok(requestResult);
+        }
+
+        // 
+        [Route("/api/request/{code}/{status}")]
+        [HttpGet]
+        [Authorize]
+        public IActionResult ChangeStatus(string code, string status)
+        {
+            if (status != "Inactive" && status != "Pending")
+            {
+                return BadRequest();
+            }
+            var result = _requestService.ChangeStatus(code, status);
+            return Ok(result);
+        }
+        // End Đ
     }
 }

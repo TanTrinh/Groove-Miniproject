@@ -69,9 +69,20 @@ namespace Domains.GoGo.Services
 			return _repository.GetRequestIdList(shipmentId);
 		}
 
+        public async Task<int> GetRequestID(string code)
+        {
+            return await _repository.GetRequestID(code);
+        }
 
-		//Đ
-		public async Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer)
+        public Task<LocationModel> GetPositionWarehouse(string code)
+        {
+            return _repository.GetPositionWarehouseAsync(code);
+        }
+
+
+        //Đ
+        // For Customer to create request
+        public async Task<int> CreateCustomerRequest(RequestModel model, long userId)
 		{
 			var entity = this._mapper.Map<Request>(model);
 
@@ -79,12 +90,13 @@ namespace Domains.GoGo.Services
 			// Create RequestStatus constant class
 			// Then use 
 			// entity.Status = RequestStatus.InActive;
+            // DONE
 
-			entity.Status = "InActive";
+			entity.Status = RequestStatus.INACTIVE;
 			entity.CreatedDate = DateTime.Now;
 			entity.Code = Helper.GenerateCode(DateTime.Now, 1);
-			entity.IssuerId = 77; //take from claim
-			entity.CustomerId = 77;
+			entity.IssuerId = userId; 
+			entity.CustomerId = userId;
 			entity.WareHouse = null;
             // Step 2: Add request details
             // Save to FeatureOfVehicle
@@ -102,59 +114,34 @@ namespace Domains.GoGo.Services
 			return entity.Id;
 		}
 
+        // For Customer to update request
         public async Task<int> UpdateCustomerRequest(RequestModel model, long userId)
         {
             var entity = _repository.GetEntityById(model.Id);
-
             _mapper.Map(model, entity);
-
-            //var temp = await this.dbSet.Where(p => p.Id == model.Id).Select(p => new Request
-            //{
-            //    IssuerId = p.IssuerId,
-            //    CustomerId = p.CustomerId,
-            //    CreatedDate = p.CreatedDate,
-            //    Status = p.Status,
-            //}).SingleOrDefaultAsync();
-
-            //entity.IssuerId = temp.IssuerId;
-            //entity.CustomerId = temp.CustomerId;
-            //entity.CreatedDate = temp.CreatedDate;
-            //entity.Status = temp.Status;
             entity.WareHouse = null;
-
             _repository.Update(entity);
-            //_repository(model, userId);
             await _uow.SaveChangesAsync();
             return model.Id;
         }
 
-        public async Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId)
-        {
-            return await _repository.FindCustomerRequestAsync(requestId, userId);
-        }
-
+        // For Customer to get list of requests
         public DataSourceResult GetCustomerRequests(DataSourceRequest request, long userId)
         {
             return _repository.GetCustomerRequestsAsync(request, userId);
         }
 
-		public async Task<RequestModel> FindCustomerRequestAsync(int id)
-		{
-			//var entity = _repository.GetEntityById(id);
-			//var entity = _repository.FindCustomerRequestAsync(id);
-			return await _repository.FindCustomerRequestAsync(id);
-		}
-        public Task<LocationModel> GetPositionWarehouse(string code)
+        // For Customer to get request detail
+        public async Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId)
         {
-            return _repository.GetPositionWarehouseAsync(code);
+            return await _repository.FindCustomerRequestAsync(requestId, userId);
         }
-        public async Task<int> GetRequestID(string code)
-        {
-            return await _repository.GetRequestID(code);
-        }
+
+        // For Customer to change request status
         public Task<string> ChangeStatus(string code, string status)
         {
             return this._repository.ChangeStatusAsync(code, status);
         }
+        //End Đ
     }    
 }

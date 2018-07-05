@@ -22,8 +22,8 @@ declare var google: any;
 export class GgmapComponent implements OnInit, OnDestroy {
   private intervalDisposer: any;
   @Input('marker') marker: string;
-  @Input('Origin') Origin: any;  // TODO: first letter of property must be lowercase
-  @Input('Destination') Destination: LatLng; // TODO: first letter of property must be lowercase
+  //@Input('Origin') Origin: any;  // TODO: first letter of property must be lowercase
+  //@Input('Destination') Destination: LatLng; // TODO: first letter of property must be lowercase
   private Waypts: InfoRequest[] = [];
   @Input('waypts') wayptsSubject: BehaviorSubject<InfoRequest[]>;
   //  @Input('Markers') Markers: any[] = [];
@@ -64,19 +64,19 @@ export class GgmapComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.InitMap(this.latcenter, this.lngcenter);
 
-    if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
-      this.intervalDisposer = setInterval(() => {
-        this.GetYourPosition(() => {
-          this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
-        })
-      }, APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec);
+    //if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
+    //  this.intervalDisposer = setInterval(() => {
+    //    this.GetYourPosition(() => {
+    //      this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+    //    })
+    //  }, APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec);
 
-    }
+    //}
 
-    this.wayptsSubject.subscribe(result => {
-      this.Waypts = result;
-      this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
-    });
+    //this.wayptsSubject.subscribe(result => {
+    //  this.Waypts = result;
+    //  this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+    //});
 
   }
 

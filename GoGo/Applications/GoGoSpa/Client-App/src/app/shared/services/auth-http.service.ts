@@ -85,17 +85,6 @@ export class AuthHttpService {
     return Guid.newGuid();
   }
 
-  AddTokenToHeaders(): HttpHeaders {
-    let headers: HttpHeaders = new HttpHeaders();
-    if (localStorage.length != 0) {
-      var key = localStorage.getItem('tokenKey');
-      var currentKey = JSON.parse(key);
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
-    }
-    return headers;
-  }
-
    //private getClientId() {
   //  return APP_SETTINGS.clientId;
   //}
