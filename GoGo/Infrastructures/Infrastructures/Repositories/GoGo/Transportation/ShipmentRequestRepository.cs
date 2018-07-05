@@ -102,7 +102,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                          .Include(p => p.Shipment)
                          .Include(p => p.Request)
                          .Where(p => p.Shipment.Code == code)
-                         .Where(p => p.Status == "Waiting")
+                         .Where(p => p.Status == "Pending")
                          .Select(p => new RequestDetailModel
                          {
                              Code = p.Request.Code,
@@ -131,8 +131,8 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
         public async Task<string> GetFirstRequestCode(string shipmentCode)
         {
-            string status = "Waiting";
-            int waitingRequest = 0;
+            string status = "Pending";
+            int PendingRequest = 0;
             int unloadingRequest = 0;
             int shippingRequest = this.dbSet.Include(p => p.Shipment)
                    .Where(p => p.Shipment.Code == shipmentCode)
@@ -154,17 +154,17 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                 }
                 else
                 {
-                    waitingRequest = this.dbSet.Include(p => p.Shipment)
+                    PendingRequest = this.dbSet.Include(p => p.Shipment)
                          .Where(p => p.Shipment.Code == shipmentCode)
                          .Where(p => p.IsProblem == false)
-                         .Count(p => p.Status == "Waiting");
-                    if (waitingRequest > 0)
+                         .Count(p => p.Status == "Pending");
+                    if (PendingRequest > 0)
                     {
-                        status = "Waiting";
+                        status = "Pending";
                     }
                 }
             }
-            if ((shippingRequest + unloadingRequest + waitingRequest) > 0)
+            if ((shippingRequest + unloadingRequest + PendingRequest) > 0)
             {
                 var query = this.dbSet
                        .Include(p => p.Shipment)

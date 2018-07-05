@@ -12,6 +12,7 @@ import { Marker } from '@agm/core/services/google-maps-types';
 import { ShipmentDetail } from './ShipmentDetail';
 import { Shipment } from '../../shared/models/request';
 import { BehaviorSubject } from 'rxjs';
+import { SharingService } from '../../shared/sevices/sharing-service.service';
 
 
 declare var google: any;
@@ -26,7 +27,7 @@ export class ShipmentPickingComponent implements OnInit {
   statusNav = 'Request';
   shipmentDetail= new ShipmentDetail();
   request = new RequestDetail();
-  status = 'Waiting';
+  status = 'Pending';
   code: string;
   requestList: RequestDetail[];
   problemMessage: string;
@@ -34,7 +35,7 @@ export class ShipmentPickingComponent implements OnInit {
   Destination: LatLng;
   Waypts: InfoRequest[] = [];
   Markers: any[] = [];
-
+  private role;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -47,7 +48,9 @@ export class ShipmentPickingComponent implements OnInit {
     private router: Router,
     private save: SaveService,
     private service: ShipmentService
-  ) { }
+  ) {
+  }
+
   locationPicking: Location = {
     address: '',
     latitude: 0,
@@ -185,7 +188,7 @@ export class ShipmentPickingComponent implements OnInit {
         info.latlng = this.InitLatlng(item.location.latitude, item.location.longitude);
         info.code = item.code;
         info.status = "Active";
-        if (item.status != "Waiting") {
+        if (item.status != "Pending") {
           info.status = "unActive";
         }
         this.Waypts.push(info);
