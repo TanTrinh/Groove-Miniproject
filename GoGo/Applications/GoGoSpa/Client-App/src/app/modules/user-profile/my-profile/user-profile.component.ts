@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserProfile } from './UserProfile';
 import { Location } from '@angular/common';
 import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
-import { UserConfigService } from '../../../../shared/configs/user-config/user-config.service';
+import { UserProfileService } from '../user-profile.service';
+import * as toastr from 'toastr';
 
 // TODO: Move user-profile to another module, because user profile is not belong to user management or identity management
 // Move it to modules/user-profile/my-profile
@@ -23,26 +23,32 @@ export class UserProfileComponent implements OnInit {
   public isError: boolean = false;
 
   constructor(
-    private _http: HttpClient,
     private _router: Router,
     private _route: ActivatedRoute,
     private _location: Location,
     private _notificationService: NotificationService,
-    private _configService: UserConfigService
+    private _userProfileService: UserProfileService
   ) {
-    this.baseUrl = _configService.getUserProfileURI();
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": true,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "300",
+      "timeOut": "2000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
   }
 
   ngOnInit() {
-    var key = localStorage.getItem('tokenKey');
-    var currentKey = JSON.parse(key);
-    if (this.lStorage != 0) {
-      var httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + currentKey.access_token
-        })
-      };
 
       // TODO: Move all HTTPs request relate to user API into seperated service
       // You need to create UserProfileService in modules/user-profile/user-profile.service.ts
@@ -50,17 +56,20 @@ export class UserProfileComponent implements OnInit {
       // then you call _userProfileService.GetMine().subcrible(result=>{
       // })
       //
-      // httpOptions, API url... will be managed by API service
-      this._http.get(this.baseUrl, httpOptions).subscribe(result => {
+    // httpOptions, API url... will be managed by API service
+    this._userProfileService.viewUserProfileData().subscribe(result => {
         this.data = result;
         this.userProfile = this.data;
       });
-    }
     
   }
 
-  edit(id) {
+  update(id) {
     this._router.navigate(['home/profile/edit', id]);
+  }
+
+  displayToastr() {
+    toastr["info"]('This feature is under construction!');
   }
 
   back() {

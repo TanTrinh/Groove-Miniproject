@@ -23,7 +23,7 @@ export class AuthHttpService {
    * x-client-id: this is client-id in OAUTH standard to indicate where the request comming from
    * 
    */
-  
+  //public apiUrl = 'http://localhost:54520';
   constructor(
     private _serviceRegistryService: ServiceRegistryService
     , private _notificationService: NotificationService
@@ -46,6 +46,17 @@ export class AuthHttpService {
     // Show loading affect
   }
 
+  AddTokenToHeaders(): HttpHeaders {
+    let headers: HttpHeaders = new HttpHeaders();
+    if (localStorage.length != 0) {
+      var key = localStorage.getItem('tokenKey');
+      var currentKey = JSON.parse(key) ;
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
+    }
+    return headers;
+  }
+
   public get(url: string): Observable<any> {
     this.beforeSendRequest();
     return this.subscribeForRequest(this._http.get(this.getAbsoluteUrl(url), { headers: this.AddTokenToHeaders() }));
@@ -64,7 +75,7 @@ export class AuthHttpService {
   }
 
   public getAbsoluteUrl(path: string): string {
-    return this._serviceRegistryService.registry.apiUrl + path; // TODO: need revuew from Duc because It correct mistake from Duc
+    return this._serviceRegistryService.registry.apiUrl + path;
   }
 
 
@@ -72,16 +83,16 @@ export class AuthHttpService {
     return Guid.newGuid();
   }
 
-  AddTokenToHeaders(): HttpHeaders {
-    let headers: HttpHeaders = new HttpHeaders();
-    if (localStorage.length != 0) {
-      var key = localStorage.getItem('tokenKey');
-      var currentKey = JSON.parse(key);
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
-    }
-    return headers;
-  }
+  //AddTokenToHeaders(): HttpHeaders {
+  //  let headers: HttpHeaders = new HttpHeaders();
+  //  if (localStorage.length != 0) {
+  //    var key = localStorage.getItem('tokenKey');
+  //    var currentKey = JSON.parse(key);
+  //    headers = headers.append('Content-Type', 'application/json');
+  //    headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
+  //  }
+  //  return headers;
+  //}
 
    //private getClientId() {
   //  return APP_SETTINGS.clientId;

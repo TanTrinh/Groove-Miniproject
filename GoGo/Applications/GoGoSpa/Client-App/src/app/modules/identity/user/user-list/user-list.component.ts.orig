@@ -33,6 +33,7 @@ export class UserListComponent implements OnInit {
     private _userService: UserService
   ) {
     this._userService.fetch(this.state).subscribe(result => {
+      console.log(result);
       this.users = result;
     });
   }
@@ -52,10 +53,45 @@ export class UserListComponent implements OnInit {
   //
   // httpOptions, API url... will be managed by API service
 
+<<<<<<< HEAD
   public dataStateChange(state: DataStateChangeEvent): void {
     this.state = state;
     this._userService.fetch(state)
       .subscribe(r => this.users = r);
+=======
+        this._http.get('http://localhost:54520/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+          this.data = result;
+          this.userList = this.data;
+        });
+      }
+      else if (this.selectOption == 'Driver') {
+        this.id = 2;
+        this._http.get('http://localhost:54520/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+          this.data = result;
+          this.userList = this.data;
+        });
+      }
+      else if (this.selectOption == 'Coordinator') {
+        this.id = 3;
+        this._http.get('http://localhost:54520/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+          this.data = result;
+          this.userList = this.data;
+        });
+      }
+      else {
+        this.id = 4
+        this._http.get('http://localhost:54520/api/user/list?id=' + this.id, httpOptions).subscribe(result => {
+          this.data = result;
+          this.userList = this.data;
+        });
+      }
+    }
+    
+    //this.http.get('http://localhost:54520/api/user/userroles?id=' + id).subscribe(result => {
+    //  this.data = result;
+    //  this.userList = this.data;
+    //});
+>>>>>>> 04a28274459d752afe3c9fc56bc412e02383f1db
   }
 
   loadDetail(id) {

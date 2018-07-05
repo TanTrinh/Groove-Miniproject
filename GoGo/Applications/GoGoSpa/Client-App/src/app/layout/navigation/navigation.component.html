@@ -24,17 +24,16 @@
     <!--<li>
       <a routerLink="/assigned" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Assigned</a>
     </li>-->
-    <li>
+    <li *ngIf="isRole=='Customer' || isRole=='Driver' || isRole=='Coordinator'">
      <a routerLink="/request/list" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Request</a>
     </li>
-    <li>
+    <li *ngIf="isRole=='Customer'">
       <a  class=" list-group-item list-group-item-action ">Warehouse</a>
     </li>
-    <li>
-      <a  class=" list-group-item list-group-item-action ">Delivery Status</a>
-      <a *ngIf="isCoordinorOrDriver" routerLink="/shipment" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Shipment</a>
+    <li *ngIf="isRole=='Coordinator' || isRole=='Driver'">
+      <a routerLink="/shipment" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Shipment</a>
     </li>
-    <li>
+    <li *ngIf="isRole=='Administrator'">
       <a routerLink="/account" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Account</a>
     </li>
   </ul><!-- List Group END-->
