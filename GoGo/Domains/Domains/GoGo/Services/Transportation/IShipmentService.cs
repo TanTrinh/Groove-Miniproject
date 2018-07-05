@@ -11,14 +11,13 @@ namespace Domains.GoGo.Services.Transportation
 {
     public interface IShipmentService
     {
-        Task<int> CreateShipmentAsync(FormShipmentModel model);
-        DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
+		Task<int> CreateShipmentAsync(FormShipmentModel model);
+		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request, string userId);
 
        // Task<IEnumerable<ShipmentAssignedModel>> GetShipmentAssignedModel(long? id);
-        Task<int> ChangeStatus(string code, string status);
-
-        ShipmentDetailModel GetShipmentByCode(string Code);
-        Task UpdateShipmentAsync(FormShipmentModel model);
+		Task<int> ChangeShipmentStatusById(string id, string status);
+		ShipmentDetailModel GetShipmentById(string id);
+		Task UpdateShipmentByIdAsync( string code, FormShipmentModel model);
 
         Task<string> ChangeDeliveryStatus(string code, string status);
         //   Task<IEnumerable<ShipmentViewModel>> GetShipmentAssignedModel(long? id);

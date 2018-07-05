@@ -18,45 +18,26 @@ using Domains.GoGo.Models;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
-    public class ShipmentRepository : GenericRepository<Shipment, int>, IShipmentRepository
-    {
-        private readonly IMapper _mapper;
-        private readonly IShipmentRequestRepository _shipmentRequestRepository;
-        public ShipmentRepository(IMapper mapper, IShipmentRequestRepository shipmentRequestRepository, ApplicationDbContext dbContext) : base(dbContext)
-        {
-            _mapper = mapper;
-            _shipmentRequestRepository = shipmentRequestRepository;
-        }
-        public DataSourceResult GetAllAsync(DataSourceRequest request)
-        {
-            return this.dbSet.MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
-        }
-        public async Task<string> ChangeDeliveryStatus(string code, string status)
-        {
-            var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
-            shipment.Status = status;
-            this.context.Update(shipment);
-            await this.context.SaveChangesAsync();
-            return shipment.Code;
-        }
-        //public async Task<IEnumerable<ShipmentViewModel>> GetShipmentAssignedModel(long? id)
-        //{
-        //    var query = this.dbSet
-        //                .Include(p => p.Vehicle)
-        //                .Where(p => p.DriverId == id)
-        //                .Select(p => new ShipmentViewModel
-        //                {
-        //                    Code = p.Code,
-        //                    LicensePlate = p.Vehicle.LicensePlate,
-        //                    EndDate = p.EndDate,
-        //                    StartDate = p.StartDate,
-        //                    VehicleID = p.VehicleId,
-        //                    RequestQuality = p.RequestQuantity,
-        //                    Status = p.Status,
-                            
-        //                });
-        //    return await query.ToListAsync();
-        //}
+	public class ShipmentRepository : GenericRepository<Shipment, int>, IShipmentRepository
+	{
+		private readonly IMapper _mapper;
+		private readonly IShipmentRequestRepository _shipmentRequestRepository;
+
+		public ShipmentRepository(IMapper mapper, IShipmentRequestRepository shipmentRequestRepository, ApplicationDbContext uoWContext) : base(uoWContext)
+		{
+			_mapper = mapper;
+			_shipmentRequestRepository = shipmentRequestRepository;
+		}
+
+		public DataSourceResult GetAllAsync(DataSourceRequest request, string userId)
+		{
+			if (userId != null)
+			{
+				return this.dbSet.Where(p => p.DriverId.ToString() == userId).MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
+			}
+
+			return this.dbSet.MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
+		}
 
 
         public async Task<ShipmentViewModel> GetShipmentAsync(string code)
@@ -86,12 +67,34 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         }
 
 
-        public async Task<int> ChangeStatus(string code, string status)
-        {
-            var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
-            shipment.Status = status;
-            this.context.Update(shipment);
-            return await this.context.SaveChangesAsync();
-        }
-    }
+		public async Task<int> ChangeStatus(string code, string status)
+		{
+			var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
+			shipment.Status = status;
+			this.context.Update(shipment);
+			return await this.context.SaveChangesAsync();
+		}
+
+		public async Task<int> ChangeShipmentStatusById(string id, string status)
+		{
+			var shipment = await this.dbSet.Where(p => p.Id.ToString() == id).FirstAsync();
+			shipment.Status = status;
+			this.context.Update(shipment);
+			return await this.context.SaveChangesAsync();
+		}
+
+		public Shipment GetShipment(string id)
+		{
+			return this.dbSet.Where(p => p.Id.ToString() == id).SingleOrDefault();
+		}
+
+		public async Task<string> ChangeDeliveryStatus(string code, string status)
+		{
+			var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
+			shipment.Status = status;
+			this.context.Update(shipment);
+			await this.context.SaveChangesAsync();
+			return shipment.Code;
+		}
+	}
 }

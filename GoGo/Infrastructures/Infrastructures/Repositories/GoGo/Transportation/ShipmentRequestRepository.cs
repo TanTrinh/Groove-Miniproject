@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domains.Core;
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
@@ -26,40 +27,40 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             _mapper = mapper;
         }
 
-        public void UpdateShipmentRequest(List<int> requestIdList, int shipmentId)
-        {
-            var shipmentRequestsInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status == "Waiting"))).ToList();
-            var shipmentRequestIdListInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status == "Waiting"))).Select(p => p.RequestId).ToList();
+		public void UpdateShipmentRequest(List<int> requestIdList, int shipmentId)
+		{
+			var shipmentRequestsInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status != ShipmentRequestStatus.INACTIVE))).ToList();
+			var shipmentRequestIdListInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status != ShipmentRequestStatus.INACTIVE))).Select(p => p.RequestId).ToList();
 
             for (int i = 0; i < shipmentRequestsInDb.Count; i++)
             {
                 var index = requestIdList.IndexOf(shipmentRequestsInDb[i].RequestId);
 
-                if (index != -1)
-                {
-                    shipmentRequestsInDb[i].RequestOrder = index + 1;
-                    this.dbSet.Update(shipmentRequestsInDb[i]);
-                }
-                else
-                {
-                    shipmentRequestsInDb[i].Status = "InActive";
-                    shipmentRequestsInDb[i].Note = "Updated";
-                    this.dbSet.Update(shipmentRequestsInDb[i]);
-                }
-            }
+				if (index != -1)
+				{
+					shipmentRequestsInDb[i].RequestOrder = index + 1;
+					this.dbSet.Update(shipmentRequestsInDb[i]);
+				}
+				else
+				{
+					shipmentRequestsInDb[i].Status = ShipmentRequestStatus.INACTIVE;
+					shipmentRequestsInDb[i].Note = ShipmentRequestStatus.UPDATED; 
+					this.dbSet.Update(shipmentRequestsInDb[i]);
+				}
+			}
 
-            for (int i = 0; i < requestIdList.Count; i++)
-            {
-                if (shipmentRequestIdListInDb.IndexOf(requestIdList[0]) == -1)
-                {
-                    var entity = new ShipmentRequest();
-                    entity.ShipmentId = shipmentId;
-                    entity.RequestId = requestIdList[0];
-                    entity.RequestOrder = i + 1;
-                    entity.Status = "Waiting";
-                    entity.Note = "Created";
-                    this.dbSet.Add(entity);
-
+			for (int i = 0; i < requestIdList.Count; i++)
+			{
+				if (shipmentRequestIdListInDb.IndexOf(requestIdList[0]) == -1)
+				{
+					var entity = new ShipmentRequest();
+					entity.ShipmentId = shipmentId;
+					entity.RequestId = requestIdList[0];
+					entity.RequestOrder = i + 1;
+					entity.Status = ShipmentRequestStatus.PENDING;
+					entity.Note = ShipmentRequestStatus.CREATED;
+					this.dbSet.Add(entity);
+                    
                 }
             }
 
@@ -172,7 +173,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                        .Where(p => p.IsProblem == false)
                        .Where(p => p.Status == status)
                        .Select(p => p.Request.Code);
-                return await query.FirstAsync();
+                return await query.FirstOrDefaultAsync(); // TODO: need review from Duc
             }
             int total = this.dbSet.Include(p => p.Shipment)
                         .Where(p => p.Shipment.Code == shipmentCode)
@@ -188,8 +189,8 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                              .Where(p => p.Shipment.Code == shipmentCode)
                              .Where(p => p.IsProblem == true)
                              .Select(p => p.Request.Code);
-                return await pending.FirstAsync();
-            }
+                return await pending.FirstOrDefaultAsync(); // TODO: need review from Duc
+			}
 
         }
 

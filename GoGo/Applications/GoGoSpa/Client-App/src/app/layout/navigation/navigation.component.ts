@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharingService } from '../../shared/sevices/sharing-service.service';
 
 @Component({
   selector: 'app-navigation',
@@ -8,9 +9,17 @@ import { Router } from '@angular/router';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  isCoordinorOrDriver: boolean;
+
+  constructor(private router: Router, private shareingService: SharingService) { }
 
   ngOnInit() {
+    if (this.shareingService.getRole() == "Coordinator" || this.shareingService.getRole() == "Driver")
+      this.isCoordinorOrDriver = true;
+    else
+      this.isCoordinorOrDriver = false;
+
+    console.log(this.shareingService.getRole())
   }
 
 }

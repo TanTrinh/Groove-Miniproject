@@ -56,7 +56,7 @@ namespace Groove.AspNetCore.UnitOfWork.EntityFramework
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this); // TODO: review
         }
 
         protected virtual void Dispose(bool disposing)

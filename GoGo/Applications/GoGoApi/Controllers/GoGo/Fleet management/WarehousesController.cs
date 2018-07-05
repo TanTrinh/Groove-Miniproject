@@ -20,20 +20,20 @@ namespace GoGoApi.Controllers
 			_service = service;
 		}
 
-		[Route("datasource")]
+		[Route("")]
 		[HttpGet]
-		public async Task<IActionResult> GetDataSource(string value)
+		public async Task<IActionResult> GetDataSource([FromQuery]string value)
 		{
 
 			return Ok(await _service.GetDataSource(value));
 		}
 
-		[Route("GetDetail")]
+		[Route("{id}")]
 		[HttpGet]
-		public async Task<IActionResult> GetWarehouseDetailAsync(int Id)
+		public async Task<IActionResult> GetWarehouseDetailAsync(int id)
 		{
 
-			return Ok(await _service.GetWarehouseDetailAsync(Id));
+			return Ok(await _service.GetWarehouseDetailAsync(id));
 		}
 	}
 }

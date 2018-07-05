@@ -7,28 +7,25 @@
           <span><b>Choose Vehicle </b></span>
           <div class="input-group">
             <kendo-combobox name="vehicle"
-                            [data]="vehicleView | async"
+                            [data]="vehicleView"
                             [(ngModel)]="vehicle"
-                            [valueField]="'Value'"
-                            [textField]="'DisplayName'"
+                            [valueField]="'value'"
+                            [textField]="'displayName'"
                             [filterable]="true"
                             (filterChange)="handleVehicleFilter($event)"
-                            [value]="vehicle.id"
-                            style="width: 200px;"
+                            (ngModelChange) ="GetVehicleDetail()"
+                            style="width: 330px;"
                             class="mr-1 mb-1">
             </kendo-combobox>
-            <span class="input-group-btn">
-              <button class="btn btn-primary btn-sm" (click)="GetVehicleDetail()" primary="true">Add</button>
-            </span>
           </div>
           <div>
             <div>
               <span>License Plate</span>
-              <input class="k-textbox" [(ngModel)]="vehicleDetail.LicensePlate" name="LicensePlate" readonly required />
+              <input class="k-textbox width" [(ngModel)]="vehicleDetail.licensePlate" name="licensePlate" autocomplete='tel-national' readonly required />
             </div>
             <div>
               <span>Vehicle Type</span>
-              <input class="k-textbox" [(ngModel)]="vehicleDetail.VehicleFeatureType" name="VehicleFeatureType" readonly required />
+              <input class="k-textbox width" [(ngModel)]="vehicleDetail.vehicleFeatureType" name="vehicleFeatureType" autocomplete='tel-national' readonly required />
             </div>
           </div>
         </div>
@@ -37,28 +34,26 @@
           <span><b>Choose Driver</b> </span>
           <div class="input-group">
             <kendo-combobox name="driver"
-                            [data]="driverView | async"
+                            [data]="driverView"
                             [(ngModel)]="driver"
-                            [valueField]="'Value'"
-                            [textField]="'DisplayName'"
+                            [valueField]="'value'"
+                            [textField]="'displayName'"
                             [filterable]="true"
                             (filterChange)="handleDriverFilter($event)"
-                            style="width: 200px;"
+                            (ngModelChange) ="GetDriverDetail()"
+                            style="width: 330px;"
                             class="mr-1 mb-1">
             </kendo-combobox>
-            <span class="input-group-btn">
-              <button class="btn btn-primary btn-sm" (click)="GetDriverDetail()" primary="true">Add</button>
-            </span>
           </div>
 
           <div>
             <div>
               <span>Driver Name</span>
-              <input class="k-textbox" [(ngModel)]="driverDetail.UserName" name="UserName" readonly required />
+              <input class="k-textbox width" [(ngModel)]="driverDetail.userName" name="userName" readonly autocomplete='tel-national' />
             </div>
             <div>
               <span>Phone Number</span>
-              <input class="k-textbox" [(ngModel)]="driverDetail.PhoneNumber" name="DriverPhoneNumber" readonly />
+              <input class="k-textbox width" [(ngModel)]="driverDetail.phoneNumber" name="DriverphoneNumber" autocomplete='tel-national' readonly />
             </div>
           </div>
         </div>
@@ -85,86 +80,76 @@
     </fieldset>
     <fieldset>
       <legend><b>Request</b></legend>
-      <div>
-        <span>Warehouse Search Box </span>
-        <div class="input-group">
+      <div class="row">      
+        <div class="col-lg-3 col-md-12">
+          <span>Warehouse Search Box </span>
           <kendo-combobox name="warehouse"
-                          [data]="warehouseView | async"
+                          [data]="warehouseView"
                           [(ngModel)]="warehouse"
-                          [valueField]="'Value'"
-                          [textField]="'DisplayName'"
+                          [valueField]="'value'"
+                          [textField]="'displayName'"
                           [filterable]="true"
                           (filterChange)="handleWarehouseFilter($event)"
-                          style="width: 200px;"
-                          class="mr-1 mb-1"
+                          (ngModelChange)="GetWarehouseDetail()"
+                          style="width: 330px;"
                           [disabled]="isValid">
           </kendo-combobox>
-          <span class="input-group-btn">
-            <button class="btn btn-primary btn-sm" (click)="GetWarehouseDetail()" primary="true">Add </button>
-          </span>
         </div>
-        <!--<div>
-          <div>
+        
+          <div class="col-lg-3 col-md-12">
             <span>Warehouse Name</span>
-            <input class="k-textbox" [(ngModel)]="warehouseDetail.WarehouseName" name="WarehouseName" readonly />
+            <input class="k-textbox width" [(ngModel)]="warehouseDetail.warehouseName" name="warehouseName" autocomplete='tel-national' readonly />
           </div>
-          <div>
+          <div class="col-lg-3 col-md-12">
             <span>Address</span>
-            <input class="k-textbox" [(ngModel)]="warehouseDetail.Address" name="WarehouseAddress" readonly />
+            <input class="k-textbox width" [(ngModel)]="warehouseDetail.address" name="warehouseAddress" autocomplete='tel-national' readonly />
           </div>
-          <div>
+          <div class="col-lg-3 col-md-12">
             <span>Phone Number</span>
-            <input class="k-textbox" [(ngModel)]="warehouseDetail.PhoneNumber" name="WarehousePhoneNumber" readonly />
+            <input class="k-textbox width" [(ngModel)]="warehouseDetail.phoneNumber" name="warehousePhoneNumber" autocomplete='tel-national' readonly />
           </div>
-        </div>-->
+       
 
       </div>
       <div>
         <span>Request Search Box </span>
         <div class="input-group">
           <kendo-combobox name="request"
-                          [data]="view | async"
+                          [data]="requestView"
                           [(ngModel)]="request"
-                          [valueField]="'Value'"
-                          [textField]="'DisplayName'"
+                          [valueField]="'value'"
+                          [textField]="'displayName'"
                           [filterable]="true"
                           (filterChange)="handleFilter($event)"
-                          style="width: 200px;"
+                           (ngModelChange)="AddRequestToList()"
+                          style="width: 330px;"
                           class="mr-1 mb-1">
           </kendo-combobox>
-          <span class="input-group-btn">
-            <button class="btn btn-primary btn-sm" (click)="AddRequestToList()" primary="true">Add </button>
-          </span>
         </div>
       </div>
 
     </fieldset>
     <kendo-grid [data]="gridData"
                 [scrollable]="'scrollable'"
-                [height]="350"
+                [height]="330"
                 [pageSize]="state.take"
                 (remove)="removeHandler($event)"
                 required>
-      <kendo-grid-column field="Code" title="Code"></kendo-grid-column>
-      <kendo-grid-column field="CustomerName" title="Customer Name"></kendo-grid-column>
-      <kendo-grid-column field="PickingDate" title="Expected Picking Date"></kendo-grid-column>
-      <kendo-grid-column field="ExpectedDate" title="Expected Delivery Date"></kendo-grid-column>
-      <kendo-grid-column field="PackageQuantity" title="Packages" width="150"></kendo-grid-column>
-      <kendo-grid-column field="DeliveryAddress" title="Delivery Address"></kendo-grid-column>
-      <kendo-grid-command-column title="Delivery Date">
-        <ng-template kendoGridCellTemplate>
-          <kendo-datepicker name="deliveryDate" required></kendo-datepicker>
-          <kendo-timepicker name="deliveryDate" required></kendo-timepicker>
-        </ng-template>
-      </kendo-grid-command-column>
-      <kendo-grid-command-column title="command" width="100">
+
+      <kendo-grid-column field="code" title="Code" width="200"></kendo-grid-column>
+      <kendo-grid-column field="customerName" title="Customer Name"></kendo-grid-column>
+      <kendo-grid-column field="pickingDate" title="Expected Picking Date"></kendo-grid-column>
+      <kendo-grid-column field="expectedDate" title="Expected Delivery Date"></kendo-grid-column>
+      <kendo-grid-column field="deliveryAddress" title="Delivery Address" width="350"></kendo-grid-column>
+      <kendo-grid-column field="packageQuantity" title="Packages" width="130"></kendo-grid-column>
+      <kendo-grid-command-column title="Command" width="100">
         <ng-template kendoGridCellTemplate>
           <button kendoGridRemoveCommand [primary]="true">Delete</button>
         </ng-template>
       </kendo-grid-command-column>
     </kendo-grid>
     <div>
-      <button (click)="onSave()" class="btn btn-primary mt-3" primary="true" [disabled]="form.invalid">Save</button>&nbsp;
+      <button (click)="onSave()" class="btn btn-primary mt-3" primary="true">Save</button>&nbsp;
       <button (click)="onCancel()" class="btn btn-secondary  mt-3" primary="true">Cancel</button>
     </div>
   </form>

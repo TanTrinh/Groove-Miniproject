@@ -7,34 +7,19 @@ import { GridDataResult } from '@progress/kendo-angular-grid';
 import { map } from 'rxjs/internal/operators/map';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { AuthHttpService } from '../shared';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestsService extends BehaviorSubject<any> {
-  private BASE_URL: string = 'http://localhost:54520/api/Requests/RequestList';
 
   baseUrl: string = '';
 
-  constructor(private http: Http, private configService: ConfigService, private https: HttpClient) {
+  constructor(private http: Http, private configService: ConfigService, private https: AuthHttpService) {
     super(null);
 
     this.baseUrl = configService.getApiURI();
-  }
-
-
-  //Request List Api
-  public fetch(state: DataSourceRequestState): Observable<GridDataResult> {
-    const queryStr = `${toDataSourceRequestString(state)}`; 
-    const hasGroups = state.group && state.group.length;
-
-    return this.https
-      .get(`${this.BASE_URL}?${queryStr}`).pipe(
-        map(response => (<GridDataResult>{
-          data: response['Data'],
-          total: parseInt(response['Total'], 10)
-        }))
-      );
   }
 
   //Request filter Api
@@ -43,16 +28,13 @@ export class RequestsService extends BehaviorSubject<any> {
   }
 
   public getdatasource(value, werehouseId): Observable<any> {
-    return this.https.get(this.baseUrl + `/Requests/dataSource?value=${value}&warehouseId=${werehouseId}`);
+    return this.https.get(`/api/Requests/filter/${werehouseId}/${value}`);
   }
 
   //Request Detail Api
-  public getRequestDetail(code: string): Observable<any>
-  {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.get(this.baseUrl + '/Requests/getDetail?code=' + code, options);
+  public getRequestDetail(id: any): Observable<any>
+  { 
+    return this.https.get(`/api/Requests/${id}`);
   }
 
 

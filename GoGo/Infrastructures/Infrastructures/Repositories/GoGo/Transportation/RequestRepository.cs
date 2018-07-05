@@ -15,7 +15,7 @@ using Domains.GoGo;
 using Domains.Core;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
-
+using Domains.GoGo.Models;
 
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
@@ -70,14 +70,17 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 			return this.dbSet.MapQueryTo<RequestsModel>(_mapper).ToDataSourceResult(request);
 		}
 
+
+		//V
 		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId)
 		{
             // TODO: Create ShipmentStatus class for Constant instead of hard code
-            var requestedIdList = this.context.Set<ShipmentRequest>().Where(p => p.Status == "Waiting").Select(p => p.RequestId).ToList();
+			// Done
+            var requestedIdList = this.context.Set<ShipmentRequest>().Where(p => p.Status == ShipmentStatus.PENDING).Select(p => p.RequestId).ToList();
 
             // TODO: Create RequestStatus class for Constant instead of hard code
             return await this.dbSet.Where(p => (( p.Code.Contains(value) || p.Address.Contains(value)) 
-									&& !requestedIdList.Contains(p.Id) && p.Status =="Pending" && p.WareHouseId == warehouseId ) )
+									&& !requestedIdList.Contains(p.Id) && p.Status == ShipmentStatus.PENDING && p.WareHouseId == warehouseId ) )
 									.Select(p => new DataSourceValue<int>
 									{
 										Value = p.Id,
@@ -85,15 +88,16 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 									}).ToListAsync();
 		}
 
-        public async Task<RequestsModel> GetRequestByCode(string code)
+        public async Task<RequestsModel> GetRequestByIdAsync(string id)
         {
-            return await this.dbSet.Where(p => p.Code == code).MapQueryTo<RequestsModel>(_mapper).FirstAsync();
+            return await this.dbSet.Where(p => p.Id.ToString() == id).MapQueryTo<RequestsModel>(_mapper).FirstAsync();
         }
 
 		public IEnumerable<RequestsModel> GetRequestsByShipmentId(int shipmentId)
 		{
             // TODO: Create ShipmentRequestStatus class for Constant instead of hard code
-            var requestIdList = this.context.Set<ShipmentRequest>().Where(p =>( p.ShipmentId == shipmentId && p.Status == "Waiting")).Select(p => p.RequestId).ToList();
+			// Done
+            var requestIdList = this.context.Set<ShipmentRequest>().Where(p =>( p.ShipmentId == shipmentId && p.Status == ShipmentStatus.PENDING)).Select(p => p.RequestId).ToList();
 
 			return this.dbSet.Where(p => (requestIdList.IndexOf(p.Id) != -1)).MapQueryTo<RequestsModel>(_mapper).ToList();
 		}
@@ -101,7 +105,8 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		public IEnumerable<int> GetRequestIdList(int shipmentId)
 		{
             // TODO: Create ShipmentRequestStatus class for Constant instead of hard code
-            return this.context.Set<ShipmentRequest>().Where(p => (p.ShipmentId == shipmentId && p.Status == "Waiting")).Select(p => p.RequestId).ToList();
+			// Done
+            return this.context.Set<ShipmentRequest>().Where(p => (p.ShipmentId == shipmentId && p.Status == ShipmentStatus.PENDING)).Select(p => p.RequestId).ToList();
 		}
         public async Task<LocationModel> GetPositionWarehouseAsync(string code)
         {
