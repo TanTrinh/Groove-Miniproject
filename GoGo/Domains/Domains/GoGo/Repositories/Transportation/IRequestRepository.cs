@@ -29,5 +29,11 @@ namespace Domains.GoGo.Repositories.Transportation
         Task<RequestModel> FindCustomerRequestAsync(int id);
         Task<LocationModel> GetPositionWarehouseAsync(string code);
         Task<int> GetRequestID(string code);
+        Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync();
+        DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, long userId);
+        Task<string> ChangeStatusAsync(string code, string status);
+        Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId);
+        //void UpdateCustomerRequest(RequestModel model, long userId);
+        //Task<int> CreateCustomerRequest(RequestModel model, long userId);
     }
 }

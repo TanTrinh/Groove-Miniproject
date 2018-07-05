@@ -7,7 +7,7 @@ import { map, catchError, finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
-import { APP_SETTINGS } from 'src/app/app-setting';
+import { Headers } from '@angular/http';
 import { patch } from 'webdriver-js-extender';
 // Recommend to use @auth0/angular-jwt
 
@@ -30,6 +30,17 @@ export class AuthHttpService {
     , private _http: HttpClient
   ) { }
 
+  AddTokenToHeaders(): HttpHeaders{
+    let headers: HttpHeaders = new HttpHeaders();
+    if (localStorage.length != 0) {
+      var key = localStorage.getItem('tokenKey');
+      var currentKey = JSON.parse(key);
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
+    }
+    return headers;
+  }
+
   private subscribeForRequest(request: Observable<any>): Observable<any> {
     return request
       .pipe(catchError(res => {
@@ -46,18 +57,9 @@ export class AuthHttpService {
     // Show loading affect
   }
 
-  AddTokenToHeaders(): HttpHeaders {
-    let headers: HttpHeaders = new HttpHeaders();
-    if (localStorage.length != 0) {
-      var key = localStorage.getItem('tokenKey');
-      var currentKey = JSON.parse(key) ;
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
-    }
-    return headers;
-  }
-
   public get(url: string): Observable<any> {
+    let headers: HttpHeaders = new HttpHeaders();
+
     this.beforeSendRequest();
     return this.subscribeForRequest(this._http.get(this.getAbsoluteUrl(url), { headers: this.AddTokenToHeaders() }));
   }
@@ -82,17 +84,6 @@ export class AuthHttpService {
   private getRequestId(): string {
     return Guid.newGuid();
   }
-
-  //AddTokenToHeaders(): HttpHeaders {
-  //  let headers: HttpHeaders = new HttpHeaders();
-  //  if (localStorage.length != 0) {
-  //    var key = localStorage.getItem('tokenKey');
-  //    var currentKey = JSON.parse(key);
-  //    headers = headers.append('Content-Type', 'application/json');
-  //    headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
-  //  }
-  //  return headers;
-  //}
 
    //private getClientId() {
   //  return APP_SETTINGS.clientId;

@@ -23,9 +23,9 @@ namespace Domains.GoGo.Services
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName)
+        public Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName, long userId)
         {
-            return _repository.GetOnFilter(displayName);
+            return _repository.GetOnFilter(displayName, userId);
         }
     }
 }

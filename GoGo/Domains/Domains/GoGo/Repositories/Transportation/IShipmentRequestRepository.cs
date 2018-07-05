@@ -20,5 +20,6 @@ namespace Domains.GoGo.Repositories.Transportation
         Task<string> Problem(string requestCode, bool status);
   
 		void UpdateShipmentRequest(List<int> requestIdList, int shipmentId);
-	}
+        string GetRequestStatus(int requestId, int userId);
+    }
 }

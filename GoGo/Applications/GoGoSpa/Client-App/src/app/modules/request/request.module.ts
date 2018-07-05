@@ -7,19 +7,29 @@ import { FormsModule } from '@angular/forms';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { ComboBoxModule } from '@progress/kendo-angular-dropdowns';
 import { GridModule } from '@progress/kendo-angular-grid';
+import { GgmapComponent } from '../../ggmap/ggmap.component';
+import { AppModule } from '../../app.module';
+
 
 @NgModule({
+  declarations: [
+    RequestListComponent,
+    RequestFormComponent,
+    GgmapComponent
+  ],
+  exports: [
+    GgmapComponent
+    ],
   imports: [
     CommonModule,
     RequestRoutingModule,
     FormsModule,
     DateInputsModule,
     ComboBoxModule,
-    GridModule
+    GridModule,
   ],
-  declarations: [
-    RequestListComponent,
-    RequestFormComponent,
-  ]
+  providers: [
+  ],
+  
 })
 export class RequestModule { }

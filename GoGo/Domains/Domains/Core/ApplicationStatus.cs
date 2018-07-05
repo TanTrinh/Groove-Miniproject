@@ -6,7 +6,7 @@ namespace Domains.Core
 {
    public class ShipmentStatus
    {
-		public const string INACTIVE = "InActive";
+		public const string INACTIVE = "Inactive";
 		public const string PENDING =  "Pending";
 		public const string ACCEPTED = "Accepted";
 		public const string REJECTED = "Rejected";
@@ -29,7 +29,7 @@ namespace Domains.Core
 
 	public class RequestStatus
 	{
-		public const string INACTIVE = "InActive";
+		public const string INACTIVE = "Inactive";
 		public const string PENDING =  "Pending";
 	}
 }
