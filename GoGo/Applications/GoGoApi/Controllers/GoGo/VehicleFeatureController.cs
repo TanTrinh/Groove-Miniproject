@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.GoGo
 {
+    // TODO: remove this class
     public class VehicleFeatureController : BaseController
     {
         //[Route("/api/vehicle-feature/datasource")]

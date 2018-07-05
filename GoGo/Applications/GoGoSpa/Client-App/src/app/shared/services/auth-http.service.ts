@@ -23,7 +23,7 @@ export class AuthHttpService {
    * x-client-id: this is client-id in OAUTH standard to indicate where the request comming from
    * 
    */
-  public apiUrl = 'http://localhost:54520';
+  
   constructor(
     private _serviceRegistryService: ServiceRegistryService
     , private _notificationService: NotificationService
@@ -64,7 +64,7 @@ export class AuthHttpService {
   }
 
   public getAbsoluteUrl(path: string): string {
-    return this.apiUrl + path;
+    return this._serviceRegistryService.registry.apiUrl + path; // TODO: need revuew from Duc because It correct mistake from Duc
   }
 
 

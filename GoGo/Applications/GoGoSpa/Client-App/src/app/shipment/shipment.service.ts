@@ -15,7 +15,7 @@ import { AuthHttpService } from '../shared';
   providedIn: 'root'
 })
 export class ShipmentService extends BehaviorSubject<any>  {
-  private url = 'http://localhost:54520/api/shipments';
+  private url = 'http://localhost:54520/api/shipments'; // TODO: never hard code url in your code
   // TODO: Remove ConfigService & use ServiceRegistryService instead
   constructor(private configService: ConfigService, private http: AuthHttpService, private auth: SharingService, private https: HttpClient) {
     super(null); 
@@ -52,56 +52,57 @@ export class ShipmentService extends BehaviorSubject<any>  {
 
   public GetDetailById(id)
   {
+    // TODO: remove http service & use authHttpService instead
     return this.http.get(`/api/shipments/${id}`);
   }
 
   public ActivateShipment(id): any {
    
-    return this.http.put(`/api/shipments/${id}/activate`, null);
+    return this.http.put(`/api/shipments/${id}/activate`, null); // TODO: remove http service & use authHttpService instead
   }
 
   getListShipmentAssigned(DriverID: number): Observable<any> {
-    return this.https.get(`${this.url}/shipmentAssigned?id=${DriverID}`);
+    return this.https.get(`${this.url}/shipmentAssigned?id=${DriverID}`); // TODO: remove http service & use authHttpService instead
   }
 
   getLocationPicking(shipmentCode: string): Observable<any> {
-    return this.https.get(`${this.url}/${shipmentCode}/locationpicking`);
+    return this.https.get(`${this.url}/${shipmentCode}/locationpicking`); // TODO: remove http service & use authHttpService instead
   }
 
   getShipmentDetail(shipmentCode: string): Observable<any> {
-    return this.https.get(`${this.url}/${shipmentCode}/deliverydetail`);
+    return this.https.get(`${this.url}/${shipmentCode}/deliverydetail`); // TODO: remove http service & use authHttpService instead
   }
 
   changeDeliveryShipmentStatus(shipmentCode: string, status: string): Observable<any> {
 
-    return this.https.put(`${this.url}/${shipmentCode}/changestatus/${status}`, null);
+    return this.https.put(`${this.url}/${shipmentCode}/changestatus/${status}`, null); // TODO: remove http service & use authHttpService instead
   }
 
   getRequest(requestCode: string): Observable<any> {
-    return this.https.get(`${this.url}/request/${requestCode}`);
+    return this.https.get(`${this.url}/request/${requestCode}`); // TODO: remove http service & use authHttpService instead
   }
 
   changeStatusRequest(requestCode: string, status: string): Observable<any> {
-    return this.https.put(`${this.url}/request/${requestCode}/changestatus/${status}`,null);
+    return this.https.put(`${this.url}/request/${requestCode}/changestatus/${status}`, null); // TODO: remove http service & use authHttpService instead
   }
 
   getListRequest(shipmentCode: string): Observable<any> {
-    return this.https.get(`${this.url}/${shipmentCode}/requestList`);
+    return this.https.get(`${this.url}/${shipmentCode}/requestList`); // TODO: remove http service & use authHttpService instead
   }
 
   changeOrderReqeust(paramerter: any): Observable<any> {
-    return this.https.post(`${this.url}/shipment/changeOrder`, paramerter);
+    return this.https.post(`${this.url}/shipment/changeOrder`, paramerter); // TODO: remove http service & use authHttpService instead
   }
 
   sendProblem(requestCode: string, msg: string): Observable<any> {
     var message: any = {
       message: msg
     }
-    return this.https.post(`${this.url}/request/${requestCode}/sendproblem`, message);
+    return this.https.post(`${this.url}/request/${requestCode}/sendproblem`, message); // TODO: remove http service & use authHttpService instead
   }
 
   resolveProblem(requestCode: string): Observable<any> {
-    return this.https.put(`${this.url}/request/${requestCode}/resolveproblem`, null)
+    return this.https.put(`${this.url}/request/${requestCode}/resolveproblem`, null) // TODO: remove http service & use authHttpService instead
   }
 
 }

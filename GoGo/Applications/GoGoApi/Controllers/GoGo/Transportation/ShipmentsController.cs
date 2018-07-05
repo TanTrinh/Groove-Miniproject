@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace GoGoApi.Controllers.GoGo
 {
+    // TODO: Authorization by role
 	// TODO: change `Shipments` to `Shipment` because Pluralizing is hard to manage and It's useless here
 	[Route("api/Shipments")]
 	[ApiController]

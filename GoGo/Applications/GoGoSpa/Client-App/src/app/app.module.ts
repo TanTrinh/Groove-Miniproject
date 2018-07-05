@@ -57,7 +57,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
 
     // Do initing of services that is required before app loads
     // NOTE: this factory needs to return a function (that then returns a promise)
-    return () => ServiceRegistryService.load('http://localhost:60016/configuration/serviceRegistry').toPromise();
+    return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
     //return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
   },
   deps: [ServiceRegistryService],
