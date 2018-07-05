@@ -57,17 +57,6 @@ export class AuthHttpService {
     // Show loading affect
   }
 
-  AddTokenToHeaders(): HttpHeaders {
-    let headers: HttpHeaders = new HttpHeaders();
-    if (localStorage.length != 0) {
-      var key = localStorage.getItem('tokenKey');
-      var currentKey = JSON.parse(key) ;
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
-    }
-    return headers;
-  }
-
   public get(url: string): Observable<any> {
     let headers: HttpHeaders = new HttpHeaders();
 
