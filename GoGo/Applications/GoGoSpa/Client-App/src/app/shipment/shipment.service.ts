@@ -64,35 +64,44 @@ export class ShipmentService extends BehaviorSubject<any>  {
     return this.https.get(`${this.url}/shipmentAssigned?id=${DriverID}`);
   }
 
-  GetLocationPicking(shipmentCode: string): Observable<any> {
+  getLocationPicking(shipmentCode: string): Observable<any> {
     return this.https.get(`${this.url}/${shipmentCode}/locationpicking`);
   }
 
-  GetShipmentDetail(shipmentCode: string): Observable<any> {
+  getShipmentDetail(shipmentCode: string): Observable<any> {
     return this.https.get(`${this.url}/${shipmentCode}/deliverydetail`);
   }
 
-  ChangeDeliveryShipmentStatus(shipmentCode: string, status: string): Observable<any> {
+  changeDeliveryShipmentStatus(shipmentCode: string, status: string): Observable<any> {
 
     return this.https.put(`${this.url}/${shipmentCode}/changestatus/${status}`, null);
   }
 
-  GetRequest(requestCode: string): Observable<any> {
+  getRequest(requestCode: string): Observable<any> {
     return this.https.get(`${this.url}/request/${requestCode}`);
   }
 
-  ChangeStatusRequest(requestCode: string, status: string): Observable<any> {
+  changeStatusRequest(requestCode: string, status: string): Observable<any> {
     return this.https.put(`${this.url}/request/${requestCode}/changestatus/${status}`,null);
   }
 
-  GetListRequest(shipmentCode: string): Observable<any> {
+  getListRequest(shipmentCode: string): Observable<any> {
     return this.https.get(`${this.url}/${shipmentCode}/requestList`);
   }
-  ChangeOrderReqeust(paramerter: any): Observable<any> {
+
+  changeOrderReqeust(paramerter: any): Observable<any> {
     return this.https.post(`${this.url}/shipment/changeOrder`, paramerter);
   }
-  SendProblem(requestCode: string, problem: boolean, message: string): Observable<any> {
-    return this.https.post(`${this.url}/request/${requestCode}/problem/${problem}`, { parameter: { 'message': message }})
+
+  sendProblem(requestCode: string, msg: string): Observable<any> {
+    var message: any = {
+      message: msg
+    }
+    return this.https.post(`${this.url}/request/${requestCode}/sendproblem`, message);
+  }
+
+  resolveProblem(requestCode: string): Observable<any> {
+    return this.https.put(`${this.url}/request/${requestCode}/resolveproblem`, null)
   }
 
 }

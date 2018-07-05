@@ -40,33 +40,37 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		}
 
 
-		public async Task<ShipmentViewModel> GetShipmentAsync(string code)
-		{
-			int totalPackage = _shipmentRequestRepository.GetTotalRequest(code);
-			string firstRequestCode = await _shipmentRequestRepository.GetFirstRequestCode(code);
-			var query = this.dbSet
-						.Include(p => p.Vehicle)
-						.Where(p => p.Code == code)
-						.Select(p => new ShipmentViewModel
-						{
-							Code = p.Code,
-							StartDate = p.StartDate,
-							EndDate = p.EndDate,
-							Status = p.Status,
-							RequestQuality = p.RequestQuantity,
-							LicensePlate = p.Vehicle.LicensePlate,
-							PackageQuality = totalPackage,
-							CurrentRequest = firstRequestCode
-						});
-			return await query.FirstAsync();
-		}
-		public ShipmentDetailModel GetShipmentById(string id)
-		{
-			return this.dbSet.Where(p => p.Id.ToString() == id).MapQueryTo<ShipmentDetailModel>(_mapper).SingleOrDefault();
-		}
+        public async Task<ShipmentViewModel> GetShipmentAsync(string code)
+        {
+            int totalPackage = _shipmentRequestRepository.GetTotalRequest(code);
+            string firstRequestCode = await _shipmentRequestRepository.GetFirstRequestCode(code);
+            var query = this.dbSet
+                        .Include(p => p.Vehicle)
+                        .Where(p => p.Code == code)
+                        .Select(p => new ShipmentViewModel
+                        {
+                            Id=p.Id,
+                            Code = p.Code,
+                            StartDate = p.StartDate,
+                            EndDate = p.EndDate,
+                            Status = p.Status,
+                            RequestQuality = p.RequestQuantity,
+                            LicensePlate = p.Vehicle.LicensePlate,
+                            PackageQuality = totalPackage,
+                            CurrentRequest=firstRequestCode
+                        });
+            return await query.FirstAsync();
+        }
+        public ShipmentDetailModel GetShipmentByCode(string Code)
+        {
+            return this.dbSet.Where(p => p.Code == Code).MapQueryTo<ShipmentDetailModel>(_mapper).SingleOrDefault();
+        }
+        public ShipmentDetailModel GetShipmentById(string id)
+        {
+            return this.dbSet.Where(p => p.Id.ToString() == id).MapQueryTo<ShipmentDetailModel>(_mapper).SingleOrDefault();
+        }
 
-
-		public async Task<int> ChangeStatus(string code, string status)
+        public async Task<int> ChangeStatus(string code, string status)
 		{
 			var shipment = await this.dbSet.Where(p => p.Code == code).FirstAsync();
 			shipment.Status = status;
