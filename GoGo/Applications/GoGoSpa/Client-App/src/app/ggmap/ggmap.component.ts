@@ -1,10 +1,12 @@
-import { Component, OnInit, NgZone, Input } from '@angular/core';
+import { Component, OnInit, NgZone, Input, OnDestroy } from '@angular/core';
 import { LatLng } from '@agm/core';
 import { Marker } from '@agm/core/services/google-maps-types';
-//import { ShipmentService } from '../shipment/shipment.service';
-//import { Location } from '../shipment/shipment-picking/Location';
-//import { InfoRequest } from '../shipment/shipment-picking/InfoRequest';
-//import { SaveService } from '../shared/service/save.service';
+import { ShipmentService } from '../shipment/shipment.service';
+import { Location } from '../shipment/shipment-picking/Location';
+import { InfoRequest } from '../shipment/shipment-picking/InfoRequest';
+import { SaveService } from '../shared/service/save.service';
+import { APP_SETTINGS } from '../app-setting';
+import { BehaviorSubject } from 'rxjs';
 
 declare var google: any;
 
@@ -17,12 +19,13 @@ declare var google: any;
 })
 
 
-export class GgmapComponent implements OnInit {
-
+export class GgmapComponent implements OnInit, OnDestroy {
+  private intervalDisposer: any;
   @Input('marker') marker: string;
-  @Input('Origin') Origin: any;
-  @Input('Destination') Destination: LatLng;
-  @Input('Waypts') Waypts: any[] = [];
+  @Input('Origin') Origin: any;  // TODO: first letter of property must be lowercase
+  @Input('Destination') Destination: LatLng; // TODO: first letter of property must be lowercase
+  private Waypts: InfoRequest[] = [];
+  @Input('waypts') wayptsSubject: BehaviorSubject<InfoRequest[]>;
   //  @Input('Markers') Markers: any[] = [];
 
   //parameter 
@@ -47,29 +50,42 @@ export class GgmapComponent implements OnInit {
 
   //The array of waypoints
   optimizeRequest: any[] = [];
-  iconNext = '../assets/location.png';
-  iconBase = '../assets/trucking.png';
-  iconWarehouse = '../assets/warehouse2.png';
+  iconNext = '../assets/location.png'; // TODO: do not use relative path, use asbsolute path instead '/assets/location.png'
+  iconBase = '../assets/trucking.png'; // TODO: do not use relative path, use asbsolute path instead
+  iconWarehouse = '../assets/warehouse2.png'; // TODO: do not use relative path, use asbsolute path instead
 
   constructor(
     private ngZone: NgZone,
-    //private shipmentService: ShipmentService,
-    //private saveService: SaveService
-  ) { }
-
-  ngOnInit() {
-    //console.log(1);
-    //setInterval(() => {
-    //  this.GetYourPosition()
-    //}, 5000);
-    this.InitMap(this.latcenter, this.lngcenter);
-
-    //setInterval(() => {
-    //  setTimeout(() => { this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay) }, 5000)
-    //}, 3000);
-    //setTimeout(() => { this.DrawMarkers() }, 1000)
+    private shipmentService: ShipmentService,
+    private saveService: SaveService
+  ) {
   }
 
+  ngOnInit() {
+    this.InitMap(this.latcenter, this.lngcenter);
+
+    if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
+      this.intervalDisposer = setInterval(() => {
+        this.GetYourPosition(() => {
+          this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+        })
+      }, APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec);
+
+    }
+
+    this.wayptsSubject.subscribe(result => {
+      this.Waypts = result;
+      this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+    });
+
+  }
+
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalDisposer);
+  }
+
+  // TODO: first letter of function must be lowercase
   //Init the map
   InitMap(latitude, longitude) {
     this.map = new google.maps.Map(document.getElementById('map'), {
@@ -80,6 +96,8 @@ export class GgmapComponent implements OnInit {
     });
     this.directionsDisplay.setMap(this.map);
   }
+
+  // TODO: first letter of function must be lowercase
   DrawMarkers() {
     var index;
     for (index = 0; index < this.Waypts.length; index++) {
@@ -108,15 +126,21 @@ export class GgmapComponent implements OnInit {
     }
   }
 
+  // TODO: first letter of function must be lowercase
   RefeshMarker(markers: any[]) {
     for (var i = 0; i < markers.length; i++)
       markers[i].setMap(null);
   }
+
+  // TODO: first letter of function must be lowercase
   //Optimize the route and show
   //Input:
   //start point: originLocation || end point: destinationLocation
   //checkboxArray: the array of detination
   CalculateAndDisplayRoute(directionsService, directionsDisplay) {
+    if (this.Waypts.length <= 0) {
+      return;
+    }
     this.DrawMarkers();
     var waypts = [];
     this.oldMarkerOrigin.setMap(null);
@@ -133,7 +157,7 @@ export class GgmapComponent implements OnInit {
     });
     var index;
     for (index = 0; index < this.Waypts.length; index++) {
-      if (index < (this.Waypts.length - 1) && this.Waypts[index].status != 'unActive') {
+      if (index < (this.Waypts.length - 1) && this.Waypts[index].status != 'unActive') {// TODO: never hardcode strign value in codes, create class to store constant
         waypts.push({
           location: this.Waypts[index].latlng,
           stopover: true,
@@ -172,6 +196,8 @@ export class GgmapComponent implements OnInit {
       infoWindow.close(this.map, marker);
     });
   }
+
+  // TODO: first letter of function must be lowercase
   //Convert the address to the latitude and longitude
   Geocoding(address) {
     var geocoder = new google.maps.Geocoder();
@@ -185,16 +211,19 @@ export class GgmapComponent implements OnInit {
     });
   }
 
+  // TODO: first letter of function must be lowercase
   RemoveAllMarkers() {
     //for (var i = 0; i < this.markers.length; i++) {
     //  this.markers[i].setMap(null);
     //}
   }
 
+
+  // TODO: first letter of function must be lowercase
   //Get your position
   //Add the marker where you are
   //Address of where you are
-  GetYourPosition() {
+  GetYourPosition(callback: Function) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
@@ -202,7 +231,7 @@ export class GgmapComponent implements OnInit {
           this.yourlng = position.coords.longitude;
           let geocoder = new google.maps.Geocoder();
           let latlng = new google.maps.LatLng(this.yourlat, this.yourlng)
-          return latlng;
+          callback(latlng);
         },
         error => {
           console.log("Error code: " + error.code + "<br /> Error message: " + error.message);
@@ -211,12 +240,14 @@ export class GgmapComponent implements OnInit {
     }
   }
 
+  // TODO: first letter of function must be lowercase
   //Get the Latlng
   GetLatlng(latitude, longitude) {
     let latlng = new google.maps.LatLng(latitude, longitude);
     return latlng;
   }
 
+  // TODO: first letter of function must be lowercase
   GetMarker(latitue, longitude, urlIcon, map) {
     var marker = new google.maps.Marker({
       position: this.GetLatlng(latitue, longitude),

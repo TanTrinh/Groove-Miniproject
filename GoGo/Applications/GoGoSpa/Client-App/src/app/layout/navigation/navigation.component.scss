@@ -4,7 +4,8 @@ $main-color: #0073e6;
 
 /* Sidebar */
 #sidebar-container {
-  min-height: 100vh;
+  min-height: 92.3vh;
+  position: relative;
   background-color: $sidebar-color;
   padding: 0;
   font-weight: 500;

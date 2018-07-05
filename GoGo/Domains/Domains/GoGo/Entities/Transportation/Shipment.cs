@@ -18,6 +18,7 @@ namespace Domains.GoGo.Entities
 		public DateTime EndDate { get; set; }
 
         public string Status { set; get; }
+
 		public int VehicleId { get; set; }
 		public long DriverId { get; set; }
 		public long CoordinatorId { get; set; }

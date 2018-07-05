@@ -9,7 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.GoGo
 {
+<<<<<<< HEAD
     [Route("api/vehicle-feature")]
+=======
+    // TODO: remove this class
+>>>>>>> 120efd78a3831fea5b41fbe2d4be09bb2027ac49
     public class VehicleFeatureController : BaseController
     {
         private readonly IVehicleFeatureService _vehicleFeatureService;

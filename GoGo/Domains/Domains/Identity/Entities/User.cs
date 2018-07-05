@@ -5,8 +5,11 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Domains.Identity.Entities
 {
-	public class User : IdentityUser<long>, IVersionedEntity<long>
-	{
+    public class User : IdentityUser<long>, IVersionedEntity<long>
+    {
+        public string FirstName { set; get; }
+        public string LastName { set; get; }
+
 		public DateTimeOffset CreatedDate { get; set; }
 		public long CreatedByUserId { get; set; }     // use to query/join
 		public string CreatedByUserName { get; set; } // Use to display

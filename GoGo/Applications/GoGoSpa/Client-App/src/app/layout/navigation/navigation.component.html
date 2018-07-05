@@ -28,6 +28,10 @@
     </li>
     <li>
       <a  class=" list-group-item list-group-item-action ">Delivery Status</a>
+      <a *ngIf="isCoordinorOrDriver" routerLink="/shipment" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Shipment</a>
+    </li>
+    <li>
+      <a routerLink="/account" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Account</a>
     </li>
   </ul>
 </div>

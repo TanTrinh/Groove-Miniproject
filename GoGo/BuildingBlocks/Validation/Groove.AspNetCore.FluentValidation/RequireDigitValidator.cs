@@ -10,7 +10,7 @@ namespace FluentValidation
         public static IRuleBuilderOptions<T, string> RequireDigit<T>(this IRuleBuilder<T, string> ruleBuilder)
         {
             //return ruleBuilder.Must(p => Regex.IsMatch(p.ToString(), @"^\d$")).WithMessage("Require digit");
-            return ruleBuilder.Must(p => p.Any(c => char.IsNumber(c))).WithMessage("Require digit character");
+            return ruleBuilder.Must(p => p.Any(c => char.IsNumber(c))).WithMessage("Password require digit character");
         }
     }
 }

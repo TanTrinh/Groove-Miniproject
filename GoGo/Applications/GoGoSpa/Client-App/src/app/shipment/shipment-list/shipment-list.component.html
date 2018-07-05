@@ -1,0 +1,44 @@
+<div class="container-fluid">
+  <div class="py-3">
+    <button class="btn btn-success" (click)="onCreate()">Create Shipment</button>
+  </div>
+
+  <kendo-grid [data]="shipments"
+              [pageSize]="state.take"
+              [skip]="state.skip"
+              [sort]="state.sort"
+              [sortable]="true"
+              [pageable]="true"
+              [group]="state.group"
+              filterable="menu"
+              [filter]="state.filter"
+              (dataStateChange)="dataStateChange($event)"
+              [selectable]="true"
+              [height]="380">
+
+    <kendo-grid-column field="code" title="Code" [width]="200">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <a routerLink="/shipment/{{dataItem.code}}" routerLinkActive="active">{{dataItem.code}}</a>
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="startDate" title="Start Date" [width]="250">
+    </kendo-grid-column>
+    <kendo-grid-column field="endDate" title="End Date" [width]="250">
+    </kendo-grid-column>
+    <kendo-grid-column field="driverName" title="Driver">
+    </kendo-grid-column>
+    <kendo-grid-column field="vehicleLicensePlate" title="Vehicle">
+    </kendo-grid-column>
+    <kendo-grid-column field="requestQuantity" title="Requests">
+    </kendo-grid-column>
+    <kendo-grid-column field="status" title="Status">
+    </kendo-grid-column>
+    <kendo-grid-command-column title="Command">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <button class="btn btn-primary btn-sm mr-1 mb-1 btn-width" (click)="ChangeStatus(dataItem.id)">Active</button>
+        <button class="btn btn-info  btn-sm mb-1 btn-width" (click)="onUpdate(dataItem.id)">Update</button>
+      </ng-template>
+    </kendo-grid-command-column>
+  </kendo-grid>
+  
+</div>

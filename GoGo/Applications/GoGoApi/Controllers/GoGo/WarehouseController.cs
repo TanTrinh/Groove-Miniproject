@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers
 {
+    
     [Route("api/warehouse")]
     public class WarehouseController : BaseController
     {
@@ -18,6 +19,11 @@ namespace GoGoApi.Controllers
             _warehouseService = warehouseService;
         }
 
+<<<<<<< HEAD
+=======
+        // TODO: Remove {displayName} from route. {} synctax to use to identify an resource,
+        // In this case DisplayName is a query srring only, we should not pass it to the url
+>>>>>>> 120efd78a3831fea5b41fbe2d4be09bb2027ac49
         [Route("filter-list/{displayName}")]
         [HttpGet]
         [Authorize]
