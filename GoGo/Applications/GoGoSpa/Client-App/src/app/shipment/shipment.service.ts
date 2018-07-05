@@ -55,7 +55,7 @@ export class ShipmentService extends BehaviorSubject<any>  {
     return this.http.get(`/api/shipments/${id}`);
   }
 
-  public ActivateShipment(id): any {
+  public ActivateShipment(id) {
    
     return this.http.put(`/api/shipments/${id}/activate`, null);
   }

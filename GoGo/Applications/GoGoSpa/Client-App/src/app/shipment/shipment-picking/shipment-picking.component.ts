@@ -28,14 +28,15 @@ export class ShipmentPickingComponent implements OnInit {
   shipmentDetail= new ShipmentDetail();
   request = new RequestDetail();
   status = 'Pending';
+  active: boolean = false;
   code: string;
   requestList: RequestDetail[];
   problemMessage: string;
+  role: string;
 
   Destination: LatLng;
   Waypts: InfoRequest[] = [];
   Markers: any[] = [];
-  private role;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -47,8 +48,11 @@ export class ShipmentPickingComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private save: SaveService,
-    private service: ShipmentService
+    private service: ShipmentService,
+    private shareService: SharingService
   ) {
+    this.role = this.shareService.getRole();
+    console.log(this.role);
   }
 
   locationPicking: Location = {
@@ -63,7 +67,7 @@ export class ShipmentPickingComponent implements OnInit {
     this.Waypts = [];
     this.request.location = new Location();
     this.code = this.route.snapshot.paramMap.get('code');
-    console.log(this.code)
+   
     this.save.saveCode(this.code);
     this.service.getLocationPicking(this.code).subscribe(data => {
       this.locationPicking = data;
@@ -73,7 +77,7 @@ export class ShipmentPickingComponent implements OnInit {
       info.status = "Active";
       info.latlng = this.InitLatlng(this.locationPicking.latitude, this.locationPicking.longitude);
       this.Waypts.unshift(info);
-   //   this.onChangeWaypts();
+     this.onChangeWaypts();
     })
     this.refeshShipment(this.code);
     this.GetRequestList();
@@ -90,12 +94,12 @@ export class ShipmentPickingComponent implements OnInit {
       this.shipmentDetail = data;
       
       console.log(this.shipmentDetail.status)
-      if (this.shipmentDetail.status == "Shipping") {
-        this.Waypts[0].status = "unActive";
+      if (this.shipmentDetail.status == 'Shipping') {
+        this.Waypts[0].status = 'unActive';
         console.log(this.shipmentDetail)
         this.onChangeWaypts();
       }
-      if (this.shipmentDetail.currentRequest == "") {
+      if (this.shipmentDetail.currentRequest == '') {
         this.feedback(this.shipmentDetail, 'Completed');
         this.changeNav('List');
       }
@@ -198,11 +202,14 @@ export class ShipmentPickingComponent implements OnInit {
     })
   }
 
+  ChangeStatusShipment(active: boolean) {
+    this.active = active;
+    //this.service.ActivateShipment(this.shipmentDetail.id).subscribe();
+  }
+
+
   InitLatlng(latitude, longitude) {
     let latlng = new google.maps.LatLng(latitude, longitude);
     return latlng;
-  }
-  InitMarker(latitude, longitude) {
-
   }
 }
