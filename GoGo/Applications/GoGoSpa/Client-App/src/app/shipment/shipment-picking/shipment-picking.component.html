@@ -38,8 +38,8 @@
         </tbody>
       </table>
     </div>
-    <div class="container-fluid">
 
+    <div class="container-fluid">
 
       <div *ngIf="role=='Coordinator'">
         <div *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'InActive'">
@@ -80,7 +80,6 @@
             <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Unloading' && request.isProblem==0" class="btn btn-success btn-block" (click)="changeStatus(shipmentDetail,'Completed')">Complete to delivery</button>
             <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Completed' && request.isProblem==0" (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
             <button *ngIf="shipmentDetail.status == 'Shipping' && request.isProblem==1" (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
-
             <button *ngIf="shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'" (click)="returnList()" class="btn btn-primary btn-block">Return to list</button>
 
           </div>
