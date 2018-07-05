@@ -4,7 +4,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Location } from '@angular/common';
 import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
 //import { EmailvalidatorDirective } from 'src/app/shared/directives/emailvalidator.directive';
-import { AdminConfigService } from '../../../../shared/configs/admin-config/admin-config.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -15,7 +14,6 @@ import { UserService } from '../user.service';
 export class UserCreateComponent implements OnInit {
 
   data: any = {};
-  baseUrl: string;
   public message: string = null;
   public model = {
     username: '',
@@ -32,11 +30,8 @@ export class UserCreateComponent implements OnInit {
     private _router: Router,
     private _location: Location,
     private _notificationService: NotificationService,
-    private _configService: AdminConfigService,
     private _userService: UserService
-  ) {
-    this.baseUrl = _configService.getCreateUserURI();
-  }
+  ) { }
 
   ngOnInit() {
   }

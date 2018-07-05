@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { UserDetail } from './UserDetail';
-import { AdminConfigService } from '../../../../shared/configs/admin-config/admin-config.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -12,18 +11,14 @@ import { UserService } from '../user.service';
 export class UserDetailComponent implements OnInit {
   id: string;
   data: any = {};
-  baseUrl: string;
   public userDetail = new UserDetail();
   public lStorage = localStorage.length;
 
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _configService: AdminConfigService,
     private _userService: UserService
-  ) {
-    this.baseUrl = _configService.getUserDetailURI();
-  }
+  ) { }
 
   ngOnInit() {
 

@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
-import { AdminConfigService } from '../../../../shared/configs/admin-config/admin-config.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -20,8 +19,6 @@ export class UserEditComponent implements OnInit {
   };
   data: any = {};
   id: any = {};
-  baseUrlEdit: string;
-  baseUrlInfoBeEdit: string;
   public message: string = null;
   public isError: boolean = false;
   public lStorage = localStorage.length;
@@ -31,12 +28,8 @@ export class UserEditComponent implements OnInit {
     private _route: ActivatedRoute,
     private location: Location,
     private _notificationService: NotificationService,
-    private _configService: AdminConfigService,
     private _userService: UserService
-  ) {
-    this.baseUrlInfoBeEdit = _configService.getUerInfoBeEditURI();
-    this.baseUrlEdit = _configService.getEditUserURI()
-  }
+  ) { }
 
   ngOnInit() {
     // TODO: Move all HTTPs request relate to user API into seperated service
