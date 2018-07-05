@@ -39,53 +39,75 @@
       </table>
     </div>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div style="width:50%" class="pr-1">
+   <div class="container-fluid">
 
-         
-          <button *ngIf="shipmentDetail.status == 'Pending'" (click)="feedback(shipmentDetail, 'Accept')" class="btn btn-success btn-block">Accept a shipment</button>
-          <button *ngIf="shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Picking')" class="btn btn-success btn-block">Picking</button>
-          <button *ngIf="shipmentDetail.status == 'Picking'" (click)="feedback(shipmentDetail, 'Loading')" class="btn btn-success btn-block">Start to load</button>
-          <button *ngIf="shipmentDetail.status == 'Loading'" (click)="feedback(shipmentDetail, 'Shipping')" class="btn btn-success btn-block">Complete loading</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Pending' && request.code == shipmentDetail.currentRequest && request.isProblem==0" (click)="changeStatus(shipmentDetail,'Shipping')" class="btn btn-primary btn-block">Start to delivery</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Pending' && request.code!=shipmentDetail.currentRequest && request.isProblem==0" class="btn btn-primary btn-block diable">Start to delivery</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Shipping' && request.code==shipmentDetail.currentRequest && request.isProblem==0" (click)="changeStatus(shipmentDetail,'Unloading')" class="btn btn-warning btn-block">Start to unloading</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Unloading' && request.isProblem==0" class="btn btn-success btn-block" (click)="changeStatus(shipmentDetail,'Completed')">Complete to delivery</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Completed' && request.isProblem==0" (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.isProblem==1" (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
-
-          <button *ngIf="shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'" (click)="returnList()" class="btn btn-primary btn-block">Return to list</button>
-
+      <div *ngIf="role=='Coordinator'">
+        <div *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Inactive'">
+          <div class="row">
+            <div style="width:50%" class="pr-1">
+              <button disabled class="btn btn-success btn-block">Update</button>
+            </div>
+            <div style="width:50%" class="pl-1">
+              <button *ngIf="active==0" (click)="ChangeStatusShipment(1)" disabled class="btn btn-primary btn-block">Active</button>
+              <button *ngIf="active==1" (click)="ChangeStatusShipment(0)" disabled class="btn btn-primary btn-block">DeActive</button>
+            </div>
+          </div>
         </div>
-        <div style="width:50%" class="pl-1">
 
-         
-          <button *ngIf="shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Reject')" class="btn btn-danger btn-block">Reject a shipment</button>
-          <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==0" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Problem">Have a problem</button>
-          <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==1" (click)="resovleProblem(request)" class="btn btn-danger btn-block">Resolved a problem</button>
+        <div *ngIf="shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Inactive'">
+          <div class="row">
+            <div style="width:50%" class="pr-1">
+              <button class="btn btn-success btn-block" (click)="UpdateShipment()">Update</button>
+            </div>
+            <div style="width:50%" class="pl-1">
+              <button *ngIf="active" (click)="ChangeShipmentStatus(1)" class="btn btn-primary btn-block">Active</button>
+              <button *ngIf="!active" (click)="ChangeShipmentStatus(0)" class="btn btn-primary btn-block">DeActive</button>
+            </div>
+          </div>
+        </div>
+      </div>
+ <div *ngIf="role=='Driver'">
+        <div class="row">
+          <div style="width:50%" class="pr-1">
+            <button *ngIf="shipmentDetail.status == 'Pending'" (click)="feedback(shipmentDetail, 'Accept')" class="btn btn-success btn-block">Accept a shipment</button>
+            <button *ngIf="shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Picking')" class="btn btn-success btn-block">Picking</button>
+            <button *ngIf="shipmentDetail.status == 'Picking'" (click)="feedback(shipmentDetail, 'Loading')" class="btn btn-success btn-block">Start to load</button>
+            <button *ngIf="shipmentDetail.status == 'Loading'" (click)="feedback(shipmentDetail, 'Shipping')" class="btn btn-success btn-block">Complete loading</button>
+            <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Pending' && request.code == shipmentDetail.currentRequest && request.isProblem==0" (click)="changeStatus(shipmentDetail,'Shipping')" class="btn btn-primary btn-block">Start to delivery</button>
+            <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Pending' && request.code!=shipmentDetail.currentRequest && request.isProblem==0" class="btn btn-primary btn-block diable">Start to delivery</button>
+            <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Shipping' && request.code==shipmentDetail.currentRequest && request.isProblem==0" (click)="changeStatus(shipmentDetail,'Unloading')" class="btn btn-warning btn-block">Start to unloading</button>
+            <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Unloading' && request.isProblem==0" class="btn btn-success btn-block" (click)="changeStatus(shipmentDetail,'Completed')">Complete to delivery</button>
+            <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Completed' && request.isProblem==0" (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
+            <button *ngIf="shipmentDetail.status == 'Shipping' && request.isProblem==1" (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
+            <button *ngIf="shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'" (click)="returnList()" class="btn btn-primary btn-block">Return to list</button>
 
-          <div class="modal fade" id="Problem" tabindex="-1" role="dialog" aria-labelledby="Problem" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle" style="color:red">Your problem</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p style="font-size:16px">Request Code: {{request.code}}</p>
-                  <input type="text" id="problem" class="form-control-plaintext" [(ngModel)]="problemMessage" name="problemMessage" placeholder="Enter your problem">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" (click)="sendProblem(request,true)" data-dismiss="modal">Send</button>
+          </div>
+          <div style="width:50%" class="pl-1">
+            <button *ngIf="shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Reject')" class="btn btn-danger btn-block">Reject a shipment</button>
+            <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==0" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Problem">Have a problem</button>
+            <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==1" (click)="resovleProblem(request)" class="btn btn-danger btn-block">Resolved a problem</button>
+
+            <div class="modal fade" id="Problem" tabindex="-1" role="dialog" aria-labelledby="Problem" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="color:red">Your problem</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p style="font-size:16px">Request Code: {{request.code}}</p>
+                    <input type="text" id="problem" class="form-control-plaintext" [(ngModel)]="problemMessage" name="problemMessage" placeholder="Enter your problem">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="sendProblem(request,true)" data-dismiss="modal">Send</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

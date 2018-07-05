@@ -6,10 +6,11 @@ namespace Domains.Core
 {
    public class ShipmentStatus
    {
-		public const string INACTIVE = "InActive";
+		public const string INACTIVE = "Inactive";
 		public const string PENDING =  "Pending";
 		public const string ACCEPTED = "Accepted";
 		public const string REJECTED = "Rejected";
+		public const string Picking = "Picking";
 		public const string LOADING = "Loading";
 		public const string SHIPPING = "Shipping";
 		public const string COMPLETED = "Completed";

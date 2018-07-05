@@ -31,11 +31,12 @@ export class ShipmentPickingComponent implements OnInit {
   code: string;
   requestList: RequestDetail[];
   problemMessage: string;
+  active: boolean;
 
   Destination: LatLng;
   Waypts: InfoRequest[] = [];
   Markers: any[] = [];
-  private role;
+  private role: any;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -47,8 +48,10 @@ export class ShipmentPickingComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private save: SaveService,
-    private service: ShipmentService
+    private service: ShipmentService,
+    private shareService: SharingService
   ) {
+    this.role = this.shareService.getRole();
   }
 
   // TODO: move properties declarition on top of the class
@@ -76,7 +79,9 @@ export class ShipmentPickingComponent implements OnInit {
       this.Waypts.unshift(info);
    //   this.onChangeWaypts();
     })
-    this.refeshShipment(this.code);
+
+    this.refeshShipment(this.code)
+    
     this.GetRequestList();
   }
 
@@ -87,16 +92,19 @@ export class ShipmentPickingComponent implements OnInit {
   refeshShipment(code: string) {
     this.service.getShipmentDetail(this.code).subscribe(data => {
 
-      console.log(data)
       this.shipmentDetail = data;
-      
+
       console.log(this.shipmentDetail.status)
       // TODO: never hardcode strign value in codes, create class to store constant
       if (this.shipmentDetail.status == "Shipping") {
         this.Waypts[0].status = "unActive";             // TODO: never hardcode strign value in codes, create class to store constant
-        console.log(this.shipmentDetail)
         this.onChangeWaypts();
       }
+
+      if (this.shipmentDetail.status == "Inactive") {
+        this.active = true;
+      } else { this.active = false }
+
       if (this.shipmentDetail.currentRequest == "") {
         this.feedback(this.shipmentDetail, 'Completed'); // TODO: never hardcode strign value in codes, create class to store constant
         this.changeNav('List');                          // TODO: never hardcode strign value in codes, create class to store constant
@@ -206,5 +214,28 @@ export class ShipmentPickingComponent implements OnInit {
   }
   InitMarker(latitude, longitude) {
 
+  }
+
+  ChangeShipmentStatus(active: boolean) {
+    var status = active;
+
+    if (status == true) {
+      this.service.ActivateShipment(this.shipmentDetail.id).subscribe(() => {
+        this.active = false
+        this.refeshShipment(this.shipmentDetail.code)
+      })
+      
+      
+    }
+    else {
+      this.service.DeactivateShipment(this.shipmentDetail.id).subscribe(() => {
+        this.active = true
+        this.refeshShipment(this.shipmentDetail.code)
+      })    
+    }                 
+  }
+
+  UpdateShipment() {
+    this.router.navigate(['/shipment/form/update', this.shipmentDetail.id]);
   }
 }

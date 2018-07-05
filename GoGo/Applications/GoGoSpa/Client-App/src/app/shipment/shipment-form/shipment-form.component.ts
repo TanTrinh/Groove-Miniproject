@@ -48,8 +48,8 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   };
 
   private warehouseView: any;
-  public warehouse: any = {
-  };
+  public warehouse: any = { };
+  
 
   private pickingDate = new Date();
   private deliveryDate = new Date();
@@ -91,16 +91,19 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
     if (this.formMode == "update") {
       this.shipmentService.GetDetailById(this.shipmentId).subscribe(
         result => {        
-          this.shipmentId = result.id
-          this.shipmentCode = result.code
-          this.driverDetail = result.driver
-          this.vehicleDetail = result.vehicle
-          this.requestIdList = result.requestIdList
-          this.requestList = result.requestList
-          this.warehouseDetail = result.warehouse
-          this.pickingDate = new Date(result.startDate)
-          this.deliveryDate = new Date(result.endDate)
-          this.refreshGrid()
+            this.shipmentId = result.id
+            this.shipmentCode = result.code
+            this.driverDetail = result.driver
+            this.vehicleDetail = result.vehicle
+            this.requestIdList = result.requestIdList
+
+
+            this.requestList = result.requestList
+            this.warehouseDetail = result.warehouse
+           
+            this.pickingDate = new Date(result.startDate)
+            this.deliveryDate = new Date(result.endDate)
+            this.refreshGrid()
         }    
       )
       this.isValid = true;
@@ -219,8 +222,8 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
       this.requestService.getRequestDetail(this.request.value)
         .subscribe(result => {
           this.requestDetail = result
-          this.requestDetail.pickingDate = this.sharingService.datimeFormat(this.requestDetail.pickingDate);
-          this.requestDetail.expectedDate = this.sharingService.datimeFormat(this.requestDetail.expectedDate);
+          //this.requestDetail.pickingDate = this.sharingService.datimeFormat(this.requestDetail.pickingDate);
+          //this.requestDetail.expectedDate = this.sharingService.datimeFormat(this.requestDetail.expectedDate);
           this.pushRequest()
         });
     }

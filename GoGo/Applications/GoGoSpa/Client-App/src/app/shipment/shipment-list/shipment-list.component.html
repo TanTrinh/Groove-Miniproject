@@ -22,8 +22,14 @@
       </ng-template>
     </kendo-grid-column>
     <kendo-grid-column field="startDate" title="Start Date" [width]="250">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <a>{{dataItem.startDate | date:'medium'}}</a>
+      </ng-template>
     </kendo-grid-column>
-    <kendo-grid-column field="endDate" title="End Date" [width]="250">
+    <kendo-grid-column field="startDate" title="Start Date" [width]="250">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <a>{{dataItem.endDate | date:'medium'}}</a>
+      </ng-template>
     </kendo-grid-column>
     <kendo-grid-column field="driverName" title="Driver">
     </kendo-grid-column>
@@ -33,12 +39,6 @@
     </kendo-grid-column>
     <kendo-grid-column field="status" title="Status">
     </kendo-grid-column>
-    <kendo-grid-command-column title="Command">
-      <ng-template kendoGridCellTemplate let-dataItem>
-        <button class="btn btn-primary btn-sm mr-1 mb-1 btn-width" (click)="ChangeStatus(dataItem.id)">Active</button>
-        <button class="btn btn-info  btn-sm mb-1 btn-width" (click)="onUpdate(dataItem.id)">Update</button>
-      </ng-template>
-    </kendo-grid-command-column>
   </kendo-grid>
   
 </div>

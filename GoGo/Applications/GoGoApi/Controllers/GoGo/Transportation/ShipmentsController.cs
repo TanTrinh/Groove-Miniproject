@@ -40,6 +40,8 @@ namespace GoGoApi.Controllers.GoGo
 		[HttpPost]
 		public async Task<IActionResult> CreateShipment(FormShipmentModel model)
 		{
+			var userIdentity = GetCurrentIdentity<long>();
+			model.CoordinatorId = userIdentity.Id;
 			var shipmentId = await _Shipmentservice.CreateShipmentAsync(model);
 			await _shipmentRequestService.CreateShipmentRequestAsync(model.RequestIdList, shipmentId);
 
