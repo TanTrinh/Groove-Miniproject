@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace GoGoApi.Controllers.GoGo
 {
+    // TODO: Authorization by role
 	// TODO: change `Shipments` to `Shipment` because Pluralizing is hard to manage and It's useless here
 	[Route("api/Shipments")]
 	[ApiController]
@@ -31,6 +32,7 @@ namespace GoGoApi.Controllers.GoGo
 			_service = service;
 			_Shipmentservice = Shipmentservice;
 			_shipmentRequestService = shipmentRequestService;
+            _problemMessageService = problemMessageService;
 		}
 		// TODO: change route to POST ""
 		// Done
@@ -41,8 +43,8 @@ namespace GoGoApi.Controllers.GoGo
 			var shipmentId = await _Shipmentservice.CreateShipmentAsync(model);
 			await _shipmentRequestService.CreateShipmentRequestAsync(model.RequestIdList, shipmentId);
 
-			return Ok();
-		}
+            return Ok();
+        }
 
 		// TODO: replace route by PUT "{code}/activate"
 		// TODO: replace route by PUT "{code}/deactivate"
@@ -107,7 +109,7 @@ namespace GoGoApi.Controllers.GoGo
             return Ok(t);
         }
 
-        
+
         [Route("{code}/request/{requestCode}/changestatus")]
         [Authorize(Roles = "Driver,Coordinator")]
         [HttpPut]
@@ -141,7 +143,7 @@ namespace GoGoApi.Controllers.GoGo
 
         [Route("{shipmentCode}/changestatus/{status}")]
         [HttpPut]
-        public async Task<IActionResult> ShipmentFeedback(string shipmentCode,string status)
+        public async Task<IActionResult> ShipmentFeedback(string shipmentCode, string status)
         {
             string code = await _Shipmentservice.ChangeDeliveryStatus(shipmentCode, status);
             return Ok(await _Shipmentservice.GetShipmentAsync(code));
@@ -153,17 +155,24 @@ namespace GoGoApi.Controllers.GoGo
             string code = await _shipmentRequestService.ChangeStatusRequestAsync(requestCode, status);
             return Ok(await _shipmentRequestService.GetCurrentRequestAsync(code));
         }
-        [Route("request/{requestCode}/problem/{problem}")]
+        [Route("request/{requestCode}/sendproblem")]
         [HttpPost]
-        public async Task<IActionResult> ChangeStatusRequest(string requestCode, bool problem,string message)
+        public async Task<IActionResult> SaveProblem(string requestCode, [FromBody]Message message)
         {
-            if (problem == true)
-            {
-                int result = await _problemMessageService.SaveProblemMessageAsync(requestCode, message);
-            }
-            string code = await _shipmentRequestService.Problem(requestCode,problem);
+            int result = await _problemMessageService.SaveProblemMessageAsync(requestCode, message.message);
+            string code = await _shipmentRequestService.Problem(requestCode, true);
             return Ok(await _shipmentRequestService.GetCurrentRequestAsync(code));
         }
-       
+        [Route("request/{requestCode}/resolveproblem")]
+        [HttpPut]
+        public async Task<IActionResult> ResolveProblem (string requestCode)
+        {
+            string code = await _shipmentRequestService.Problem(requestCode, false);
+            return Ok(await _shipmentRequestService.GetCurrentRequestAsync(code));
+        }
+    }
+    public class Message
+    {
+        public string message { set; get; }
     }
 }

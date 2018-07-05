@@ -42,24 +42,28 @@
     <div class="container-fluid">
       <div class="row">
         <div style="width:50%" class="pr-1">
+
+         
           <button *ngIf="shipmentDetail.status == 'Pending'" (click)="feedback(shipmentDetail, 'Accept')" class="btn btn-success btn-block">Accept a shipment</button>
           <button *ngIf="shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Picking')" class="btn btn-success btn-block">Picking</button>
           <button *ngIf="shipmentDetail.status == 'Picking'" (click)="feedback(shipmentDetail, 'Loading')" class="btn btn-success btn-block">Start to load</button>
           <button *ngIf="shipmentDetail.status == 'Loading'" (click)="feedback(shipmentDetail, 'Shipping')" class="btn btn-success btn-block">Complete loading</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code == shipmentDetail.currentRequest && request.isProblem==0" (click)="changeStatus(shipmentDetail,'Shipping')" class="btn btn-primary btn-block">Start to delivery</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Waiting' && request.code!=shipmentDetail.currentRequest && request.isProblem==0" class="btn btn-primary btn-block diable">Start to delivery</button>
+          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Pending' && request.code == shipmentDetail.currentRequest && request.isProblem==0" (click)="changeStatus(shipmentDetail,'Shipping')" class="btn btn-primary btn-block">Start to delivery</button>
+          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Pending' && request.code!=shipmentDetail.currentRequest && request.isProblem==0" class="btn btn-primary btn-block diable">Start to delivery</button>
           <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Shipping' && request.code==shipmentDetail.currentRequest && request.isProblem==0" (click)="changeStatus(shipmentDetail,'Unloading')" class="btn btn-warning btn-block">Start to unloading</button>
           <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Unloading' && request.isProblem==0" class="btn btn-success btn-block" (click)="changeStatus(shipmentDetail,'Completed')">Complete to delivery</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Completed' && request.isProblem==0" (click)="nextRequest()" class="btn btn-success btn-block">Start to next request</button>
-          <button *ngIf="shipmentDetail.status == 'Shipping' && request.isProblem==1" (click)="nextRequest()" class="btn btn-success btn-block">Start to next request</button>
+          <button *ngIf="shipmentDetail.status == 'Shipping' && request.status=='Completed' && request.isProblem==0" (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
+          <button *ngIf="shipmentDetail.status == 'Shipping' && request.isProblem==1" (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
 
           <button *ngIf="shipmentDetail.status == 'Completed' || shipmentDetail.status == 'Reject'" (click)="returnList()" class="btn btn-primary btn-block">Return to list</button>
 
         </div>
         <div style="width:50%" class="pl-1">
+
+         
           <button *ngIf="shipmentDetail.status == 'Pending' || shipmentDetail.status == 'Accept'" (click)="feedback(shipmentDetail, 'Reject')" class="btn btn-danger btn-block">Reject a shipment</button>
           <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==0" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Problem">Have a problem</button>
-          <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==1" (click)="sendProblem(request,false)" class="btn btn-danger btn-block" >Resolved a problem</button>
+          <button *ngIf="shipmentDetail.status != 'Pending' && shipmentDetail.status != 'Reject' && shipmentDetail.status != 'Accept' && request.isProblem==1" (click)="resovleProblem(request)" class="btn btn-danger btn-block">Resolved a problem</button>
 
           <div class="modal fade" id="Problem" tabindex="-1" role="dialog" aria-labelledby="Problem" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -148,7 +152,7 @@
               <td *ngIf="item.isProblem == 1">
                 <span>{{item.code}} </span> <span class="badge badge-success">{{item.status}}</span><br />
                 <span style="font-size:12px">{{item.location.address}}</span><br />
-                <span class="badge badge-warning">Pending</span>
+                <span class="badge badge-danger">Pending</span>
               </td>
               
               <td *ngIf="item.isProblem == 0">
@@ -166,6 +170,6 @@
     </div>
   </div>
   <div class="col-md-8">
-    <app-ggmap  [Waypts]="Waypts"></app-ggmap>
+    <app-ggmap [waypts]="wayptsSubject"></app-ggmap>
   </div>
 </div>

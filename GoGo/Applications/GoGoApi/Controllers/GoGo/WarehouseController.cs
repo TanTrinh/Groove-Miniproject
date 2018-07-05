@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers
 {
+    
     [Route("api/warehouse")]
     public class WarehouseController : BaseController
     {

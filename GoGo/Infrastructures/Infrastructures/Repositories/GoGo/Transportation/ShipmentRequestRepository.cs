@@ -102,7 +102,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                          .Include(p => p.Shipment)
                          .Include(p => p.Request)
                          .Where(p => p.Shipment.Code == code)
-                         .Where(p => p.Status == "Waiting")
+                         .Where(p => p.Status == "Pending")
                          .Select(p => new RequestDetailModel
                          {
                              Code = p.Request.Code,
@@ -111,13 +111,13 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                              ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
                              EstimateDate = p.RequestEstimateDate,
                              Status = p.Status,
-                         //ProblemMessage = problemMsgDbSet.Where(msg => msg.RequestId == p.RequestId).OrderByDescending(msg => msg.Id).Select(msg => new ProblemMessage
-                         //{
-                         //    Message = msg.Message,
-                         //    Id = msg.Id,
-                         //    IsSolve = msg.IsSolve
-                         //}).FirstOrDefault(),
-                         IsProblem = p.IsProblem,
+                             //ProblemMessage = problemMsgDbSet.Where(msg => msg.RequestId == p.RequestId).OrderByDescending(msg => msg.Id).Select(msg => new ProblemMessage
+                             //{
+                             //    Message = msg.Message,
+                             //    Id = msg.Id,
+                             //    IsSolve = msg.IsSolve
+                             //}).FirstOrDefault(),
+                             IsProblem = p.IsProblem,
                              RequestOrder = p.RequestOrder,
                              Location = new LocationModel()
                              {
@@ -131,7 +131,9 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
         public async Task<string> GetFirstRequestCode(string shipmentCode)
         {
-            string status = "Waiting";
+            string status = "Pending";
+            int PendingRequest = 0;
+            int unloadingRequest = 0;
             int shippingRequest = this.dbSet.Include(p => p.Shipment)
                    .Where(p => p.Shipment.Code == shipmentCode)
                    .Where(p => p.IsProblem == false)
@@ -140,23 +142,29 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             {
                 status = "Shipping";
             }
-            int unloadingRequest = this.dbSet.Include(p => p.Shipment)
-                  .Where(p => p.Shipment.Code == shipmentCode)
-                  .Where(p => p.IsProblem == false)
-                  .Count(p => p.Status == "Unloading");
-            if (unloadingRequest == 1)
+            else
             {
-                status = "Unloading";
+                unloadingRequest = this.dbSet.Include(p => p.Shipment)
+                .Where(p => p.Shipment.Code == shipmentCode)
+                .Where(p => p.IsProblem == false)
+                .Count(p => p.Status == "Unloading");
+                if (unloadingRequest == 1)
+                {
+                    status = "Unloading";
+                }
+                else
+                {
+                    PendingRequest = this.dbSet.Include(p => p.Shipment)
+                         .Where(p => p.Shipment.Code == shipmentCode)
+                         .Where(p => p.IsProblem == false)
+                         .Count(p => p.Status == "Pending");
+                    if (PendingRequest > 0)
+                    {
+                        status = "Pending";
+                    }
+                }
             }
-            int waitingRequest = this.dbSet.Include(p => p.Shipment)
-                 .Where(p => p.Shipment.Code == shipmentCode)
-                 .Where(p => p.IsProblem == false)
-                 .Count(p => p.Status == "Waiting");
-            if (waitingRequest > 0)
-            {
-                status = "Waiting";
-            }
-            if ((shippingRequest + unloadingRequest + waitingRequest) > 0)
+            if ((shippingRequest + unloadingRequest + PendingRequest) > 0)
             {
                 var query = this.dbSet
                        .Include(p => p.Shipment)
@@ -217,7 +225,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                            .Include(p => p.Shipment)
                            .Include(p => p.Request)
                            .Where(p => p.Shipment.Code == code)
-                           .Where(p=>p.Status!="Active" && p.Status!="InActive")
+                           .Where(p => p.Status != "Active" && p.Status != "InActive")
                            .OrderBy(p => p.RequestOrder)
                            .Select(p => new RequestDetailModel
                            {

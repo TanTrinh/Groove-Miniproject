@@ -1,5 +1,6 @@
 import { Location } from "@angular/common";
 
+// TODO: rename file name to lower first letter
 export class RequestDetail {
   id: number;
   code: string;
