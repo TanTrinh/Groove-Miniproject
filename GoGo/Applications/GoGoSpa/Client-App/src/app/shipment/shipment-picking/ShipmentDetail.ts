@@ -1,3 +1,4 @@
+// TODO: rename file name to lower first letter
 export class ShipmentDetail
 {
   id: number;

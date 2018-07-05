@@ -55,6 +55,7 @@ export class ShipmentPickingComponent implements OnInit {
     console.log(this.role);
   }
 
+  // TODO: move properties declarition on top of the class
   locationPicking: Location = {
     address: '',
     latitude: 0,
@@ -94,14 +95,15 @@ export class ShipmentPickingComponent implements OnInit {
       this.shipmentDetail = data;
       
       console.log(this.shipmentDetail.status)
-      if (this.shipmentDetail.status == 'Shipping') {
-        this.Waypts[0].status = 'unActive';
+      // TODO: never hardcode strign value in codes, create class to store constant
+      if (this.shipmentDetail.status == "Shipping") {
+        this.Waypts[0].status = "unActive";             // TODO: never hardcode strign value in codes, create class to store constant
         console.log(this.shipmentDetail)
         this.onChangeWaypts();
       }
-      if (this.shipmentDetail.currentRequest == '') {
-        this.feedback(this.shipmentDetail, 'Completed');
-        this.changeNav('List');
+      if (this.shipmentDetail.currentRequest == "") {
+        this.feedback(this.shipmentDetail, 'Completed'); // TODO: never hardcode strign value in codes, create class to store constant
+        this.changeNav('List');                          // TODO: never hardcode strign value in codes, create class to store constant
       }
       else {
         console.log(data);
@@ -114,7 +116,7 @@ export class ShipmentPickingComponent implements OnInit {
   }
 
   feedback(item: ShipmentDetail, status) {
-    if (status == "Shipping") {
+    if (status == "Shipping") {                       // TODO: never hardcode strign value in codes, create class to store constant
       //  this.Waypts.splice(0, 1);
       console.log(this.Waypts);
     }
@@ -130,7 +132,7 @@ export class ShipmentPickingComponent implements OnInit {
       this.request = data;
       console.log(this.request)
       this.GetRequestList();
-      if (status == "Completed") {
+      if (status == "Completed") {// TODO: never hardcode strign value in codes, create class to store constant
         this.refeshShipment(this.code);
       }
     })
@@ -161,7 +163,7 @@ export class ShipmentPickingComponent implements OnInit {
   }
 
   viewRequest(item: RequestDetail) {
-    this.changeNav('Request');
+    this.changeNav('Request');// TODO: never hardcode strign value in codes, create class to store constant
     this.service.getRequest(item.code).subscribe(data => {
       console.log(data);
       this.request = data;
@@ -191,9 +193,9 @@ export class ShipmentPickingComponent implements OnInit {
         var info = new InfoRequest();
         info.latlng = this.InitLatlng(item.location.latitude, item.location.longitude);
         info.code = item.code;
-        info.status = "Active";
-        if (item.status != "Pending") {
-          info.status = "unActive";
+        info.status = "Active";// TODO: never hardcode strign value in codes, create class to store constant
+        if (item.status != "Pending") {// TODO: never hardcode strign value in codes, create class to store constant
+          info.status = "unActive";// TODO: never hardcode strign value in codes, create class to store constant
         }
         this.Waypts.push(info);
         this.onChangeWaypts();
