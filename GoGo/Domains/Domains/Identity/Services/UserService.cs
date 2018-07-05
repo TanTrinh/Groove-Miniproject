@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Domains.Identity.Entities;
+using Domains.Identity.Helper;
 using Domains.Identity.Models;
 using Domains.Identity.Repositories;
 using Groove.AspNetCore.Common.Exceptions;
 using Groove.AspNetCore.Common.Identity;
 using Groove.AspNetCore.Common.Messages;
 using Groove.AspNetCore.UnitOfWork;
+using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -40,7 +42,9 @@ namespace Domains.Identity.Services
             // Create UserStatus class to manage user status
             // then use: 
             // model.Status = UserStatus.Active
-            model.Status = "Active";
+
+            model.Status = UserStatus.Active;
+
             var user = _mapper.Map<User>(model);
             user.CreateBy(issuer).UpdateBy(issuer);
 
@@ -106,15 +110,15 @@ namespace Domains.Identity.Services
         }
 
         //Get the value of user need to edit
-        public Task<UserViewUpdateModel> GetUserUpdateAsync(long? id)
-        {
-            return _userRepository.GetUserUpdateByIdAsync(id);
-        }
+        //public Task<UserViewUpdateModel> GetUserUpdateAsync(long? id)
+        //{
+        //    return _userRepository.GetUserUpdateByIdAsync(id);
+        //}
 
         //Get list of user with specific role by role id
-        public Task<IEnumerable<UserListModel>> GetUsersAsync(long? id)
+        public DataSourceResult GetUsersAsync(DataSourceRequest request)
         {
-            return _userRepository.GetUserListAsync(id);
+            return _userRepository.GetUserListAsync(request);
         }
 
         private UserDefinedException CreateException(IEnumerable<IdentityError> errors)

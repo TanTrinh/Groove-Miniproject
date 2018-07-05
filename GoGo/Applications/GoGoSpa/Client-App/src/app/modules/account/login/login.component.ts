@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-};
+import { AccountService } from '../account.service';
+import * as toastr from 'toastr';
 
 @Component({
   selector: 'app-login',
@@ -26,16 +21,34 @@ export class LoginComponent implements OnInit {
   };
   public isError: boolean = false;
   constructor(
-    private _http: HttpClient,
     private _router: Router,
-    private _notificationService: NotificationService) { }
+    private _notificationService: NotificationService,
+    private _accountService: AccountService
+  ) {
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": true,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "300",
+      "timeOut": "2000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+  }
 
   ngOnInit() {
   }
 
   onSubmit() {
     // TODO: console.log is used to troubleshooting only, It should be removed
-    console.log(this.model);
 
 
     // TODO: Move all HTTPs request relate to user API into seperated service
@@ -46,10 +59,9 @@ export class LoginComponent implements OnInit {
     // })
     //
     // httpOptions, API url... will be managed by API service
-    
-    this._http.post('http://localhost:49943/api/authentication/token', this.model, httpOptions).subscribe(result => {
+
+    this._accountService.login(this.model).subscribe(result => {
       var key = "tokenKey";
-      console.log(result);
       if (result) {
         var keyValue = JSON.stringify(result);
         localStorage.setItem(key, keyValue);
@@ -66,5 +78,9 @@ export class LoginComponent implements OnInit {
         this._notificationService.prompError(httpError.message);
       }
     });
+  }
+
+  displayToastr() {
+    toastr["info"]('This feature is under construction!');
   }
 }

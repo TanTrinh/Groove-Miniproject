@@ -1,20 +1,27 @@
 <div class="container-fluid">
   <div class="border-custom">
-    <h1>Update User</h1>
+    <h1>Update Profile</h1>
   </div>
+
   <div class="py-3">
     <div class="col-lg-4">
       <form #myForm="ngForm" class="pt-3" name="myForm">
         <div class="form-group validate">
           <div class="form-group col-md-9 row">
             <button class="btn btn-success" (click)="save(model.id)">Save</button>&nbsp;
-            <button class="btn btn-secondary" (click)="back(model.id)">Back</button>&nbsp;
-          </div>
-          <div [hidden]="!isError" class="validation-message">
-            {{message}}
+            <button class="btn btn-secondary" (click)="back()">Back</button>&nbsp;
+            <div [hidden]="!isError" class="validation-message">
+              {{message}}
+            </div>
           </div>
         </div>
-        
+
+        <div class="form-group ">
+          <label for="username">User Name</label>
+          <input type="text" class="form-control" id="username" [(ngModel)]="model.userName" name="username" #username="ngModel" disabled>
+          <div class="validation-message"></div>
+        </div>
+
         <div class="form-group ">
           <label for="email">Email</label>
           <input type="email" class="form-control" id="email" [(ngModel)]="model.email" name="email" #email="ngModel" required email="true">
@@ -36,26 +43,7 @@
           </div>
         </div>
 
-        <div class="form-group ">
-          <label for="role">Role</label>
-          <select class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
-            <option value="Customer">Customer</option>
-            <option value="Driver">Driver</option>
-            <option value="Coordinator">Coordinator</option>
-            <option value="Administrator">Administrator</option>
-          </select>
-          <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
-            Role is required.
-          </div>
-        </div>
-
-        <!--<div class="form-group ">
-      <button class="btn btn-primary" (click)="save(model.id)">Save</button>&nbsp;
-      <button class="btn btn-primary" (click)="back()">Back</button>&nbsp;
-    </div>
-    <div [hidden]="!isError" class="validation-message">
-      {{message}}
-    </div>-->
+        
       </form>
     </div>
   </div>
