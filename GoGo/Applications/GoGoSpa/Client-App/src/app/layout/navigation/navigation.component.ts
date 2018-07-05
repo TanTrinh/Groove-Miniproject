@@ -16,12 +16,10 @@ export class NavigationComponent implements OnInit {
     constructor(private router: Router, private shareingService: SharingService) { }
 
     ngOnInit() {
-        if (this.shareingService.getRole() == "Coordinator" || this.shareingService.getRole() == "Driver")
-            this.isCoordinorOrDriver = true;
-        else
-            this.isCoordinorOrDriver = false;
-
-        console.log(this.shareingService.getRole())
+        //if (this.shareingService.getRole() == "Coordinator" || this.shareingService.getRole() == "Driver")
+        //    this.isCoordinorOrDriver = true;
+        //else
+        //    this.isCoordinorOrDriver = false;
 
         const token = localStorage.getItem('tokenKey');
 

@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
 
     this._accountService.login(this.model).subscribe(result => {
       var key = "tokenKey";
-      console.log(result);
       if (result) {
         var keyValue = JSON.stringify(result);
         localStorage.setItem(key, keyValue);

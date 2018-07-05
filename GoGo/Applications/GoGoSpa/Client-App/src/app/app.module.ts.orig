@@ -9,6 +9,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { AuthHttpService, LocalStorageService, ServiceRegistryService } from './shared';
+
 import { NotificationService } from './shared/component/dialog/notification.service';
 import { FormValidationService } from './shared/component/form';
 import { AuthenticationService } from './shared/services/authentication.service';
@@ -18,21 +19,12 @@ import { AuthenticationService } from './shared/services/authentication.service'
 
 import { LoginComponent } from './modules/account/login/login.component';
 <<<<<<< HEAD
+import { UserProfileComponent } from './modules/user-profile/my-profile/user-profile.component'
+import { UserProfileEditComponent } from './modules/user-profile/user-profile-edit/user-profile-edit.component'
 import { HttpClientModule } from '@angular/common/http';
-import { NotificationService } from 'src/app/shared/components/dialog/notification.service';
-import { ShipmentModule } from './shipment/shipment.module';
-import { RequestModule } from './request/request.module';
-import { AssignedComponent } from './shipment/ShipmentAssigned/assigned.component';
-import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
-import { RequestListComponent } from './request/request-list/request-list.component';
-import { RequestDetailComponent } from './request/request-detail/request-detail.component';
-import { SaveService } from './shared/service/save.service';
-import { CurrentRequestComponent } from './request/current-request/current-request.component';
-
-
-
 =======
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+>>>>>>> 04a28274459d752afe3c9fc56bc412e02383f1db
 import { ShipmentModule } from './shipment/shipment.module';
 import { ConfigService } from './shared/sevices/config-service.service';
 import { RequestsService } from './request/request.service';
@@ -43,7 +35,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Import the ButtonsModule
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
-import { ShipmentCreatingComponent } from './shipment/shipment-creating/shipment-creating.component';
+import { ShipmentFormComponent } from './shipment/shipment-form/shipment-form.component';
 import { ShipmentComponent } from './shipment/shipment/shipment.component';
 import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.component';
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
@@ -58,7 +50,14 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { UserModule } from './modules/identity/user/user.module';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { GridModule } from '@progress/kendo-angular-grid';
+<<<<<<< HEAD
+=======
 import { RequestModule } from './modules/request/request.module';
+import { GgmapComponent } from './ggmap/ggmap.component';
+
+import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
+import { AgmCoreModule } from '@agm/core';
+>>>>>>> 04a28274459d752afe3c9fc56bc412e02383f1db
 
 
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
@@ -68,14 +67,13 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
 
     // Do initing of services that is required before app loads
     // NOTE: this factory needs to return a function (that then returns a promise)
-    return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
+    return () => ServiceRegistryService.load('http://localhost:54526/configuration/serviceRegistry').toPromise();
     //return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
   },
   deps: [ServiceRegistryService],
   multi: true
 };
 
->>>>>>> 1036d0c0b183bc304ffebeeb60cd531896efa5e8
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,22 +84,19 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     FooterComponent,
     NavigationComponent,
 <<<<<<< HEAD
-    GgmapComponent,
+    //GgmapComponent,
     LoginComponent,
-    AssignedComponent,
-    ShipmentPickingComponent,
-    RequestListComponent,
-    RequestDetailComponent,
-    CurrentRequestComponent
+    UserProfileComponent,
+    UserProfileEditComponent
 =======
     LoginComponent,
-    ShipmentCreatingComponent,
+    ShipmentFormComponent,
     ShipmentComponent,
     ShipmentListComponent,
-
-   
- 
->>>>>>> 1036d0c0b183bc304ffebeeb60cd531896efa5e8
+    GgmapComponent,
+    LoginComponent,
+    ShipmentPickingComponent,
+>>>>>>> 04a28274459d752afe3c9fc56bc412e02383f1db
   ],
   imports: [
     BrowserModule,
@@ -109,17 +104,6 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-<<<<<<< HEAD
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
-    }),
-    AgmDirectionModule,
-    HttpClientModule
-  ],
-  providers: [
-    NotificationService,
-    SaveService
-=======
     SharedModule,
     HttpClientModule,
     ShipmentModule,
@@ -137,11 +121,10 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     AccountModule,
     InputsModule,
     RequestModule,
-
-    //AgmCoreModule.forRoot({
-    //  apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
    
-    //}),
+    }),
     //AgmDirectionModule,
     
     UserModule,
@@ -153,6 +136,15 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
         }
       }
     }),
+<<<<<<< HEAD
+    ShipmentModule,
+    AccountModule,
+    InputsModule,
+    BrowserAnimationsModule,
+    GridModule
+=======
+    HttpClientModule
+>>>>>>> 04a28274459d752afe3c9fc56bc412e02383f1db
   ],
   providers: [
     LocalStorageService,
@@ -161,11 +153,10 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     AuthHttpService,
     AuthenticationService,
     FormValidationService,
-    //APP_INITIALIZER_PROVIDER,
+    APP_INITIALIZER_PROVIDER,
     JwtHelperService,
     ConfigService,
     RequestsService,
->>>>>>> 1036d0c0b183bc304ffebeeb60cd531896efa5e8
   ],
   bootstrap: [AppComponent]
 })

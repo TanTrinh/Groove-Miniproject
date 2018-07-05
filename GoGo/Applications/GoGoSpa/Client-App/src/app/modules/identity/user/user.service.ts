@@ -17,8 +17,7 @@ import { AuthHttpService } from 'src/app/shared';
 })
 export class UserService {
   public lStorage = localStorage.length;
-
-  //private BASE_URL = 'http://localhost:62772/api/user';
+  
   private BASE_URL: any;
 
   constructor(

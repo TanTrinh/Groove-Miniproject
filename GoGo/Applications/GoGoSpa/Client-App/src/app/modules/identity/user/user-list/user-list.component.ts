@@ -33,7 +33,6 @@ export class UserListComponent implements OnInit {
     private _userService: UserService
   ) {
     this._userService.fetch(this.state).subscribe(result => {
-      console.log(result);
       this.users = result;
     });
   }

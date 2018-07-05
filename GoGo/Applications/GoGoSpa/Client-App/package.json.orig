@@ -13,19 +13,6 @@
   "dependencies": {
     "@agm/core": "^1.0.0-beta.3",
 <<<<<<< HEAD
-    "@angular/animations": "^6.0.2",
-    "@angular/common": "^6.0.2",
-    "@angular/compiler": "^6.0.2",
-    "@angular/core": "^6.0.2",
-    "@angular/forms": "^6.0.2",
-    "@angular/http": "^6.0.2",
-    "@angular/platform-browser": "^6.0.2",
-    "@angular/platform-browser-dynamic": "^6.0.2",
-    "@angular/router": "^6.0.2",
-    "@progress/kendo-angular-buttons": "^4.1.1",
-    "@progress/kendo-angular-dateinputs": "^3.4.2",
-    "@progress/kendo-angular-dialog": "^3.6.2",
-=======
     "@angular/animations": "^6.0.6",
     "@angular/common": "^6.0.6",
     "@angular/compiler": "^6.0.6",
@@ -35,30 +22,39 @@
     "@angular/platform-browser": "^6.0.6",
     "@angular/platform-browser-dynamic": "^6.0.6",
     "@angular/router": "^6.0.6",
+=======
+    "@angular/animations": "^6.0.2",
+    "@angular/common": "^6.0.2",
+    "@angular/compiler": "^6.0.2",
+    "@angular/core": "^6.0.2",
+    "@angular/forms": "^6.0.2",
+    "@angular/http": "^6.0.2",
+    "@angular/platform-browser": "^6.0.2",
+    "@angular/platform-browser-dynamic": "^6.0.2",
+    "@angular/router": "^6.0.2",
+>>>>>>> 04a28274459d752afe3c9fc56bc412e02383f1db
+    "@auth0/angular-jwt": "^2.0.0",
     "@progress/kendo-angular-buttons": "^4.1.1",
     "@progress/kendo-angular-dateinputs": "^3.4.2",
->>>>>>> 6fd0c2515ad41da68a98dec0344b1d01823256e6
+    "@progress/kendo-angular-dialog": "^3.6.2",
     "@progress/kendo-angular-dropdowns": "^3.0.2",
     "@progress/kendo-angular-excel-export": "^2.1.0",
     "@progress/kendo-angular-grid": "^3.5.0",
     "@progress/kendo-angular-inputs": "^3.1.3",
     "@progress/kendo-angular-intl": "^1.4.1",
     "@progress/kendo-angular-l10n": "^1.2.0",
-<<<<<<< HEAD
     "@progress/kendo-angular-popup": "^2.4.1",
     "@progress/kendo-angular-tooltip": "^0.4.0",
     "@progress/kendo-data-query": "^1.3.1",
     "@progress/kendo-drawing": "^1.5.6",
+<<<<<<< HEAD
+    "@progress/kendo-theme-default": "^2.54.0",
+    "agm-direction": "^0.5.9",
+=======
     "@progress/kendo-theme-bootstrap": "^2.13.6",
     "@progress/kendo-ui": "^2018.2.620",
     "agm-direction": "^0.5.5",
-=======
-    "@progress/kendo-data-query": "^1.3.1",
-    "@progress/kendo-drawing": "^1.5.6",
-    "@progress/kendo-theme-default": "^2.54.0",
-    "@auth0/angular-jwt": "^2.0.0",
-    "agm-direction": "^0.5.9",
->>>>>>> 6fd0c2515ad41da68a98dec0344b1d01823256e6
+>>>>>>> 04a28274459d752afe3c9fc56bc412e02383f1db
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
     "google": "^2.1.0",
@@ -69,6 +65,7 @@
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
     "tether": "^1.4.4",
+    "toastr": "^2.1.4",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 <<<<<<< HEAD
 =======
 
->>>>>>> 2c3347003fb8a57d383be8a0ab579fcb710d087e
+>>>>>>> 04a28274459d752afe3c9fc56bc412e02383f1db
+
 @NgModule({
   imports: [
     CommonModule
