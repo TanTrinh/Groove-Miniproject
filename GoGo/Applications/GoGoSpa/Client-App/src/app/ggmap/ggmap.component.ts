@@ -64,19 +64,21 @@ export class GgmapComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.InitMap(this.latcenter, this.lngcenter);
 
-    //if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
-    //  this.intervalDisposer = setInterval(() => {
-    //    this.GetYourPosition(() => {
-    //      this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
-    //    })
-    //  }, APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec);
+    if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
+      this.intervalDisposer = setInterval(() => {
+        this.GetYourPosition(() => {
+          this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+        })
+      }, APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec);
 
-    //}
+    }
 
-    //this.wayptsSubject.subscribe(result => {
-    //  this.Waypts = result;
-    //  this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
-    //});
+    this.wayptsSubject.subscribe(result => {
+      this.Waypts = result;
+      this.GetYourPosition(() => {
+        this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+      })
+    });
 
   }
 
