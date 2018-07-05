@@ -3,7 +3,7 @@ import { LatLng } from '@agm/core';
 import { Marker } from '@agm/core/services/google-maps-types';
 import { ShipmentService } from '../shipment/shipment.service';
 import { Location } from '../shipment/shipment-picking/Location';
-import { InfoRequest } from '../shipment/shipment-picking/InfoRequest';
+import { infoMarker } from '../shipment/shipment-picking/InfoRequest';
 import { SaveService } from '../shared/service/save.service';
 import { APP_SETTINGS } from '../app-setting';
 import { BehaviorSubject } from 'rxjs';
@@ -24,8 +24,8 @@ export class GgmapComponent implements OnInit, OnDestroy {
   @Input('marker') marker: string;
   @Input('Origin') Origin: any;  // TODO: first letter of property must be lowercase
   @Input('Destination') Destination: LatLng; // TODO: first letter of property must be lowercase
-  private Waypts: InfoRequest[] = [];
-  @Input('waypts') wayptsSubject: BehaviorSubject<InfoRequest[]>;
+  private Waypts: infoMarker[] = [];
+  @Input('waypts') wayptsSubject: BehaviorSubject<infoMarker[]>;
   //  @Input('Markers') Markers: any[] = [];
 
   //parameter 
@@ -62,20 +62,23 @@ export class GgmapComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.InitMap(this.latcenter, this.lngcenter);
+    this.initMap(this.latcenter, this.lngcenter);
 
-    if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
-      this.intervalDisposer = setInterval(() => {
-        this.GetYourPosition(() => {
-          this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
-        })
-      }, APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec);
+    //if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
+    //  this.intervalDisposer = setInterval(() => {
+    //    this.GetYourPosition(() => {
+    //      this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+    //    })
+    //  }, APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec);
 
-    }
-
+    //}
+    this.getYourPosition(() => {
+         this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+    })
     this.wayptsSubject.subscribe(result => {
       this.Waypts = result;
-      this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+      console.log(this.Waypts)
+      this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
     });
 
   }
@@ -83,11 +86,12 @@ export class GgmapComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearInterval(this.intervalDisposer);
+    this.wayptsSubject.unsubscribe();
   }
 
   // TODO: first letter of function must be lowercase
   //Init the map
-  InitMap(latitude, longitude) {
+  initMap(latitude, longitude) {
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: this.zoom,
       center: { lat: latitude, lng: longitude },
@@ -98,10 +102,10 @@ export class GgmapComponent implements OnInit, OnDestroy {
   }
 
   // TODO: first letter of function must be lowercase
-  DrawMarkers() {
+  drawMarkers() {
     var index;
     for (index = 0; index < this.Waypts.length; index++) {
-      var contentString = `<p>${this.Waypts[index].code}</p>`
+      var contentString = `<p>${this.Waypts[index].description}</p>`
       var infoWindow = new google.maps.InfoWindow();
       var m = new google.maps.Marker({
         position: this.Waypts[index].latlng,
@@ -110,7 +114,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
       });
       m.setMap(this.map);
       if (index == 0) {
-        if (this.Waypts[index].code == "This is location picking") {
+        if (this.Waypts[index].description == "This is location picking") {
           m.setIcon(this.iconWarehouse)
         }
         else {
@@ -127,7 +131,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
   }
 
   // TODO: first letter of function must be lowercase
-  RefeshMarker(markers: any[]) {
+  refeshMarker(markers: any[]) {
     for (var i = 0; i < markers.length; i++)
       markers[i].setMap(null);
   }
@@ -137,11 +141,11 @@ export class GgmapComponent implements OnInit, OnDestroy {
   //Input:
   //start point: originLocation || end point: destinationLocation
   //checkboxArray: the array of detination
-  CalculateAndDisplayRoute(directionsService, directionsDisplay) {
+  calculateAndDisplayRoute(directionsService, directionsDisplay) {
     if (this.Waypts.length <= 0) {
       return;
     }
-    this.DrawMarkers();
+    this.drawMarkers();
     var waypts = [];
     this.oldMarkerOrigin.setMap(null);
     var markerOrigin = new google.maps.Marker({
@@ -157,7 +161,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
     });
     var index;
     for (index = 0; index < this.Waypts.length; index++) {
-      if (index < (this.Waypts.length - 1) && this.Waypts[index].status != 'unActive') {// TODO: never hardcode strign value in codes, create class to store constant
+      if (index < (this.Waypts.length - 1) && this.Waypts[index].isRoute == true) {// TODO: never hardcode strign value in codes, create class to store constant
         waypts.push({
           location: this.Waypts[index].latlng,
           stopover: true,
@@ -223,7 +227,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
   //Get your position
   //Add the marker where you are
   //Address of where you are
-  GetYourPosition(callback: Function) {
+  getYourPosition(callback: Function) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {

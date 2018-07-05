@@ -104,12 +104,6 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     AccountModule,
     InputsModule,
     RequestModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
-   
-    }),
-    //AgmDirectionModule,
-    
     UserModule,
 
     JwtModule.forRoot({
