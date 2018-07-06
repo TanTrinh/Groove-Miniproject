@@ -9,6 +9,6 @@ namespace Domains.GoGo.Services
 {
     public interface IWarehouseService
     {
-        Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName);
+        Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName, long userId);
     }
 }

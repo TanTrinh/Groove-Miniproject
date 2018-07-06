@@ -20,5 +20,6 @@ namespace Domains.GoGo.Services.Transportation
     
 		Task CreateShipmentRequestAsync(IEnumerable<int> requestIdList, int shipmentId);
 		void UpdateShipmentRequest(List<int> requestIdList, int shipmentId);
-	}
+        string GetRequestStatus(int requestId, int userId);
+    }
 }

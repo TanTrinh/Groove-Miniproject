@@ -7,7 +7,7 @@ import { map, catchError, finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
-import { APP_SETTINGS } from 'src/app/app-setting';
+import { Headers } from '@angular/http';
 import { patch } from 'webdriver-js-extender';
 // Recommend to use @auth0/angular-jwt
 
@@ -23,12 +23,23 @@ export class AuthHttpService {
    * x-client-id: this is client-id in OAUTH standard to indicate where the request comming from
    * 
    */
-  
+  //public apiUrl = 'http://localhost:54520';
   constructor(
     private _serviceRegistryService: ServiceRegistryService
     , private _notificationService: NotificationService
     , private _http: HttpClient
   ) { }
+
+  AddTokenToHeaders(): HttpHeaders{
+    let headers: HttpHeaders = new HttpHeaders();
+    if (localStorage.length != 0) {
+      var key = localStorage.getItem('tokenKey');
+      var currentKey = JSON.parse(key);
+      headers = headers.append('Content-Type', 'application/json');
+      headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
+    }
+    return headers;
+  }
 
   private subscribeForRequest(request: Observable<any>): Observable<any> {
     return request
@@ -47,6 +58,8 @@ export class AuthHttpService {
   }
 
   public get(url: string): Observable<any> {
+    let headers: HttpHeaders = new HttpHeaders();
+
     this.beforeSendRequest();
     return this.subscribeForRequest(this._http.get(this.getAbsoluteUrl(url), { headers: this.AddTokenToHeaders() }));
   }
@@ -64,23 +77,12 @@ export class AuthHttpService {
   }
 
   public getAbsoluteUrl(path: string): string {
-    return this._serviceRegistryService.registry.apiUrl + path; // TODO: need revuew from Duc because It correct mistake from Duc
+    return this._serviceRegistryService.registry.apiUrl + path;
   }
 
 
   private getRequestId(): string {
     return Guid.newGuid();
-  }
-
-  AddTokenToHeaders(): HttpHeaders {
-    let headers: HttpHeaders = new HttpHeaders();
-    if (localStorage.length != 0) {
-      var key = localStorage.getItem('tokenKey');
-      var currentKey = JSON.parse(key);
-      headers = headers.append('Content-Type', 'application/json');
-      headers = headers.append('Authorization', `Bearer ${currentKey.access_token}`);
-    }
-    return headers;
   }
 
    //private getClientId() {

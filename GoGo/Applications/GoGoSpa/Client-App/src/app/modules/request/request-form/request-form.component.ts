@@ -13,13 +13,44 @@ import { Observable } from 'rxjs';
 })
 
 export class RequestFormComponent extends FormBaseComponent implements OnInit {
-  public warehouseList: Array<any> = [];
-  formData: any = {
-    wareHouse: ''
+  public warehouseList: Array<any> = []; 
+  public vehicleFeatureList: Array<any> = [];
+  public requestStatus: string = '';
+
+  public onLoadGrid(status) {
+    if (status == 'Inactive') {
+      return 'Activate';
+    }
+    else if (status == 'Pending') {
+      return 'Deactivate'
+    }
+  }
+
+  public onClickStatus(dataItem) {
+    if (dataItem.status == 'Inactive') {
+      this.requestService.changeStatus(dataItem.code, 'Pending').subscribe(
+        result => {
+          dataItem.status = result.result;
+        }
+      );
+    }
+    else if (dataItem.status == 'Pending') {
+      this.requestService.changeStatus(dataItem.code, 'Inactive').subscribe(
+        result => {
+          dataItem.status = result.result;
+        });
+    }
+  }
+
+  public resetData(data) {
+    this.formData.wareHouse = '';
+    this.formData.vehicleFeature = '';
+    this.requestStatus = '';
   }
 
   public onBeforeInitFormData(data) {
-
+    // Get status
+    this.requestStatus = this.GetRequestStatus(data.id);
     // Date parse
     if (data.pickingDate == null || data.pickingDate == undefined || data.expectedDate == null || data.expectedDate == undefined) {
       data.pickingDate = new Date();
@@ -31,7 +62,11 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     }
 
     // Push warehouse to warehouse list so that it can show in combobox
+
+    this.warehouseList = [];
+    this.vehicleFeatureList = [];
     this.warehouseList.push(data.wareHouse);
+    this.vehicleFeatureList.push(data.vehicleFeature);
   }
 
   constructor(protected route: ActivatedRoute,
@@ -42,18 +77,31 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     private _notificationService: NotificationService,
   ) {
     super(route, router, notificationService, requestService, validationService);
+    this.resetFormData = (data) => { this.resetData(data) };
     this.formConfiguration.events.onAfterInitFormData = (data)=> {
       this.onBeforeInitFormData(data);
     };
 
     super.formOnInit("Request", {});
   }
-  ngOnInit() {
+
+  public GetRequestStatus(requestId: any) {
+    if (requestId != null && requestId != undefined) {
+      this.requestService.GetRequestStatus(requestId).subscribe(data => {
+        if (data != null && data != undefined) {
+          this.requestStatus = data.result;
+          if (this.requestStatus == null || this.requestStatus == undefined) {
+            this.requestStatus = 'not accepted';
+          }
+        }
+      });
+    }
+    return this.requestStatus;
   }
 
-  public filterChange(value) {
+  public filterWarehouse(value) {
     if (value != null && value != undefined && value != '') {
-      this.requestService.filterWarehouseList(value).subscribe(data => {
+      this.requestService.filterWarehouse(value).subscribe(data => {
         if (data != null && data != undefined) {
           this.warehouseList = data;
         }
@@ -62,5 +110,18 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     }
   }
 
+  public filterVehicleFeature(value) {
+    if (value != null && value != undefined && value != '') {
+      this.requestService.filterVehicleFeature(value).subscribe(data => {
+        if (data != null && data != undefined) {
+          this.vehicleFeatureList = data;
+        }
+      });
+
+    }
+  }
+
+  ngOnInit() {
+  }
 
 }

@@ -9,14 +9,15 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { AuthHttpService, LocalStorageService, ServiceRegistryService } from './shared';
+
 import { NotificationService } from './shared/component/dialog/notification.service';
 import { FormValidationService } from './shared/component/form';
 import { AuthenticationService } from './shared/services/authentication.service';
-//import { GgmapComponent } from './ggmap/ggmap.component';
-//import { AgmCoreModule, AgmDataLayer } from '@agm/core';
-//import { AgmDirectionModule } from 'agm-direction';
+
 
 import { LoginComponent } from './modules/account/login/login.component';
+import { UserProfileComponent } from './modules/user-profile/my-profile/user-profile.component'
+import { UserProfileEditComponent } from './modules/user-profile/user-profile-edit/user-profile-edit.component'
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ShipmentModule } from './shipment/shipment.module';
 import { ConfigService } from './shared/sevices/config-service.service';
@@ -43,25 +44,25 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { UserModule } from './modules/identity/user/user.module';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { GridModule } from '@progress/kendo-angular-grid';
-import { RequestModule } from './modules/request/request.module';
 import { GgmapComponent } from './ggmap/ggmap.component';
 
 import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
 import { AgmCoreModule } from '@agm/core';
+import { RequestModule } from './modules/request/request.module';
+
 
 
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
-  provide: APP_INITIALIZER,
-  useFactory: (ServiceRegistryService: ServiceRegistryService) => {
+    provide: APP_INITIALIZER,
+    useFactory: (ServiceRegistryService: ServiceRegistryService) => {
 
 
-    // Do initing of services that is required before app loads
-    // NOTE: this factory needs to return a function (that then returns a promise)
-    return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
-    //return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
-  },
-  deps: [ServiceRegistryService],
-  multi: true
+        // Do initing of services that is required before app loads
+        // NOTE: this factory needs to return a function (that then returns a promise)
+        return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
+    },
+    deps: [ServiceRegistryService],
+    multi: true
 };
 
 @NgModule({
@@ -73,15 +74,16 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     HeaderComponent,
     FooterComponent,
     NavigationComponent,
-    LoginComponent,
     ShipmentFormComponent,
     ShipmentComponent,
     ShipmentListComponent,
-    GgmapComponent,
     LoginComponent,
     ShipmentPickingComponent,
+    UserProfileComponent,
+    UserProfileEditComponent
   ],
   imports: [
+    RequestModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -105,7 +107,6 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     InputsModule,
     RequestModule,
     UserModule,
-
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -127,6 +128,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     ConfigService,
     RequestsService,
   ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

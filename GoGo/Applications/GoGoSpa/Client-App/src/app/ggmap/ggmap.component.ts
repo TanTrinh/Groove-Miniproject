@@ -22,10 +22,10 @@ declare var google: any;
 export class GgmapComponent implements OnInit, OnDestroy {
   private intervalDisposer: any;
   @Input('marker') marker: string;
-  @Input('Origin') Origin: any;  // TODO: first letter of property must be lowercase
-  @Input('Destination') Destination: LatLng; // TODO: first letter of property must be lowercase
-  private Waypts: infoMarker[] = [];
-  @Input('waypts') wayptsSubject: BehaviorSubject<infoMarker[]>;
+  //@Input('Origin') Origin: any;  // TODO: first letter of property must be lowercase
+  //@Input('Destination') Destination: LatLng; // TODO: first letter of property must be lowercase
+  private Waypts: InfoRequest[] = [];
+  @Input('waypts') wayptsSubject: BehaviorSubject<InfoRequest[]>;
   //  @Input('Markers') Markers: any[] = [];
 
   //parameter 
@@ -77,8 +77,9 @@ export class GgmapComponent implements OnInit, OnDestroy {
     })
     this.wayptsSubject.subscribe(result => {
       this.Waypts = result;
-      console.log(this.Waypts)
-      this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+      this.GetYourPosition(() => {
+        this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+      })
     });
 
   }

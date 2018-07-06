@@ -86,5 +86,10 @@ namespace Domains.GoGo.Services.Transportation
 		{
 		  _repository.UpdateShipmentRequest(requestIdList, shipmentId);
 		}
-	}
+
+        public string GetRequestStatus(int requestId, int userId)
+        {
+            return _repository.GetRequestStatus(requestId, userId);
+        }
+    }
 }

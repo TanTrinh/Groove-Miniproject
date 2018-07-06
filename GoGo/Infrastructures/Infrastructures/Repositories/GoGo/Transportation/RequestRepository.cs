@@ -16,7 +16,7 @@ using Domains.Core;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using Domains.GoGo.Models;
-
+using Domains.GoGo.Entities.Fleet;
 namespace Infrastructures.Repositories.GoGo.Transportation
 {
     public class RequestRepository : GenericRepository<Request, int>, IRequestRepository
@@ -32,12 +32,12 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
         }
-        public async Task<RequestModel> FindCustomerRequestAsync(int id)
+        public async Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId)
         {
-            //return await this.dbSet.Where(p => p.Id == id).Include(p => p.WareHouse).MapQueryTo<RequestModel>(_mapper).FirstAsync();
+            
             return await this.dbSet
                                  .Include(p => p.WareHouse)
-                                 .Where(p => p.Id == id)
+                                 .Where(p => p.Id == requestId && p.CustomerId == 77)
                                   .Select(p => new RequestModel
                                   {
                                       WareHouse = new DataSourceValue<int>()
@@ -46,6 +46,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                                           DisplayName = p.WareHouse.NameWarehouse
                                       },
                                       Id = p.Id,
+                                      Status = p.Status,
                                       ExpectedDate = p.ExpectedDate,
                                       Address = p.Address,
                                       DeliveryLatitude = p.DeliveryLatitude,
@@ -53,16 +54,33 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                                       Code = p.Code,
                                       PackageQuantity = p.PackageQuantity,
                                       ReceiverName = p.ReceiverName,
-                                      ReceiverPhoneNumber = p.ReceiverPhoneNumber,
-                                      CreatedDate = p.CreatedDate,
+                                      ReceiverPhoneNumber = p.ReceiverPhoneNumber, 
                                       PickingDate = p.PickingDate,
                                   }).SingleOrDefaultAsync();
         }
 
-
-        public Task<string> ChangeStatus(int? id, string status)
+        public async Task<string> ChangeStatusAsync(string code, string status)
         {
-            throw new NotImplementedException();
+            var entity = await this.dbSet.Where(p => p.Code == code).FirstAsync();
+            entity.Status = status;
+            this.context.Update(entity);
+            await this.context.SaveChangesAsync();
+            return entity.Status;
+        }
+
+        public DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, long userId)
+        { // 77 get from claim
+            
+            return this.dbSet.Include(p => p.WareHouse).Where(p => p.CustomerId == 77).Select(p => new SummaryRequestModel
+            {
+                Id = p.Id,
+                WareHouse = p.WareHouse.NameWarehouse,
+                ExpectedDate = p.ExpectedDate,
+                Address = p.Address,
+                Status = p.Status,
+                Code = p.Code,
+                PickingDate = p.PickingDate,
+            }).ToDataSourceResult(request);
         }
 
 		public DataSourceResult GetAllAsync([DataSourceRequest] DataSourceRequest request)
@@ -124,6 +142,21 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         public async Task<int> GetRequestID(string code)
         {
             return await this.dbSet.Where(p => p.Code == code).Select(p => p.Id).FirstAsync();
+        }
+
+        public Task<string> ChangeStatus(int? id, string status)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RequestModel> FindCustomerRequestAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

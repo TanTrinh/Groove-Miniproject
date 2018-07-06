@@ -36,8 +36,7 @@ namespace Domains.GoGo.Models.Transportation
     public class RequestModel
     {
         public int Id { get; set; }
-
-        public DateTime CreatedDate { get; set; }
+        
         //Customer add 
         public DateTime PickingDate { get; set; }
         public DateTime ExpectedDate { set; get; }
@@ -55,11 +54,11 @@ namespace Domains.GoGo.Models.Transportation
 
         public string ReceiverName { set; get; }
         public string ReceiverPhoneNumber { set; get; }
-
-        public long IssuerId { get; set; }
+        
         //public int WareHouseId { get; set; }
+        //public int VehicleFeatureId { get; set; }
         public DataSourceValue<int> WareHouse { get; set; }
-        public long CustomerId { set; get; }
+        public DataSourceValue<int> VehicleFeature { get; set; }
 
     }
 
@@ -87,9 +86,19 @@ namespace Domains.GoGo.Models.Transportation
             RuleFor(p => p.Code).NotEmpty();
             RuleFor(p => p.Status).NotEmpty();
             RuleFor(p => p.ReceiverName).NotEmpty();
-            RuleFor(p => p.ReceiverPhoneNumber).NotEmpty();
-            RuleFor(p => p.IssuerId).NotEmpty();
+            RuleFor(p => p.ReceiverPhoneNumber).NotEmpty();                             
 
         }
+    }
+
+    public class SummaryRequestModel
+    {
+        public int Id { get; set; }
+        public string Code { set; get; }
+        public string Status { get; set; }
+        public DateTime PickingDate { get; set; }
+        public DateTime ExpectedDate { set; get; }
+        public string WareHouse { get; set; }
+        public string Address { set; get; }
     }
 }
