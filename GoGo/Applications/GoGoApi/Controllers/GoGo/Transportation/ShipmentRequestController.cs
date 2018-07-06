@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.GoGo
 {
-    [Route("api/shipment-request")]
+    [Route("api/ShipmentRequest")]
     public class ShipmentRequestController : BaseController
     {
         private readonly IShipmentRequestService _shipmentRequestService;
@@ -19,6 +19,9 @@ namespace GoGoApi.Controllers.GoGo
             _shipmentRequestService = shipmentRequestService;
         }
 
+        // Đ
+
+        // GET /api/shipmentrequest/{requestId}/status
         [Route("{requestId}/status")]
         [HttpGet]
         [Authorize]
@@ -27,5 +30,6 @@ namespace GoGoApi.Controllers.GoGo
             var result = _shipmentRequestService.GetRequestStatus(requestId, 1);
             return Ok(new {result});
         }
+        // End Đ
     }
 }

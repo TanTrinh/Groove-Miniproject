@@ -1,4 +1,4 @@
-using Domains.GoGo.Entities;
+﻿using Domains.GoGo.Entities;
 using Domains.GoGo.Repositories.Transportation;
 using Groove.AspNetCore.UnitOfWork;
 using Groove.AspNetCore.UnitOfWork.EntityFramework;
@@ -32,62 +32,11 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
         }
-        public async Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId)
-        {
-            
-            return await this.dbSet
-                                 .Include(p => p.WareHouse)
-                                 .Where(p => p.Id == requestId && p.CustomerId == 77)
-                                  .Select(p => new RequestModel
-                                  {
-                                      WareHouse = new DataSourceValue<int>()
-                                      {
-                                          Value = p.WareHouseId,
-                                          DisplayName = p.WareHouse.NameWarehouse
-                                      },
-                                      Id = p.Id,
-                                      Status = p.Status,
-                                      ExpectedDate = p.ExpectedDate,
-                                      Address = p.Address,
-                                      DeliveryLatitude = p.DeliveryLatitude,
-                                      DeliveryLongitude = p.DeliveryLongitude,
-                                      Code = p.Code,
-                                      PackageQuantity = p.PackageQuantity,
-                                      ReceiverName = p.ReceiverName,
-                                      ReceiverPhoneNumber = p.ReceiverPhoneNumber, 
-                                      PickingDate = p.PickingDate,
-                                  }).SingleOrDefaultAsync();
-        }
-
-        public async Task<string> ChangeStatusAsync(string code, string status)
-        {
-            var entity = await this.dbSet.Where(p => p.Code == code).FirstAsync();
-            entity.Status = status;
-            this.context.Update(entity);
-            await this.context.SaveChangesAsync();
-            return entity.Status;
-        }
-
-        public DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, long userId)
-        { // 77 get from claim
-            
-            return this.dbSet.Include(p => p.WareHouse).Where(p => p.CustomerId == 77).Select(p => new SummaryRequestModel
-            {
-                Id = p.Id,
-                WareHouse = p.WareHouse.NameWarehouse,
-                ExpectedDate = p.ExpectedDate,
-                Address = p.Address,
-                Status = p.Status,
-                Code = p.Code,
-                PickingDate = p.PickingDate,
-            }).ToDataSourceResult(request);
-        }
 
 		public DataSourceResult GetAllAsync([DataSourceRequest] DataSourceRequest request)
 		{
 			return this.dbSet.MapQueryTo<RequestsModel>(_mapper).ToDataSourceResult(request);
 		}
-
 
 		//V
 		public async Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId)
@@ -126,6 +75,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 			// Done
             return this.context.Set<ShipmentRequest>().Where(p => (p.ShipmentId == shipmentId && p.Status == ShipmentStatus.WAITING)).Select(p => p.RequestId).ToList();
 		}
+
         public async Task<LocationModel> GetPositionWarehouseAsync(string code)
         {
             var query = this.dbSet
@@ -139,24 +89,81 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                 });
             return await query.FirstAsync();
         }
+
         public async Task<int> GetRequestID(string code)
         {
             return await this.dbSet.Where(p => p.Code == code).Select(p => p.Id).FirstAsync();
         }
 
-        public Task<string> ChangeStatus(int? id, string status)
+        // Đ
+        // For Customer to get request list
+        public DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, long userId, string role)
         {
-            throw new NotImplementedException();
+            if (role == "Customer")
+            {
+                return this.dbSet.Include(p => p.WareHouse).Where(p => p.CustomerId == userId).Select(p => new SummaryRequestModel
+                {
+                    Id = p.Id,
+                    WareHouse = p.WareHouse.NameWarehouse,
+                    ExpectedDate = p.ExpectedDate,
+                    Address = p.Address,
+                    Status = p.Status,
+                    Code = p.Code,
+                    PickingDate = p.PickingDate,
+                }).ToDataSourceResult(request);
+            }
+            else
+            {
+                return this.dbSet.Include(p => p.WareHouse).Where(p => p.Status == RequestStatus.PENDING).Select(p => new SummaryRequestModel
+                {
+                    Id = p.Id,
+                    WareHouse = p.WareHouse.NameWarehouse,
+                    ExpectedDate = p.ExpectedDate,
+                    Address = p.Address,
+                    Status = p.Status,
+                    Code = p.Code,
+                    PickingDate = p.PickingDate,
+                }).ToDataSourceResult(request);
+            }
         }
 
-        public Task<RequestModel> FindCustomerRequestAsync(int id)
+        // For Customer to get request detail
+        public async Task<CustomerRequestModel> FindCustomerRequestAsync(int requestId, long userId)
         {
-            throw new NotImplementedException();
+
+            return await this.dbSet
+                                 .Include(p => p.WareHouse)
+                                 .Where(p => p.Id == requestId && p.CustomerId == 77)
+                                  .Select(p => new CustomerRequestModel
+                                  {
+                                      WareHouse = new DataSourceValue<int>()
+                                      {
+                                          Value = p.WareHouseId,
+                                          DisplayName = p.WareHouse.NameWarehouse
+                                      },
+                                      Id = p.Id,
+                                      Status = p.Status,
+                                      ExpectedDate = p.ExpectedDate,
+                                      Address = p.Address,
+                                      DeliveryLatitude = p.DeliveryLatitude,
+                                      DeliveryLongitude = p.DeliveryLongitude,
+                                      Code = p.Code,
+                                      PackageQuantity = p.PackageQuantity,
+                                      ReceiverName = p.ReceiverName,
+                                      ReceiverPhoneNumber = p.ReceiverPhoneNumber,
+                                      PickingDate = p.PickingDate,
+                                  }).SingleOrDefaultAsync();
         }
 
-        public Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync()
+        // For Customer to change request status (Active/Deactive)
+        public async Task<string> ChangeStatusAsync(int requestId, string status)
         {
-            throw new NotImplementedException();
+            var entity = await this.dbSet.Where(p => p.Id == requestId).FirstAsync();
+            entity.Status = status;
+            this.context.Update(entity);
+            await this.context.SaveChangesAsync();
+            return entity.Status;
         }
+        // End Đ
     }
 }

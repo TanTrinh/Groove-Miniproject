@@ -19,7 +19,6 @@ namespace Domains.GoGo.Services
     public class RequestService : IRequestService
     {
         private readonly IRequestRepository _repository;
-        private readonly IVehicleFeatureRequestRepository _vehicleFeatureRequestRepository;
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
@@ -36,17 +35,10 @@ namespace Domains.GoGo.Services
 			return _repository.GetAllAsync(request);
 		}
 
-
-		public Task<string> ChangeStatus(int? id, string status)
-        {
-            return _repository.ChangeStatus(id, status);
-        }
-
         public Task<RequestDetailModel> GetRequestDetails(int? id)
         {
             return _repository.GetRequestDetailAsync(id);
         }
-
 
 		//V
         public Task<RequestsModel> GetRequestByIdAsync(string id)
@@ -82,7 +74,7 @@ namespace Domains.GoGo.Services
 
         //Đ
         // For Customer to create request
-        public async Task<int> CreateCustomerRequest(RequestModel model, long userId)
+        public async Task<int> CreateCustomerRequest(CustomerRequestModel model, long userId)
 		{
 			var entity = this._mapper.Map<Request>(model);
 
@@ -115,7 +107,7 @@ namespace Domains.GoGo.Services
 		}
 
         // For Customer to update request
-        public async Task<int> UpdateCustomerRequest(RequestModel model, long userId)
+        public async Task<int> UpdateCustomerRequest(CustomerRequestModel model, long userId)
         {
             var entity = _repository.GetEntityById(model.Id);
             _mapper.Map(model, entity);
@@ -126,21 +118,21 @@ namespace Domains.GoGo.Services
         }
 
         // For Customer to get list of requests
-        public DataSourceResult GetCustomerRequests(DataSourceRequest request, long userId)
+        public DataSourceResult GetCustomerRequests(DataSourceRequest request, long userId, string role)
         {
-            return _repository.GetCustomerRequestsAsync(request, userId);
+            return _repository.GetCustomerRequestsAsync(request, userId, role);
         }
 
         // For Customer to get request detail
-        public async Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId)
+        public async Task<CustomerRequestModel> FindCustomerRequestAsync(int requestId, long userId)
         {
             return await _repository.FindCustomerRequestAsync(requestId, userId);
         }
 
         // For Customer to change request status
-        public Task<string> ChangeStatus(string code, string status)
+        public Task<string> ChangeStatus(int requestId, string status)
         {
-            return this._repository.ChangeStatusAsync(code, status);
+            return this._repository.ChangeStatusAsync(requestId, status);
         }
         //End Đ
     }    

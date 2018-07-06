@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Domains.Core;
+using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Services;
 using Domains.GoGo.Services.Transportation;
 using Groove.AspNetCore.Mvc;
 using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,15 +20,17 @@ namespace GoGoApi.Controllers.GoGo
     [ApiController]
     public class RequestsController : BaseController
 	{
-		private readonly IRequestService _service;
+		private readonly IRequestService _requestService;
 		private readonly IShipmentService _Shipmentservice;
 		private readonly IShipmentRequestService _shipmentRequestService;
+        private readonly IVehicleFeatureRequestService _vehicleFeatureRequestService;
 
-		public RequestsController(IRequestService service, IShipmentService Shipmentservice, IShipmentRequestService shipmentRequestService)
+        public RequestsController(IRequestService requestService, IShipmentService Shipmentservice, IShipmentRequestService shipmentRequestService, IVehicleFeatureRequestService vehicleFeatureRequestService)
 		{
-			_service = service;
+			_requestService = requestService;
 			_Shipmentservice = Shipmentservice;
 			_shipmentRequestService = shipmentRequestService;
+            _vehicleFeatureRequestService = vehicleFeatureRequestService;
 		}
 
 		[Route("RequestList")]
@@ -32,7 +38,7 @@ namespace GoGoApi.Controllers.GoGo
 		public IActionResult GetAllAsync([DataSourceRequest]DataSourceRequest request)
 		{
 			
-			return Ok(_service.GetAllAsync(request));
+			return Ok(_requestService.GetAllAsync(request));
 		}
 
 		[Route("filter/{warehouseId}/{value}")]
@@ -40,16 +46,91 @@ namespace GoGoApi.Controllers.GoGo
 		public async Task<IActionResult> GetDataSource(int warehouseId, string value)
 		{
 	
-			return Ok(await _service.GetDataSource(value, warehouseId));
+			return Ok(await _requestService.GetDataSource(value, warehouseId));
 		}
 
-        [Route("{id}")]
+        [Route("{id}/datasourcedetail")]
         [HttpGet]
-        public async Task<IActionResult> GetRequestDetailByIdAsync(string id)
+        public async Task<IActionResult> GetRequestDataSourceDetailByIdAsync(string id)
         {
 
-            return Ok(await _service.GetRequestByIdAsync(id));
+            return Ok(await _requestService.GetRequestByIdAsync(id));
         }
+
+        // Đ
+        // POST /api/requests
+        [Route("")]
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CreateRequest([FromBody]CustomerRequestModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = GetCurrentUserId<long>();
+            var requestResult = await this._requestService.CreateCustomerRequest(model, userId);
+            var saveToFeature = await this._vehicleFeatureRequestService.CreateVehicleFeatureRequest(requestResult, model.VehicleFeature.Value);
+            return OkValueObject(requestResult);
+        }
+
+        // PUT /api/requests/{requestId}
+        [Route("{requestId}")]
+        [HttpPut]
+        //[Authorize]
+        public async Task<IActionResult> UpdateRequest([FromBody]CustomerRequestModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = GetCurrentUserId<long>();
+            var requestResult = await this._requestService.UpdateCustomerRequest(model, userId);
+            var featureResult = await this._vehicleFeatureRequestService.UpdateVehicleFeatureAsync(requestResult, model.VehicleFeature.Value);
+            return OkValueObject(requestResult);
+        }
+
+        // GET /api/requests
+        [Route("")]
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetRequests([DataSourceRequest]DataSourceRequest request)
+        {
+            var userId = GetCurrentUserId<long>();
+            string role = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).FirstOrDefault().Value;
+            var result = _requestService.GetCustomerRequests(request, userId, role);
+            return Ok(result);
+        }
+
+        // GET /api/requests/{requestId}
+        [Route("{requestId}")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetRequestAsync(int requestId)
+        {
+            var userId = GetCurrentUserId<long>();
+            var requestResult = await _requestService.FindCustomerRequestAsync(requestId, userId);
+            var featureResult = _vehicleFeatureRequestService.FindVehicleFeature(requestId);
+            requestResult.VehicleFeature = featureResult;
+            return Ok(requestResult);
+        }
+
+        // 
+        [Route("{requestId}/status")]
+        [HttpPut]
+        [Authorize]
+        public IActionResult ChangeStatus(int requestId,[FromBody] StringObject status)
+        {
+            if (status.content != RequestStatus.INACTIVE && status.content != RequestStatus.PENDING)
+            {
+                return BadRequest();
+            }
+            var result = _requestService.ChangeStatus(requestId, status.content);
+            return Ok(result);
+        }
+        // End Đ
 
     }
 }

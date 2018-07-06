@@ -17,15 +17,14 @@ namespace Domains.GoGo.Services
         Task<RequestsModel> GetRequestByIdAsync(string id);
         Task<LocationModel> GetPositionWarehouse(string code);
         Task<int> GetRequestID(string code);
-        Task<string> ChangeStatus(int? code, string status);
 
 
         // Đ
-        Task<RequestModel> FindCustomerRequestAsync(int id, long userId);
-        DataSourceResult GetCustomerRequests(DataSourceRequest request, long userId);
-        Task<int> CreateCustomerRequest(RequestModel model, long userId);
-        Task<int> UpdateCustomerRequest(RequestModel model, long userId);
-        Task<string> ChangeStatus(string code, string status);
+        Task<CustomerRequestModel> FindCustomerRequestAsync(int id, long userId);
+        DataSourceResult GetCustomerRequests(DataSourceRequest request, long userId, string role);
+        Task<int> CreateCustomerRequest(CustomerRequestModel model, long userId);
+        Task<int> UpdateCustomerRequest(CustomerRequestModel model, long userId);
+        Task<string> ChangeStatus(int requestId, string status);
         // END Đ
     }
 }

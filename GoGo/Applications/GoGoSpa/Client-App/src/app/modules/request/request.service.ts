@@ -6,17 +6,19 @@ import { HttpClient } from '@angular/common/http';
 import { DataSourceRequestState, DataResult, toDataSourceRequestString, translateDataSourceResultGroups } from '@progress/kendo-data-query';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import 'rxjs/add/operator/map'
+import { StringObject } from '../../shared/models/utilities';
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService  implements ICreateFormService, IViewFormService, IUpdateFormService, IDataSourceService  {
 
-  GetRequestStatus(requestId: any): Observable<any> {
-    return this._apiHttp.get(`/api/shipment-request/${requestId}/status`);
+  getRequestStatus(requestId: any): Observable<any> {
+    return this._apiHttp.get(`/api/shipmentrequest/${requestId}/status`);
   }
 
-  changeStatus(code: string,status : string): Observable<any> {
-    return this._apiHttp.get(`/api/request/${code}/${status}`);
+  changeStatus(requestId: string, status: string): Observable<any> {
+    var stringObject: StringObject = { content: status };
+    return this._apiHttp.put(`/api/requests/${requestId}/status`, stringObject);
   }
 
   getDataSource(): Observable<any> { 
@@ -24,24 +26,24 @@ export class RequestService  implements ICreateFormService, IViewFormService, IU
   }
   
   filterWarehouse(displayName: string): Observable<any>{
-    return this._apiHttp.get(`/api/warehouse/filter-list/${displayName}`);
+    return this._apiHttp.get(`/api/masterdata/warehouses/datasource/${displayName}`);
   }
 
   filterVehicleFeature(displayName: string): Observable<any> {
-    return this._apiHttp.get(`/api/vehicle-feature/filter-list/${displayName}`);
+    return this._apiHttp.get(`/api/masterdata/vehiclefeatures/datasource/${displayName}`);
   }
 
   edit(id: any, formData: any): Observable<any> {
     formData.warehouseId = formData.wareHouse.value;
-    return this._apiHttp.put(`/api/request/${id}`, formData);
+    return this._apiHttp.put(`/api/requests/${id}`, formData);
   }
 
   getFormData(id: any): Observable<any> { // for view
-    return this._apiHttp.get(`/api/request/${id}`);
+    return this._apiHttp.get(`/api/requests/${id}`);
   }
 
   create(formData: any): Observable<any> {
-    return this._apiHttp.post(`/api/request`, formData);
+    return this._apiHttp.post(`/api/requests`, formData);
   }
 
   getViewFormUrl(id: any): string {
@@ -57,7 +59,7 @@ export class RequestService  implements ICreateFormService, IViewFormService, IU
     const hasGroups = state.group && state.group.length;
 
     return this._apiHttp
-      .get(`/api/request/?${queryStr}`) 
+      .get(`/api/requests/?${queryStr}`) 
       .map(({ data, total}: GridDataResult) => 
         (<GridDataResult>{
           data: hasGroups ? translateDataSourceResultGroups(data) : data,
