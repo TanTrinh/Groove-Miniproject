@@ -84,8 +84,6 @@ export class ShipmentPickingComponent implements OnInit {
 
   onChangeWaypts() {
     this.wayptsSubject.next(this.Waypts);
-    this.wayptsSubject.
-    this.wayptsSubject.next(this.Waypts);
   }
 
   refeshShipment(code: string) {
