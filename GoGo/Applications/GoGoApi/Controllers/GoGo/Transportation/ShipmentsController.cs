@@ -53,7 +53,7 @@ namespace GoGoApi.Controllers.GoGo
 		[HttpPut]
 		public async Task<IActionResult> ActivateShipment(string id)
 		{
-			return Ok(await _Shipmentservice.ChangeShipmentStatusById(id, ShipmentStatus.PENDING));
+			return Ok(await _Shipmentservice.ChangeShipmentStatusById(id, ShipmentStatus.WAITING));
 		}
 
 		[Route("{id}/deactivate")]
