@@ -25,7 +25,7 @@ export class UserListComponent implements OnInit {
   public users: GridDataResult;
   public state: DataSourceRequestState = {
     skip: 0,
-    take: 10
+    take: 15
   };
 
   constructor(

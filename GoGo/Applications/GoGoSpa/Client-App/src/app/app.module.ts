@@ -48,21 +48,22 @@ import { GgmapComponent } from './ggmap/ggmap.component';
 
 import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
 import { AgmCoreModule } from '@agm/core';
+import { NotfoundComponent } from './modules/notfound/notfound.component';
 import { RequestModule } from './modules/request/request.module';
 
 
 
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
-    provide: APP_INITIALIZER,
-    useFactory: (ServiceRegistryService: ServiceRegistryService) => {
+  provide: APP_INITIALIZER,
+  useFactory: (ServiceRegistryService: ServiceRegistryService) => {
 
 
-        // Do initing of services that is required before app loads
-        // NOTE: this factory needs to return a function (that then returns a promise)
-        return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
-    },
-    deps: [ServiceRegistryService],
-    multi: true
+    // Do initing of services that is required before app loads
+    // NOTE: this factory needs to return a function (that then returns a promise)
+    return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
+  },
+  deps: [ServiceRegistryService],
+  multi: true
 };
 
 @NgModule({
@@ -80,7 +81,8 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     LoginComponent,
     ShipmentPickingComponent,
     UserProfileComponent,
-    UserProfileEditComponent
+    UserProfileEditComponent,
+    NotfoundComponent
   ],
   imports: [
     RequestModule,

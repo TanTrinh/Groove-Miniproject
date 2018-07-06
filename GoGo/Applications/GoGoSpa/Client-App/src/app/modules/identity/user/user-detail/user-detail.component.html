@@ -4,9 +4,10 @@
   </div>
   <div class="container pt-2">
     <div class="row">
-      <div class="row ml-3">
-        <button class="btn btn-primary" (click)="update(userDetail.id)">Update</button>&nbsp;
+      <div class="col-3"></div>
+      <div class="row col-9 ml-2">
         <button class="btn btn-secondary" (click)="pageBack()">Back</button>&nbsp;
+        <button class="btn btn-primary" (click)="update(userDetail.id)">Update</button>&nbsp;
       </div>
     </div>
     <div class="row pt-2">
@@ -22,8 +23,8 @@
               <td>{{userDetail.userName}}</td>
             </tr>
             <tr>
-              <th>Date of birth:</th>
-              <td>06/09/1996</td>
+              <th>Role:</th>
+              <td>{{userDetail.role}}</td>
             </tr>
             <tr>
               <th>Email:</th>
