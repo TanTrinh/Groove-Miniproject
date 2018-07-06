@@ -41,7 +41,7 @@ namespace Infrastructures.Repositories.GoGo.Fleet_management
 
         public async Task<IEnumerable<DataSourceValue<long>>> GetDataSource(string value)
         {
-			var driverIdList = this.context.Set<Shipment>().Select(p => p.DriverId).ToList();
+			var driverIdList = this.context.Set<Shipment>().Where(p => (p.Status != ShipmentRequestStatus.COMPLETED)).Select(p => p.DriverId).ToList();
 
 			var query = (from uRole in _dbContext.UserRoles
 						 from user in dbSet

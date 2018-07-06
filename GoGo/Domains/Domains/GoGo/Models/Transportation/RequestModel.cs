@@ -33,11 +33,10 @@ namespace Domains.GoGo.Models.Transportation
             CreateMap<WaitingRequestModel, Request>();
         }
     }
-    public class RequestModel
+    public class CustomerRequestModel
     {
         public int Id { get; set; }
-
-        public DateTime CreatedDate { get; set; }
+        
         //Customer add 
         public DateTime PickingDate { get; set; }
         public DateTime ExpectedDate { set; get; }
@@ -55,11 +54,11 @@ namespace Domains.GoGo.Models.Transportation
 
         public string ReceiverName { set; get; }
         public string ReceiverPhoneNumber { set; get; }
-
-        public long IssuerId { get; set; }
+        
         //public int WareHouseId { get; set; }
+        //public int VehicleFeatureId { get; set; }
         public DataSourceValue<int> WareHouse { get; set; }
-        public long CustomerId { set; get; }
+        public DataSourceValue<int> VehicleFeature { get; set; }
 
     }
 
@@ -67,29 +66,35 @@ namespace Domains.GoGo.Models.Transportation
     {
         public RequestMapper()
         {
-            CreateMap<RequestModel, Request>()
+            CreateMap<CustomerRequestModel, Request>()
                 .ForPath(destination => destination.WareHouseId, option => option.MapFrom(source => source.WareHouse.Value));
-            CreateMap<Request, RequestModel>()
+            CreateMap<Request, CustomerRequestModel>()
                 .ForPath(destination => destination.WareHouse.Value, option => option.MapFrom(source => source.WareHouseId));
         }
     }
 
-    public class RequestModelValidator : AbstractValidator<RequestModel>
+    public class CustomerRequestModelValidator : AbstractValidator<CustomerRequestModel>
     {
-        public RequestModelValidator()
+        public CustomerRequestModelValidator()
         {
             RuleFor(p => p.ExpectedDate).NotEmpty();
             RuleFor(p => p.PickingDate).NotEmpty();
-            RuleFor(p => p.DeliveryLatitude).NotEmpty();
-            RuleFor(p => p.DeliveryLongitude).NotEmpty();
             RuleFor(p => p.Address).NotEmpty();
-            RuleFor(p => p.PackageQuantity).NotEmpty().IsInEnum();
-            RuleFor(p => p.Code).NotEmpty();
-            RuleFor(p => p.Status).NotEmpty();
+            RuleFor(p => p.PackageQuantity).NotEmpty();
             RuleFor(p => p.ReceiverName).NotEmpty();
-            RuleFor(p => p.ReceiverPhoneNumber).NotEmpty();
-            RuleFor(p => p.IssuerId).NotEmpty();
+            RuleFor(p => p.ReceiverPhoneNumber).NotEmpty();                             
 
         }
+    }
+
+    public class SummaryRequestModel
+    {
+        public int Id { get; set; }
+        public string Code { set; get; }
+        public string Status { get; set; }
+        public DateTime PickingDate { get; set; }
+        public DateTime ExpectedDate { set; get; }
+        public string WareHouse { get; set; }
+        public string Address { set; get; }
     }
 }

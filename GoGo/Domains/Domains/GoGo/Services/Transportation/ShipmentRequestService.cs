@@ -39,8 +39,8 @@ namespace Domains.GoGo.Services.Transportation
 				entity.RequestId = requestId;
 				entity.ShipmentId = shipmentId;
 				entity.RequestOrder = i++;
-				entity.Note = ShipmentRequestStatus.CREATED; ;
-				entity.Status = ShipmentRequestStatus.PENDING;
+				entity.Note = "";
+				entity.Status = ShipmentRequestStatus.WAITING;
 
 				_uow.GetRepository<IShipmentRequestRepository>().Create(entity);
 			}
@@ -86,5 +86,10 @@ namespace Domains.GoGo.Services.Transportation
 		{
 		  _repository.UpdateShipmentRequest(requestIdList, shipmentId);
 		}
-	}
+
+        public string GetRequestStatus(int requestId, int userId)
+        {
+            return _repository.GetRequestStatus(requestId, userId);
+        }
+    }
 }

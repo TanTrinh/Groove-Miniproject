@@ -22,14 +22,4 @@ namespace Domains.GoGo
         public long OwnerId { get; set; }
 		public User Owner { get; set; }		
 	}
-
-    public class WareHouseMapper : Profile
-    {
-        public WareHouseMapper()
-        {
-            CreateMap<WareHouse, WarehouseOfCustomerModel>();
-            CreateMap<WarehouseOfCustomerModel, WareHouse>();
-
-        }
-    }
 }

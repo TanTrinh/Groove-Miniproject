@@ -34,7 +34,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		{
 			if (userId != null)
 			{
-				return this.dbSet.Where(p => (p.DriverId.ToString() == userId && p.Status== ShipmentStatus.PENDING)).MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
+				return this.dbSet.Where(p => (p.DriverId.ToString() == userId && p.Status!= ShipmentStatus.INACTIVE)).MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
 			}
 
 			return this.dbSet.MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);

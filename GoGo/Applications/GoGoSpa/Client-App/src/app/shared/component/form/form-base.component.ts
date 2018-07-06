@@ -143,9 +143,8 @@ export abstract class FormBaseComponent {
     });
   }
 
-  public GetData() {
-    return this.formData;
-  }
+  public resetFormData: Function = function () { };
+ 
 
   public deepClone(source) {
     return JSON.parse(JSON.stringify(source));
@@ -160,7 +159,7 @@ export abstract class FormBaseComponent {
     
 
     switch (this._formMode) {
-      case "form":
+      case "create":
         this.isCreateFormMode = true;
         this.formTitle = `Create ${this.formName}`;
         this.formModeName = "Create";
@@ -181,7 +180,7 @@ export abstract class FormBaseComponent {
       default:
         throw new Error(`Form mode = <${_formMode}> is not valid.`);
     }
-
+    this.resetFormData(this.formData);
     this.formLinks.listPageUrl = this.getListPageUrl();
     this.formLinks.viewFormUrl = this.getViewFormUrl(this.formId);
   }
@@ -295,7 +294,6 @@ export abstract class FormBaseComponent {
         } else {
           this.notificationService.prompError(err.message)
         }
-
       })
   }
 
@@ -308,10 +306,12 @@ export abstract class FormBaseComponent {
     if (this.isUpdateFormMode) {
       return this.editFormService.edit(this.formId, this.formData);
     }
-    else
-      if (this.isCreateFormMode) {
-        return this.createFormService.create(this.formData);
-      }
+    else if (this.isCreateFormMode) {
+      return this.createFormService.create(this.formData);
+    }
+    else if (this.isViewFormMode) {
+
+    } 
     return throwError(new FormError(`Mode not support`));
   }
 

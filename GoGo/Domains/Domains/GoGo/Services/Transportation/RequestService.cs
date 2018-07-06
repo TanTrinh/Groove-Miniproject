@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domains.Core;
 using Domains.GoGo.Entities;
+using Domains.GoGo.Entities.Fleet;
+using Domains.GoGo.Models.Fleet_management;
 using Domains.GoGo.Models.Transportation;
 using Domains.GoGo.Repositories.Transportation;
 using Domains.Helpers;
@@ -33,17 +35,10 @@ namespace Domains.GoGo.Services
 			return _repository.GetAllAsync(request);
 		}
 
-
-		public Task<string> ChangeStatus(int? id, string status)
-        {
-            return _repository.ChangeStatus(id, status);
-        }
-
         public Task<RequestDetailModel> GetRequestDetails(int? id)
         {
             return _repository.GetRequestDetailAsync(id);
         }
-
 
 		//V
         public Task<RequestsModel> GetRequestByIdAsync(string id)
@@ -66,9 +61,20 @@ namespace Domains.GoGo.Services
 			return _repository.GetRequestIdList(shipmentId);
 		}
 
+        public async Task<int> GetRequestID(string code)
+        {
+            return await _repository.GetRequestID(code);
+        }
 
-		//Đ
-		public async Task<int> CreateCustomerRequest(RequestModel model, UserIdentity<long> issuer)
+        public Task<LocationModel> GetPositionWarehouse(string code)
+        {
+            return _repository.GetPositionWarehouseAsync(code);
+        }
+
+
+        //Đ
+        // For Customer to create request
+        public async Task<int> CreateCustomerRequest(CustomerRequestModel model, long userId)
 		{
 			var entity = this._mapper.Map<Request>(model);
 
@@ -76,41 +82,58 @@ namespace Domains.GoGo.Services
 			// Create RequestStatus constant class
 			// Then use 
 			// entity.Status = RequestStatus.InActive;
+            // DONE
 
-			entity.Status = "InActive";
+			entity.Status = RequestStatus.INACTIVE;
 			entity.CreatedDate = DateTime.Now;
 			entity.Code = Helper.GenerateCode(DateTime.Now, 1);
-			entity.IssuerId = 77; //take from claim
-			entity.CustomerId = 77;
+			entity.IssuerId = userId; 
+			entity.CustomerId = userId;
 			entity.WareHouse = null;
+            // Step 2: Add request details
+            // Save to FeatureOfVehicle
+            //var featureEnity = new VehicleFeatureRequest()
+            //{
+            //    RequestId = entity.Id,
+            //    VehicleFeatureId = model.VehicleFeature.Value
+            //};
 
+            //_vehicleFeatureRequestRepository.Create(featureEnity);
+
+            //await _uow.SaveChangesAsync();
 			_repository.Create(entity);
 			await _uow.SaveChangesAsync();
 			return entity.Id;
 		}
 
-		public async Task<int> UpdateCustomerRequest(RequestModel model, UserIdentity<long> issuer)
-		{
-			var entity = this._mapper.Map<Request>(model);
-			_repository.Update(entity);
-			//entity.WareHouse = null;
-			await _uow.SaveChangesAsync();
-			return entity.Id;
-		}
+        // For Customer to update request
+        public async Task<int> UpdateCustomerRequest(CustomerRequestModel model, long userId)
+        {
+            var entity = _repository.GetEntityById(model.Id);
+            _mapper.Map(model, entity);
+            entity.WareHouse = null;
+            _repository.Update(entity);
+            await _uow.SaveChangesAsync();
+            return model.Id;
+        }
 
-		public async Task<RequestModel> FindCustomerRequestAsync(int id)
-		{
-			//var entity = _repository.GetEntityById(id);
-			//var entity = _repository.FindCustomerRequestAsync(id);
-			return await _repository.FindCustomerRequestAsync(id);
-		}
-        public Task<LocationModel> GetPositionWarehouse(string code)
+        // For Customer to get list of requests
+        public DataSourceResult GetCustomerRequests(DataSourceRequest request, long userId, string role)
         {
-            return _repository.GetPositionWarehouseAsync(code);
+            return _repository.GetCustomerRequestsAsync(request, userId, role);
         }
-        public async Task<int> GetRequestID(string code)
+
+        // For Customer to get request detail
+        public async Task<CustomerRequestModel> FindCustomerRequestAsync(int requestId, long userId)
         {
-            return await _repository.GetRequestID(code);
+            return await _repository.FindCustomerRequestAsync(requestId, userId);
         }
+
+        // For Customer to change request status
+        public Task<string> ChangeStatus(int requestId, string status)
+        {
+            return this._repository.ChangeStatusAsync(requestId, status);
+        }
+        //End Đ
     }    
 }

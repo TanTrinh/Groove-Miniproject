@@ -29,7 +29,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   private formMode: string;
   private isCreateForm: boolean;
 
-
+  
   private sub: Subscription;
 
   public shipmentCode: any;
@@ -62,7 +62,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   private driverDetail: any = {};
   private warehouseDetail: any = {};
   private isValid: boolean;
-
+  private isNewShipment: boolean;
   public addSucess: boolean;
 
   public state: DataSourceRequestState = {
@@ -107,9 +107,10 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
             this.warehouseDetail = result.warehouse
            
             this.pickingDate = new Date(result.startDate)
-          this.deliveryDate = new Date(result.endDate)
-          this.isValid = true;
-          this.refreshGrid()
+            this.deliveryDate = new Date(result.endDate)
+             
+            this.isValid = true;
+            this.refreshGrid()
         }    
       )
       this.isValid = true;
@@ -124,7 +125,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   onSave() {
     if (this.requestIdList.length != 0) {
       {
-        if (this.sharingService.isNewShipment == true) {
+        if (this.isCreateForm == true) {
           this.shipmentService.CreateShipment(this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.id, this.driverDetail.id, '3')
             .subscribe(result => {
 
@@ -132,7 +133,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
             },
               errors => { this.errors = errors })
         }
-        else if (this.sharingService.isNewShipment == false) {
+        else if (this.isCreateForm == false) {
           this.shipmentService.UpdateShipment(this.shipmentId, this.shipmentCode, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.id, this.driverDetail.id, '3')
             .subscribe(result => {
 
