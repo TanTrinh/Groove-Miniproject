@@ -15,7 +15,7 @@ $main-color: #0073e6;
 #sidebar-container .list-group a {
   height: 50px;
   background-color: $sidebar-color;
-  padding-left: 30px;
+  padding-left: 10px;
 }
 // Routerlinkactive
 #sidebar-container .list-group a.hold {
@@ -40,4 +40,8 @@ $main-color: #0073e6;
   font-weight: 500;
   border-bottom: solid;
   border-bottom-color: $my-color;
+}
+
+.layout {
+  width: 20px;
 }

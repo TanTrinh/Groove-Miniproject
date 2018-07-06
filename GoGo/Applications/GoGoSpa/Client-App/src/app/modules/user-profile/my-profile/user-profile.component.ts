@@ -5,6 +5,7 @@ import { UserProfile } from './UserProfile';
 import { Location } from '@angular/common';
 import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
 import { UserProfileService } from '../user-profile.service';
+import { SharingService } from '../../../shared/sevices/sharing-service.service';
 import * as toastr from 'toastr';
 
 // TODO: Move user-profile to another module, because user profile is not belong to user management or identity management
@@ -21,13 +22,15 @@ export class UserProfileComponent implements OnInit {
   public lStorage = localStorage.length;
   public message: string = null;
   public isError: boolean = false;
+  public userRole: string;
 
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
     private _location: Location,
     private _notificationService: NotificationService,
-    private _userProfileService: UserProfileService
+    private _userProfileService: UserProfileService,
+    private shareingService: SharingService
   ) {
     toastr.options = {
       "closeButton": true,
@@ -61,11 +64,14 @@ export class UserProfileComponent implements OnInit {
         this.data = result;
         this.userProfile = this.data;
       });
-    
+
+    var role = this.shareingService.getRole();
+
+    this.userRole = role;
   }
 
   update(id) {
-    this._router.navigate(['home/profile/edit', id]);
+    this._router.navigate(['profile/edit', id]);
   }
 
   displayToastr() {

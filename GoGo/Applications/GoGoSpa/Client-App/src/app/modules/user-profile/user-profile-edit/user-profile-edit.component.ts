@@ -64,7 +64,7 @@ export class UserProfileEditComponent implements OnInit {
     // Backend will get user id via access token 
 
     this._userProfileService.editUserProfile(this.model).subscribe(result => {
-      this._router.navigate(['home/profile']);
+      this._router.navigate(['profile']);
     }, error => {
       this.isError = true;
 
