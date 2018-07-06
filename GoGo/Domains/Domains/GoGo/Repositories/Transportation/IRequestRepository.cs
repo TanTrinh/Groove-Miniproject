@@ -1,4 +1,4 @@
-using Domains.Core;
+﻿using Domains.Core;
 using Domains.GoGo.Entities;
 using Domains.GoGo.Models.Transportation;
 using Kendo.Mvc.UI;
@@ -16,8 +16,6 @@ namespace Domains.GoGo.Repositories.Transportation
 
 		Task<RequestDetailModel> GetRequestDetailAsync(int? id);
 
-        Task<string> ChangeStatus(int? id, string status);
-
 		Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId);
 
         Task<RequestsModel> GetRequestByIdAsync(string code);
@@ -26,14 +24,15 @@ namespace Domains.GoGo.Repositories.Transportation
 		IEnumerable<int> GetRequestIdList(int shipmentId);
 
 	
-        Task<RequestModel> FindCustomerRequestAsync(int id);
         Task<LocationModel> GetPositionWarehouseAsync(string code);
         Task<int> GetRequestID(string code);
-        Task<IEnumerable<WaitingRequestModel>> GetWaitingRequestAsync();
-        DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, long userId);
-        Task<string> ChangeStatusAsync(string code, string status);
-        Task<RequestModel> FindCustomerRequestAsync(int requestId, long userId);
         //void UpdateCustomerRequest(RequestModel model, long userId);
         //Task<int> CreateCustomerRequest(RequestModel model, long userId);
+
+        // Đ
+        Task<CustomerRequestModel> FindCustomerRequestAsync(int requestId, long userId);
+        DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, long userId, string role);
+        Task<string> ChangeStatusAsync(int requestId, string status);
+        // End Đ
     }
 }
