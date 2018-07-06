@@ -57,7 +57,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 					entity.ShipmentId = shipmentId;
 					entity.RequestId = requestIdList[0];
 					entity.RequestOrder = i + 1;
-					entity.Status = ShipmentRequestStatus.PENDING;
+					entity.Status = ShipmentRequestStatus.WAITING;
 					entity.Note = ShipmentRequestStatus.CREATED;
 					this.dbSet.Add(entity);
                     
@@ -102,7 +102,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                          .Include(p => p.Shipment)
                          .Include(p => p.Request)
                          .Where(p => p.Shipment.Code == code)
-                         .Where(p => p.Status == "Pending")
+                         .Where(p => p.Status == ShipmentRequestStatus.WAITING)
                          .Select(p => new RequestDetailModel
                          {
                              Code = p.Request.Code,
@@ -131,36 +131,36 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
         public async Task<string> GetFirstRequestCode(string shipmentCode)
         {
-            string status = "Pending";
+            string status = ShipmentRequestStatus.WAITING;
             int PendingRequest = 0;
             int unloadingRequest = 0;
             int shippingRequest = this.dbSet.Include(p => p.Shipment)
                    .Where(p => p.Shipment.Code == shipmentCode)
                    .Where(p => p.IsProblem == false)
-                   .Count(p => p.Status == "Shipping");
+                   .Count(p => p.Status == ShipmentRequestStatus.SHIPPING);
             if (shippingRequest == 1)
             {
-                status = "Shipping";
+                status = ShipmentRequestStatus.SHIPPING;
             }
             else
             {
                 unloadingRequest = this.dbSet.Include(p => p.Shipment)
                 .Where(p => p.Shipment.Code == shipmentCode)
                 .Where(p => p.IsProblem == false)
-                .Count(p => p.Status == "Unloading");
+                .Count(p => p.Status == ShipmentRequestStatus.UNLOADING);
                 if (unloadingRequest == 1)
                 {
-                    status = "Unloading";
+                    status = ShipmentRequestStatus.UNLOADING;
                 }
                 else
                 {
                     PendingRequest = this.dbSet.Include(p => p.Shipment)
                          .Where(p => p.Shipment.Code == shipmentCode)
                          .Where(p => p.IsProblem == false)
-                         .Count(p => p.Status == "Pending");
+                         .Count(p => p.Status == ShipmentRequestStatus.WAITING);
                     if (PendingRequest > 0)
                     {
-                        status = "Pending";
+                        status = ShipmentRequestStatus.WAITING;
                     }
                 }
             }
@@ -178,7 +178,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             int total = this.dbSet.Include(p => p.Shipment)
                         .Where(p => p.Shipment.Code == shipmentCode)
                         .Where(p => p.IsProblem == false)
-                        .Count(p => p.Status == "Completed");
+                        .Count(p => p.Status == ShipmentRequestStatus.COMPLETED);
             if (total == this.dbSet.Count(p => p.Shipment.Code == shipmentCode))
                 return "";
             else
@@ -225,7 +225,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                            .Include(p => p.Shipment)
                            .Include(p => p.Request)
                            .Where(p => p.Shipment.Code == code)
-                           .Where(p => p.Status != "Active" && p.Status != "InActive")
+                           .Where(p => p.Status != ShipmentStatus.INACTIVE)
                            .OrderBy(p => p.RequestOrder)
                            .Select(p => new RequestDetailModel
                            {
@@ -257,36 +257,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             return sum;
         }
 
-        //public async Task<IEnumerable<RequestDetailModel>> ChangeOrder(string shipmentCode, LocationModel[] newOrder)
-        //{
-        //    List<RequestDetailModel> oldOrder = new List<RequestDetailModel>();
-        //    var query = this.dbSet
-        //                 .Include(p => p.Shipment)
-        //                 .Include(p => p.Request)
-        //                 .Where(p => p.Shipment.Code == shipmentCode)
-        //                 .Select(p => new RequestDetailModel
-        //                 {
-        //                     Code = p.Request.Code,
-        //                     PackageQuantity = p.Request.PackageQuantity,
-        //                     ReceiverName = p.Request.ReceiverName,
-        //                     ReceiverPhoneNumber = p.Request.ReceiverPhoneNumber,
-        //                     EstimateDate = p.RequestEstimateDate,
-        //                     Status = p.Request.Status,
-        //                     IsProblem = p.IsProblem,
-        //                     Location = new LocationModel()
-        //                     {
-        //                         Address = Helper.ResizeAddress(p.Request.Address),
-        //                         Latitude = p.Request.DeliveryLatitude,
-        //                         Longitude = p.Request.DeliveryLongitude
-        //                     }
-        //                 });
-        //    oldOrder = await query.ToListAsync();
-        //    for (int i = 0; i < newOrder.Length; i++)
-        //    {
-        //        oldOrder.Where(p => Helper.sub(p.Location.Latitude, newOrder[i].Latitude) > 0.0001);
-        //    }
-        //    return oldOrder.ToList();
-        //}
+    
 
         public async Task<string> Problem(string requestCode, bool status)
         {

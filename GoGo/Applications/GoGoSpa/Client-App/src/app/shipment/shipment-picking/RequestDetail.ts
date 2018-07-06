@@ -1,7 +1,7 @@
 import { Location } from "@angular/common";
 
 // TODO: rename file name to lower first letter
-export class RequestDetail {
+export class requestDetail {
   id: number;
   code: string;
   status: string;
@@ -9,6 +9,6 @@ export class RequestDetail {
   address: string;
   location: any;
   requestOrder: number;
-  //isproblem: boolean;
+  isProblem: boolean;
   //message: string;
 }

@@ -1,18 +1,18 @@
 export class StatusShipment {
-  INACTIVE = "INACTIVE";
-  PENDING = "PENDING";
-  ACCEPTED = "ACCEPTED";
-  REJECTED = "REJECTED";
-  PICKING = "PICKING";
-  LOADING = "LOADING";
-  SHIPPING = "SHIPPING";
-  COMPLETED = "COMPLETED";
+  INACTIVE = "Inactive";
+  WAITING = "Waiting";
+  ACCEPTED = "Accepted";
+  REJECTED = "Rejected";
+  PICKING = "Picking";
+  LOADING = "Loading";
+  SHIPPING = "Shipping";
+  COMPLETED = "Completed";
 }
 export class StatusDelivery {
-  PENDING = "PENDING";
-  SHIPPING = "SHIPPING";
-  UNLOADING = "UNLOADING";
-  COMPLETED = "COMPLETED";
+  WAITING = "Waiting";
+  SHIPPING = "Shipping";
+  UNLOADING = "Unloading";
+  COMPLETED = "Completed";
 }
 
 export class Lock {
