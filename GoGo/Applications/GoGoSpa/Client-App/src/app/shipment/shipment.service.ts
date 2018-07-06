@@ -17,7 +17,7 @@ import { AuthHttpService } from '../shared';
 export class ShipmentService extends BehaviorSubject<any>  {
   private url = 'http://localhost:49943/api/shipments'; // TODO: never hard code url in your code
   // TODO: Remove ConfigService & use ServiceRegistryService instead
-  constructor(private configService: ConfigService, private http: AuthHttpService, private auth: SharingService, private https: HttpClient) {
+  constructor(private configService: ConfigService, private http: AuthHttpService, private https: HttpClient) {
     super(null); 
   }
 
@@ -58,7 +58,12 @@ export class ShipmentService extends BehaviorSubject<any>  {
 
   public ActivateShipment(id) {
    
-    return this.http.put(`/api/shipments/${id}/activate`, null); // TODO: remove http service & use authHttpService instead
+    return this.http.put(`/api/shipments/${id}/activate`, null);
+  }
+
+  public DeactivateShipment(id) {
+   
+    return this.http.put(`/api/shipments/${id}/Deactivate`, null); 
   }
 
   getLocationPicking(shipmentCode: string): Observable<any> {

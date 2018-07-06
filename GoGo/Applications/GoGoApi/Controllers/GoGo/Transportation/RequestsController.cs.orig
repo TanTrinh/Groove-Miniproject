@@ -33,6 +33,17 @@ namespace GoGoApi.Controllers.GoGo
             _vehicleFeatureRequestService = vehicleFeatureRequestService;
 		}
 
+<<<<<<< HEAD
+=======
+		[Route("RequestList")]
+		[HttpGet]
+		public IActionResult GetAllAsync([DataSourceRequest]DataSourceRequest request)
+		{
+			
+			return Ok(_requestService.GetAllAsync(request));
+		}
+
+>>>>>>> d3c5223077c80b0add72b1ce55f96985f09c8418
 		[Route("filter/{warehouseId}/{value}")]
 		[Authorize(Roles = "Coordinator")]
 		[HttpGet]
@@ -42,9 +53,16 @@ namespace GoGoApi.Controllers.GoGo
 			return Ok(await _requestService.GetDataSource(value, warehouseId));
 		}
 
+<<<<<<< HEAD
+        [Route("{id}")]
+		[Authorize(Roles = "Coordinator")]
+		[HttpGet]
+        public async Task<IActionResult> GetRequestDetailByIdAsync(string id)
+=======
         [Route("{id}/datasourcedetail")]
         [HttpGet]
         public async Task<IActionResult> GetRequestDataSourceDetailByIdAsync(string id)
+>>>>>>> d3c5223077c80b0add72b1ce55f96985f09c8418
         {
 
             return Ok(await _requestService.GetRequestByIdAsync(id));
@@ -57,7 +75,7 @@ namespace GoGoApi.Controllers.GoGo
         [Authorize]
         public async Task<IActionResult> CreateRequest([FromBody]CustomerRequestModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -74,7 +92,7 @@ namespace GoGoApi.Controllers.GoGo
         //[Authorize]
         public async Task<IActionResult> UpdateRequest([FromBody]CustomerRequestModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -116,14 +134,14 @@ namespace GoGoApi.Controllers.GoGo
         [Authorize]
         public IActionResult ChangeStatus(int requestId,[FromBody] StringObject status)
         {
-            if (status.content != RequestStatus.INACTIVE && status.content != RequestStatus.WAITING)
+            if (status.content != RequestStatus.INACTIVE && status.content != RequestStatus.PENDING)
             {
                 return BadRequest();
             }
             var result = _requestService.ChangeStatus(requestId, status.content);
             return Ok(result);
         }
-		// End Đ
+        // End Đ
 
-	}
+    }
 }

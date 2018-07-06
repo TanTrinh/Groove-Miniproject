@@ -55,7 +55,7 @@ namespace Domains.GoGo.Services.Transportation
 			//get Created Date
 			entity.CreatedDate = DateTime.Parse(String.Format("{0:G}", DateTime.Now)); // TODO: Use DateTime.Now only
 
-			entity.Code = Helper.GenerateCode(DateTime.Now, 100);
+			entity.Code = Helper.GenerateCode(DateTime.Now, entity.CoordinatorId);
 
 			entity.Status = ShipmentStatus.INACTIVE; 
 

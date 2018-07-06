@@ -39,8 +39,12 @@ const routes: Routes = [
         path: 'shipment', component: ShipmentComponent, canActivate: [AuthGuard], children: [
           { path: ':code', component: ShipmentPickingComponent },
           { path: '', component: ShipmentListComponent },
+<<<<<<< HEAD
           { path: 'form/:mode', component: ShipmentFormComponent },
           { path: 'form/:mode/:id', component: ShipmentFormComponent}       
+=======
+          { path: 'form/:mode/:id', component: ShipmentFormComponent }
+>>>>>>> d3c5223077c80b0add72b1ce55f96985f09c8418
         ]
       }
     ]

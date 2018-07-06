@@ -6,6 +6,7 @@ using Domains.GoGo.Services.Fleet_management;
 using Groove.AspNetCore.Mvc;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers
@@ -22,7 +23,8 @@ namespace GoGoApi.Controllers
         }
 
         [Route("")]
-        [HttpGet]
+		[Authorize(Roles = "Coordinator")]
+		[HttpGet]
         public async Task<IActionResult> GetDataSource([FromQuery]string driverName)
         {
 
@@ -30,7 +32,8 @@ namespace GoGoApi.Controllers
         }
 
         [Route("{id}")]
-        [HttpGet]
+		[Authorize(Roles = "Coordinator")]
+		[HttpGet]
         public async Task<IActionResult> GetRequestDetailAsync(string id)
         {
 

@@ -21,21 +21,21 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     if (status == 'Inactive') {
       return 'Activate';
     }
-    else if (status == 'Pending') {
+    else if (status == 'Waiting') {
       return 'Deactivate'
     }
   }
 
   public onClickStatus(requestId, status) {
     if (status == 'Inactive') {
-      this.requestService.changeStatus(requestId, 'Pending').subscribe(
+      this.requestService.changeStatus(requestId, 'Waiting').subscribe(
         result => {
           console.log(result);
           this.formData.status = result.result;
         }
       );
     }
-    else if (status == 'Pending') {
+    else if (status == 'Waiting') {
       this.requestService.changeStatus(requestId, 'Inactive').subscribe(
         result => {
           console.log(result);

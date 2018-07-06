@@ -27,7 +27,9 @@ import { map } from 'rxjs/internal/operators/map';
 export class ShipmentFormComponent implements OnInit, OnDestroy {
 
   private formMode: string;
+  private isCreateForm: boolean;
 
+  
   private sub: Subscription;
 
   public shipmentCode: any;
@@ -48,8 +50,8 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   };
 
   private warehouseView: any;
-  public warehouse: any = {
-  };
+  public warehouse: any = { };
+  
 
   private pickingDate = new Date();
   private deliveryDate = new Date();
@@ -60,10 +62,12 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   private driverDetail: any = {};
   private warehouseDetail: any = {};
   private isValid: boolean;
-
+  private isNewShipment: boolean;
   public addSucess: boolean;
 
   public state: DataSourceRequestState = {
+    skip: 0,
+    take: 8
   };
 
   public active: boolean;
@@ -85,22 +89,28 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
 
     this.shipmentId = this.route.snapshot.paramMap.get('id');
     this.formMode = this.route.snapshot.paramMap.get('mode');
+    (this.formMode == 'update') ? this.isCreateForm = false : this.isCreateForm = true;
   }
 
   ngOnInit(): void {
     if (this.formMode == "update") {
       this.shipmentService.GetDetailById(this.shipmentId).subscribe(
         result => {        
-          this.shipmentId = result.id
-          this.shipmentCode = result.code
-          this.driverDetail = result.driver
-          this.vehicleDetail = result.vehicle
-          this.requestIdList = result.requestIdList
-          this.requestList = result.requestList
-          this.warehouseDetail = result.warehouse
-          this.pickingDate = new Date(result.startDate)
-          this.deliveryDate = new Date(result.endDate)
-          this.refreshGrid()
+            this.shipmentId = result.id
+            this.shipmentCode = result.code
+            this.driverDetail = result.driver
+            this.vehicleDetail = result.vehicle
+            this.requestIdList = result.requestIdList
+
+
+            this.requestList = result.requestList
+            this.warehouseDetail = result.warehouse
+           
+            this.pickingDate = new Date(result.startDate)
+            this.deliveryDate = new Date(result.endDate)
+             
+            this.isValid = true;
+            this.refreshGrid()
         }    
       )
       this.isValid = true;
@@ -115,7 +125,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   onSave() {
     if (this.requestIdList.length != 0) {
       {
-        if (this.sharingService.isNewShipment == true) {
+        if (this.isCreateForm == true) {
           this.shipmentService.CreateShipment(this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.id, this.driverDetail.id, '3')
             .subscribe(result => {
 
@@ -123,7 +133,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
             },
               errors => { this.errors = errors })
         }
-        else if (this.sharingService.isNewShipment == false) {
+        else if (this.isCreateForm == false) {
           this.shipmentService.UpdateShipment(this.shipmentId, this.shipmentCode, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.id, this.driverDetail.id, '3')
             .subscribe(result => {
 
@@ -219,8 +229,8 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
       this.requestService.getRequestDetail(this.request.value)
         .subscribe(result => {
           this.requestDetail = result
-          this.requestDetail.pickingDate = this.sharingService.datimeFormat(this.requestDetail.pickingDate);
-          this.requestDetail.expectedDate = this.sharingService.datimeFormat(this.requestDetail.expectedDate);
+          //this.requestDetail.pickingDate = this.sharingService.datimeFormat(this.requestDetail.pickingDate);
+          //this.requestDetail.expectedDate = this.sharingService.datimeFormat(this.requestDetail.expectedDate);
           this.pushRequest()
         });
     }
@@ -254,12 +264,4 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
       this.isValid = false
   }
 
-
-  onChange(Value)
-  {
-    this.masterDataService.getVehicleDetail(Value)
-      .subscribe(result => {
-        this.vehicleDetail = result
-      });
-  }
 }

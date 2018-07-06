@@ -114,7 +114,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             }
             else
             {
-                return this.dbSet.Include(p => p.WareHouse).Where(p => p.Status == RequestStatus.PENDING).Select(p => new SummaryRequestModel
+                return this.dbSet.Include(p => p.WareHouse).Where(p => p.Status == RequestStatus.WAITING).Select(p => new SummaryRequestModel
                 {
                     Id = p.Id,
                     WareHouse = p.WareHouse.NameWarehouse,
