@@ -1,22 +1,21 @@
 ﻿using AutoMapper;
 using Domains.Core;
-using Domains.GoGo.Models;
-using Domains.GoGo.Repositories;
+using Domains.GoGo.Repositories.Fleet_management;
 using Groove.AspNetCore.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domains.GoGo.Services
+namespace Domains.GoGo.Services.Fleet_management
 {
-    class WarehouseService : IWarehouseService
+    public class VehicleFeatureService : IVehicleFeatureService
     {
-        private readonly IWarehouseRepository _repository;
+        private readonly IVehicleFeatureRepository _repository;
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public WarehouseService(IMapper mapper, IUnitOfWork uow, IWarehouseRepository repository)
+        public VehicleFeatureService(IMapper mapper, IUnitOfWork uow, IVehicleFeatureRepository repository)
         {
             _uow = uow;
             _repository = repository;

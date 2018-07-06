@@ -1,13 +1,12 @@
 ﻿using Domains.Core;
-using Domains.GoGo.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domains.GoGo.Services
+namespace Domains.GoGo.Services.Fleet_management
 {
-    public interface IWarehouseService
+    public interface IVehicleFeatureService
     {
         Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName);
     }

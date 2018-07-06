@@ -15,7 +15,7 @@ import { AuthHttpService } from '../shared';
   providedIn: 'root'
 })
 export class ShipmentService extends BehaviorSubject<any>  {
-  private url = 'http://localhost:54520/api/shipments'; // TODO: never hard code url in your code
+  private url = 'http://localhost:49943/api/shipments'; // TODO: never hard code url in your code
   // TODO: Remove ConfigService & use ServiceRegistryService instead
   constructor(private configService: ConfigService, private http: AuthHttpService, private auth: SharingService, private https: HttpClient) {
     super(null); 

@@ -13,9 +13,7 @@ import { AuthHttpService, LocalStorageService, ServiceRegistryService } from './
 import { NotificationService } from './shared/component/dialog/notification.service';
 import { FormValidationService } from './shared/component/form';
 import { AuthenticationService } from './shared/services/authentication.service';
-//import { GgmapComponent } from './ggmap/ggmap.component';
-//import { AgmCoreModule, AgmDataLayer } from '@agm/core';
-//import { AgmDirectionModule } from 'agm-direction';
+
 
 import { LoginComponent } from './modules/account/login/login.component';
 import { UserProfileComponent } from './modules/user-profile/my-profile/user-profile.component'
@@ -46,12 +44,13 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { UserModule } from './modules/identity/user/user.module';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { GridModule } from '@progress/kendo-angular-grid';
-import { RequestModule } from './modules/request/request.module';
 import { GgmapComponent } from './ggmap/ggmap.component';
 
 import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
 import { AgmCoreModule } from '@agm/core';
 import { NotfoundComponent } from './modules/notfound/notfound.component';
+import { RequestModule } from './modules/request/request.module';
+
 
 
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
@@ -76,17 +75,17 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     HeaderComponent,
     FooterComponent,
     NavigationComponent,
-    LoginComponent,
     ShipmentFormComponent,
     ShipmentComponent,
     ShipmentListComponent,
-    GgmapComponent,
+    LoginComponent,
     ShipmentPickingComponent,
     UserProfileComponent,
     UserProfileEditComponent,
     NotfoundComponent
   ],
   imports: [
+    RequestModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -105,18 +104,10 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     DropDownsModule,
     DialogModule,
     ButtonGroupModule,
-    DateInputsModule,
+    DateInputsModule ,
     AccountModule,
     InputsModule,
-    RequestModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
-
-    }),
-    //AgmDirectionModule,
-
     UserModule,
-
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -124,11 +115,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
         }
       }
     }),
-    ShipmentModule,
-    AccountModule,
-    InputsModule,
-    BrowserAnimationsModule,
-
+    HttpClientModule
   ],
   providers: [
     LocalStorageService,
@@ -142,6 +129,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     ConfigService,
     RequestsService,
   ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

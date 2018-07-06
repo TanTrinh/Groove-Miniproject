@@ -185,6 +185,7 @@ export class ShipmentPickingComponent implements OnInit {
       console.log(data);
       this.requestList = data;
       console.log(this.requestList);
+      this.Waypts = [];
       for (var item of this.requestList) {
         var info = new InfoRequest();
         info.latlng = this.InitLatlng(item.location.latitude, item.location.longitude);

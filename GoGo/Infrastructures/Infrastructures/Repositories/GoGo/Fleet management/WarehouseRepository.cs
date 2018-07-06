@@ -43,17 +43,19 @@ namespace Infrastructures.Repositories.GoGo
 													}).ToListAsync();
 		}
 
-		public async Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName)
-		{
-			return await this.dbSet.Where(p => p.NameWarehouse.Contains(displayName) && p.OwnerId == 77)
-				.MapQueryTo<DataSourceValue<int>>(_mapper).ToListAsync(); //77 is get on claim
-		}
-
         public WarehouseModel GetWarehouseByIdlAsync(string shipmentId)
         {
             var requestId = this.context.Set<ShipmentRequest>().Where(p => ((p.ShipmentId.ToString() == shipmentId) &&(p.Status != ShipmentRequestStatus.INACTIVE)) ).Select(p => p.RequestId).FirstOrDefault();
             return this.context.Set<Request>().Where(p => p.Id == requestId).Select(p => p.WareHouse).MapQueryTo<WarehouseModel>(_mapper).SingleOrDefault();
         }
+
+        // Đ
+        public async Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName, long userId)
+        {
+            return await this.dbSet.Where(p => p.NameWarehouse.Contains(displayName) && p.OwnerId == userId)
+                .MapQueryTo<DataSourceValue<int>>(_mapper).ToListAsync(); 
+        }
+        // End Đ
     }
 }
 

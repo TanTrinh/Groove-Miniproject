@@ -299,7 +299,15 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             await this.context.SaveChangesAsync();
             return request.Request.Code;
         }
+
+        public string GetRequestStatus(int requestId, int userId)
+        {
+            return this.dbSet.Where(p => p.RequestId == requestId).Select(p => p.Status).FirstOrDefault();
+        }
     }
+
+    
+
     internal class requestOrder
     {
         public int RequestId { get; set; }
