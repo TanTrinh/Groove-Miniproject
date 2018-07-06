@@ -4,7 +4,8 @@
 }
 
 #map {
-  height: 750px;
+  height: 100%;
+  min-height: 720px;
 }
 .location {
   border-bottom-color: darkorange;

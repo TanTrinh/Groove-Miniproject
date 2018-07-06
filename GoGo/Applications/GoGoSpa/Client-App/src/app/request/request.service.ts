@@ -34,7 +34,7 @@ export class RequestsService extends BehaviorSubject<any> {
   //Request Detail Api
   public getRequestDetail(id: any): Observable<any>
   { 
-    return this.https.get(`/api/Requests/${id}`);
+    return this.https.get(`/api/Requests/${id}/datasourcedetail`);
   }
 
 

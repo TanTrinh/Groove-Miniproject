@@ -16,10 +16,10 @@ namespace Domains.GoGo.Services.Fleet_management
 		private readonly IUnitOfWork _uow;
 		private readonly IMapper _mapper;
 
-		public WarehouseService(IMapper mapper, IUnitOfWork uow, IWarehouseRepository repository)
+		public WarehouseService(IMapper mapper, IUnitOfWork uow, IWarehouseRepository warehouseRepository)
 		{
 			_uow = uow;
-			_warehouseRepository = repository;
+			_warehouseRepository = warehouseRepository;
 			_mapper = mapper;
 		}
 
@@ -32,5 +32,12 @@ namespace Domains.GoGo.Services.Fleet_management
 		{
 			return _warehouseRepository.GetWarehouseDetailAsync(id);
 		}
-	}
+
+        // Đ
+        public Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName, long userId)
+        {
+            return _warehouseRepository.GetOnFilter(displayName, userId);
+        }
+        // End Đ
+    }
 }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoGoApi.Controllers.GoGo
 {
-    [Route("api/vehicle-feature")]
+    [Route("api/MasterData/VehicleFeatures")]
     public class VehicleFeatureController : BaseController
     {
         private readonly IVehicleFeatureService _vehicleFeatureService;
@@ -18,12 +18,16 @@ namespace GoGoApi.Controllers.GoGo
             _vehicleFeatureService = vehicleFeatureService;
         }
 
-        [Route("filter-list/{displayName}")]
+        // Đ
+
+        // GET /api/vehicle-feature/vehicle-feature/{displayName}
+        [Route("datasource/{displayName}")]
         [HttpGet]
         public async Task<IActionResult> GetOnFilter(string displayName)
         {
             var result = await _vehicleFeatureService.GetOnFilter(displayName);
             return Ok(result);
         }
+        //End Đ
     }
 }

@@ -16,7 +16,7 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   public warehouseList: Array<any> = []; 
   public vehicleFeatureList: Array<any> = [];
   public requestStatus: string = '';
-
+  
   public onLoadGrid(status) {
     if (status == 'Inactive') {
       return 'Activate';
@@ -26,18 +26,20 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     }
   }
 
-  public onClickStatus(dataItem) {
-    if (dataItem.status == 'Inactive') {
-      this.requestService.changeStatus(dataItem.code, 'Pending').subscribe(
+  public onClickStatus(requestId, status) {
+    if (status == 'Inactive') {
+      this.requestService.changeStatus(requestId, 'Pending').subscribe(
         result => {
-          dataItem.status = result.result;
+          console.log(result);
+          this.formData.status = result.result;
         }
       );
     }
-    else if (dataItem.status == 'Pending') {
-      this.requestService.changeStatus(dataItem.code, 'Inactive').subscribe(
+    else if (status == 'Pending') {
+      this.requestService.changeStatus(requestId, 'Inactive').subscribe(
         result => {
-          dataItem.status = result.result;
+          console.log(result);
+          this.formData.status = result.result;
         });
     }
   }
@@ -50,7 +52,7 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
 
   public onBeforeInitFormData(data) {
     // Get status
-    this.requestStatus = this.GetRequestStatus(data.id);
+    this.requestStatus = this.getRequestStatus(data.id);
     // Date parse
     if (data.pickingDate == null || data.pickingDate == undefined || data.expectedDate == null || data.expectedDate == undefined) {
       data.pickingDate = new Date();
@@ -62,7 +64,6 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     }
 
     // Push warehouse to warehouse list so that it can show in combobox
-
     this.warehouseList = [];
     this.vehicleFeatureList = [];
     this.warehouseList.push(data.wareHouse);
@@ -81,13 +82,12 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     this.formConfiguration.events.onAfterInitFormData = (data)=> {
       this.onBeforeInitFormData(data);
     };
-
     super.formOnInit("Request", {});
   }
 
-  public GetRequestStatus(requestId: any) {
+  public getRequestStatus(requestId: any) {
     if (requestId != null && requestId != undefined) {
-      this.requestService.GetRequestStatus(requestId).subscribe(data => {
+      this.requestService.getRequestStatus(requestId).subscribe(data => {
         if (data != null && data != undefined) {
           this.requestStatus = data.result;
           if (this.requestStatus == null || this.requestStatus == undefined) {
