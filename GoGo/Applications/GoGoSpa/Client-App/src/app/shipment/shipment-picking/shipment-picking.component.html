@@ -42,7 +42,7 @@
     <div class="container-fluid">
 
       <div *ngIf="role=='Coordinator'">
-        <div *ngIf="shipmentDetail.status != statusShipment.WAITING && shipmentDetail.status != 'InActive'">
+        <div *ngIf="shipmentDetail.status != statusShipment.WAITING && shipmentDetail.status != 'Inactive'">
           <div class="row">
             <div style="width:50%" class="pr-1">
               <button disabled class="btn btn-success btn-block">Update</button>
@@ -54,7 +54,7 @@
           </div>
         </div>
 
-        <div *ngIf="shipmentDetail.status ==statusShipment.WAITING || shipmentDetail.status == 'InActive'">
+        <div *ngIf="shipmentDetail.status == statusShipment.WAITING || shipmentDetail.status == 'Inactive'">
           <div class="row">
             <div style="width:50%" class="pr-1">
               <button class="btn btn-success btn-block">Update</button>
