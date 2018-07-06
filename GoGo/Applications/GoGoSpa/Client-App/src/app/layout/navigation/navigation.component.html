@@ -19,22 +19,26 @@
       </a>
     </div>
   </li>-->
-
-
     <!--<li>
-      <a routerLink="/assigned" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Assigned</a>
-    </li>-->
+    <a routerLink="/assigned" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Assigned</a>
+  </li>-->
     <li *ngIf="isRole=='Customer' || isRole=='Driver' || isRole=='Coordinator'">
-     <a routerLink="/request/list" routerLinkActive="hold" class=" list-group-item list-group-item-action"><i class="fas fa-list-alt"></i> Request</a>
+      <a routerLink="/request/list" routerLinkActive="hold" class=" list-group-item list-group-item-action"><i class="fas fa-list-alt layout"></i> Request</a>
     </li>
     <li *ngIf="isRole=='Customer'">
-      <a  class=" list-group-item list-group-item-action "><i class="fas fa-warehouse"></i> Warehouse</a>
+      <a class=" list-group-item list-group-item-action "><i class="fas fa-warehouse"></i> Warehouse</a>
     </li>
     <li *ngIf="isRole=='Coordinator' || isRole=='Driver'">
       <a routerLink="/shipment" routerLinkActive="hold" class=" list-group-item list-group-item-action"><i class="fas fa-shipping-fast"></i> Shipment</a>
     </li>
     <li *ngIf="isRole=='Administrator'">
       <a routerLink="/account" routerLinkActive="hold" class=" list-group-item list-group-item-action"><i class="fas fa-users"></i> Account</a>
+    </li>
+    <li *ngIf="isRole=='Administrator'">
+      <a routerLinkActive="hold" class=" list-group-item list-group-item-action" (click)="displayToastr()"><i class="fas fa-user layout"></i> Driver</a>
+    </li>
+    <li *ngIf="isRole=='Administrator'">
+      <a routerLinkActive="hold" class=" list-group-item list-group-item-action" (click)="displayToastr()"><i class="fas fa-truck"></i> Vehicle</a>
     </li>
   </ul><!-- List Group END-->
 </div><!-- sidebar-container END -->

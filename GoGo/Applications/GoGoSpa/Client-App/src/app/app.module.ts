@@ -51,95 +51,97 @@ import { GgmapComponent } from './ggmap/ggmap.component';
 
 import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
 import { AgmCoreModule } from '@agm/core';
+import { NotfoundComponent } from './modules/notfound/notfound.component';
 
 
 const APP_INITIALIZER_PROVIDER: FactoryProvider = {
-    provide: APP_INITIALIZER,
-    useFactory: (ServiceRegistryService: ServiceRegistryService) => {
+  provide: APP_INITIALIZER,
+  useFactory: (ServiceRegistryService: ServiceRegistryService) => {
 
 
-        // Do initing of services that is required before app loads
-        // NOTE: this factory needs to return a function (that then returns a promise)
-        return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
-    },
-    deps: [ServiceRegistryService],
-    multi: true
+    // Do initing of services that is required before app loads
+    // NOTE: this factory needs to return a function (that then returns a promise)
+    return () => ServiceRegistryService.load('/configuration/serviceRegistry').toPromise();
+  },
+  deps: [ServiceRegistryService],
+  multi: true
 };
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        DashboardComponent,
-        HomeComponent,
-        LayoutComponent,
-        HeaderComponent,
-        FooterComponent,
-        NavigationComponent,
-        LoginComponent,
-        ShipmentFormComponent,
-        ShipmentComponent,
-        ShipmentListComponent,
-        GgmapComponent,
-        ShipmentPickingComponent,
-        UserProfileComponent,
-        UserProfileEditComponent
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        AppRoutingModule,
-        SharedModule,
-        HttpClientModule,
-        ShipmentModule,
-        CommonModule,
-        HttpModule,
-        GridModule,
-        BrowserAnimationsModule,
-        ButtonsModule,
-        HttpClientModule,
-        HttpClientJsonpModule,
-        DropDownsModule,
-        DialogModule,
-        ButtonGroupModule,
-        DateInputsModule,
-        AccountModule,
-        InputsModule,
-        RequestModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    HomeComponent,
+    LayoutComponent,
+    HeaderComponent,
+    FooterComponent,
+    NavigationComponent,
+    LoginComponent,
+    ShipmentFormComponent,
+    ShipmentComponent,
+    ShipmentListComponent,
+    GgmapComponent,
+    ShipmentPickingComponent,
+    UserProfileComponent,
+    UserProfileEditComponent,
+    NotfoundComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    AppRoutingModule,
+    SharedModule,
+    HttpClientModule,
+    ShipmentModule,
+    CommonModule,
+    HttpModule,
+    GridModule,
+    BrowserAnimationsModule,
+    ButtonsModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
+    DropDownsModule,
+    DialogModule,
+    ButtonGroupModule,
+    DateInputsModule,
+    AccountModule,
+    InputsModule,
+    RequestModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCP0PjMa80DJiUo2zdFCbw09XV1dcK4aIE'
 
-        }),
-        //AgmDirectionModule,
+    }),
+    //AgmDirectionModule,
 
-        UserModule,
+    UserModule,
 
-        JwtModule.forRoot({
-            config: {
-                tokenGetter: () => {
-                    return localStorage.getItem('tokenKey');
-                }
-            }
-        }),
-        ShipmentModule,
-        AccountModule,
-        InputsModule,
-        BrowserAnimationsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('tokenKey');
+        }
+      }
+    }),
+    ShipmentModule,
+    AccountModule,
+    InputsModule,
+    BrowserAnimationsModule,
 
-    ],
-    providers: [
-        LocalStorageService,
-        ServiceRegistryService,
-        NotificationService,
-        AuthHttpService,
-        AuthenticationService,
-        FormValidationService,
-        APP_INITIALIZER_PROVIDER,
-        JwtHelperService,
-        ConfigService,
-        RequestsService,
-    ],
-    bootstrap: [AppComponent]
+  ],
+  providers: [
+    LocalStorageService,
+    ServiceRegistryService,
+    NotificationService,
+    AuthHttpService,
+    AuthenticationService,
+    FormValidationService,
+    APP_INITIALIZER_PROVIDER,
+    JwtHelperService,
+    ConfigService,
+    RequestsService,
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

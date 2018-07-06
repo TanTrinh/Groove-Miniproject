@@ -19,14 +19,17 @@ import { ShipmentComponent } from './shipment/shipment/shipment.component';
 import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.component';
 import { RequestModule } from './modules/request/request.module';
 import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
+import { NotfoundComponent } from './modules/notfound/notfound.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
     path: '', component: LayoutComponent, children: [
-
+      { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+      { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
+      { path: 'profile/edit/:id', component: UserProfileEditComponent, canActivate: [AuthGuard] },
       { path: 'account', component: UserListComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
       { path: 'account/create', component: UserCreateComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
       { path: 'account/detail/:id', component: UserDetailComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
@@ -41,12 +44,8 @@ const routes: Routes = [
       }
     ]
   },
-  {
-    path: 'home', component: HomeComponent, canActivate: [AuthGuard], children: [
-      { path: 'profile', component: UserProfileComponent },
-      { path: 'profile/edit/:id', component: UserProfileEditComponent }
-    ]
-  }
+  { path: '404', component: NotfoundComponent },
+  { path: '**', redirectTo: '/404' }
 ];
 
 @NgModule({
