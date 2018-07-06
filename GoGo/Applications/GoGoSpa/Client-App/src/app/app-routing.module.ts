@@ -36,7 +36,8 @@ const routes: Routes = [
         path: 'shipment', component: ShipmentComponent, children: [
 		  { path: ':code', component: ShipmentPickingComponent },
           { path: '', component: ShipmentListComponent },
-          { path: 'form/:mode/:id', component: ShipmentFormComponent}        
+          { path: 'form/:mode', component: ShipmentFormComponent },
+          { path: 'form/:mode/:id', component: ShipmentFormComponent}       
         ]
       }
     ]

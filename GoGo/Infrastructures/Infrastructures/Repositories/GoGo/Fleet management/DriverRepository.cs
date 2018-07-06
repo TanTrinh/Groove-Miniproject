@@ -47,7 +47,7 @@ namespace Infrastructures.Repositories.GoGo.Fleet_management
 						 from user in dbSet
 						 from role in _dbContext.Roles
 						 where uRole.UserId == user.Id && role.Id == uRole.RoleId
-						 && ((user.UserName.Contains(value) || user.PhoneNumber == value || user.Id.ToString() == value) && !driverIdList.Contains(user.Id))
+						 && ((user.UserName.Contains(value) || user.PhoneNumber.Contains(value) || user.Id.ToString().Contains(value) || user.Id.ToString() == value) && !driverIdList.Contains(user.Id))
 						 && role.Name == "Driver"
 						 select new DataSourceValue<long>
 						 {

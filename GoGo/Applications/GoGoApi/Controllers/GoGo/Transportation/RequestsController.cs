@@ -6,6 +6,7 @@ using Domains.GoGo.Services;
 using Domains.GoGo.Services.Transportation;
 using Groove.AspNetCore.Mvc;
 using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,15 +28,8 @@ namespace GoGoApi.Controllers.GoGo
 			_shipmentRequestService = shipmentRequestService;
 		}
 
-		[Route("RequestList")]
-		[HttpGet]
-		public IActionResult GetAllAsync([DataSourceRequest]DataSourceRequest request)
-		{
-			
-			return Ok(_service.GetAllAsync(request));
-		}
-
 		[Route("filter/{warehouseId}/{value}")]
+		[Authorize(Roles = "Coordinator")]
 		[HttpGet]
 		public async Task<IActionResult> GetDataSource(int warehouseId, string value)
 		{
@@ -44,7 +38,8 @@ namespace GoGoApi.Controllers.GoGo
 		}
 
         [Route("{id}")]
-        [HttpGet]
+		[Authorize(Roles = "Coordinator")]
+		[HttpGet]
         public async Task<IActionResult> GetRequestDetailByIdAsync(string id)
         {
 

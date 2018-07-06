@@ -24,17 +24,18 @@ export class ShipmentListComponent{
   public shipments: GridDataResult;
   private currentSubscription: Subscription;
   private isCoordinator: boolean;
+  private canCreate: boolean;
 
   public state: DataSourceRequestState = {
     skip: 0,
-    take: 8
+    take: 15
   };
 
   constructor(private shipmentService: ShipmentService, private router: Router, private sharingService: SharingService,
               private renderer: Renderer2, private zone: NgZone) {
     this.shipmentService.fetch(this.state).subscribe(response => this.shipments = response);
 
-   
+    (this.sharingService.getRole() == "Coordinator") ? this.canCreate = true : this.canCreate = false;
   }
 
 
@@ -54,7 +55,7 @@ export class ShipmentListComponent{
   onCreate()
   {
     this.sharingService.isNewShipment = true;
-    this.router.navigate(['/shipment/form/create', '']);
+    this.router.navigate(['/shipment/form/create']);
   }
 
   onUpdate(id: any)
@@ -68,4 +69,6 @@ export class ShipmentListComponent{
     // Done
     this.router.navigate(['/shipment/form/update', id]);
   }
+
+  
 }

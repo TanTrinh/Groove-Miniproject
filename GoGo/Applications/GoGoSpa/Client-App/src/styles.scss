@@ -11,7 +11,7 @@ kendo-grid {
   .k-grid-header {
     thead {
       tr:first-child {
-        background-color: $btn-thead-color;
+        background-color:$main-color;
         color: white;
       }
     }
@@ -60,3 +60,18 @@ img {
 .note{
   color: red;
 }
+
+.k-state-selected {
+  background-color: $main-color;
+  color: white;
+}
+
+
+.k-pager-numbers .k-link, .k-pager-numbers .k-link:link {
+  color: $main-color;
+}
+
+.k-pager-numbers  .k-state-selected:hover {
+  background-color: $main-color;
+}
+

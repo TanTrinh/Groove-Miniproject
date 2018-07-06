@@ -27,6 +27,8 @@ import { map } from 'rxjs/internal/operators/map';
 export class ShipmentFormComponent implements OnInit, OnDestroy {
 
   private formMode: string;
+  private isCreateForm: boolean;
+
 
   private sub: Subscription;
 
@@ -64,6 +66,8 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   public addSucess: boolean;
 
   public state: DataSourceRequestState = {
+    skip: 0,
+    take: 8
   };
 
   public active: boolean;
@@ -85,6 +89,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
 
     this.shipmentId = this.route.snapshot.paramMap.get('id');
     this.formMode = this.route.snapshot.paramMap.get('mode');
+    (this.formMode == 'update') ? this.isCreateForm = false : this.isCreateForm = true;
   }
 
   ngOnInit(): void {
@@ -102,8 +107,9 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
             this.warehouseDetail = result.warehouse
            
             this.pickingDate = new Date(result.startDate)
-            this.deliveryDate = new Date(result.endDate)
-            this.refreshGrid()
+          this.deliveryDate = new Date(result.endDate)
+          this.isValid = true;
+          this.refreshGrid()
         }    
       )
       this.isValid = true;
@@ -257,12 +263,4 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
       this.isValid = false
   }
 
-
-  onChange(Value)
-  {
-    this.masterDataService.getVehicleDetail(Value)
-      .subscribe(result => {
-        this.vehicleDetail = result
-      });
-  }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domains.GoGo.Services.Fleet_management;
 using Groove.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ namespace GoGoApi.Controllers
 		}
 
 		[Route("")]
+		[Authorize(Roles = "Coordinator")]
 		[HttpGet]
 		public async Task<IActionResult> GetDataSource([FromQuery]string value)
 		{
@@ -29,6 +31,7 @@ namespace GoGoApi.Controllers
 		}
 
 		[Route("{id}")]
+		[Authorize(Roles = "Coordinator")]
 		[HttpGet]
 		public async Task<IActionResult> GetWarehouseDetailAsync(int id)
 		{
