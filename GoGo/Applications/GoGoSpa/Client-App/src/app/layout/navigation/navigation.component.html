@@ -3,33 +3,42 @@
   <!-- Bootstrap List Group -->
   <ul class="list-group " id="menu">
     <!--Menu with submenu
-    <li>
-      <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class=" list-group-item list-group-item-action flex-column align-items-start">
-        Dashboard
+  <li>
+    <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class=" list-group-item list-group-item-action flex-column align-items-start">
+      Dashboard
+    </a>
+    <div id='submenu1' class="collapse sidebar-submenu">
+      <a href="#" class="list-group-item list-group-item-action ">
+        1. Charts
       </a>
-      <div id='submenu1' class="collapse sidebar-submenu">
-        <a href="#" class="list-group-item list-group-item-action ">
-          1. Charts
-        </a>
-        <a href="#" class="list-group-item list-group-item-action ">
-          2. Reports
-        </a>
-        <a href="#" class="list-group-item list-group-item-action ">
-          3. Tables
-        </a>
-      </div>
-    </li>-->
-    <li>
-      <a routerLink="/assigned" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Assigned</a>
+      <a href="#" class="list-group-item list-group-item-action ">
+        2. Reports
+      </a>
+      <a href="#" class="list-group-item list-group-item-action ">
+        3. Tables
+      </a>
+    </div>
+  </li>-->
+    <!--<li>
+    <a routerLink="/assigned" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Assigned</a>
+  </li>-->
+    <li *ngIf="isRole=='Customer' || isRole=='Driver' || isRole=='Coordinator'">
+      <a routerLink="/request/list" routerLinkActive="hold" class=" list-group-item list-group-item-action"><i class="fas fa-list-alt layout"></i> Request</a>
     </li>
-    <li>
-      <a routerLink="/request" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Request</a>
+    <li *ngIf="isRole=='Customer'">
+      <a class=" list-group-item list-group-item-action "><i class="fas fa-warehouse"></i> Warehouse</a>
     </li>
-    <li>
-      <a routerLink="/warehouse" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Warehouse</a>
+    <li *ngIf="isRole=='Coordinator' || isRole=='Driver'">
+      <a routerLink="/shipment" routerLinkActive="hold" class=" list-group-item list-group-item-action"><i class="fas fa-shipping-fast"></i> Shipment</a>
     </li>
-    <li>
-      <a routerLink="/delivery-status" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Delivery Status</a>
+    <li *ngIf="isRole=='Administrator'">
+      <a routerLink="/account" routerLinkActive="hold" class=" list-group-item list-group-item-action"><i class="fas fa-users"></i> Account</a>
     </li>
-  </ul><!-- List Group END-->
-</div><!-- sidebar-container END -->
+    <li *ngIf="isRole=='Administrator'">
+      <a routerLinkActive="hold" class=" list-group-item list-group-item-action" (click)="displayToastr()"><i class="fas fa-user layout"></i> Driver</a>
+    </li>
+    <li *ngIf="isRole=='Administrator'">
+      <a routerLinkActive="hold" class=" list-group-item list-group-item-action" (click)="displayToastr()"><i class="fas fa-truck"></i> Vehicle</a>
+    </li>
+  </ul>
+</div>

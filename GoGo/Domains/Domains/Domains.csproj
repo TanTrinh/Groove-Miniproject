@@ -8,6 +8,7 @@
     <ProjectReference Include="..\..\BuildingBlocks\Common\Groove.AspNetCore.Common\Groove.AspNetCore.Common.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\Domain\Groove.AspNetCore.Domain\Groove.AspNetCore.Domain.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\UnitOfWork\Groove.AspNetCore.UnitOfWork\Groove.AspNetCore.UnitOfWork.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\Validation\Groove.AspNetCore.FluentValidation\Groove.AspNetCore.FluentValidation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="2.1.0" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core.Trial" Version="2018.2.620" />
   </ItemGroup>
 
   <ItemGroup>

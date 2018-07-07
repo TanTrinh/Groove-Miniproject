@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Groove.AspNetCore.Domain.Entities;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Domains.GoGo.Entities.Fleet
 {
-    public class VehicleFeatureRequest
+    public class VehicleFeatureRequest : IEntity<int>
     {
 		public int Id{ get; set; }
 

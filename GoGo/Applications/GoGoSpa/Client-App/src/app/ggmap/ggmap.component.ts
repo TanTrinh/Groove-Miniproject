@@ -1,5 +1,13 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { LatLng } from '@agm/core'; 
+import { Component, OnInit, NgZone, Input, OnDestroy } from '@angular/core';
+import { LatLng } from '@agm/core';
+import { Marker } from '@agm/core/services/google-maps-types';
+import { ShipmentService } from '../shipment/shipment.service';
+import { Location } from '../shipment/shipment-picking/Location';
+import { infoMarker } from '../shipment/shipment-picking/InfoRequest';
+import { SaveService } from '../shared/service/save.service';
+import { APP_SETTINGS } from '../app-setting';
+import { BehaviorSubject } from 'rxjs';
+
 declare var google: any;
 
 
@@ -11,103 +19,200 @@ declare var google: any;
 })
 
 
-export class GgmapComponent implements OnInit {
+export class GgmapComponent implements OnInit, OnDestroy {
+  private intervalDisposer: any;
+  @Input('marker') marker: string;
+  //@Input('Origin') Origin: any;  // TODO: first letter of property must be lowercase
+  //@Input('Destination') Destination: LatLng; // TODO: first letter of property must be lowercase
+  private Waypts: infoMarker[] = [];
+  @Input('waypts') wayptsSubject: BehaviorSubject<infoMarker[]>;
+  //  @Input('Markers') Markers: any[] = [];
+
   //parameter 
   //parameter of map
   latcenter: number = 10.7711799;
   lngcenter: number = 106.7004174;
   zoom: number = 15;
   directionsService = new google.maps.DirectionsService();
-  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
   map: undefined;
 
-  //The location of you
+  oldMarkerOrigin = new google.maps.Marker();
+  oldMarker = new google.maps.Marker();
+
+  markersClean: any[] = [];
+  //  //The location of you
   yourAddress: any;
   yourlat: number;
   yourlng: number;
 
-  //Location of trip
-  latlngOrigin: LatLng;
-  latlngDestination: LatLng;
-
   //The array of waypoints
-  checkboxArray: any[] = [
-    'benthanhmarket',
-    { lat: 10.7711899, lng: 106.7304174 },
-    'dai hoc khoa hoc tu nhien'
-  ];
-  iconWarehouse = '../assets/warehouse.png';
-  iconBase = '../assets/trucking.png';
+  optimizeRequest: any[] = [];
+  iconNext = '/assets/location.png'; // TODO: do not use relative path, use asbsolute path instead '/assets/location.png'
+  iconBase = '/assets/trucking.png'; // TODO: do not use relative path, use asbsolute path instead
+  iconWarehouse = '/assets/warehouse2.png'; // TODO: do not use relative path, use asbsolute path instead
 
-  constructor(private ngZone: NgZone) { }
-
+  constructor(
+    private ngZone: NgZone,
+    private shipmentService: ShipmentService,
+    private saveService: SaveService
+  ) {
+  }
 
   ngOnInit() {
-    this.GetYourPosition();
-    this.InitMap(this.latcenter, this.lngcenter);
-    this.latlngOrigin = this.GetLatlng(10.7711799, 106.7004174);
-    this.latlngDestination = this.GetLatlng(10.803780, 106.694184);
-    this.CalculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.latlngOrigin, this.latlngDestination, this.checkboxArray);
+    this.initMap(this.latcenter, this.lngcenter);
+
+    if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
+      this.intervalDisposer = setInterval(() => {
+        this.getYourPosition(() => {
+          this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+        })
+      }, APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec);
+
+    }
+    this.wayptsSubject.subscribe(result => {
+      this.Waypts = result;
+      if (this.Waypts.length > 0) {
+        this.getYourPosition(() => {
+          this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+        })
+      }
+    });
 
   }
 
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalDisposer);
+    this.wayptsSubject.unsubscribe();
+  }
+
+  // TODO: first letter of function must be lowercase
   //Init the map
-  InitMap(latitude, longitude) {
+  initMap(latitude, longitude) {
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: this.zoom,
       center: { lat: latitude, lng: longitude },
-     scrollwheel: true,
+      scrollwheel: true,
       zoomControl: true
     });
     this.directionsDisplay.setMap(this.map);
   }
 
+  // TODO: first letter of function must be lowercase
+  drawMarkers() {
+    var index;
+    var isCurrent: boolean = false;
+
+    //init Warehouse marker
+    var marker = new google.maps.Marker({
+      position: this.Waypts[0].latlng,
+      icon: this.iconWarehouse,
+      map: this.map,
+    });
+    this.markersClean.push(marker);
+    for (index = 1; index < this.Waypts.length - 1; index++) {
+      var contentString = `<p>${this.Waypts[index].description}</p>`
+      var infoWindow = new google.maps.InfoWindow();
+      var m = new google.maps.Marker({
+        position: this.Waypts[index].latlng,
+        icon: this.iconNext,
+        map: this.map,
+      });
+      if (this.Waypts[index].isRoute == true && isCurrent == false && index < this.Waypts.length) {
+        isCurrent = true;
+        m.setAnimation(google.maps.Animation.BOUNCE);
+        this.oldMarker = m;
+      }
+      this.openInfoWindow(m, contentString, infoWindow);
+      this.closeInfoWindow(m, contentString, infoWindow);
+
+      this.markersClean.push(m);
+    }
+  }
+
+  // TODO: first letter of function must be lowercase
+  refeshMarker() {
+    for (var i = 0; i < this.markersClean.length; i++)
+      this.markersClean[i].setMap(null);
+  }
+
+  // TODO: first letter of function must be lowercase
   //Optimize the route and show
   //Input:
   //start point: originLocation || end point: destinationLocation
   //checkboxArray: the array of detination
-  CalculateAndDisplayRoute(directionsService, directionsDisplay, originLocation, destinationLocation, checkboxArray) {
-    var waypts = [];
-    for (var i = 0; i < checkboxArray.length; i++) {
-      waypts.push({
-        location: checkboxArray[i],
-        stopover: true
-      });
+  calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    if (this.Waypts.length <= 0) {
+      return;
     }
+    this.refeshMarker();
+    this.drawMarkers();
+    var waypts = [];
+    this.oldMarkerOrigin.setMap(null);
+    var markerOrigin = new google.maps.Marker({
+      position: { lat: this.yourlat, lng: this.yourlng },
+      icon: this.iconBase,
+      map: this.map
+    });
+    this.oldMarkerOrigin = markerOrigin;
+
+    var contentString = `<p>${this.Waypts[this.Waypts.length - 1].description}</p>`
+    var infoWindow = new google.maps.InfoWindow();
+    var markerDetination = new google.maps.Marker({
+      position: this.Waypts[this.Waypts.length - 1].latlng,
+      icon: this.iconNext,
+      map: this.map,
+    });
+    this.openInfoWindow(markerDetination, contentString, infoWindow);
+    this.closeInfoWindow(markerDetination, contentString, infoWindow);
+
+    var index;
+    for (index = 0; index < this.Waypts.length - 1; index++) {
+      if (this.Waypts[index].isRoute == true) {// TODO: never hardcode strign value in codes, create class to store constant
+        waypts.push({
+          location: this.Waypts[index].latlng,
+          stopover: true,
+        });
+      }
+    }
+
     directionsService.route({
-      origin: originLocation,
-      destination: destinationLocation,
+      origin: markerOrigin.get('position'),
+      destination: markerDetination.get('position'),
       waypoints: waypts,
-      optimizeWaypoints: true,
+      optimizeWaypoints: false,
       travelMode: 'DRIVING'
     }, function (response, status) {
       if (status === 'OK') {
         directionsDisplay.setDirections(response);
         var route = response.routes[0];
-        //var summaryPanel = document.getElementById('directions-panel');
-        //summaryPanel.innerHTML = '';
-        //// For each route, display summary information.
-        //for (var i = 0; i < route.legs.length; i++) {
-        //  var routeSegment = i + 1;
-        //  summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-        //    '</b><br>';
-        //  summaryPanel.innerHTML += route.legs[i].start_address + '<br> ';
-        //  summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-        //  summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-        //}
-        //return summaryPanel;
       }
       else {
         window.alert('Directions request failed due to ' + status);
       }
     });
+
   }
-  
+
+  openInfoWindow(marker, data, infoWindow) {
+    google.maps.event.addListener(marker, 'mouseover', function () {
+      infoWindow.setContent("<div style = 'width:150px;min-height:10px;color:blue;text-align:center'>" + data + "</div>");
+      infoWindow.open(this.map, marker);
+    });
+  }
+  closeInfoWindow(marker, data, infoWindow) {
+    google.maps.event.addListener(marker, 'mouseout', function () {
+
+      infoWindow.close(this.map, marker);
+    });
+  }
+
+  // TODO: first letter of function must be lowercase
   //Convert the address to the latitude and longitude
   Geocoding(address) {
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'address': address }, function (results, status) {
-
       if (status == google.maps.GeocoderStatus.OK) {
         var latitude = results[0].geometry.location.lat();
         var longitude = results[0].geometry.location.lng();
@@ -117,36 +222,27 @@ export class GgmapComponent implements OnInit {
     });
   }
 
+  // TODO: first letter of function must be lowercase
+  RemoveAllMarkers() {
+    //for (var i = 0; i < this.markers.length; i++) {
+    //  this.markers[i].setMap(null);
+    //}
+  }
+
+
+  // TODO: first letter of function must be lowercase
   //Get your position
   //Add the marker where you are
   //Address of where you are
-  GetYourPosition() {
+  getYourPosition(callback: Function) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
-          this.yourlat = position.coords.latitude;
-          this.yourlng = position.coords.longitude;
+          this.yourlat = Number(position.coords.latitude);
+          this.yourlng = Number(position.coords.longitude);
           let geocoder = new google.maps.Geocoder();
-          let latlng = new google.maps.LatLng(this.yourlat, this.yourlng);
-          var marker = new google.maps.Marker({
-            position: { lat: this.yourlat, lng: this.yourlng },
-
-            icon: this.iconBase
-          });
-          marker.setMap(this.map);
-
-          let request = {
-            latLng: latlng
-          };
-          geocoder.geocode(request, (results, status) => {
-            if (status == google.maps.GeocoderStatus.OK) {
-              if (results[0] != null) {
-                this.ngZone.run(() => { this.yourAddress = results[0].formatted_address });
-              } else {
-                alert("No address available");
-              }
-            }
-          });
+          let latlng = new google.maps.LatLng(this.yourlat, this.yourlng)
+          callback(latlng);
         },
         error => {
           console.log("Error code: " + error.code + "<br /> Error message: " + error.message);
@@ -155,10 +251,20 @@ export class GgmapComponent implements OnInit {
     }
   }
 
+  // TODO: first letter of function must be lowercase
   //Get the Latlng
-  GetLatlng(latitude, longitude) {
+  getLatlng(latitude, longitude) {
     let latlng = new google.maps.LatLng(latitude, longitude);
     return latlng;
   }
 
+  // TODO: first letter of function must be lowercase
+  getMarker(latitue, longitude, urlIcon, map) {
+    var marker = new google.maps.Marker({
+      position: this.getLatlng(latitue, longitude),
+      icon: this.iconWarehouse,
+      map: map
+    });
+    return marker;
+  }
 }
