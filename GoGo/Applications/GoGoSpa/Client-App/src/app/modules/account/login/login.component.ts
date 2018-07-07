@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         if (valueUser.length > 0 && valuePass.length > 0) {
             $("#val-user").attr('style', 'visibility: hidden')
             $("#val-pass").attr('style', 'visibility: hidden');
-            this.http.post('http://localhost:49943/api/authentication/token', this.model, httpOptions).subscribe(result => {
+          this.http.post('http://localhost:50279/api/authentication/token', this.model, httpOptions).subscribe(result => {
                 var key = "tokenKey";
                 console.log(result);
                 if (result) {
