@@ -39,7 +39,7 @@ export class ShipmentListComponent{
   }
 
 
-  public dataStateChange(state: DataStateChangeEvent): void {
+  public dataStateChange(state: DataStateChangeEvent): any {
     this.state = state;
     this.shipmentService.fetch(state)
       .subscribe(response => this.shipments = response);

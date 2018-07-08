@@ -7,13 +7,16 @@ import { UserCreateComponent } from './user-create/user-create.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { RouterModule } from '@angular/router';
+import { ComboBoxModule, DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     GridModule,
-    RouterModule
+    RouterModule,
+    ComboBoxModule,
+    DropDownsModule,
   ],
   declarations: [UserListComponent, UserDetailComponent, UserCreateComponent, UserEditComponent]
 })

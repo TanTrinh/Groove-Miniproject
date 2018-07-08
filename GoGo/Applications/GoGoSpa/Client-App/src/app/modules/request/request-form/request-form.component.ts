@@ -37,6 +37,9 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     (this._sharingService.getRole() == "Customer") ? this.isCustomer = true : this.isCustomer = false;
   }
 
+  public addDelivery: string = '132 Hàm nghi';
+  public addWarehouse: string = '321 Tran hung dao';
+
   public onLoadGrid(status) {
     if (status == 'Inactive') {
       return 'Activate';

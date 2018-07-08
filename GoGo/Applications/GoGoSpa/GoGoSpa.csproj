@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <Folder Include="Client-App\src\app\shared\components\dialog\" />
-    <Folder Include="Client-App\src\app\shared\services\authservices\" />
     <Folder Include="Client-App\src\app\shared\services\roleguardservice\" />
     <Folder Include="Client-App\src\app\shared\sevices\" />
     <Folder Include="wwwroot\" />

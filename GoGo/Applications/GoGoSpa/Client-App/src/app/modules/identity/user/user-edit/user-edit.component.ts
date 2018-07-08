@@ -12,6 +12,7 @@ import { UserService } from '../user.service';
   styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
+  public listItems: Array<string> = ["Customer", "Driver", "Coordinator", "Administrator"];
   public model: any = {
     email: '',
     phoneNumber: '',

@@ -21,7 +21,10 @@ declare var google: any;
 
 export class GgmapComponent implements OnInit, OnDestroy {
   private intervalDisposer: any;
+  @Input('isRoute') isRoute: boolean;
   @Input('marker') marker: string;
+  @Input('addressWarehouse') addressWarehouse: string;
+  @Input('addressDelivery') addressDelivery: string;
   //@Input('Origin') Origin: any;  // TODO: first letter of property must be lowercase
   //@Input('Destination') Destination: LatLng; // TODO: first letter of property must be lowercase
   private Waypts: infoMarker[] = [];
@@ -57,34 +60,43 @@ export class GgmapComponent implements OnInit, OnDestroy {
     private shipmentService: ShipmentService,
     private saveService: SaveService
   ) {
+   
   }
 
   ngOnInit() {
     this.initMap(this.latcenter, this.lngcenter);
-
-    if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
-      this.intervalDisposer = setInterval(() => {
-        this.getYourPosition(() => {
-          this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
-        })
-      }, APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec);
-
+    if (this.addressDelivery != '') {
+      console.log(this.addressDelivery)
+      this.geocodeAddress(this.addressDelivery, this.iconNext, this.map);
     }
-    this.wayptsSubject.subscribe(result => {
-      this.Waypts = result;
-      if (this.Waypts.length > 0) {
-        this.getYourPosition(() => {
-          this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
-        })
-      }
-    });
+    if (this.addressWarehouse != '') {
+      console.log(this.addressWarehouse)
+      this.geocodeAddress(this.addressWarehouse, this.iconWarehouse, this.map)
+    }
+    if (this.isRoute == true) {
+      if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
+        this.intervalDisposer = setInterval(() => {
+          this.getYourPosition(() => {
+            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+          })
+        }, APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec);
 
+      }
+      this.wayptsSubject.subscribe(result => {
+        this.Waypts = result;
+        if (this.Waypts.length > 0) {
+          this.getYourPosition(() => {
+            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
+          })
+        }
+      });
+    }
   }
 
 
   ngOnDestroy(): void {
     clearInterval(this.intervalDisposer);
-    this.wayptsSubject.unsubscribe();
+    
   }
 
   // TODO: first letter of function must be lowercase
@@ -210,25 +222,47 @@ export class GgmapComponent implements OnInit, OnDestroy {
 
   // TODO: first letter of function must be lowercase
   //Convert the address to the latitude and longitude
-  Geocoding(address) {
+  //Geocoding(address, urlIcon) {
+  //  var geocoder = new google.maps.Geocoder();
+  //  geocoder.geocode({ 'address': address }, function (results, status) {
+
+  //    if (status == google.maps.GeocoderStatus.OK) {
+  //      this.ngZone.run(() => {
+  //        var latitude = results[0].geometry.location.lat();
+  //        var longitude = results[0].geometry.location.lng();
+
+  //        var marker = new google.maps.Marker({
+  //          position: { lat: latitude, lng: longitude },
+  //          icon: urlIcon,
+  //          map: this.map
+  //        });
+
+  //      })
+  //    }
+  //  });
+  //}
+  geocodeAddress(address,urlIcon,map) {
     var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({ 'address': address }, function (results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        var latitude = results[0].geometry.location.lat();
-        var longitude = results[0].geometry.location.lng();
-        let latlng = new google.maps.LatLng(latitude, longitude);
-        return latlng;
-      }
-    });
+    geocoder = new google.maps.Geocoder();
+    if (geocoder) {
+      geocoder.geocode({
+        'address': address
+      }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          console.log(results)
+          var lat = results[0].geometry.location.lat();
+          var lng = results[0].geometry.location.lng();
+          let latlng = new google.maps.LatLng(lat, lng)
+          var marker = new google.maps.Marker({
+            position: latlng,
+            icon: urlIcon,
+            map: map
+          });
+          map.setCenter(latlng);
+        }
+      });
+    }
   }
-
-  // TODO: first letter of function must be lowercase
-  RemoveAllMarkers() {
-    //for (var i = 0; i < this.markers.length; i++) {
-    //  this.markers[i].setMap(null);
-    //}
-  }
-
 
   // TODO: first letter of function must be lowercase
   //Get your position
@@ -259,12 +293,12 @@ export class GgmapComponent implements OnInit, OnDestroy {
   }
 
   // TODO: first letter of function must be lowercase
-  getMarker(latitue, longitude, urlIcon, map) {
+  getMarkerDelivery(lat,lng, urlIcon, map) {
     var marker = new google.maps.Marker({
-      position: this.getLatlng(latitue, longitude),
-      icon: this.iconWarehouse,
+      position: this.getLatlng(lat, lng),
+      icon: urlIcon,
       map: map
     });
-    return marker;
   }
+
 }

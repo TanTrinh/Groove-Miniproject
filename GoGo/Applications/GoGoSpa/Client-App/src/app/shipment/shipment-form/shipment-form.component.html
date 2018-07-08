@@ -18,7 +18,7 @@
                             [filterable]="true"
                             (filterChange)="handleVehicleFilter($event)"
                             (ngModelChange)="GetVehicleDetail()"
-                            style="width: 330px;"
+                            style="width: 315px;"
                             class="mr-1 mb-1">
             </kendo-combobox>
           </div>
@@ -45,7 +45,7 @@
                             [filterable]="true"
                             (filterChange)="handleDriverFilter($event)"
                             (ngModelChange)="GetDriverDetail()"
-                            style="width: 330px;"
+                            style="width: 315px;"
                             class="mr-1 mb-1">
             </kendo-combobox>
           </div>
@@ -95,7 +95,7 @@
                           [filterable]="true"
                           (filterChange)="handleWarehouseFilter($event)"
                           (ngModelChange)="GetWarehouseDetail()"
-                          style="width: 330px;"
+                          style="width: 315px;"
                           [disabled]="isValid">
           </kendo-combobox>
         </div>
@@ -127,7 +127,7 @@
                           [filterable]="true"
                           (filterChange)="handleFilter($event)"
                           (ngModelChange)="AddRequestToList()"
-                          style="width: 330px;"
+                          style="width: 315px;"
                           class="mr-1 mb-1">
           </kendo-combobox>
         </div>
@@ -135,21 +135,22 @@
 
     </fieldset>
     <kendo-grid [data]="gridData"
-                 [skip]="state.skip"
+                [skip]="state.skip"
+                [pageSize]="state.take"
                 [sort]="state.sort"
                 [scrollable]="'scrollable'"
-                [height]="330"
-                [pageSize]="state.take"
+          
+                [pageable]="true"
                 (remove)="removeHandler($event)"
                 required>
 
       <kendo-grid-column field="code" title="Code" width="200"></kendo-grid-column>
-      <kendo-grid-column field="pickingDate" title="Expected Picking Date" [width]="200">
+      <kendo-grid-column field="pickingDate" title="Expected Picking Date" >
         <ng-template kendoGridCellTemplate let-dataItem>
           <a>{{dataItem.pickingDate | date:'medium'}}</a>
         </ng-template>
       </kendo-grid-column>
-      <kendo-grid-column field="expectedDate" title="Expected Delivery Date" [width]="200">
+      <kendo-grid-column field="expectedDate" title="Expected Delivery Date">
         <ng-template kendoGridCellTemplate let-dataItem>
           <a>{{dataItem.expectedDate | date:'medium'}}</a>
         </ng-template>

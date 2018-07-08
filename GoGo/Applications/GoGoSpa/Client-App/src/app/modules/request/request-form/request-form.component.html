@@ -159,8 +159,8 @@
         </form>
       </div>
     </div>
-    <div class="col-lg-8 col-md-6 col-sm-12"> 
-      <!--<app-ggmap></app-ggmap>-->
+    <div class="col-lg-8 col-md-6 col-sm-12" id="map"> 
+      <app-ggmap [addressDelivery]="addDelivery" [addressWarehouse]="addWarehouse" [isRoute]="false"></app-ggmap>
     </div>
 
   </div>

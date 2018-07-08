@@ -71,7 +71,7 @@ namespace GoGoApi.Controllers.GoGo
 		[Route("")]
 		[Authorize(Roles = "Driver,Coordinator")]
 		[HttpGet]
-		public IActionResult GetShipments([FromQuery]DataSourceRequest queryString)
+		public IActionResult GetShipments([DataSourceRequest]DataSourceRequest queryString)
 		{
 			var userIdentity = GetCurrentIdentity<long>();
 			var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).Select(p=>p.Value).ToList();
