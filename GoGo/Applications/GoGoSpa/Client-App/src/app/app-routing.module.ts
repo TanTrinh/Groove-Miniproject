@@ -41,7 +41,7 @@ const routes: Routes = [
         path: 'shipment', component: ShipmentComponent, canActivate: [RoleGuard], data: { expectedRole: ['Driver', 'Coordinator'] }, children: [
           { path: ':code', component: ShipmentPickingComponent,  },
           { path: '', component: ShipmentListComponent },
-          { path: 'form/:mode', component: ShipmentFormComponent, canActivate: [RoleGuard], data: { expectedRole: ['Coordinator'] },
+          { path: 'form/:mode', component: ShipmentFormComponent, canActivate: [RoleGuard], data: { expectedRole: ['Coordinator'] } },
           { path: 'form/:mode/:id', component: ShipmentFormComponent, canActivate: [RoleGuard], data: { expectedRole: ['Coordinator'] } }  
         ]
       }

@@ -18,6 +18,8 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   public vehicleFeatureList: Array<any> = [];
   public requestStatus: string = '';
   private isCustomer: boolean;
+  public addDelivery: string = this.formData.address;
+  public message: string = '';
 
   constructor(protected route: ActivatedRoute,
     protected router: Router,
@@ -28,17 +30,28 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     private _sharingService: SharingService
   ) {
     super(route, router, notificationService, requestService, validationService);
-    this.resetFormData = (data) => { this.resetData(data) };
+    this.resetFormData = (formMode) => { this.resetData(formMode) };
+    (this._sharingService.getRole() == "Customer") ? this.isCustomer = true : this.isCustomer = false;
+    //this.canAccess = (formMode) => { this.canAccessUpdate(formMode) };
+    this.canAccess = this.canAccessUpdate;
     this.formConfiguration.events.onAfterInitFormData = (data)=> {
       this.onBeforeInitFormData(data);
     };
     super.formOnInit("Request", {});
 
-    (this._sharingService.getRole() == "Customer") ? this.isCustomer = true : this.isCustomer = false;
   }
 
-  public addDelivery: string = '132 Hàm nghi';
-  public addWarehouse: string = '321 Tran hung dao';
+  public canAccessUpdate(formMode) {
+    console.log(formMode)
+    console.log(!this.isCustomer)
+    if (formMode == 'update' && !this.isCustomer) {
+      console.log(1);
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
 
   public onLoadGrid(status) {
     if (status == 'Inactive') {
@@ -127,6 +140,11 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
       });
 
     }
+  }
+
+  public onChangeAddress(data) {
+    this.addDelivery = data;
+    console.log(this.addDelivery)
   }
 
   ngOnInit() {

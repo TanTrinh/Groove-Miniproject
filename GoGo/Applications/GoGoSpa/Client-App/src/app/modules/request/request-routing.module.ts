@@ -6,7 +6,7 @@ import { RoleGuardService as RoleGuard } from '../.././shared/services/roleguard
 
 const routes: Routes = [
   { path: 'list', component: RequestListComponent },
-  { path: 'form/update/:id', component: RequestFormComponent, canActivate: [RoleGuard], data: { expectedRole: ['Customer'] } }, // View / Edit
+  //{ path: 'form/update/:id', component: RequestFormComponent, canActivate: [RoleGuard], data: { expectedRole: ['Customer'] } }, // View / Edit
   { path: 'form/:mode/:id', component: RequestFormComponent }, // View / Edit
   { path: 'form/:mode', component: RequestFormComponent, canActivate: [RoleGuard], data: { expectedRole: ['Customer'] } }      // Create
 ];

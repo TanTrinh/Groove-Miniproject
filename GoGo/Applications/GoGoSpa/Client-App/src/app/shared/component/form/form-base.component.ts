@@ -109,6 +109,11 @@ export abstract class FormBaseComponent {
   public formDataSource: any = {};
   public formLinks: FormLink = new FormLink();
 
+  public resetFormData: Function = function () { };
+  public canAccess: Function = function () { return true };
+  public Access: boolean = true;
+
+
   private _validationRules: Array<ValidationRule> = new Array<ValidationRule>();
   constructor(
     protected activeRoute: ActivatedRoute
@@ -138,14 +143,15 @@ export abstract class FormBaseComponent {
     // Init Route
     this.activeRoute.params.subscribe((param: Params) => {
       this._formMode = param['mode'].toLowerCase();
-      this.constructorForFormMode(this._formMode, param['id']);
-      this.constructorForFormData();
+      if (this.canAccess(this._formMode)) {
+        this.constructorForFormMode(this._formMode, param['id']);
+        this.constructorForFormData();
+      }
+      else {
+        this.router.navigate(['/401']);
+      }
     });
   }
-
-  public resetFormData: Function = function () { };
-  public canAccess: Function = function () { };
- 
 
   public deepClone(source) {
     return JSON.parse(JSON.stringify(source));
@@ -179,7 +185,10 @@ export abstract class FormBaseComponent {
         this._formModeCode = FormMode.VIEW;
         break;
       default:
-        throw new Error(`Form mode = <${_formMode}> is not valid.`);
+        this.router.navigate(["home"]);
+        alert(`Form mode = <${_formMode}> is not valid.`)
+        //throw new Error(`Form mode = <${_formMode}> is not valid.`);
+        break;
     }
     this.resetFormData(this.formData);
     this.formLinks.listPageUrl = this.getListPageUrl();
@@ -194,7 +203,7 @@ export abstract class FormBaseComponent {
         this.formData = data;
         this.formConfiguration.events.onAfterInitFormData(this.formData);
         this.constructorForFormDataSource();
-      }, error => { this.router.navigate(['/401']) });
+      }, error => { this.router.navigate(['/404']) });
     } else if (this.isUpdateFormMode) {
       this.viewFormService.getFormData(this.formId).subscribe(data => {
         this.formConfiguration.events.onBeforeInitFormData(data);
