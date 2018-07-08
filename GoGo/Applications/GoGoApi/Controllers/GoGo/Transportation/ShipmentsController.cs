@@ -37,9 +37,12 @@ namespace GoGoApi.Controllers.GoGo
 		// TODO: change route to POST ""
 		// Done
 		[Route("")]
+		[Authorize(Roles = "Coordinator")]
 		[HttpPost]
 		public async Task<IActionResult> CreateShipment(FormShipmentModel model)
 		{
+			var userIdentity = GetCurrentIdentity<long>();
+			model.CoordinatorId = userIdentity.Id;
 			var shipmentId = await _Shipmentservice.CreateShipmentAsync(model);
 			await _shipmentRequestService.CreateShipmentRequestAsync(model.RequestIdList, shipmentId);
 
@@ -50,13 +53,15 @@ namespace GoGoApi.Controllers.GoGo
 		// TODO: replace route by PUT "{code}/deactivate"
 		// Done
 		[Route("{id}/activate")]
+		[Authorize(Roles = "Coordinator")]
 		[HttpPut]
 		public async Task<IActionResult> ActivateShipment(string id)
 		{
-			return Ok(await _Shipmentservice.ChangeShipmentStatusById(id, ShipmentStatus.PENDING));
+			return Ok(await _Shipmentservice.ChangeShipmentStatusById(id, ShipmentStatus.WAITING));
 		}
 
 		[Route("{id}/deactivate")]
+		[Authorize(Roles = "Coordinator")]
 		[HttpPut]
 		public async Task<IActionResult> DeactivateShipment(string id)
 		{
@@ -64,8 +69,9 @@ namespace GoGoApi.Controllers.GoGo
 		}
 
 		[Route("")]
+		[Authorize(Roles = "Driver,Coordinator")]
 		[HttpGet]
-		public IActionResult GetShipments([FromQuery]DataSourceRequest queryString)
+		public IActionResult GetShipments([DataSourceRequest]DataSourceRequest queryString)
 		{
 			var userIdentity = GetCurrentIdentity<long>();
 			var roles = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).Select(p=>p.Value).ToList();
@@ -83,6 +89,7 @@ namespace GoGoApi.Controllers.GoGo
 		}
 
 		[Route("{id}")]
+		[Authorize(Roles = "Coordinator")]
 		[HttpGet]
 		public IActionResult GetShipmentDetail(string id)
 		{
@@ -92,6 +99,7 @@ namespace GoGoApi.Controllers.GoGo
 		// TODO: change route to PUT "{code}" 
 		// Done
 		[Route("{id}")]
+		[Authorize(Roles = "Coordinator")]
 		[HttpPut]
 		public async Task<IActionResult> UpdateShipment(string id, FormShipmentModel model)
 		{

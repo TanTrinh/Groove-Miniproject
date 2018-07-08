@@ -81,8 +81,6 @@ namespace Domains.GoGo.Models.Transportation
             RuleFor(p => p.PickingDate).NotEmpty();
             RuleFor(p => p.Address).NotEmpty();
             RuleFor(p => p.PackageQuantity).NotEmpty();
-            RuleFor(p => p.Code).NotEmpty();
-            RuleFor(p => p.Status).NotEmpty();
             RuleFor(p => p.ReceiverName).NotEmpty();
             RuleFor(p => p.ReceiverPhoneNumber).NotEmpty();                             
 

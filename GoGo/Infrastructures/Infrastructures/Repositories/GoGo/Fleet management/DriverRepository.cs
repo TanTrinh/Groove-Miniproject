@@ -41,13 +41,13 @@ namespace Infrastructures.Repositories.GoGo.Fleet_management
 
         public async Task<IEnumerable<DataSourceValue<long>>> GetDataSource(string value)
         {
-			var driverIdList = this.context.Set<Shipment>().Select(p => p.DriverId).ToList();
+			var driverIdList = this.context.Set<Shipment>().Where(p => (p.Status != ShipmentRequestStatus.COMPLETED)).Select(p => p.DriverId).ToList();
 
 			var query = (from uRole in _dbContext.UserRoles
 						 from user in dbSet
 						 from role in _dbContext.Roles
 						 where uRole.UserId == user.Id && role.Id == uRole.RoleId
-						 && ((user.UserName.Contains(value) || user.PhoneNumber == value || user.Id.ToString() == value) && !driverIdList.Contains(user.Id))
+						 && ((user.UserName.Contains(value) || user.PhoneNumber.Contains(value) || user.Id.ToString().Contains(value) || user.Id.ToString() == value) && !driverIdList.Contains(user.Id))
 						 && role.Name == "Driver"
 						 select new DataSourceValue<long>
 						 {

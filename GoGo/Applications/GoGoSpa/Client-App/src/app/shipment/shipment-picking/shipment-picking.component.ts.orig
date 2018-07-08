@@ -38,16 +38,30 @@ export class ShipmentPickingComponent implements OnInit {
   shipmentDetail = new ShipmentDetail();
   request = new requestDetail();
   status = 'Pending';
+  active: boolean = false;
   code: string;
   requestList: requestDetail[]=[];
   problemMessage: string;
-  role: string;
+<<<<<<< HEAD
   active: boolean;
+=======
+  role: string;
+>>>>>>> d3c5223077c80b0add72b1ce55f96985f09c8418
 
   Destination: LatLng;
   Waypts: infoMarker[] = [];
   Markers: any[] = [];
+<<<<<<< HEAD
+  private role: any;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'ResponseType': 'Json'
+    })
+  };
+=======
 
+>>>>>>> d3c5223077c80b0add72b1ce55f96985f09c8418
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
@@ -57,6 +71,10 @@ export class ShipmentPickingComponent implements OnInit {
     private shareService: SharingService
   ) {
     this.role = this.shareService.getRole();
+<<<<<<< HEAD
+=======
+
+>>>>>>> d3c5223077c80b0add72b1ce55f96985f09c8418
   }
 
   // TODO: move properties declarition on top of the class
@@ -108,14 +126,26 @@ export class ShipmentPickingComponent implements OnInit {
 
   refeshShipment(code: string) {
     this.service.getShipmentDetail(this.code).subscribe(data => {
+<<<<<<< HEAD
+
+      this.shipmentDetail = data;
+
+      console.log(this.shipmentDetail.status)
+      // TODO: never hardcode strign value in codes, create class to store constant
+      if (this.shipmentDetail.status == "Shipping") {
+        this.Waypts[0].status = "unActive";             // TODO: never hardcode strign value in codes, create class to store constant
+        this.onChangeWaypts();
+      }
+
+      if (this.shipmentDetail.status == "Inactive") {
+        this.active = true;
+      } else { this.active = false }
+
+=======
       this.shipmentDetail = data;
       // TODO: never hardcode strign value in codes, create class to store constant
-		  if (this.shipmentDetail.status == "Inactive") {
-			   this.active = true;
-			  } else { this.active = false }      
-
-
-		if (this.shipmentDetail.currentRequest == "") {
+>>>>>>> d3c5223077c80b0add72b1ce55f96985f09c8418
+      if (this.shipmentDetail.currentRequest == "") {
         this.feedback(this.shipmentDetail, this.statusShipment.COMPLETED); // TODO: never hardcode strign value in codes, create class to store constant
         this.changeNav(this.listView);                          // TODO: never hardcode strign value in codes, create class to store constant
         this.Waypts = [];
@@ -198,6 +228,10 @@ export class ShipmentPickingComponent implements OnInit {
     let latlng = new google.maps.LatLng(latitude, longitude);
     return latlng;
   }
+<<<<<<< HEAD
+  InitMarker(latitude, longitude) {
+
+  }
 
   ChangeShipmentStatus(active: boolean) {
     var status = active;
@@ -207,19 +241,20 @@ export class ShipmentPickingComponent implements OnInit {
         this.active = false
         this.refeshShipment(this.shipmentDetail.code)
       })
+      
+      
     }
     else {
       this.service.DeactivateShipment(this.shipmentDetail.id).subscribe(() => {
         this.active = true
         this.refeshShipment(this.shipmentDetail.code)
-      })
-    }
+      })    
+    }                 
   }
 
   UpdateShipment() {
     this.router.navigate(['/shipment/form/update', this.shipmentDetail.id]);
   }
-
- }
-
- 
+=======
+>>>>>>> d3c5223077c80b0add72b1ce55f96985f09c8418
+}

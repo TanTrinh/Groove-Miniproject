@@ -43,11 +43,11 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		{
             // TODO: Create ShipmentStatus class for Constant instead of hard code
 			// Done
-            var requestedIdList = this.context.Set<ShipmentRequest>().Where(p => p.Status == ShipmentStatus.PENDING).Select(p => p.RequestId).ToList();
+            var requestedIdList = this.context.Set<ShipmentRequest>().Where(p => p.Status != ShipmentStatus.INACTIVE).Select(p => p.RequestId).ToList();
 
             // TODO: Create RequestStatus class for Constant instead of hard code
             return await this.dbSet.Where(p => (( p.Code.Contains(value) || p.Address.Contains(value)) 
-									&& !requestedIdList.Contains(p.Id) && p.Status == ShipmentStatus.PENDING && p.WareHouseId == warehouseId ) )
+									&& !requestedIdList.Contains(p.Id) && p.Status == RequestStatus.WAITING && p.WareHouseId == warehouseId ) )
 									.Select(p => new DataSourceValue<int>
 									{
 										Value = p.Id,
@@ -64,7 +64,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		{
             // TODO: Create ShipmentRequestStatus class for Constant instead of hard code
 			// Done
-            var requestIdList = this.context.Set<ShipmentRequest>().Where(p =>( p.ShipmentId == shipmentId && p.Status == ShipmentStatus.PENDING)).Select(p => p.RequestId).ToList();
+            var requestIdList = this.context.Set<ShipmentRequest>().Where(p =>( p.ShipmentId == shipmentId && p.Status == ShipmentStatus.WAITING)).Select(p => p.RequestId).ToList();
 
 			return this.dbSet.Where(p => (requestIdList.IndexOf(p.Id) != -1)).MapQueryTo<RequestsModel>(_mapper).ToList();
 		}
@@ -73,7 +73,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		{
             // TODO: Create ShipmentRequestStatus class for Constant instead of hard code
 			// Done
-            return this.context.Set<ShipmentRequest>().Where(p => (p.ShipmentId == shipmentId && p.Status == ShipmentStatus.PENDING)).Select(p => p.RequestId).ToList();
+            return this.context.Set<ShipmentRequest>().Where(p => (p.ShipmentId == shipmentId && p.Status == ShipmentStatus.WAITING)).Select(p => p.RequestId).ToList();
 		}
 
         public async Task<LocationModel> GetPositionWarehouseAsync(string code)
@@ -114,7 +114,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             }
             else
             {
-                return this.dbSet.Include(p => p.WareHouse).Where(p => p.Status == RequestStatus.PENDING).Select(p => new SummaryRequestModel
+                return this.dbSet.Include(p => p.WareHouse).Where(p => p.Status == RequestStatus.WAITING).Select(p => new SummaryRequestModel
                 {
                     Id = p.Id,
                     WareHouse = p.WareHouse.NameWarehouse,

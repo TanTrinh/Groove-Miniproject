@@ -107,6 +107,7 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     DateInputsModule ,
     AccountModule,
     InputsModule,
+    RequestModule,
     UserModule,
     JwtModule.forRoot({
       config: {

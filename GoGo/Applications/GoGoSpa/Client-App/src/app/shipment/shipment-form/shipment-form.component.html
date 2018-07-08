@@ -1,3 +1,7 @@
+<div class="border-custom">
+  <h1 *ngIf="!isCreateForm">Update Shipment</h1>
+  <h1 *ngIf="isCreateForm">Create Shipment</h1>
+</div>
 <div class="card">
   <form class="k-form" #form="ngForm" novalidate>
     <fieldset>
@@ -13,8 +17,8 @@
                             [textField]="'displayName'"
                             [filterable]="true"
                             (filterChange)="handleVehicleFilter($event)"
-                            (ngModelChange) ="GetVehicleDetail()"
-                            style="width: 330px;"
+                            (ngModelChange)="GetVehicleDetail()"
+                            style="width: 315px;"
                             class="mr-1 mb-1">
             </kendo-combobox>
           </div>
@@ -40,8 +44,8 @@
                             [textField]="'displayName'"
                             [filterable]="true"
                             (filterChange)="handleDriverFilter($event)"
-                            (ngModelChange) ="GetDriverDetail()"
-                            style="width: 330px;"
+                            (ngModelChange)="GetDriverDetail()"
+                            style="width: 315px;"
                             class="mr-1 mb-1">
             </kendo-combobox>
           </div>
@@ -80,7 +84,7 @@
     </fieldset>
     <fieldset>
       <legend><b>Request</b></legend>
-      <div class="row">      
+      <div class="row">
         <div class="col-lg-3 col-md-12">
           <span>Warehouse Search Box </span>
           <kendo-combobox name="warehouse"
@@ -91,24 +95,24 @@
                           [filterable]="true"
                           (filterChange)="handleWarehouseFilter($event)"
                           (ngModelChange)="GetWarehouseDetail()"
-                          style="width: 330px;"
+                          style="width: 315px;"
                           [disabled]="isValid">
           </kendo-combobox>
         </div>
-        
-          <div class="col-lg-3 col-md-12">
-            <span>Warehouse Name</span>
-            <input class="k-textbox width" [(ngModel)]="warehouseDetail.warehouseName" name="warehouseName" autocomplete='tel-national' readonly />
-          </div>
-          <div class="col-lg-3 col-md-12">
-            <span>Address</span>
-            <input class="k-textbox width" [(ngModel)]="warehouseDetail.address" name="warehouseAddress" autocomplete='tel-national' readonly />
-          </div>
-          <div class="col-lg-3 col-md-12">
-            <span>Phone Number</span>
-            <input class="k-textbox width" [(ngModel)]="warehouseDetail.phoneNumber" name="warehousePhoneNumber" autocomplete='tel-national' readonly />
-          </div>
-       
+
+        <div class="col-lg-3 col-md-12">
+          <span>Picking Location</span>
+          <input class="k-textbox width" [(ngModel)]="warehouseDetail.warehouseName" name="warehouseName" autocomplete='tel-national' readonly />
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <span>Picking Address</span>
+          <input class="k-textbox width" [(ngModel)]="warehouseDetail.address" name="warehouseAddress" autocomplete='tel-national' readonly />
+        </div>
+        <div class="col-lg-3 col-md-12">
+          <span>Phone Number</span>
+          <input class="k-textbox width" [(ngModel)]="warehouseDetail.phoneNumber" name="warehousePhoneNumber" autocomplete='tel-national' readonly />
+        </div>
+
 
       </div>
       <div>
@@ -116,13 +120,14 @@
         <div class="input-group">
           <kendo-combobox name="request"
                           [data]="requestView"
+                         
                           [(ngModel)]="request"
                           [valueField]="'value'"
                           [textField]="'displayName'"
                           [filterable]="true"
                           (filterChange)="handleFilter($event)"
-                           (ngModelChange)="AddRequestToList()"
-                          style="width: 330px;"
+                          (ngModelChange)="AddRequestToList()"
+                          style="width: 315px;"
                           class="mr-1 mb-1">
           </kendo-combobox>
         </div>
@@ -130,26 +135,37 @@
 
     </fieldset>
     <kendo-grid [data]="gridData"
-                [scrollable]="'scrollable'"
-                [height]="330"
+                [skip]="state.skip"
                 [pageSize]="state.take"
+                [sort]="state.sort"
+                [scrollable]="'scrollable'"
+          
+                [pageable]="true"
                 (remove)="removeHandler($event)"
                 required>
 
       <kendo-grid-column field="code" title="Code" width="200"></kendo-grid-column>
-      <kendo-grid-column field="customerName" title="Customer Name"></kendo-grid-column>
-      <kendo-grid-column field="pickingDate" title="Expected Picking Date"></kendo-grid-column>
-      <kendo-grid-column field="expectedDate" title="Expected Delivery Date"></kendo-grid-column>
-      <kendo-grid-column field="deliveryAddress" title="Delivery Address" width="350"></kendo-grid-column>
+      <kendo-grid-column field="pickingDate" title="Expected Picking Date" >
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <a>{{dataItem.pickingDate | date:'medium'}}</a>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="expectedDate" title="Expected Delivery Date">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <a>{{dataItem.expectedDate | date:'medium'}}</a>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="deliveryAddress" title="Delivery Address" width="450"></kendo-grid-column>
       <kendo-grid-column field="packageQuantity" title="Packages" width="130"></kendo-grid-column>
+      <kendo-grid-column field="customerName" title="Customer Name" width="200"></kendo-grid-column>
       <kendo-grid-command-column title="Command" width="100">
         <ng-template kendoGridCellTemplate>
-          <button kendoGridRemoveCommand [primary]="true">Delete</button>
+          <button kendoGridRemoveCommand [primary]="true">Remove</button>
         </ng-template>
       </kendo-grid-command-column>
     </kendo-grid>
     <div>
-      <button (click)="onSave()" class="btn btn-primary mt-3" primary="true">Save</button>&nbsp;
+      <button (click)="onSave()" class="btn btn-primary mt-3" primary="true" [disabled]="form.invalid || isValid!=true">Save</button>&nbsp;
       <button (click)="onCancel()" class="btn btn-secondary  mt-3" primary="true">Cancel</button>
     </div>
   </form>

@@ -40,7 +40,7 @@ namespace Infrastructures.Repositories.GoGo.Fleet_management
 													&& !vehicleIdList.Contains(p.Id))
 													.Select(p => new DataSourceValue<int>
 													{
-														DisplayName = $"{p.VehicleType.TypeName} - {p.LicensePlate}",
+														DisplayName = $"{p.LicensePlate}",
 														Value = p.Id
 													}).ToListAsync();
         }
