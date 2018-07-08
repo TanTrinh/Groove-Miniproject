@@ -144,6 +144,7 @@ export abstract class FormBaseComponent {
   }
 
   public resetFormData: Function = function () { };
+  public canAccess: Function = function () { };
  
 
   public deepClone(source) {
@@ -193,7 +194,7 @@ export abstract class FormBaseComponent {
         this.formData = data;
         this.formConfiguration.events.onAfterInitFormData(this.formData);
         this.constructorForFormDataSource();
-      });
+      }, error => { this.router.navigate(['/401']) });
     } else if (this.isUpdateFormMode) {
       this.viewFormService.getFormData(this.formId).subscribe(data => {
         this.formConfiguration.events.onBeforeInitFormData(data);

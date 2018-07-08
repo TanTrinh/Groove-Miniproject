@@ -17,9 +17,6 @@ $main-color: #0073e6;
   color: white;
 }
 
-#smallMenu a {
-  color: black;
-}
 
 #AccountDropdown a {
   color: $main-color;
@@ -30,6 +27,3 @@ $main-color: #0073e6;
   background-color: $main-color
 }
 /*  navbar submenu item*/
-#smallMenu a:hover {
-  color: $my-color;
-}

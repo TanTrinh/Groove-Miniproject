@@ -128,31 +128,60 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         }
 
         // For Customer to get request detail
-        public async Task<CustomerRequestModel> FindCustomerRequestAsync(int requestId, long userId)
+        public async Task<CustomerRequestModel> FindCustomerRequestAsync(int requestId, long userId, string role)
         {
+            if (role == "Customer")
+            {
 
-            return await this.dbSet
-                                 .Include(p => p.WareHouse)
-                                 .Where(p => p.Id == requestId && p.CustomerId == 77)
-                                  .Select(p => new CustomerRequestModel
-                                  {
-                                      WareHouse = new DataSourceValue<int>()
+                return await this.dbSet
+                                     .Include(p => p.WareHouse)
+                                     .Where(p => p.Id == requestId && p.CustomerId == userId)
+                                      .Select(p => new CustomerRequestModel
                                       {
-                                          Value = p.WareHouseId,
-                                          DisplayName = p.WareHouse.NameWarehouse
-                                      },
-                                      Id = p.Id,
-                                      Status = p.Status,
-                                      ExpectedDate = p.ExpectedDate,
-                                      Address = p.Address,
-                                      DeliveryLatitude = p.DeliveryLatitude,
-                                      DeliveryLongitude = p.DeliveryLongitude,
-                                      Code = p.Code,
-                                      PackageQuantity = p.PackageQuantity,
-                                      ReceiverName = p.ReceiverName,
-                                      ReceiverPhoneNumber = p.ReceiverPhoneNumber,
-                                      PickingDate = p.PickingDate,
-                                  }).SingleOrDefaultAsync();
+                                          WareHouse = new DataSourceValue<int>()
+                                          {
+                                              Value = p.WareHouseId,
+                                              DisplayName = p.WareHouse.NameWarehouse
+                                          },
+                                          Id = p.Id,
+                                          Status = p.Status,
+                                          ExpectedDate = p.ExpectedDate,
+                                          Address = p.Address,
+                                          DeliveryLatitude = p.DeliveryLatitude,
+                                          DeliveryLongitude = p.DeliveryLongitude,
+                                          Code = p.Code,
+                                          PackageQuantity = p.PackageQuantity,
+                                          ReceiverName = p.ReceiverName,
+                                          ReceiverPhoneNumber = p.ReceiverPhoneNumber,
+                                          PickingDate = p.PickingDate,
+                                      }).SingleOrDefaultAsync();
+            }
+            else
+            {
+
+                return await this.dbSet
+                                     .Include(p => p.WareHouse)
+                                     .Where(p => p.Id == requestId)
+                                      .Select(p => new CustomerRequestModel
+                                      {
+                                          WareHouse = new DataSourceValue<int>()
+                                          {
+                                              Value = p.WareHouseId,
+                                              DisplayName = p.WareHouse.NameWarehouse
+                                          },
+                                          Id = p.Id,
+                                          Status = p.Status,
+                                          ExpectedDate = p.ExpectedDate,
+                                          Address = p.Address,
+                                          DeliveryLatitude = p.DeliveryLatitude,
+                                          DeliveryLongitude = p.DeliveryLongitude,
+                                          Code = p.Code,
+                                          PackageQuantity = p.PackageQuantity,
+                                          ReceiverName = p.ReceiverName,
+                                          ReceiverPhoneNumber = p.ReceiverPhoneNumber,
+                                          PickingDate = p.PickingDate,
+                                      }).SingleOrDefaultAsync();
+            }
         }
 
         // For Customer to change request status (Active/Deactive)

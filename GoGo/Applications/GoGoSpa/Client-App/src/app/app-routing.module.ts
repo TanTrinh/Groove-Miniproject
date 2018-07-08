@@ -20,6 +20,7 @@ import { ShipmentListComponent } from './shipment/shipment-list/shipment-list.co
 import { RequestModule } from './modules/request/request.module';
 import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-picking.component';
 import { NotfoundComponent } from './modules/notfound/notfound.component';
+import { AccessDeniedComponent } from './modules/access-denied/access-denied.component';
 
 
 const routes: Routes = [
@@ -30,22 +31,23 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
       { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
       { path: 'profile/edit/:id', component: UserProfileEditComponent, canActivate: [AuthGuard] },
-      { path: 'account', component: UserListComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
-      { path: 'account/create', component: UserCreateComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
-      { path: 'account/detail/:id', component: UserDetailComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
-      { path: 'account/edit/:id', component: UserEditComponent, canActivate: [RoleGuard], data: { expectedRole: 'Administrator' } },
-      { path: 'request', loadChildren: () => RequestModule }, // Remove LazyLoad because current version of angular-cli not support mixing / nested routing https://github.com/angular/angular-cli/issues/9651, https://github.com/angular/angular-cli/issues/9488
+      { path: 'account', component: UserListComponent, canActivate: [RoleGuard], data: { expectedRole: ['Administrator'] } },
+      { path: 'account/create', component: UserCreateComponent, canActivate: [RoleGuard], data: { expectedRole: ['Administrator'] } },
+      { path: 'account/detail/:id', component: UserDetailComponent, canActivate: [RoleGuard], data: { expectedRole: ['Administrator'] } },
+      { path: 'account/edit/:id', component: UserEditComponent, canActivate: [RoleGuard], data: { expectedRole: ['Administrator'] } },
+      { path: 'request', loadChildren: () => RequestModule, canActivate: [RoleGuard], data: { expectedRole: ['Customer', 'Coordinator'] } }, // Remove LazyLoad because current version of angular-cli not support mixing / nested routing https://github.com/angular/angular-cli/issues/9651, https://github.com/angular/angular-cli/issues/9488
       {
-        path: 'shipment', component: ShipmentComponent, canActivate: [AuthGuard], children: [
-          { path: ':code', component: ShipmentPickingComponent },
+        path: 'shipment', component: ShipmentComponent, canActivate: [RoleGuard], data: { expectedRole: ['Driver', 'Coordinator'] }, children: [
+          { path: ':code', component: ShipmentPickingComponent,  },
           { path: '', component: ShipmentListComponent },
-          { path: 'form/:mode', component: ShipmentFormComponent },
-          { path: 'form/:mode/:id', component: ShipmentFormComponent}       
+          { path: 'form/:mode', component: ShipmentFormComponent, canActivate: [RoleGuard], data: { expectedRole: ['Coordinator'] },
+          { path: 'form/:mode/:id', component: ShipmentFormComponent, canActivate: [RoleGuard], data: { expectedRole: ['Coordinator'] } }  
         ]
       }
     ]
   },
   { path: '404', component: NotfoundComponent },
+  { path: '401', component: AccessDeniedComponent },
   { path: '**', redirectTo: '/404' }
 ];
 

@@ -5,6 +5,7 @@ import { NotificationService } from '../../../shared/component/dialog/notificati
 import { RequestService } from '../request.service';
 import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
+import { SharingService } from '../../../shared/sevices/sharing-service.service';
 
 @Component({
   selector: 'app-request-form',
@@ -16,7 +17,26 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   public warehouseList: Array<any> = []; 
   public vehicleFeatureList: Array<any> = [];
   public requestStatus: string = '';
-  
+  private isCustomer: boolean;
+
+  constructor(protected route: ActivatedRoute,
+    protected router: Router,
+    protected requestService: RequestService,
+    protected notificationService: NotificationService,
+    protected validationService: FormValidationService,
+    private _notificationService: NotificationService,
+    private _sharingService: SharingService
+  ) {
+    super(route, router, notificationService, requestService, validationService);
+    this.resetFormData = (data) => { this.resetData(data) };
+    this.formConfiguration.events.onAfterInitFormData = (data)=> {
+      this.onBeforeInitFormData(data);
+    };
+    super.formOnInit("Request", {});
+
+    (this._sharingService.getRole() == "Customer") ? this.isCustomer = true : this.isCustomer = false;
+  }
+
   public onLoadGrid(status) {
     if (status == 'Inactive') {
       return 'Activate';
@@ -68,21 +88,6 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     this.vehicleFeatureList = [];
     this.warehouseList.push(data.wareHouse);
     this.vehicleFeatureList.push(data.vehicleFeature);
-  }
-
-  constructor(protected route: ActivatedRoute,
-    protected router: Router,
-    protected requestService: RequestService,
-    protected notificationService: NotificationService,
-    protected validationService: FormValidationService,
-    private _notificationService: NotificationService,
-  ) {
-    super(route, router, notificationService, requestService, validationService);
-    this.resetFormData = (data) => { this.resetData(data) };
-    this.formConfiguration.events.onAfterInitFormData = (data)=> {
-      this.onBeforeInitFormData(data);
-    };
-    super.formOnInit("Request", {});
   }
 
   public getRequestStatus(requestId: any) {
