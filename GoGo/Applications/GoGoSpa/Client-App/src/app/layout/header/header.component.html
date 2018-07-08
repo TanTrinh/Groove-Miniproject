@@ -1,28 +1,41 @@
 <nav class="navbar navbar-expand-md row" id="narbar">
-  <a class="navbar-brand" id="brand">
+  <div class="btn-group d-sm-block d-md-none col">
+    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+      <i class="fas fa-bars"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu" id="AccountDropdown">
+      <a *ngIf="isRole=='Customer' || isRole=='Driver' || isRole=='Coordinator'"
+         routerLink="/request/list" routerLinkActive="hold" class="dropdown-item">
+        <i class="fas fa-list-alt layout"></i> Request
+      </a>
+      <a *ngIf="isRole=='Customer'"
+         class=" list-group-item list-group-item-action ">
+        <i class="fas fa-warehouse"></i> Warehouse
+      </a>
+      <a *ngIf="isRole=='Coordinator' || isRole=='Driver'"
+         routerLink="/shipment" routerLinkActive="hold" class="dropdown-item">
+        <i class="fas fa-shipping-fast"></i> Shipment
+      </a>
+      <a *ngIf="isRole=='Administrator'"
+         routerLink="/account" routerLinkActive="hold" class="dropdown-item">
+        <i class="fas fa-users"></i> Account
+      </a>
+      <a *ngIf="isRole=='Administrator'"
+         routerLinkActive="hold" class="dropdown-item" (click)="displayToastr()">
+        <i class="fas fa-user layout"></i> Driver
+      </a>
+      <a *ngIf="isRole=='Administrator'"
+         routerLinkActive="hold" class="dropdown-item" (click)="displayToastr()">
+        <i class="fas fa-truck"></i> Vehicle
+      </a>
+    </div>
+  </div>
+
+  <a class="navbar-brand col" id="brand">
     <h2>GoGo</h2>
   </a>
-  <a id="toggleButton" class="navbar-toggler " data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    Menu
-  </a>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <!-- This menu is hidden in bigger devices with d-sm-none.
-           The sidebar isn't proper for smaller screens imo, so this dropdown menu can keep all the useful sidebar itens exclusively for smaller screens  -->
-      <li class="nav-item dropdown d-sm-block d-md-none">
-        <a class="nav-link dropdown-toggle" href="#" id="smallerscreenmenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          List
-        </a>
-        <div class="dropdown-menu" aria-labelledby="smallerscreenmenu" id="smallMenu">
-          <a class="dropdown-item" href="#">Dashboard</a>
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="#">Tasks</a>
-          <a class="dropdown-item" href="#">Etc ...</a>
-        </div>
-      </li><!-- Smaller devices menu END -->
-    </ul>
-  </div>
-  <div class="btn-group">
+
+  <div class="btn-group col justify-content-end">
     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
       <i class="fas fa-user"></i> {{userName}}
     </button>
@@ -32,4 +45,5 @@
       <a class="dropdown-item" (click)="logOut()"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
   </div>
+
 </nav>

@@ -9,6 +9,7 @@ import { SharingService } from '../../shared/sevices/sharing-service.service';
 })
 export class HeaderComponent implements OnInit {
   public userName: string;
+  public isRole: string;
 
     constructor(
       private router: Router,
@@ -17,8 +18,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     var name = this.shareingService.getName();
-
     this.userName = name;
+
+    var role = this.shareingService.getRole();
+    this.isRole = role;
   }
 
     logOut() {
