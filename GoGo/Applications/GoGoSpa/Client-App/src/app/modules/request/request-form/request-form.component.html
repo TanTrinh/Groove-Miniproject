@@ -11,19 +11,19 @@
         <form class="k-form" #mainForm="ngForm" name="mainForm" (ngSubmit)="onSubmitForm(mainForm)">
           <fieldset>
             <legend *ngIf="!isCreateFormMode">
-              <h5>{{formData.code}} - {{requestStatus}}</h5>
+              <span>{{formData.code}} - {{requestStatus}}</span>
             </legend>
             <legend *ngIf="isCreateFormMode">
-              <h5>Create</h5>
+              <span>Create</span>
             </legend>
 
             <div class="btn-wrapper">
               <button *ngIf="!isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToListPage()">Back to List</button>
               <button *ngIf="isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToViewPage()">Cancel</button>
-              <button *ngIf="!isViewFormMode" type="button" class="btn btn-primary btn-sm mb-1">Save</button>
-              <button *ngIf="isViewFormMode" routerLink="/request/form/update/{{formData?.id}}" class="btn btn-info btn-sm mr-1 mb-1">Update</button>
+              <button *ngIf="!isViewFormMode" type="submit" class="btn btn-primary btn-sm mb-1">Save</button>
+              <button *ngIf="isViewFormMode" type="button" routerLink="/request/form/update/{{formData?.id}}" class="btn btn-info btn-sm mr-1 mb-1">Update</button>
               <button type="button" class="btn btn-primary btn-sm btn-width mr-1 mb-1" *ngIf="isViewFormMode && (requestStatus == 'not accepted')"
-                      (click)="onClickStatus(formData)">
+                      (click)="onClickStatus(formData.id, formData.status)">
                 {{onLoadGrid(formData.status)}}
               </button>
             </div>
@@ -31,32 +31,33 @@
             <div class="form-group">
               <label for="receiverName">Receiver Name </label>
               <input type="text" class="form-control" [(ngModel)]="formData.receiverName" name="receiverName" #receiverName="ngModel" required [readonly]="isViewFormMode">
-              <div *ngIf="receiverName.invalid && (receiverName.dirty || receiverName.touched)"
-                   class="alert alert-danger">
-                <div *ngIf="receiverName.errors.required">
-                  Receiver Name is required.
-                </div>
+              <div [ngClass]="{'hidden': receiverName.valid || (!receiverName.dirty && !receiverName.touched) }" class="validation-message2">
+                Receiver Name is required.
               </div>
             </div>
 
             <div class="form-group">
-              <label for="receiverPhoneNumber">Receiver PhoneNumber</label>
-              <input type="text" class="form-control" [(ngModel)]="formData.receiverPhoneNumber" name="receiverPhoneNumber" #receiverPhoneNumber="ngModel" required [readonly]="isViewFormMode">
-              <div *ngIf="receiverPhoneNumber.invalid && (receiverPhoneNumber.dirty || receiverPhoneNumber.touched)"
-                   class="alert alert-danger">
-                <div *ngIf="receiverPhoneNumber.errors.required">
-                  Receiver PhoneNumber is required.
+              <label for="receiverPhoneNumber">Receiver Phone Number</label>
+              <input type="text" class="form-control" [(ngModel)]="formData.receiverPhoneNumber" name="receiverPhoneNumber" #receiverPhoneNumber="ngModel" required pattern="[0-9]+" [readonly]="isViewFormMode">
+              <div [ngClass]="{'hidden': receiverPhoneNumber.valid || (!receiverPhoneNumber.dirty && !receiverPhoneNumber.touched) }" class="validation-message2">
+                <div *ngIf="receiverPhoneNumber?.errors?.required">
+                  Phone Number is required.
+                </div>
+                <div *ngIf="receiverPhoneNumber?.errors?.pattern">
+                  Phone Number must be a number.
                 </div>
               </div>
             </div>
 
             <div class="form-group">
               <label for="packageQuantity">Package Quantity</label>
-              <input type="text" class="form-control" [(ngModel)]="formData.packageQuantity" name="packageQuantity" #packageQuantity="ngModel" required [readonly]="isViewFormMode">
-              <div *ngIf="packageQuantity.invalid && (packageQuantity.dirty || packageQuantity.touched)"
-                   class="alert alert-danger">
-                <div *ngIf="packageQuantity.errors.required">
+              <input type="text" class="form-control" [(ngModel)]="formData.packageQuantity" name="packageQuantity" #packageQuantity="ngModel" required pattern="[0-9]+" [readonly]="isViewFormMode">
+              <div [ngClass]="{'hidden': packageQuantity.valid || (!packageQuantity.dirty && !packageQuantity.touched) }" class="validation-message2">
+                <div *ngIf="packageQuantity?.errors?.required">
                   Package Quantity is required.
+                </div>
+                <div *ngIf="packageQuantity?.errors?.pattern">
+                  Package Quantityr must be a number.
                 </div>
               </div>
             </div>
@@ -98,11 +99,8 @@
                               [filterable]="true"
                               (filterChange)="filterVehicleFeature($event)">
               </kendo-combobox>
-              <div *ngIf="vehicleFeature.invalid && (vehicleFeature.dirty || vehicleFeature.touched)"
-                   class="alert alert-danger">
-                <div *ngIf="vehicleFeature.errors.required">
-                  Vehicle Feature is required.
-                </div>
+              <div [ngClass]="{'hidden': vehicleFeature.valid || (!vehicleFeature.dirty && !vehicleFeature.touched) }" class="validation-message2">
+                Vehicle Feature is required.
               </div>
             </div>
             <div class="form-group" *ngIf="isViewFormMode">
@@ -119,11 +117,8 @@
                               [filterable]="true"
                               (filterChange)="filterWarehouse($event)">
               </kendo-combobox>
-              <div *ngIf="wareHouse.invalid && (wareHouse.dirty || wareHouse.touched)"
-                   class="alert alert-danger">
-                <div *ngIf="wareHouse.errors.required">
-                  Warehouse is required.
-                </div>
+              <div [ngClass]="{'hidden': wareHouse.valid || (!wareHouse.dirty && !wareHouse.touched) }" class="validation-message2">
+                Warehouse is required.
               </div>
             </div>
             <div class="form-group" *ngIf="isViewFormMode">
@@ -135,11 +130,8 @@
             <div class="form-group">
               <label for="address">Delivery Address</label>
               <input type="text" class="form-control" [(ngModel)]="formData.address" name="address" #address="ngModel" required [readonly]="isViewFormMode">
-              <div *ngIf="address.invalid && (address.dirty || address.touched)"
-                   class="alert alert-danger">
-                <div *ngIf="address.errors.required">
-                  Delivery Address is required.
-                </div>
+              <div [ngClass]="{'hidden': address.valid || (!address.dirty && !address.touched)}" class="validation-message2">
+                Delivery Address is required.
               </div>
             </div>
 
@@ -168,7 +160,7 @@
       </div>
     </div>
     <div class="col-lg-8 col-md-6 col-sm-12"> 
-      <app-ggmap></app-ggmap>
+      <!--<app-ggmap></app-ggmap>-->
     </div>
 
   </div>

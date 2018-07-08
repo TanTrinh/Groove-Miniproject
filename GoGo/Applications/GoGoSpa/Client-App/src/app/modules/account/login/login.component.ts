@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from 'src/app/shared/component/dialog/notification.service';
-import * as $ from 'jquery';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-  })
-};
+import { AccountService } from '../account.service';
+import * as toastr from 'toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,62 +12,75 @@ const httpOptions = {
 })
 export class LoginComponent implements OnInit {
 
-    public message: string = null;
-    response;
+  public message: string = null;
+  response;
 
-    public model = {
-        username: '',
-        password: ''
-    };
-    public isError: boolean = false;
-    constructor(
-        private http: HttpClient,
-        private router: Router,
-        private _notificationService: NotificationService)
-    { }
+  public model = {
+    username: '',
+    password: ''
+  };
+  public isError: boolean = false;
+  constructor(
+    private _router: Router,
+    private _notificationService: NotificationService,
+    private _accountService: AccountService
+  ) {
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": true,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "300",
+      "timeOut": "2000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+  }
 
   ngOnInit() {
   }
 
-    onSubmit() {
-        console.log(this.model);
-        var valueUser = $.trim($("#username").val());
-        var valuePass = $.trim($("#pwd").val());
-        if (valueUser.length > 0 && valuePass.length > 0) {
-            $("#val-user").attr('style', 'visibility: hidden')
-            $("#val-pass").attr('style', 'visibility: hidden');
-          this.http.post('http://localhost:50279/api/authentication/token', this.model, httpOptions).subscribe(result => {
-                var key = "tokenKey";
-                console.log(result);
-                if (result) {
-                    var keyValue = JSON.stringify(result);
-                    localStorage.setItem(key, keyValue);
-                    this.router.navigate(['']);
-                }
-            }, error => {
-                $("#check-valid").removeAttr('style', 'visibility', 'hidden');
-                this.isError = true;
+  onSubmit() {
+    // TODO: console.log is used to troubleshooting only, It should be removed
 
-                let httpError: HttpErrorResponse = error;
-                if (httpError.status === 400) {
 
-                    this.message = httpError.error.message;
-                } else {
-                    this._notificationService.prompError(httpError.message);
-                }
-            });
-        }
-        else if (valueUser.length > 0 && valuePass.length == 0) {
-            $("#val-user").attr('style', 'visibility: hidden');
-            $("#val-pass").removeAttr('style', 'visibility', 'hidden');
-        }
-        else if (valueUser.length == 0 && valuePass.length > 0) {
-            $("#val-user").removeAttr('style', 'visibility', 'hidden');
-            $("#val-pass").attr('style', 'visibility: hidden');
-        }
-        else {
-            $("#val-user").removeAttr('style', 'visibility', 'hidden');
-            $("#val-pass").removeAttr('style', 'visibility', 'hidden');
-        }
-    }
+    // TODO: Move all HTTPs request relate to user API into seperated service
+    // You need to create UserService in modles/account/account.service.ts
+    //
+    // then you call _accountService.Login(this.userName, this.password).subcrible(result=>{
+    // 
+    // })
+    //
+    // httpOptions, API url... will be managed by API service
+
+    this._accountService.login(this.model).subscribe(result => {
+      var key = "tokenKey";
+      if (result) {
+        var keyValue = JSON.stringify(result);
+        localStorage.setItem(key, keyValue);
+        this._router.navigate(['home']);
+      }
+    }, error => {
+      this.isError = true;
+
+      let httpError: HttpErrorResponse = error;
+      if (httpError.status === 400) {
+
+        this.message = httpError.error.message;
+      } else {
+        this._notificationService.prompError(httpError.message);
+      }
+    });
+  }
+
+  displayToastr() {
+    toastr["info"]('This feature is under construction!');
+  }
 }

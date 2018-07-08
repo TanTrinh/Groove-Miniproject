@@ -5,21 +5,21 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{D99311C1-6472-467F-8C7E-502B33786BE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoGoApi", "Applications\GoGoApi\GoGoApi.csproj", "{5539BDC7-CB85-4B8D-A2BE-1D38350E058A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoGoApi", "Applications\GoGoApi\GoGoApi.csproj", "{5539BDC7-CB85-4B8D-A2BE-1D38350E058A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoGoSpa", "Applications\GoGoSpa\GoGoSpa.csproj", "{1D1326BE-0B06-4F86-BF89-C883AE3E425E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoGoSpa", "Applications\GoGoSpa\GoGoSpa.csproj", "{1D1326BE-0B06-4F86-BF89-C883AE3E425E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{30907ED4-E6C6-4831-AB53-15EF7F5258ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{8EF5B45C-FA38-4B73-B959-081F5D7F7EE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructures", "Infrastructures\Infrastructures\Infrastructures.csproj", "{972B4ADC-534F-4330-AB90-AFA433FEECF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructures", "Infrastructures\Infrastructures\Infrastructures.csproj", "{972B4ADC-534F-4330-AB90-AFA433FEECF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domains", "Domains\Domains\Domains.csproj", "{B28247FA-A72E-4E7F-9EA8-13C5F845051F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domains", "Domains\Domains\Domains.csproj", "{B28247FA-A72E-4E7F-9EA8-13C5F845051F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructures.DbMigration", "Infrastructures\Infrastructures.DbMigration\Infrastructures.DbMigration.csproj", "{379CD7DE-AE00-400F-B820-AC614B5216BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructures.DbMigration", "Infrastructures\Infrastructures.DbMigration\Infrastructures.DbMigration.csproj", "{379CD7DE-AE00-400F-B820-AC614B5216BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructures.SeedData", "Infrastructures\Infrastructures.SeedData\Infrastructures.SeedData.csproj", "{59008F7C-59B7-4C2B-B738-30C1780C1D4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructures.SeedData", "Infrastructures\Infrastructures.SeedData\Infrastructures.SeedData.csproj", "{59008F7C-59B7-4C2B-B738-30C1780C1D4D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{7E82EC4B-7F98-41E0-AF26-66C2036308DF}"
 EndProject

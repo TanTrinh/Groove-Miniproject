@@ -6,12 +6,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Client-App\src\app\shared\models\utilities.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Client-App\src\app\shared\components\dialog\" />
+    <Folder Include="Client-App\src\app\shared\services\authservices\" />
+    <Folder Include="Client-App\src\app\shared\services\roleguardservice\" />
+    <Folder Include="Client-App\src\app\shared\sevices\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Client-App\src\app\shared\models\utilities.ts" />
   </ItemGroup>
 
 </Project>

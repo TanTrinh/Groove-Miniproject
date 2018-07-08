@@ -17,7 +17,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
     {
         private readonly IMapper _mapper;
 
-        public VehicleFeatureRequestRepository(IMapper mapper, IUnitOfWorkContext uoWContext) : base(uoWContext)
+        public VehicleFeatureRequestRepository(IMapper mapper, ApplicationDbContext uoWContext) : base(uoWContext)
         {
             _mapper = mapper;
         }

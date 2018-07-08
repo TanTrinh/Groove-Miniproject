@@ -33,7 +33,7 @@ namespace Domains.GoGo.Models.Transportation
             CreateMap<WaitingRequestModel, Request>();
         }
     }
-    public class RequestModel
+    public class CustomerRequestModel
     {
         public int Id { get; set; }
         
@@ -66,25 +66,21 @@ namespace Domains.GoGo.Models.Transportation
     {
         public RequestMapper()
         {
-            CreateMap<RequestModel, Request>()
+            CreateMap<CustomerRequestModel, Request>()
                 .ForPath(destination => destination.WareHouseId, option => option.MapFrom(source => source.WareHouse.Value));
-            CreateMap<Request, RequestModel>()
+            CreateMap<Request, CustomerRequestModel>()
                 .ForPath(destination => destination.WareHouse.Value, option => option.MapFrom(source => source.WareHouseId));
         }
     }
 
-    public class RequestModelValidator : AbstractValidator<RequestModel>
+    public class CustomerRequestModelValidator : AbstractValidator<CustomerRequestModel>
     {
-        public RequestModelValidator()
+        public CustomerRequestModelValidator()
         {
             RuleFor(p => p.ExpectedDate).NotEmpty();
             RuleFor(p => p.PickingDate).NotEmpty();
-            RuleFor(p => p.DeliveryLatitude).NotEmpty();
-            RuleFor(p => p.DeliveryLongitude).NotEmpty();
             RuleFor(p => p.Address).NotEmpty();
-            RuleFor(p => p.PackageQuantity).NotEmpty().IsInEnum();
-            RuleFor(p => p.Code).NotEmpty();
-            RuleFor(p => p.Status).NotEmpty();
+            RuleFor(p => p.PackageQuantity).NotEmpty();
             RuleFor(p => p.ReceiverName).NotEmpty();
             RuleFor(p => p.ReceiverPhoneNumber).NotEmpty();                             
 

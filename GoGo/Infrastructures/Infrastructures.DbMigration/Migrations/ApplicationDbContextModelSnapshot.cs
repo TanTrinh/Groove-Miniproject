@@ -97,17 +97,16 @@ namespace Infrastructures.DbMigration.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsSolve");
+
                     b.Property<string>("Message")
                         .IsRequired();
 
-                    b.Property<string>("ShipmentId")
-                        .IsRequired();
-
-                    b.Property<int?>("ShipmentId1");
+                    b.Property<int>("RequestId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ShipmentId1");
+                    b.HasIndex("RequestId");
 
                     b.ToTable("ProblemMessage");
                 });
@@ -206,6 +205,8 @@ namespace Infrastructures.DbMigration.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsProblem");
 
                     b.Property<string>("Note")
                         .IsRequired();
@@ -367,6 +368,10 @@ namespace Infrastructures.DbMigration.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -540,9 +545,10 @@ namespace Infrastructures.DbMigration.Migrations
 
             modelBuilder.Entity("Domains.GoGo.Entities.ProblemMessage", b =>
                 {
-                    b.HasOne("Domains.GoGo.Entities.Shipment", "Shipment")
+                    b.HasOne("Domains.GoGo.Entities.Request", "Request")
                         .WithMany()
-                        .HasForeignKey("ShipmentId1");
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Domains.GoGo.Entities.Request", b =>

@@ -1,0 +1,217 @@
+
+<div class="row">
+
+  <div class="col-md-4 container">
+    <div class="tille">
+      <span id="header">SHIPMENT</span>
+      <img src="../../assets/support.svg" class="rounded-circle float-right" id="support" width="60" height="60" />
+    </div>
+
+    <div class="col-sm-12">
+      <input *ngIf="shipmentDetail.status != 'Shipping'" type="text" class="form-control-plaintext yourAddress" readonly value={{locationPicking.address}}>
+      <input *ngIf="shipmentDetail.status == 'Shipping'" type="text" class="form-control-plaintext yourAddress" readonly value={{request.location.address}}>
+    </div>
+
+    <div class="detail">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <td>Shipment code</td>
+            <td>{{shipmentDetail.code}}</td>
+          </tr>
+          <tr>
+            <td>Total Package</td>
+            <td>{{shipmentDetail.packageQuality}}</td>
+          </tr>
+          <tr>
+            <td>Start date</td>
+            <td style="color:red">{{shipmentDetail.startDate | date:'short'}}</td>
+          </tr>
+          <tr>
+            <td>End date</td>
+            <td>{{shipmentDetail.endDate | date:'short'}}</td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td>{{shipmentDetail.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container-fluid">
+
+      <div *ngIf="role=='Coordinator'">
+        <div *ngIf="shipmentDetail.status != statusShipment.WAITING && shipmentDetail.status != 'Inactive'">
+          <div class="row">
+            <div style="width:50%" class="pr-1">
+              <button disabled class="btn btn-success btn-block" (click)="UpdateShipment()">Update</button>
+            </div>
+            <div style="width:50%" class="pl-1">
+              <button *ngIf="active==0" (click)="ChangeStatusShipment(1)" disabled class="btn btn-primary btn-block">Active</button>
+              <button *ngIf="active==1" (click)="ChangeStatusShipment(0)" disabled class="btn btn-primary btn-block">DeActive</button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="shipmentDetail.status == statusShipment.WAITING || shipmentDetail.status == 'Inactive'">
+          <div class="row">
+            <div style="width:50%" class="pr-1">
+              <button class="btn btn-success btn-block" (click)="UpdateShipment()">Update</button>
+            </div>
+            <div style="width:50%" class="pl-1">
+              <button *ngIf="active" (click)="ChangeShipmentStatus(1)" class="btn btn-primary btn-block">Active</button>
+              <button *ngIf="!active" (click)="ChangeShipmentStatus(0)" class="btn btn-primary btn-block">DeActive</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="role=='Driver'">
+        <div class="row">
+          <div style="width:50%" class="pr-1">
+            <div *ngIf="shipmentDetail.status != statusShipment.SHIPPING">
+              <button *ngIf="shipmentDetail.status == statusShipment.WAITING" (click)="feedback(shipmentDetail, statusShipment.ACCEPTED)" class="btn btn-success btn-block">Accept a shipment</button>
+              <button *ngIf="shipmentDetail.status == statusShipment.ACCEPTED" (click)="feedback(shipmentDetail, statusShipment.PICKING)" class="btn btn-success btn-block">Picking</button>
+              <button *ngIf="shipmentDetail.status == statusShipment.PICKING" (click)="feedback(shipmentDetail,statusShipment.LOADING)" class="btn btn-success btn-block">Start to load</button>
+              <button *ngIf="shipmentDetail.status == statusShipment.LOADING" (click)="feedback(shipmentDetail, statusShipment.SHIPPING)" class="btn btn-success btn-block">Complete loading</button>
+              <button *ngIf="shipmentDetail.status == statusShipment.COMPLETED || shipmentDetail.status == statusShipment.REJECTED" (click)="returnList()" class="btn btn-primary btn-block">Return to list</button>
+            </div>
+
+            <div *ngIf="shipmentDetail.status == statusShipment.SHIPPING">
+
+              <div *ngIf="request.isProblem != problem">
+              
+                <div *ngIf="request.code != shipmentDetail.currentRequest">
+                  <button (click)="gotoCurrentRequest()" class="btn btn-primary btn-block">Return current request</button>
+                </div>
+
+                <div *ngIf="request.code == shipmentDetail.currentRequest">
+                  <button *ngIf="request.status==statusDelivery.WAITING" (click)="changeStatus(request,statusDelivery.SHIPPING)" class="btn btn-primary btn-block">Start to delivery</button>
+                  <button *ngIf="request.status==statusDelivery.SHIPPING" (click)="changeStatus(request,statusDelivery.UNLOADING)" class="btn btn-warning btn-block">Start to unloading</button>
+                  <button *ngIf="request.status==statusDelivery.UNLOADING" class="btn btn-success btn-block" (click)="changeStatus(request,statusDelivery.COMPLETED)">Complete to delivery</button>
+                  <button *ngIf="request.status==statusDelivery.COMPLETED" (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
+                </div>
+              </div>
+
+              <div *ngIf="request.isProblem == problem">
+                <button (click)="nextRequest()" class="btn btn-success btn-block">Continue next request</button>
+              </div>
+
+            </div>
+          </div>
+
+          <div style="width:50%" class="pl-1">
+            <button *ngIf="shipmentDetail.status == statusShipment.WAITING || shipmentDetail.status ==  statusShipment.ACCEPTED" (click)="feedback(shipmentDetail, statusShipment.REJECTED)" class="btn btn-danger btn-block">Reject a shipment</button>
+            <button *ngIf="shipmentDetail.status != statusShipment.WAITING && shipmentDetail.status != statusShipment.REJECTED && shipmentDetail.status != statusShipment.ACCEPTED &&shipmentDetail.status != statusShipment.COMPLETED && request.isProblem != problem" class="btn btn-danger btn-block" data-toggle="modal" data-target="#Problem">Have a problem</button>
+            <button *ngIf="shipmentDetail.status != statusShipment.WAITING && shipmentDetail.status != statusShipment.REJECTED && shipmentDetail.status != statusShipment.ACCEPTED && request.isProblem == problem" (click)="resovleProblem(request)" class="btn btn-danger btn-block">Resolved a problem</button>
+            <button *ngIf="shipmentDetail.status == statusShipment.COMPLETED" disable class="btn btn-danger btn-block">Have a problem</button>
+
+            <div class="modal fade" id="Problem" tabindex="-1" role="dialog" aria-labelledby="Problem" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle" style="color:red">Your problem</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p style="font-size:16px">Request Code: {{request.code}}</p>
+                    <input type="text" id="problem" class="form-control-plaintext" [(ngModel)]="problemMessage" name="problemMessage" placeholder="Enter your problem">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="sendProblem(request,true)" data-dismiss="modal">Send</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="inf">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="statusNav== requestView" routerLink="./" routerLinkActive="hold">Request detail</a>
+          <a class="nav-link" (click)="changeNav(requestView)" *ngIf="statusNav!=requestView" routerLink="./">Request detail</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " *ngIf="statusNav==listView" routerLink="./" routerLinkActive="hold">List request</a>
+          <a class="nav-link " (click)="changeNav(listView)" *ngIf="statusNav!=listView" routerLink="./">List request</a>
+        </li>
+      </ul>
+
+      <div *ngIf="statusNav=='Request'">
+        <div class="tille">
+          <h3>REQUEST DETAIL</h3>
+        </div>
+        <table class="table table-hover">
+          <tbody>
+            <tr *ngIf="request.isProblem==problem">
+              <td>Request code</td>
+              <td *ngIf="shipmentDetail.status==statusShipment.COMPLETED">{{request.code}}</td>
+              <td *ngIf="request.code==shipmentDetail.currentRequest && shipmentDetail.status!=statusShipment.COMPLETED">{{request.code}} <span class="badge badge-success">Current</span><span class="badge badge-danger">Pending</span></td>
+              <td *ngIf="request.code!=shipmentDetail.currentRequest && shipmentDetail.status!=statusShipment.COMPLETED">{{request.code}}
+            </tr>
+            <tr *ngIf="request.isProblem!=problem">
+              <td>Request code</td>
+              <td *ngIf="shipmentDetail.status==statusShipment.COMPLETED">{{request.code}}</td>
+              <td *ngIf="request.code==shipmentDetail.currentRequest &&shipmentDetail.status!=statusShipment.COMPLETED">{{request.code}} <span class="badge badge-success">Current</span></td>
+              <td *ngIf="request.code!=shipmentDetail.currentRequest &&shipmentDetail.status!=statusShipment.COMPLETED">{{request.code}}
+            </tr>
+            <tr>
+              <td>Total Package</td>
+              <td>{{request.packageQuantity}}</td>
+            </tr>
+            <tr>
+              <td>Estimate date</td>
+              <td>{{request.estimateDate | date:'short'}}</td>
+            </tr>
+            <tr>
+              <td>Receiver</td>
+              <td>{{request.receiverName}}</td>
+            </tr>
+            <tr>
+              <td>PhoneNumber</td>
+              <td>{{request.receiverPhoneNumber}}</td>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td>{{request.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="statusNav==listView">
+        <table class="table table-hover">
+          <tbody data-spy="scroll" data-offset="50">
+            <tr *ngFor="let item of requestList" (click)="viewRequest(item)">
+              <td *ngIf="item.isProblem == 1">
+                <span>{{item.code}} </span> <span class="badge badge-success">{{item.status}}</span><br />
+                <span style="font-size:12px">{{item.location.address}}</span><br />
+                <span class="badge badge-danger">Pending</span>
+              </td>
+
+              <td *ngIf="item.isProblem == 0">
+                <span>{{item.code}} </span> <span class="badge badge-success">{{item.status}}</span><br />
+                <span style="font-size:12px">{{item.location.address}}</span><br />
+              </td>
+              <td>
+                <span style="font-size:12px">{{item.estimateDate | date:'short'}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-8">
+    <app-ggmap [waypts]="wayptsSubject"></app-ggmap>
+  </div>
+</div>
