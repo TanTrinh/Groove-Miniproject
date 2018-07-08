@@ -2,6 +2,139 @@
   <div class="border-custom">
     <h1>Create User</h1>
   </div>
+  <div class="py-2">
+    <div class="card">
+      <div class="card-block">
+        <form class="k-form">
+          <div class="validate">
+            <div class="pb-3">
+              <button type="button" class="btn btn-secondary btn-sm" (click)="back()">Cancel</button>&nbsp;
+              <button type="button" class="btn btn-primary btn-sm" (click)="onCreate()">Save</button>&nbsp;
+            </div>
+            <div [hidden]="!isError" class="validation-message">
+              {{message}}
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <fieldset class="col-lg-10">
+                <legend>Credentials</legend>
+                <label class="k-form-field">
+                  <span>User Name <span class="k-required">*</span></span>
+                  <input class="k-textbox" id="username" [(ngModel)]="model.username" name="username" #username="ngModel" required autofocus />
+                </label>
+                <div [ngClass]="{'hidden': username.valid || username.pristine}" class="validation-message">
+                  Username is required.
+                </div>
+
+                <label class="k-form-field">
+                  <span>Password <span class="k-required">*</span></span>
+                  <input type="password" class="k-textbox" id="pwd" #password="ngModel" name="password" [(ngModel)]="model.password" required minlength="8" />
+                </label>
+                <div [ngClass]="{'hidden': password.valid || password.pristine}" class="validation-message">
+                  <div *ngIf="password?.errors?.required">
+                    Password is required.
+                  </div>
+                  <div *ngIf="password?.errors?.minlength">
+                    Password must be at least 8 charaters long.
+                  </div>
+                </div>
+
+                <label class="k-form-field">
+                  <span>Re-Password <span class="k-required">*</span></span>
+                  <input type="password" class="k-textbox" id="repwd" #repassword="ngModel" name="repassword" [(ngModel)]="model.repassword" required minlength="8" />
+                </label>
+                <div [ngClass]="{'hidden': repassword.valid || repassword.pristine}" class="validation-message">
+                  Re-Password is required.
+                </div>
+
+              </fieldset>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-12">
+
+              <fieldset>
+                <legend>User Details</legend>
+
+                <label class="k-form-field">
+                  <span>First Name <span class="k-required">*</span></span>
+                  <input class="k-textbox" id="firstname" [(ngModel)]="model.firstname" name="firstname" #firstname="ngModel" required />
+                </label>
+                <div [ngClass]="{'hidden': firstname.valid || firstname.pristine}" class="validation-message">
+                  First name is required.
+                </div>
+
+                <label class="k-form-field">
+                  <span>Last Name <span class="k-required">*</span></span>
+                  <input class="k-textbox" id="lastname" [(ngModel)]="model.lastname" name="lastname" #lastname="ngModel" required />
+                </label>
+                <div [ngClass]="{'hidden': lastname.valid || lastname.pristine}" class="validation-message">
+                  Last name is required.
+                </div>
+
+                <label class="k-form-field">
+                  <span>Email <span class="k-required">*</span></span>
+                  <input type="email" class="k-textbox" id="email" [(ngModel)]="model.email" name="email" #email="ngModel" required email="true" />
+                </label>
+                <div [ngClass]="{'hidden': email.valid || email.pristine}" class="validation-message">
+                  <div *ngIf="email?.errors?.required">
+                    Email is required.
+                  </div>
+                  <div *ngIf="email?.errors?.email">
+                    This is not valid email, email should be <i>abc@gmail.com</i>.
+                  </div>
+                </div>
+
+                <label class="k-form-field">
+                  <span>Phone Number <span class="k-required">*</span></span>
+                  <input class="k-textbox" id="phonenumber" [(ngModel)]="model.phonenumber" name="phonenumber" #phonenumber="ngModel" required />
+                </label>
+                <div [ngClass]="{'hidden': phonenumber.valid || phonenumber.pristine}" class="validation-message">
+                  Phone number is required.
+                </div>
+
+
+                <label class="k-form-field">
+                  <span>Role</span>
+                  <kendo-dropdownlist [data]="listItems"
+                                      style="width:100%;"
+                                      [(ngModel)]="model.role"
+                                      name="role" #role="ngModel">
+                  </kendo-dropdownlist>
+                </label>
+                <!--<div class="k-form-field">
+                  <label for="role">Role<span class="note">*</span></label>
+                  <select type="text" class="k-form-field" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
+                    <option>Customer</option>
+                    <option>Driver</option>
+                    <option>Coordinator</option>
+                    <option>Administrator</option>
+                  </select>
+                  <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
+                    Role is required.
+                  </div>
+                </div>-->
+
+              </fieldset>
+            </div>
+
+
+
+
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div class="container-fluid">
+  <div class="border-custom">
+    <h1>Create User</h1>
+  </div>
   <div class="card py-3">
     <div class="card-block container-fluid">
       <form #myForm="ngForm" class="pt-3" (ngSubmit)="onCreate()" name="myForm">
@@ -89,24 +222,17 @@
             </div>
           </div>
 
-        </div>
-
-        
-
-        
-
-        <!--<div class="form-group ">
-    <div class="form-group col-md-9 row">
-      <button type="submit" class="btn btn-primary active">Create</button>&nbsp;
-      <button class="btn btn-primary active" (click)="back()">Back</button>&nbsp;
-    </div>
-    <div [hidden]="!isError" class="validation-message">
-      {{message}}
-    </div>
-  </div>-->
-      </form>
+        </div>-->
+<!--<div class="form-group ">
+  <div class="form-group col-md-9 row">
+    <button type="submit" class="btn btn-primary active">Create</button>&nbsp;
+    <button class="btn btn-primary active" (click)="back()">Back</button>&nbsp;
+  </div>
+  <div [hidden]="!isError" class="validation-message">
+    {{message}}
+  </div>
+</div>-->
+<!--</form>
     </div>
   </div>
-</div>
-
-
+</div>-->

@@ -13,6 +13,7 @@ import { UserCreateComponent } from './modules/identity/user/user-create/user-cr
 import { UserEditComponent } from './modules/identity/user/user-edit/user-edit.component';
 import { UserProfileEditComponent } from './modules/user-profile/user-profile-edit/user-profile-edit.component';
 import { AuthGuardService as AuthGuard } from './shared/services/authservices/auth-guard.service';
+import { LoginGuardService as LoginGuard } from './shared/services/authservices/login-guard.service';
 import { RoleGuardService as RoleGuard } from './shared/services/roleguardservice/role-guard.service';
 import { ShipmentFormComponent } from './shipment/shipment-form/shipment-form.component';
 import { ShipmentComponent } from './shipment/shipment/shipment.component';
@@ -24,7 +25,7 @@ import { NotfoundComponent } from './modules/notfound/notfound.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   {
     path: '', component: LayoutComponent, children: [
       { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },

@@ -2,6 +2,92 @@
   <div class="border-custom">
     <h1>Update User</h1>
   </div>
+  <div class="py-2">
+    <div class="card">
+      <div class="card-block">
+        <form class="k-form">
+          <div class="validate">
+            <div class="pb-3">
+              <button type="button" class="btn btn-secondary btn-sm" (click)="back(model.id)">Cancel</button>&nbsp;
+              <button type="button" class="btn btn-primary btn-sm" (click)="save(model.id)">Save</button>&nbsp;
+            </div>
+            <div [hidden]="!isError" class="validation-message">
+              {{message}}
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <fieldset class="col-lg-10">
+                <legend>User Details</legend>
+                <label class="k-form-field">
+                  <span>Email </span>
+                  <input type="email" class="k-textbox" id="email" [(ngModel)]="model.email" name="email" #email="ngModel" required email="true" />
+                </label>
+                <div [ngClass]="{'hidden': email.valid || email.pristine}" class="validation-message">
+                  <div *ngIf="email?.errors?.required">
+                    Email is required.
+                  </div>
+                  <div *ngIf="email?.errors?.email">
+                    This is not valid email, email should be <i>abc@gmail.com</i>.
+                  </div>
+                </div>
+
+                <label class="k-form-field">
+                  <span>Phone Number </span>
+                  <input class="k-textbox" id="phonenumber" [(ngModel)]="model.phoneNumber" name="phonenumber" #phonenumber="ngModel" required />
+                </label>
+                <div [ngClass]="{'hidden': phonenumber.valid || phonenumber.pristine}" class="validation-message">
+                  Phone number is required.
+                </div>
+                  
+              </fieldset>
+            </div>
+            <div class="col-lg-5 col-md-6 col-sm-12">
+
+              <fieldset class="borderstyle">
+                <legend style="visibility:hidden">User Details</legend>
+                <label class="k-form-field">
+                  <span>Role</span>
+                  <kendo-dropdownlist [data]="listItems"
+                                      style="width:100%;"
+                                      [(ngModel)]="model.role"
+                                      name="role" #role="ngModel">
+                  </kendo-dropdownlist>
+                </label>
+                <!--<div class="form-group py-2">
+    <label for="role">Role</label>
+    <select type="text" class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
+      <option>Customer</option>
+      <option>Driver</option>
+      <option>Coordinator</option>
+      <option>Administrator</option>
+    </select>
+    <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
+      Role is required.
+    </div>
+  </div>-->
+
+              </fieldset>
+            </div>
+
+
+
+
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div class="container-fluid">
+  <div class="border-custom">
+    <h1>Update User</h1>
+  </div>
   <div class="card py-3">
     <div class="card-block">
       <form #myForm="ngForm" class="k-form pt-3" name="myForm">
@@ -53,7 +139,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
 
 
         <!--<div class="form-group ">
@@ -63,9 +149,9 @@
     <div [hidden]="!isError" class="validation-message">
       {{message}}
     </div>-->
-      </form>
+      <!--</form>
     </div>
   </div>
-</div>
+</div>-->
 
 

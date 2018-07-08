@@ -12,13 +12,15 @@ import { UserService } from '../user.service';
   styleUrls: ['./user-create.component.scss']
 })
 export class UserCreateComponent implements OnInit {
-
+  public listItems: Array<string> = ["Customer", "Driver", "Coordinator", "Administrator"];
   data: any = {};
   public message: string = null;
   public model = {
     username: '',
     password: '',
     repassword: '',
+    firstname: '',
+    lastname: '',
     email: '',
     phonenumber: '',
     role: ''
