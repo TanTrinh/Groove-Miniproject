@@ -34,7 +34,7 @@ namespace Domains.GoGo.Models.Transportation
 			mappers.ForMember(p => p.StartDate, opt => opt.MapFrom(s => s.StartDate));
 			mappers.ForMember(p => p.EndDate, opt => opt.MapFrom(s => s.EndDate));
 			mappers.ForMember(p => p.CoordinatorId, opt => opt.MapFrom(s => s.CoordinatorId));
-			mappers.ForMember(p => p.RequestQuantity, opt => opt.MapFrom(s => s.RequestQuantity));
+			mappers.ForMember(p => p.RequestQuantity, opt => opt.MapFrom(s => s.RequestIdList.Count));
 		}
 	}
 
