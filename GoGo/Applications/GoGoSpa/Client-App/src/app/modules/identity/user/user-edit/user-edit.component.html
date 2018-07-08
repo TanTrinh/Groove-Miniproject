@@ -53,9 +53,13 @@
                   <kendo-dropdownlist [data]="listItems"
                                       style="width:100%;"
                                       [(ngModel)]="model.role"
-                                      name="role" #role="ngModel">
+                                      name="role" #role="ngModel"
+                                      required>
                   </kendo-dropdownlist>
                 </label>
+                <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
+                  Role is required.
+                </div>
                 <!--<div class="form-group py-2">
     <label for="role">Role</label>
     <select type="text" class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>

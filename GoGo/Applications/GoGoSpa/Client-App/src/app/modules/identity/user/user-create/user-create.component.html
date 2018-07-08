@@ -96,25 +96,29 @@
 
 
                 <label class="k-form-field">
-                  <span>Role</span>
+                  <span>Role <span class="k-required">*</span></span>
                   <kendo-dropdownlist [data]="listItems"
                                       style="width:100%;"
                                       [(ngModel)]="model.role"
-                                      name="role" #role="ngModel">
+                                      name="role" #role="ngModel"
+                                      required>
                   </kendo-dropdownlist>
                 </label>
+                <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
+                  Role is required.
+                </div>
                 <!--<div class="k-form-field">
-                  <label for="role">Role<span class="note">*</span></label>
-                  <select type="text" class="k-form-field" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
-                    <option>Customer</option>
-                    <option>Driver</option>
-                    <option>Coordinator</option>
-                    <option>Administrator</option>
-                  </select>
-                  <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
-                    Role is required.
-                  </div>
-                </div>-->
+    <label for="role">Role<span class="note">*</span></label>
+    <select type="text" class="k-form-field" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
+      <option>Customer</option>
+      <option>Driver</option>
+      <option>Coordinator</option>
+      <option>Administrator</option>
+    </select>
+    <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
+      Role is required.
+    </div>
+  </div>-->
 
               </fieldset>
             </div>
