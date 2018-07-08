@@ -16,7 +16,9 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   public warehouseList: Array<any> = []; 
   public vehicleFeatureList: Array<any> = [];
   public requestStatus: string = '';
-  
+  public addDelivery: string = '132 Hàm nghi';
+  public addWarehouse: string = '321 Tran hung dao';
+
   public onLoadGrid(status) {
     if (status == 'Inactive') {
       return 'Activate';

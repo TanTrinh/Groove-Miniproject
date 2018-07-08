@@ -67,7 +67,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
 
   public state: DataSourceRequestState = {
     skip: 0,
-    take: 8
+    take: 4
   };
 
   public active: boolean;

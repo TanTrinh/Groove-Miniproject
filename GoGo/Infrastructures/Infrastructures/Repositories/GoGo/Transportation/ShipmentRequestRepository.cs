@@ -29,8 +29,8 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 		public void UpdateShipmentRequest(List<int> requestIdList, int shipmentId)
 		{
-			var shipmentRequestsInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status != ShipmentRequestStatus.INACTIVE))).ToList();
-			var shipmentRequestIdListInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status != ShipmentRequestStatus.INACTIVE))).Select(p => p.RequestId).ToList();
+			var shipmentRequestsInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status == ShipmentRequestStatus.WAITING))).ToList();
+			var shipmentRequestIdListInDb = this.dbSet.Where(p => ((p.ShipmentId == shipmentId) && (p.Status == ShipmentRequestStatus.WAITING))).Select(p => p.RequestId).ToList();
 
 			for (int i = 0; i < shipmentRequestsInDb.Count; i++)
 			{
@@ -51,11 +51,11 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 			for (int i = 0; i < requestIdList.Count; i++)
 			{
-				if (shipmentRequestIdListInDb.IndexOf(requestIdList[0]) == -1)
+				if (shipmentRequestIdListInDb.IndexOf(requestIdList[i]) == -1)
 				{
 					var entity = new ShipmentRequest();
 					entity.ShipmentId = shipmentId;
-					entity.RequestId = requestIdList[0];
+					entity.RequestId = requestIdList[i];
 					entity.RequestOrder = i + 1;
 					entity.Status = ShipmentRequestStatus.WAITING;
 					entity.Note = ShipmentRequestStatus.CREATED;
@@ -73,6 +73,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		{
 			var shipment = await this.dbSet
 									.Include(p => p.Request)
+                                    .Where(p=>p.Status!= ShipmentRequestStatus.INACTIVE)
 									.Where(p => p.Request.Code == code).FirstAsync();
 			shipment.Status = status;
 			this.context.Update(shipment);
@@ -201,6 +202,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 						 .Include(p => p.Shipment)
 						 .Include(p => p.Request)
 						 .Where(p => p.Request.Code == requestCode)
+                         .Where(p=>p.Status!=ShipmentRequestStatus.INACTIVE)
 						 .Select(p => new RequestDetailModel
 						 {
 							 Code = p.Request.Code,
@@ -263,9 +265,10 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 		public async Task<string> Problem(string requestCode, bool status)
 		{
 			var request = await this.dbSet
-											.Include(p => p.Request)
-											.Where(p => p.Request.Code == requestCode)
-											.FirstAsync();
+									.Include(p => p.Request)
+                                    .Where(p=>p.Status!= ShipmentRequestStatus.INACTIVE)
+									.Where(p => p.Request.Code == requestCode)
+									.FirstAsync();
 			request.IsProblem = status;
 			this.context.Update(request);
 			await this.context.SaveChangesAsync();
