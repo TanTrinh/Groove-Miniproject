@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="border-custom">
-    <h1>Create User</h1>
+    <h1 class="heading">Create User</h1>
   </div>
   <div class="py-2">
     <div class="card">
@@ -96,11 +96,12 @@
 
 
                 <label class="k-form-field">
-                  <span>Role</span>
+                  <span>Role <span class="k-required">*</span></span>
                   <kendo-dropdownlist [data]="listItems"
                                       style="width:100%;"
                                       [(ngModel)]="model.role"
-                                      name="role" #role="ngModel">
+                                      name="role" #role="ngModel"
+                                      required>
                   </kendo-dropdownlist>
                 </label>
                 <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
