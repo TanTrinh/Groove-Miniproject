@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="border-custom">
-    <h1>Update User</h1>
+    <h1 class="heading">Update User</h1>
   </div>
   <div class="py-2">
     <div class="card">
@@ -53,7 +53,8 @@
                   <kendo-dropdownlist [data]="listItems"
                                       style="width:100%;"
                                       [(ngModel)]="model.role"
-                                      name="role" #role="ngModel">
+                                      name="role" #role="ngModel"
+                                      required>
                   </kendo-dropdownlist>
                 </label>
                 <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
