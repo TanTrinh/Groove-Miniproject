@@ -135,12 +135,15 @@
 
     </fieldset>
     <kendo-grid [data]="gridData"
-                [skip]="state.skip"
+             
                 [pageSize]="state.take"
+                [skip]="state.skip"
                 [sort]="state.sort"
-                [scrollable]="'scrollable'"
-                [height]="350"
-               
+                [sortable]="true"              
+                [group]="state.group"
+                filterable="menu"
+                [filter]="state.filter"
+                [height]="350"             
                 (remove)="removeHandler($event)"
                 required>
 

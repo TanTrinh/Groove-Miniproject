@@ -110,6 +110,7 @@ namespace GoGoApi.Controllers.GoGo
 
         //DUC
         [Route("{shipmentCode}/deliverydetail")]
+        [Authorize(Roles = "Driver,Coordinator")]
         [HttpGet]
         public async Task<IActionResult> GetShipmentDetailAsync(string shipmentCode)
         {
@@ -128,6 +129,7 @@ namespace GoGoApi.Controllers.GoGo
         }
 
         [Route("{shipmentCode}/locationpicking")]
+        [Authorize(Roles = "Driver,Coordinator")]
         [HttpGet]
         public async Task<IActionResult> GetLocationPicking(string shipmentCode)
         {
@@ -135,7 +137,7 @@ namespace GoGoApi.Controllers.GoGo
         }
 
         [Route("request/{requestCode}")]
-        //[Authorize(Roles = "Driver,Coordinator")]
+        [Authorize(Roles = "Driver,Coordinator")]
         [HttpGet]
         public async Task<IActionResult> GetRequestDetailAsync(string requestCode)
         {
@@ -143,6 +145,7 @@ namespace GoGoApi.Controllers.GoGo
         }
 
         [Route("{shipmentCode}/requestList")]
+        [Authorize(Roles = "Driver,Coordinator")]
         [HttpGet]
         public async Task<IActionResult> GetRequestList(string shipmentCode)
         {
@@ -150,6 +153,7 @@ namespace GoGoApi.Controllers.GoGo
         }
 
         [Route("{shipmentCode}/changestatus/{status}")]
+        [Authorize(Roles = "Driver")]
         [HttpPut]
         public async Task<IActionResult> ShipmentFeedback(string shipmentCode, string status)
         {
@@ -157,6 +161,7 @@ namespace GoGoApi.Controllers.GoGo
             return Ok(await _Shipmentservice.GetShipmentAsync(code));
         }
         [Route("request/{requestCode}/changestatus/{status}")]
+        [Authorize(Roles = "Driver")]
         [HttpPut]
         public async Task<IActionResult> ChangeStatusRequest(string requestCode, string status)
         {
@@ -164,6 +169,7 @@ namespace GoGoApi.Controllers.GoGo
             return Ok(await _shipmentRequestService.GetCurrentRequestAsync(code));
         }
         [Route("request/{requestCode}/sendproblem")]
+        [Authorize(Roles = "Driver")]
         [HttpPost]
         public async Task<IActionResult> SaveProblem(string requestCode, [FromBody]Message message)
         {
@@ -172,6 +178,7 @@ namespace GoGoApi.Controllers.GoGo
             return Ok(await _shipmentRequestService.GetCurrentRequestAsync(code));
         }
         [Route("request/{requestCode}/resolveproblem")]
+        [Authorize(Roles = "Driver")]
         [HttpPut]
         public async Task<IActionResult> ResolveProblem (string requestCode)
         {
