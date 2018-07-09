@@ -82,8 +82,8 @@ namespace Infrastructures.SeedData
             SeedFeatureOfVehicleData(dbContext);
 
 			SeedRequestData(dbContext);
-			SeedShipmentData(dbContext);
-			SeedShipmentRequestData(dbContext);
+			//SeedShipmentData(dbContext);
+			//SeedShipmentRequestData(dbContext);
 			SeedVehicleFeatureRequest(dbContext);
 		}
 
@@ -151,8 +151,8 @@ namespace Infrastructures.SeedData
 		private static async Task SeedCustomerDataAsync(ApplicationDbContext dbContext)
         {
             Console.WriteLine("Start to seed user info");
-            string[] name = { "Chi", "Cong", "Cuong", "Cao", "Cuc" };
-            string[] lastname = { "Tran", "Nguyen", "Trinh", "Le", "Mai" };
+            string[] name = { "Jacob", "Michael", "Joshua", "Matthew", "Daniel" };
+            string[] lastname = { "Smith", "Johnson", "Williams", "Brown", "Jones" };
             Random random = new Random();
             var userManagement = _serviceProvider.GetService<UserManager<User>>();
             for (int i = 0; i < 5; i++)
@@ -190,8 +190,8 @@ namespace Infrastructures.SeedData
         {
             // TODO: Refact Seed data to be English base
             Console.WriteLine("Start to seed user info");
-            string[] name = { "Dung", "Danh", "Diem", "Duy", "Diep" };
-            string[] lastname = { "Tran", "Nguyen", "Trinh", "Le", "Mai" };
+            string[] name = { "Christopher", "Andrew", "Ethan", "Joseph", "William" };
+            string[] lastname = { "Miller", "Davis", "Garcia", "Rodriguez", "Wilson" };
             Random random = new Random();
             var userManagement = _serviceProvider.GetService<UserManager<User>>();
             for (int i = 0; i < 5; i++)
@@ -228,8 +228,8 @@ namespace Infrastructures.SeedData
         private static async Task SeedCoordinatorDataAsync(ApplicationDbContext dbContext)
         {
             Console.WriteLine("Start to seed user info");
-            string[] name = { "Khanh", "Khoi", "Khoa", "Khang", "Khai" };
-            string[] lastname = { "Tran", "Nguyen", "Trinh", "Le", "Mai" };
+            string[] name = { "Anthony", "David", "Alexander", "Nicholas", "Ryan" };
+            string[] lastname = { "Martinez", "Anderson", "Taylor", "Thomas", "Hernandez" };
             Random random = new Random();
             var userManagement = _serviceProvider.GetService<UserManager<User>>();
             for (int i = 0; i < 5; i++)
@@ -266,8 +266,8 @@ namespace Infrastructures.SeedData
         private static async Task SeedAdministratortDataAsync(ApplicationDbContext dbContext)
         {
             Console.WriteLine("Start to seed user info");
-            string[] name = { "An", "Anh", "Ai", "At", "Au" };
-            string[] lastname = { "Tran", "Nguyen", "Trinh", "Le", "Mai" };
+            string[] name = { "Tyler", "James", "John", "Jonathan", "Noah" };
+            string[] lastname = { "Moore", "Martin", "Jackson", "Thompson", "White" };
             Random random = new Random();
             var userManagement = _serviceProvider.GetService<UserManager<User>>();
             for (int i = 0; i < 5; i++)
@@ -486,8 +486,8 @@ namespace Infrastructures.SeedData
             Random ran = new Random();
 
             string phonenumberHeader = "0908";
-            string[] name = { "Khanh", "Khoi", "Khoa", "Khang", "Khai", "Chi", "Cong", "Cuong", "Cao", "Cuc", "Dung", "Danh", "Diem", "Duy", "Diep" };
-            string[] lastname = { "Tran", "Nguyen", "Trinh", "Le", "Mai" };
+            string[] name = { "Brandon", "Christian", "Dylan", "Samuel", "Benjamin", "Nathan", "Zachary", "Logan", "Justin", "Gabriel", "Jose", "Austin", "Kevin", "Elijah", "Caleb" };
+            string[] lastname = { "Lopez", "Lee", "Gonzalez", "Harriz", "Clark" };
 
             for (int i = 1; i < 26; i++)
             {
@@ -500,9 +500,9 @@ namespace Infrastructures.SeedData
                     PackageQuantity = i,
                     DeliveryLatitude = Math.Round(latitudeBase + i * 0.01, 6),
                     DeliveryLongitude = Math.Round(longitudeBase + i * 0.01, 6),
-                    WareHouseId = i,
+                    WareHouseId = i%5+1,
                     IssuerId = i + 76,
-                    Status = "Pending",
+                    Status = "Inactive",
                     ReceiverName = name[ran.Next(0, 14)] + lastname[ran.Next(0, 4)],
                     ReceiverPhoneNumber = phonenumberHeader + ran.Next(100000, 999999).ToString(),
                     Address = "37 ĐT743C, Xã Bình Thắng, Dĩ An, Bình Dương, Vietnam",
@@ -553,7 +553,7 @@ namespace Infrastructures.SeedData
                         RequestId = (i * 5) + j + 1,
                         RequestOrder = j + 1,
                         Note = "",
-                        Status = "Pending",
+                        Status = "Waiting",
                         RequestEstimateDate = RequestEstimateDate.AddDays(ran.Next(0, i % 2 + 1)),
                         RequestDeliveriedDate = RequestEstimateDate.AddDays(ran.Next(2, i % 7 + 3))
                     };

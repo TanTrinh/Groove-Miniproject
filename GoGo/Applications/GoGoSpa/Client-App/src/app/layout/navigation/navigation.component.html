@@ -26,7 +26,7 @@
       <a routerLink="/request/list" routerLinkActive="hold" class=" list-group-item list-group-item-action"><i class="fas fa-list-alt layout"></i> Request</a>
     </li>
     <li *ngIf="isRole=='Customer'">
-      <a class=" list-group-item list-group-item-action "><i class="fas fa-warehouse"></i> Warehouse</a>
+      <a class=" list-group-item list-group-item-action " (click)="displayToastr()"><i class="fas fa-warehouse"></i> Warehouse</a>
     </li>
     <li *ngIf="isRole=='Coordinator' || isRole=='Driver'">
       <a routerLink="/shipment" routerLinkActive="hold" class=" list-group-item list-group-item-action"><i class="fas fa-shipping-fast"></i> Shipment</a>
