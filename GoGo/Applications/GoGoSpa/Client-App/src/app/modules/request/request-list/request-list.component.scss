@@ -1,3 +1,17 @@
+$main-color: #0073e6;
+
 .btn-width {
   width: 90px;
+}
+a {
+  color: $main-color;
+}
+a:hover {
+  color: darkblue;
+  text-decoration: underline;
+}
+
+.badge {
+  font-size: 14px;
+  width:80px;
 }

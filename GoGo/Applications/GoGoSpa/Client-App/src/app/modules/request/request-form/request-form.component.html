@@ -17,17 +17,6 @@
               <span>Create</span>
             </legend>
 
-            <div *ngIf="isCustomer" class="btn-wrapper">
-              <button *ngIf="!isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToListPage()">Back to List</button>
-              <button *ngIf="isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToViewPage()">Cancel</button>
-              <button *ngIf="!isViewFormMode" type="submit" class="btn btn-primary btn-sm mb-1" [disabled]="mainForm.invalid">Save</button>
-              <button *ngIf="isViewFormMode" type="button" routerLink="/request/form/update/{{formData?.id}}" class="btn btn-info btn-sm mr-1 mb-1">Update</button>
-              <button *ngIf="isViewFormMode && (requestStatus == 'not accepted')" type="button" class="btn btn-primary btn-sm btn-width mr-1 mb-1"
-                      (click)="onClickStatus(formData.id, formData.status)">
-                {{onLoadGrid(formData.status)}}
-              </button>
-            </div>
-
             <div class="form-group">
               <label for="receiverName">Receiver Name </label>
               <input type="text" class="form-control" [(ngModel)]="formData.receiverName" name="receiverName" #receiverName="ngModel" required [readonly]="isViewFormMode">
@@ -136,30 +125,43 @@
             </div>
 
             <div class="form-group">
-              <label for="deliveryLatitude">Delivery Latitude</label>
-              <input type="text" class="form-control" value="110" [(ngModel)]="formData.deliveryLatitude" name="deliveryLatitude" #deliveryLatitude="ngModel" readonly="readonly">
+              <input type="text" class="form-control" value="110" [(ngModel)]="formData.deliveryLatitude" name="deliveryLatitude" #deliveryLatitude="ngModel" hidden>
               <!--<div *ngIf="deliveryLatitude.invalid && (deliveryLatitude.dirty || deliveryLatitude.touched)"
-                   class="alert alert-danger">
-                <div *ngIf="deliveryLatitude.errors.required">
-                  Delivery Latitude is required.
-                </div>
-              </div>-->
+         class="alert alert-danger">
+      <div *ngIf="deliveryLatitude.errors.required">
+        Delivery Latitude is required.
+      </div>
+    </div>-->
             </div>
+
             <div class="form-group ">
-              <label for="deliveryLongitude">Delivery Longitude</label>
-              <input type="text" class="form-control" value="110" [(ngModel)]="formData.deliveryLongitude" name="deliveryLongitude" #deliveryLongitude="ngModel" readonly="readonly">
+              <input type="text" class="form-control" value="110" [(ngModel)]="formData.deliveryLongitude" name="deliveryLongitude" #deliveryLongitude="ngModel" hidden>
               <!--<div *ngIf="deliveryLongitude.invalid && (deliveryLongitude.dirty || deliveryLongitude.touched)"
-                   class="alert alert-danger">
-                <div *ngIf="deliveryLongitude.errors.required">
-                  Delivery Longitude is required.
-                </div>
-              </div>-->
+         class="alert alert-danger">
+      <div *ngIf="deliveryLongitude.errors.required">
+        Delivery Longitude is required.
+      </div>
+    </div>-->
             </div>
+
+            <div *ngIf="isCustomer" class="btn-wrapper">
+              <button *ngIf="!isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToListPage()">Back to List</button>
+              <div class="float-right">
+                <button *ngIf="isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToViewPage()">Cancel</button>
+                <button *ngIf="!isViewFormMode" type="submit" class="btn btn-primary btn-sm mb-1" [disabled]="mainForm.invalid">Save</button>
+                <button *ngIf="isViewFormMode" type="button" routerLink="/request/form/update/{{formData?.id}}" class="btn btn-info btn-sm mr-1 mb-1">Update</button>
+                <button *ngIf="isViewFormMode && (requestStatus == 'not accepted')" type="button" class="btn btn-primary btn-sm btn-width mr-1 mb-1"
+                        (click)="onClickStatus(formData.id, formData.status)">
+                  {{onLoadGrid(formData.status)}}
+                </button>
+              </div>
+            </div>
+
           </fieldset>
         </form>
       </div>
     </div>
-    <div class="col-lg-8 col-md-6 col-sm-12" id="map">
+    <div class="col-lg-8 col-md-6 col-sm-12 ">
       <app-ggmap [addressDelivery]="addDelivery" (addressDeliveryLocated)="onAddressDeliveryLocated($event)" [isRoute]="isRoute"></app-ggmap>
     </div>
 
