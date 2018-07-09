@@ -81,10 +81,10 @@ namespace Infrastructures.SeedData
             SeedDriverAbilityData(dbContext);
             SeedFeatureOfVehicleData(dbContext);
 
-			SeedRequestData(dbContext);
+			//SeedRequestData(dbContext);
 			//SeedShipmentData(dbContext);
 			//SeedShipmentRequestData(dbContext);
-			SeedVehicleFeatureRequest(dbContext);
+			//SeedVehicleFeatureRequest(dbContext);
 		}
 
         private static string ConverIntToString(int input)
