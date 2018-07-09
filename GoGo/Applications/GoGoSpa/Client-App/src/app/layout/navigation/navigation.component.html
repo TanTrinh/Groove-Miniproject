@@ -22,7 +22,7 @@
     <!--<li>
     <a routerLink="/assigned" routerLinkActive="hold" class=" list-group-item list-group-item-action ">Assigned</a>
   </li>-->
-    <li *ngIf="isRole=='Customer' || isRole=='Driver' || isRole=='Coordinator'">
+    <li *ngIf="isRole=='Customer' || isRole=='Coordinator'">
       <a routerLink="/request/list" routerLinkActive="hold" class=" list-group-item list-group-item-action"><i class="fas fa-list-alt layout"></i> Request</a>
     </li>
     <li *ngIf="isRole=='Customer'">

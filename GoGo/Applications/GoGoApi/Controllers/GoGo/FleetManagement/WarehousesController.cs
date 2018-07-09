@@ -43,7 +43,7 @@ namespace GoGoApi.Controllers
         // GET /api/masterdata/warehouses/datasource/{displayName}
         [Route("datasource/{displayName}")]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> GetOnFilter(string displayName)
         {
             var userId = GetCurrentUserId<long>();

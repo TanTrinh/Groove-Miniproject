@@ -23,6 +23,7 @@ namespace GoGoApi.Controllers.GoGo
         // GET /api/vehicle-feature/vehicle-feature/{displayName}
         [Route("datasource/{displayName}")]
         [HttpGet]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> GetOnFilter(string displayName)
         {
             var result = await _vehicleFeatureService.GetOnFilter(displayName);

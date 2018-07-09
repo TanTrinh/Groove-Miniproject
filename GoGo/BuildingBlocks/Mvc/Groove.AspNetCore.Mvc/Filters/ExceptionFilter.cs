@@ -21,13 +21,19 @@ namespace Groove.AspNetCore.Mvc.Filters
                     {
                         Message = originException.Message
                     });
+
+
+                base.OnException(context);
             }
             else if (context.Exception is UserDefinedException)
             {
                 var originException = context.Exception as UserDefinedException;
                 context.Result = new BadRequestObjectResult(originException.UserDefinedMessage);
+
+
+                base.OnException(context);
             }
-            base.OnException(context);
+
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Domains.GoGo.Repositories.Transportation
         //Task<int> CreateCustomerRequest(RequestModel model, long userId);
 
         // Đ
-        Task<CustomerRequestModel> FindCustomerRequestAsync(int requestId, long userId);
+        Task<CustomerRequestModel> FindCustomerRequestAsync(int requestId, long userId, string role);
         DataSourceResult GetCustomerRequestsAsync(DataSourceRequest request, long userId, string role);
         Task<string> ChangeStatusAsync(int requestId, string status);
         // End Đ

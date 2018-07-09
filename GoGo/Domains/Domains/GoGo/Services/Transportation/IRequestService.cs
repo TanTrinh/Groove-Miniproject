@@ -20,7 +20,7 @@ namespace Domains.GoGo.Services
 
 
         // Đ
-        Task<CustomerRequestModel> FindCustomerRequestAsync(int id, long userId);
+        Task<CustomerRequestModel> FindCustomerRequestAsync(int id, long userId, string role);
         DataSourceResult GetCustomerRequests(DataSourceRequest request, long userId, string role);
         Task<int> CreateCustomerRequest(CustomerRequestModel model, long userId);
         Task<int> UpdateCustomerRequest(CustomerRequestModel model, long userId);
