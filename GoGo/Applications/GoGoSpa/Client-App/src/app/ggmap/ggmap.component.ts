@@ -31,6 +31,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
   @Input('waypts') wayptsSubject: BehaviorSubject<infoMarker[]>;
 
   @Output() addressDeliveryLocated = new EventEmitter();
+  @Output() markerClick = new EventEmitter();
   //  @Input('Markers') Markers: any[] = [];
 
   //parameter 
@@ -57,6 +58,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
   iconNext = '/assets/location.png'; // TODO: do not use relative path, use asbsolute path instead '/assets/location.png'
   iconBase = '/assets/trucking.png'; // TODO: do not use relative path, use asbsolute path instead
   iconWarehouse = '/assets/warehouse2.png'; // TODO: do not use relative path, use asbsolute path instead
+  iconParking = '/assets/park.png'; // TODO: do not use relative path, use asbsolute path instead
 
   constructor(
     private ngZone: NgZone,
@@ -68,9 +70,8 @@ export class GgmapComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log(this.isRoute)
-    this.initMap(this.latcenter, this.lngcenter);
+    this.initMap(this.latcenter, this.lngcenter); 
     if (this.isRoute == false) {
-      console.log(1);
       var addressDeliveryValue: string;
       var addressWarehouseValue: string;
       this.addressDelivery.subscribe(result => {
@@ -83,6 +84,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
 
     }
     if (this.isRoute == true) {
+      console.log(1);
       if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
         this.intervalDisposer = setInterval(() => {
           this.getYourPosition(() => {
@@ -132,8 +134,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
       map: this.map,
     });
     this.markersClean.push(marker);
-    for (index = 1; index < this.Waypts.length - 1; index++) {
-      var contentString = `<p>${this.Waypts[index].description}</p>`
+    for (index = 1; index < this.Waypts.length; index++) {
       var infoWindow = new google.maps.InfoWindow();
       var m = new google.maps.Marker({
         position: this.Waypts[index].latlng,
@@ -143,10 +144,10 @@ export class GgmapComponent implements OnInit, OnDestroy {
       if (this.Waypts[index].isRoute == true && isCurrent == false && index < this.Waypts.length) {
         isCurrent = true;
         m.setAnimation(google.maps.Animation.BOUNCE);
-        this.oldMarker = m;
       }
-      this.openInfoWindow(m, contentString, infoWindow);
-      this.closeInfoWindow(m, contentString, infoWindow);
+      this.clickInfoWindow(m, this.Waypts[index].description)
+      this.hoverInfoWindow(m, this.Waypts[index].description, infoWindow);
+      this.mouseOutInfoWindow(m, this.Waypts[index].description, infoWindow);
 
       this.markersClean.push(m);
     }
@@ -177,17 +178,13 @@ export class GgmapComponent implements OnInit, OnDestroy {
       map: this.map
     });
     this.oldMarkerOrigin = markerOrigin;
-
-    var contentString = `<p>${this.Waypts[this.Waypts.length - 1].description}</p>`
-    var infoWindow = new google.maps.InfoWindow();
+    
     var markerDetination = new google.maps.Marker({
-      position: this.Waypts[this.Waypts.length - 1].latlng,
-      icon: this.iconNext,
+      position: { lat: 10.813915253998612, lng: 106.68891112695314},
+      icon: this.iconParking,
       map: this.map,
     });
-    this.openInfoWindow(markerDetination, contentString, infoWindow);
-    this.closeInfoWindow(markerDetination, contentString, infoWindow);
-
+   
     var index;
     for (index = 0; index < this.Waypts.length - 1; index++) {
       if (this.Waypts[index].isRoute == true) {// TODO: never hardcode strign value in codes, create class to store constant
@@ -216,13 +213,23 @@ export class GgmapComponent implements OnInit, OnDestroy {
 
   }
 
-  openInfoWindow(marker, data, infoWindow) {
+  clickInfoWindow(marker, data) {
+    let $selt = this;
+    google.maps.event.addListener(marker, 'click', function () {
+      $selt.markerClick.emit({
+        code: data
+      })
+    });
+  }
+
+  hoverInfoWindow(marker, data, infoWindow) {
     google.maps.event.addListener(marker, 'mouseover', function () {
       infoWindow.setContent("<div style = 'width:150px;min-height:10px;color:blue;text-align:center'>" + data + "</div>");
       infoWindow.open(this.map, marker);
+    
     });
   }
-  closeInfoWindow(marker, data, infoWindow) {
+  mouseOutInfoWindow(marker, data, infoWindow) {
     google.maps.event.addListener(marker, 'mouseout', function () {
 
       infoWindow.close(this.map, marker);
@@ -236,8 +243,8 @@ export class GgmapComponent implements OnInit, OnDestroy {
     var marker = new google.maps.Marker();
     this.oldMarkerDelivery = marker;
     var infoWindow = new google.maps.InfoWindow();
-    this.openInfoWindow(marker, address, infoWindow);
-    this.closeInfoWindow(marker, address, infoWindow);
+    this.hoverInfoWindow(marker, address, infoWindow);
+    this.mouseOutInfoWindow(marker, address, infoWindow);
     geocoder = new google.maps.Geocoder();
 
     let $self = this;
@@ -263,7 +270,6 @@ export class GgmapComponent implements OnInit, OnDestroy {
           marker.setIcon(urlIcon);
           marker.setMap(map);
           map.setCenter(latlng);
-
         }
       }
       );
