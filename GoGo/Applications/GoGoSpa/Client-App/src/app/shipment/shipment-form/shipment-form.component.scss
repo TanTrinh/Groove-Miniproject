@@ -16,6 +16,10 @@ label {
   margin-left: 5px;
 }
 
+.btn-width {
+  width: 83.13px;
+}
+
 btn
 {
   height : 3px;
@@ -23,9 +27,13 @@ btn
 
 .width
 {
-  width:315px;
+  width:330px;
 }
 
 input{
   background-color: #eeecec;
+}
+
+.k-grid-content {
+  max-height: 200px;
 }

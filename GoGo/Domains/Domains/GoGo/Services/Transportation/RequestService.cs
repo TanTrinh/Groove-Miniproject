@@ -40,7 +40,12 @@ namespace Domains.GoGo.Services
             return _repository.GetRequestDetailAsync(id);
         }
 
-		//V
+        //V
+        public Task<IEnumerable<RequestsModel>> GetAllAsyncByWarehouseId(string warehouseId)
+        {
+            return _repository.GetAllAsyncByWareHouseId(warehouseId);
+        }
+
         public Task<RequestsModel> GetRequestByIdAsync(string id)
         {
             return _repository.GetRequestByIdAsync(id);

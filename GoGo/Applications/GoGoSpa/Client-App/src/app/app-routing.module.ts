@@ -26,7 +26,7 @@ import { AccessDeniedComponent } from './modules/access-denied/access-denied.com
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
+  { path: 'login', component: LoginComponent,  },
   {
     path: '', component: LayoutComponent, children: [
       { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },

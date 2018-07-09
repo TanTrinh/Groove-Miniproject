@@ -29,7 +29,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   private formMode: string;
   private isCreateForm: boolean;
 
-  
+
   private sub: Subscription;
 
   public shipmentCode: any;
@@ -50,8 +50,8 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   };
 
   private warehouseView: any;
-  public warehouse: any = { };
-  
+  public warehouse: any = {};
+
 
   private pickingDate = new Date();
   private deliveryDate = new Date();
@@ -67,21 +67,29 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
 
   public state: DataSourceRequestState = {
     skip: 0,
-    take: 9
+    take: 5
+  };
+
+  public states: DataSourceRequestState = {
+    skip: 0,
+    take: 5
   };
 
   public active: boolean;
   public errors: "";
   //Grid
   public requestList: any[] = new Array();
-  public requestIdList: any[] = new Array();
   public gridData: any = process(this.requestList, this.state);
 
+
+  public gridShipmentRequestData: any = process(this.requestList, this.state);
+  public shipmentRequestList: any[] = new Array();
+  public requestIdList: any[] = new Array();
 
   constructor(private shipmentService: ShipmentService, private router: Router, private http: Http,
     private requestService: RequestsService, private masterDataService: MasterDataService,
     private sharingService: SharingService, private route: ActivatedRoute) {
- 
+
     // TODO: If vehicleView & driverView should not share the same masterDataService, because they will share the same data
     // Solution: replace vehicleView by vehicleList, when use call handleVehicleFilter(),
     // it will call HTTP to get new data, then new data will be replace current vehicleList
@@ -90,36 +98,40 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
     this.shipmentId = this.route.snapshot.paramMap.get('id');
     this.formMode = this.route.snapshot.paramMap.get('mode');
     (this.formMode == 'update') ? this.isCreateForm = false : this.isCreateForm = true;
+    this.gridData = process(this.requestList, this.state);
   }
 
   ngOnInit(): void {
     if (this.formMode == "update") {
       this.shipmentService.GetDetailById(this.shipmentId).subscribe(
-        result => {        
-            this.shipmentId = result.id
-            this.shipmentCode = result.code
-            this.driverDetail = result.driver
-            this.vehicleDetail = result.vehicle
-            this.requestIdList = result.requestIdList
+        result => {
+          this.shipmentId = result.id
+          this.shipmentCode = result.code
+          this.driverDetail = result.driver
+          this.vehicleDetail = result.vehicle
+          this.requestIdList = result.requestIdList
 
 
-            this.requestList = result.requestList
-            this.warehouseDetail = result.warehouse
-           
-            this.pickingDate = new Date(result.startDate)
-            this.deliveryDate = new Date(result.endDate)
-             
-            this.isValid = true;
-            this.refreshGrid()
-        }    
+          this.shipmentRequestList = result.requestList
+          this.warehouseDetail = result.warehouse
+
+          this.pickingDate = new Date(result.startDate)
+          this.deliveryDate = new Date(result.endDate)
+
+          this.isValid = true;
+
+          this.getAllRequestByWarehouseId(this.warehouseDetail.id)
+          
+          this.refreshShipmentRequestGrid()
+        }
       )
       this.isValid = true;
     }
-    
+
   }
 
   ngOnDestroy(): void {
-   
+
   }
 
   onSave() {
@@ -131,7 +143,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
 
               this.router.navigate(['/shipment/']);
             },
-              errors => { this.errors = errors })
+            errors => { this.errors = errors })
         }
         else if (this.isCreateForm == false) {
           this.shipmentService.UpdateShipment(this.shipmentId, this.shipmentCode, this.requestIdList, this.requestIdList.length, this.pickingDate, this.deliveryDate, this.vehicleDetail.id, this.driverDetail.id, '3')
@@ -139,14 +151,13 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
 
               this.router.navigate(['/shipment/']);
             },
-              errors => { this.errors = errors })
+            errors => { this.errors = errors })
         }
       }
     }
   }
 
-  onCancel()
-  {
+  onCancel() {
     this.router.navigate(['/shipment/']);
   }
 
@@ -163,23 +174,23 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
 
   //get Driver Detail
   GetDriverDetail() {
-    if (this.driver != undefined ) {
+    if (this.driver != undefined) {
       this.masterDataService.getDriverDetail(this.driver.value)
         .subscribe(result => {
           this.driverDetail = result
         });
     }
-    
+
   }
 
   //Vehicles code filter
   public handleVehicleFilter(value) {
-    if (value != null && value != undefined && value != '' ) {
-       this.masterDataService.getVehicleDataSouce(value).subscribe(result => {
-         this.vehicleView = result;
-       })
+    if (value != null && value != undefined && value != '') {
+      this.masterDataService.getVehicleDataSouce(value).subscribe(result => {
+        this.vehicleView = result;
+      })
     }
-   
+
   }
 
   //get Vehicles Detail
@@ -191,7 +202,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
         });
     }
 
-   
+
   }
 
   //Warehouse code filter
@@ -206,12 +217,19 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   //get Warehouse Detail
   GetWarehouseDetail() {
     if (this.warehouse != undefined) {
-      console.log(this.warehouse.value)
       this.masterDataService.getWarehouseDetail(this.warehouse.value)
         .subscribe(result => {
           this.warehouseDetail = result
+          this.getAllRequestByWarehouseId(this.warehouse.value)
         });
     }
+  }
+
+  getAllRequestByWarehouseId(warehouseId) {
+    this.requestService.getAllRequestByWarehouseId(warehouseId).subscribe(result => {
+      this.requestList = result;
+      this.refreshGrid();
+    })
   }
 
   //Request code filter
@@ -229,39 +247,81 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
       this.requestService.getRequestDetail(this.request.value)
         .subscribe(result => {
           this.requestDetail = result
-          //this.requestDetail.pickingDate = this.sharingService.datimeFormat(this.requestDetail.pickingDate);
-          //this.requestDetail.expectedDate = this.sharingService.datimeFormat(this.requestDetail.expectedDate);
-          this.pushRequest()
         });
     }
-       
+
   }
 
-  //Grid table
-  pushRequest()
-  {
-    if (this.requestList.indexOf(this.requestDetail) != -1
-      || this.requestIdList.indexOf(this.requestDetail.id) != -1) {
-    } else {
-      this.requestList.push(this.requestDetail);
-      this.requestIdList.push(this.requestDetail.id);
+  AddRequestHandle(dataItem) {
+    this.shipmentRequestList.push(dataItem)
+    this.refreshShipmentRequestGrid();
+
+    var index = this.requestList.indexOf(dataItem);
+    this.requestList.splice(index, 1);
+    this.requestIdList.push(dataItem.id);
+    this.refreshGrid();
+    this.refreshShipmentRequestGrid();
+
+    this.isValid = true;
+
+    console.log(this.requestIdList)
+  }
+
+  removeHandler(dataItem)
+  {  
+      var index = this.shipmentRequestList.indexOf(dataItem);
+      this.shipmentRequestList.splice(index, 1);
+      this.requestIdList.splice(index, 1);
+
+      this.requestList.push(dataItem);
       this.refreshGrid();
-      this.isValid = true;
+      this.refreshShipmentRequestGrid();
+
+    if (this.shipmentRequestList.length == 0) {
+      this.isValid = false;
     }
+  
+    console.log(this.requestIdList)
+  }
+
+  public dataStateChange(state: DataStateChangeEvent): void {
+    this.state = state;
+    this.refreshGrid();
+  }
+
+  public dataStateChanges(state: DataStateChangeEvent): void {
+    this.states = state;
+    this.refreshShipmentRequestGrid();
   }
 
   public refreshGrid() {
     this.gridData = process(this.requestList, this.state)
   }
 
-  public removeHandler({ requestDetail }) {
-    var index = this.requestList.indexOf(requestDetail);
-    this.requestList.splice(index, 1);
-    this.requestIdList.splice(index, 1);
-    this.refreshGrid();
-
-    if (this.requestIdList.length == 0)
-      this.isValid = false
+  public refreshShipmentRequestGrid() {
+    this.gridShipmentRequestData = process(this.shipmentRequestList, this.state)
   }
 
+
+  //public removeHandler({ requestDetail }) {
+  //  var index = this.requestList.indexOf(requestDetail);
+  //  this.requestList.splice(index, 1);
+  //  this.requestIdList.splice(index, 1);
+  //  this.refreshGrid();
+
+  //  if (this.requestIdList.length == 0)
+  //    this.isValid = false
+  //}
+
+    ////Grid table
+  //pushRequest() {
+  //  if (this.requestList.indexOf(this.requestDetail) != -1
+  //    || this.requestIdList.indexOf(this.requestDetail.id) != -1) {
+  //  } else {
+  //    this.requestList.push(this.requestDetail);
+  //    this.requestIdList.push(this.requestDetail.id);
+  //    this.refreshGrid();
+  //    this.isValid = true;
+  //  }
+  //}
 }

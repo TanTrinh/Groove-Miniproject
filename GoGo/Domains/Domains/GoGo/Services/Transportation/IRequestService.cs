@@ -13,7 +13,8 @@ namespace Domains.GoGo.Services
     {
 		Task<RequestDetailModel> GetRequestDetails(int? id);
 		Task<IEnumerable<DataSourceValue<int>>>  GetDataSource(string value, int warehouseId);
-		DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
+        Task<IEnumerable<RequestsModel>> GetAllAsyncByWarehouseId(string warehouseId);
+        DataSourceResult GetAllAsync([DataSourceRequest]DataSourceRequest request);
         Task<RequestsModel> GetRequestByIdAsync(string id);
         Task<LocationModel> GetPositionWarehouse(string code);
         Task<int> GetRequestID(string code);

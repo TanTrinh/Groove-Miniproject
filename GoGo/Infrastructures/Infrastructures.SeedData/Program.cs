@@ -66,26 +66,26 @@ namespace Infrastructures.SeedData
 
         private static async Task SeedDataAsync(ApplicationDbContext dbContext)
         {
-            await SeedUserDataAsync(dbContext);
-            await SeedRoleDataAsync(dbContext);
-            await SeedAdministratortDataAsync(dbContext);
-            await SeedCoordinatorDataAsync(dbContext);
-            await SeedDriverDataAsync(dbContext);
-            await SeedCustomerDataAsync(dbContext);
+            //await SeedUserDataAsync(dbContext);
+            //await SeedRoleDataAsync(dbContext);
+            //await SeedAdministratortDataAsync(dbContext);
+            //await SeedCoordinatorDataAsync(dbContext);
+            //await SeedDriverDataAsync(dbContext);
+            //await SeedCustomerDataAsync(dbContext);
 
-            SeedWarehouseData(dbContext);
+            //SeedWarehouseData(dbContext);
 
-            SeedVehicleTypeDataAsync(dbContext);
-            SeedVehicleData(dbContext);
-            SeedVehicleFeatureData(dbContext);
-            SeedDriverAbilityData(dbContext);
-            SeedFeatureOfVehicleData(dbContext);
+            //SeedVehicleTypeDataAsync(dbContext);
+            //SeedVehicleData(dbContext);
+            //SeedVehicleFeatureData(dbContext);
+            //SeedDriverAbilityData(dbContext);
+            //SeedFeatureOfVehicleData(dbContext);
 
-			//SeedRequestData(dbContext);
-			//SeedShipmentData(dbContext);
-			//SeedShipmentRequestData(dbContext);
-			//SeedVehicleFeatureRequest(dbContext);
-		}
+            SeedRequestData(dbContext);
+            SeedShipmentData(dbContext);
+            SeedShipmentRequestData(dbContext);
+            SeedVehicleFeatureRequest(dbContext);
+        }
 
         private static string ConverIntToString(int input)
         {

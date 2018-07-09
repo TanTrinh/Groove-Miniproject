@@ -24,6 +24,8 @@ namespace Domains.GoGo.Models.Transportation
 
 		public int PackageQuantity { get; set; }
 
+        public bool flag { get; set; } = true;
+
 		public string Code { set; get; }
 	}
 

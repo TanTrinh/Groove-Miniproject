@@ -17,7 +17,7 @@ namespace Domains.GoGo.Repositories.Transportation
 		Task<RequestDetailModel> GetRequestDetailAsync(int? id);
 
 		Task<IEnumerable<DataSourceValue<int>>> GetDataSource(string value, int warehouseId);
-
+        Task<IEnumerable<RequestsModel>> GetAllAsyncByWareHouseId(string warehouseId);
         Task<RequestsModel> GetRequestByIdAsync(string code);
 
 		IEnumerable<RequestsModel> GetRequestsByShipmentId(int shipmentId);
