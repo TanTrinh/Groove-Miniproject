@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="border-custom">
-    <h1 [hidden]="!isCreateFormMode">Create Request</h1>
-    <h1 [hidden]="!isUpdateFormMode">Update Request</h1>
-    <h1 [hidden]="!isViewFormMode">Request Detail</h1>
+    <h1 [hidden]="!isCreateFormMode" class="heading">Create Request</h1>
+    <h1 [hidden]="!isUpdateFormMode" class="heading">Update Request</h1>
+    <h1 [hidden]="!isViewFormMode" class="heading">Request Detail</h1>
   </div>
   <div class="container-fluid row pt-3">
 
@@ -17,12 +17,12 @@
               <span>Create</span>
             </legend>
 
-            <div class="btn-wrapper">
+            <div *ngIf="isCustomer" class="btn-wrapper">
               <button *ngIf="!isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToListPage()">Back to List</button>
               <button *ngIf="isUpdateFormMode" type="button" class="btn btn-secondary btn-sm mr-1 mb-1" (click)="onNavigateToViewPage()">Cancel</button>
-              <button *ngIf="!isViewFormMode" type="submit" class="btn btn-primary btn-sm mb-1">Save</button>
+              <button *ngIf="!isViewFormMode" type="submit" class="btn btn-primary btn-sm mb-1" [disabled]="mainForm.invalid">Save</button>
               <button *ngIf="isViewFormMode" type="button" routerLink="/request/form/update/{{formData?.id}}" class="btn btn-info btn-sm mr-1 mb-1">Update</button>
-              <button type="button" class="btn btn-primary btn-sm btn-width mr-1 mb-1" *ngIf="isViewFormMode && (requestStatus == 'not accepted')"
+              <button *ngIf="isViewFormMode && (requestStatus == 'not accepted')" type="button" class="btn btn-primary btn-sm btn-width mr-1 mb-1"
                       (click)="onClickStatus(formData.id, formData.status)">
                 {{onLoadGrid(formData.status)}}
               </button>
@@ -129,7 +129,7 @@
 
             <div class="form-group">
               <label for="address">Delivery Address</label>
-              <input type="text" class="form-control" [(ngModel)]="formData.address" name="address" #address="ngModel" required [readonly]="isViewFormMode">
+              <input (change)="onChangeAddress(formData.address)" type="text" class="form-control" [(ngModel)]="formData.address" name="address" #address="ngModel" required [readonly]="isViewFormMode">
               <div [ngClass]="{'hidden': address.valid || (!address.dirty && !address.touched)}" class="validation-message2">
                 Delivery Address is required.
               </div>

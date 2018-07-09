@@ -124,9 +124,9 @@ namespace Domains.GoGo.Services
         }
 
         // For Customer to get request detail
-        public async Task<CustomerRequestModel> FindCustomerRequestAsync(int requestId, long userId)
+        public async Task<CustomerRequestModel> FindCustomerRequestAsync(int requestId, long userId, string role)
         {
-            return await _repository.FindCustomerRequestAsync(requestId, userId);
+            return await _repository.FindCustomerRequestAsync(requestId, userId, role);
         }
 
         // For Customer to change request status
