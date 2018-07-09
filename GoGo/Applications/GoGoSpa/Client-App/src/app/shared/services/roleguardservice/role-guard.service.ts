@@ -16,6 +16,7 @@ export class RoleGuardService implements CanActivate {
     // on the data property
     const expectedRole = route.data.expectedRole;
     const token = localStorage.getItem('tokenKey');
+    var checkRole: boolean = false;
 
     if (token != null && token != "undefined") {
       const tokenKey = JSON.parse(token);
@@ -24,9 +25,14 @@ export class RoleGuardService implements CanActivate {
       // decode the token to get its payload
       const tokenPayload = decode(currentToken);
       var role = tokenPayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-
-      if (!this.auth.isAuthenticated() || role !== expectedRole) {
-        this.router.navigate(['login']);
+      for (var i = 0; i < expectedRole.length; i++) {
+        if (expectedRole[i] == role) {
+          checkRole = true;
+          break;
+        }
+      }
+      if (!this.auth.isAuthenticated() || !checkRole) {
+        this.router.navigate(['401']);
         return false;
       }
       return true;

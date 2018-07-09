@@ -35,7 +35,7 @@ thead .a{
 .border-custom {
   border-bottom-style: solid;
   border-width: 1px;
-  border-bottom-color: $main-color;
+  border-bottom-color: deepskyblue;
 }
 
 img {
@@ -318,3 +318,17 @@ button.toast-close-button {
   background-color: $main-color;
 }
 
+.heading {
+  padding-top: 0.5em;
+  color: red;
+}
+
+.k-list-container .k-button.k-state-active, .k-list-container .k-button:active, .k-list-optionlabel.k-state-selected, .k-list .k-item.k-state-selected, .k-menu-group .k-item.k-state-selected, .k-menu.k-context-menu .k-item.k-state-selected, .k-spreadsheet-popup .k-button.k-state-active, .k-spreadsheet-popup .k-button.k-state-selected, .k-spreadsheet-popup .k-button:active {
+  color: #fff;
+  background-color: $main-color;
+}
+
+.k-list-container .k-button.k-state-active:hover, .k-list-container .k-button:hover, .k-list-optionlabel.k-state-selected:hover, .k-list .k-item.k-state-selected:hover, .k-menu-group .k-item.k-state-selected:hover, .k-menu.k-context-menu .k-item.k-state-selected:hover, .k-spreadsheet-popup .k-button.k-state-active:hover, .k-spreadsheet-popup .k-button.k-state-selected:hover, .k-spreadsheet-popup .k-button:hover {
+  color: #fff;
+  background-color: $main-color;
+}

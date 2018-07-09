@@ -24,7 +24,7 @@ namespace GoGoApi.Controllers.GoGo
         // GET /api/shipmentrequest/{requestId}/status
         [Route("{requestId}/status")]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Customer, Coordinator")]
         public IActionResult GetRequestStatus(int requestId)
         {
             var result = _shipmentRequestService.GetRequestStatus(requestId, 1);

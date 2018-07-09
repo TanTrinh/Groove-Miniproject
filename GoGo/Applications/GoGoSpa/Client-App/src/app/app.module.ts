@@ -50,6 +50,7 @@ import { ShipmentPickingComponent } from './shipment/shipment-picking/shipment-p
 import { AgmCoreModule } from '@agm/core';
 import { NotfoundComponent } from './modules/notfound/notfound.component';
 import { RequestModule } from './modules/request/request.module';
+import { AccessDeniedComponent } from './modules/access-denied/access-denied.component';
 
 
 
@@ -82,10 +83,10 @@ const APP_INITIALIZER_PROVIDER: FactoryProvider = {
     ShipmentPickingComponent,
     UserProfileComponent,
     UserProfileEditComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    AccessDeniedComponent
   ],
   imports: [
-    RequestModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

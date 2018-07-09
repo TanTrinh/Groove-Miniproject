@@ -3,7 +3,7 @@ import { RequestService } from '../request.service';
 import { Observable } from 'rxjs';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { State, DataSourceRequestState } from '@progress/kendo-data-query';
-
+import { SharingService } from '../../../shared/sevices/sharing-service.service';
 @Component({
   selector: 'app-request-list',
   templateUrl: './request-list.component.html',
@@ -15,8 +15,9 @@ export class RequestListComponent implements OnInit {
     skip: 0,
     take: 10
   };
+  private canCreate: boolean;
 
-  constructor(private _requestService: RequestService) {
+  constructor(private _requestService: RequestService, private _sharingService: SharingService) {
     this._requestService.fetch(this.state).subscribe(result => {
       for (var i = 0; i < result.data.length; i++) {
         result.data[i].pickingDate = new Date(result.data[i].pickingDate);
@@ -25,6 +26,7 @@ export class RequestListComponent implements OnInit {
       this.view = result;
     });
 
+    (this._sharingService.getRole() == "Customer") ? this.canCreate = true : this.canCreate = false;
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {

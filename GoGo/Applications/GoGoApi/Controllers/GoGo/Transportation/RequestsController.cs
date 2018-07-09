@@ -54,7 +54,7 @@ namespace GoGoApi.Controllers.GoGo
         // POST /api/requests
         [Route("")]
         [HttpPost]
-        [Authorize]
+		[Authorize(Roles = "Customer")]
         public async Task<IActionResult> CreateRequest([FromBody]CustomerRequestModel model)
         {
             if (!ModelState.IsValid)
@@ -71,7 +71,7 @@ namespace GoGoApi.Controllers.GoGo
         // PUT /api/requests/{requestId}
         [Route("{requestId}")]
         [HttpPut]
-        //[Authorize]
+		[Authorize(Roles = "Customer")]
         public async Task<IActionResult> UpdateRequest([FromBody]CustomerRequestModel model)
         {
             if (!ModelState.IsValid)
@@ -88,7 +88,7 @@ namespace GoGoApi.Controllers.GoGo
         // GET /api/requests
         [Route("")]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Customer, Coordinator")]
         public IActionResult GetRequests([DataSourceRequest]DataSourceRequest request)
         {
             var userId = GetCurrentUserId<long>();
@@ -100,20 +100,29 @@ namespace GoGoApi.Controllers.GoGo
         // GET /api/requests/{requestId}
         [Route("{requestId}")]
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Customer, Coordinator")]
         public async Task<IActionResult> GetRequestAsync(int requestId)
         {
             var userId = GetCurrentUserId<long>();
-            var requestResult = await _requestService.FindCustomerRequestAsync(requestId, userId);
-            var featureResult = _vehicleFeatureRequestService.FindVehicleFeature(requestId);
-            requestResult.VehicleFeature = featureResult;
-            return Ok(requestResult);
+            string role = this.User.Claims.Where(p => p.Type == ClaimTypes.Role).FirstOrDefault().Value;
+            var requestResult = await _requestService.FindCustomerRequestAsync(requestId, userId, role);
+            if (requestResult != null)
+            {
+                var featureResult = _vehicleFeatureRequestService.FindVehicleFeature(requestId);
+                requestResult.VehicleFeature = featureResult;
+
+                return Ok(requestResult);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
-        // 
+        // PUT /api/requests/{requestId}/status
         [Route("{requestId}/status")]
         [HttpPut]
-        [Authorize]
+        [Authorize(Roles = "Customer")]
         public IActionResult ChangeStatus(int requestId,[FromBody] StringObject status)
         {
             if (status.content != RequestStatus.INACTIVE && status.content != RequestStatus.WAITING)
