@@ -4,8 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationService } from '../../../shared/component/dialog/notification.service';
 import { RequestService } from '../request.service';
 import { DatePipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { SharingService } from '../../../shared/sevices/sharing-service.service';
+
 
 @Component({
   selector: 'app-request-form',
@@ -14,13 +15,13 @@ import { SharingService } from '../../../shared/sevices/sharing-service.service'
 })
 
 export class RequestFormComponent extends FormBaseComponent implements OnInit {
-  public warehouseList: Array<any> = []; 
+  public warehouseList: Array<any> = [];
   public vehicleFeatureList: Array<any> = [];
   public requestStatus: string = '';
   private isCustomer: boolean;
-  public addDelivery: string = this.formData.address;
+  public addDelivery: BehaviorSubject<string> = new BehaviorSubject<string>(this.formData.address);
   public message: string = '';
-
+  public isRoute: boolean;
   constructor(protected route: ActivatedRoute,
     protected router: Router,
     protected requestService: RequestService,
@@ -34,11 +35,11 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     (this._sharingService.getRole() == "Customer") ? this.isCustomer = true : this.isCustomer = false;
     //this.canAccess = (formMode) => { this.canAccessUpdate(formMode) };
     this.canAccess = this.canAccessUpdate;
-    this.formConfiguration.events.onAfterInitFormData = (data)=> {
+    this.formConfiguration.events.onAfterInitFormData = (data) => {
       this.onBeforeInitFormData(data);
     };
     super.formOnInit("Request", {});
-
+    this.isRoute = false;
   }
 
   public canAccessUpdate(formMode) {
@@ -127,7 +128,7 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
           this.warehouseList = data;
         }
       });
-      
+
     }
   }
 
@@ -143,10 +144,16 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   }
 
   public onChangeAddress(data) {
-    this.addDelivery = data;
+    console.log(1);
+    this.addDelivery.next(data);
     console.log(this.addDelivery)
   }
 
+  public onAddressDeliveryLocated(location) {
+    console.log(location);
+    this.formData.deliveryLatitude = location.lat;
+    this.formData.deliveryLongitude = location.lng;
+  }
   ngOnInit() {
   }
 
