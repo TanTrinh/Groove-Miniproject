@@ -139,7 +139,7 @@ namespace GoGoApi.Controllers.GoGo
         [Authorize(Roles = "Customer, Coordinator")]
         public IActionResult ChangeStatus(int requestId,[FromBody] StringObject status)
         {
-            if (status.content != RequestStatus.INACTIVE && status.content != RequestStatus.WAITING && status.content != RequestStatus.ACCEPTED && status.content != RequestStatus.REJECTED)
+            if (status.content != RequestStatus.INACTIVE && status.content != RequestStatus.SENDING && status.content != RequestStatus.ACCEPTED && status.content != RequestStatus.REJECTED)
             {
                 return BadRequest();
             }

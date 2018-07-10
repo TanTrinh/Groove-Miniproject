@@ -70,7 +70,7 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   }
 
   public onClickStatus(requestId, status) {
-    if (status == this.requestStatusGeneral.Accepted || status == this.requestStatusGeneral.Rejected || status == this.requestStatusGeneral.Waiting || status == this.requestStatusGeneral.Inactive) {
+    if (status == this.requestStatusGeneral.Accepted || status == this.requestStatusGeneral.Rejected || status == this.requestStatusGeneral.Sending || status == this.requestStatusGeneral.Inactive) {
       console.log(status);
       this.requestService.changeStatus(requestId, status).subscribe(
         result => {

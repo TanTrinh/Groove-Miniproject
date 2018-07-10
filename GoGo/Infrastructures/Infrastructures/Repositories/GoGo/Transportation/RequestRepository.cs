@@ -49,7 +49,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
             // TODO: Create RequestStatus class for Constant instead of hard code
             return await this.dbSet.Where(p => (( p.Code.Contains(value) || p.Address.Contains(value)) 
-									&& !requestedIdList.Contains(p.Id) && p.Status == RequestStatus.WAITING && p.WareHouseId == warehouseId ) )
+									&& !requestedIdList.Contains(p.Id) && p.Status == RequestStatus.SENDING && p.WareHouseId == warehouseId ) )
 									.Select(p => new DataSourceValue<int>
 									{
 										Value = p.Id,

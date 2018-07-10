@@ -277,7 +277,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 		public string GetRequestStatus(int requestId, int userId)
 		{
-			return this.dbSet.Where(p => p.RequestId == requestId).Select(p => p.Status).FirstOrDefault();
+			return this.dbSet.Where(p => p.RequestId == requestId && p.Status != ShipmentRequestStatus.INACTIVE).Select(p => p.Status).FirstOrDefault();
 		}
 	}
 
