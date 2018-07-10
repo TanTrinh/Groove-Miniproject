@@ -50,6 +50,15 @@ namespace GoGoApi.Controllers.GoGo
             return Ok(await _requestService.GetRequestByIdAsync(id));
         }
 
+        [Route("filer/warehouse/{warehouseId}")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsyncByWarehouseId(string warehouseId)
+        {
+
+            return Ok(await _requestService.GetAllAsyncByWarehouseId(warehouseId));
+        }
+
+
         // Đ
         // POST /api/requests
         [Route("")]
