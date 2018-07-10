@@ -97,7 +97,7 @@ export class ShipmentPickingComponent implements OnInit {
       infoMarkerRequest.latlng = this.InitLatlng(item.location.latitude, item.location.longitude);
       infoMarkerRequest.description = item.code;
       infoMarkerRequest.isRoute = true;// TODO: never hardcode strign value in codes, create class to store constant
-      
+      infoMarkerRequest.address = item.location.address;
       if (item.status == this.statusDelivery.COMPLETED || item.isProblem == true) {// TODO: never hardcode strign value in codes, create class to store constant
         infoMarkerRequest.isRoute = false;// TODO: never hardcode strign value in codes, create class to store constant
       }

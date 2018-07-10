@@ -69,13 +69,12 @@ export class GgmapComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.isRoute)
     this.initMap(this.latcenter, this.lngcenter); 
     if (this.isRoute == false) {
       var addressDeliveryValue: string;
       var addressWarehouseValue: string;
       this.addressDelivery.subscribe(result => {
-        console.log(this.oldMarkerDelivery)
+       
         addressDeliveryValue = result
         if (addressDeliveryValue != '') {
           this.geocodeAddress(addressDeliveryValue, this.iconNext, this.map);
@@ -84,7 +83,6 @@ export class GgmapComponent implements OnInit, OnDestroy {
 
     }
     if (this.isRoute == true) {
-      console.log(1);
       if (APP_SETTINGS.shipmentMap.locationUpdateIntervalMilisec > 0) {
         this.intervalDisposer = setInterval(() => {
           this.getYourPosition(() => {
@@ -126,7 +124,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
   drawMarkers() {
     var index;
     var isCurrent: boolean = false;
-
+    
     //init Warehouse marker
     var marker = new google.maps.Marker({
       position: this.Waypts[0].latlng,
@@ -146,9 +144,8 @@ export class GgmapComponent implements OnInit, OnDestroy {
         m.setAnimation(google.maps.Animation.BOUNCE);
       }
       this.clickInfoWindow(m, this.Waypts[index].description)
-      this.hoverInfoWindow(m, this.Waypts[index].description, infoWindow);
+      this.hoverInfoWindow(m, this.Waypts[index], infoWindow);
       this.mouseOutInfoWindow(m, this.Waypts[index].description, infoWindow);
-
       this.markersClean.push(m);
     }
   }
@@ -186,7 +183,8 @@ export class GgmapComponent implements OnInit, OnDestroy {
     });
    
     var index;
-    for (index = 0; index < this.Waypts.length - 1; index++) {
+    for (index = 0; index < this.Waypts.length; index++) {
+     
       if (this.Waypts[index].isRoute == true) {// TODO: never hardcode strign value in codes, create class to store constant
         waypts.push({
           location: this.Waypts[index].latlng,
@@ -223,8 +221,12 @@ export class GgmapComponent implements OnInit, OnDestroy {
   }
 
   hoverInfoWindow(marker, data, infoWindow) {
-    google.maps.event.addListener(marker, 'mouseover', function () {
-      infoWindow.setContent("<div style = 'width:150px;min-height:10px;color:blue;text-align:center'>" + data + "</div>");
+   google.maps.event.addListener(marker, 'mouseover', function () {
+      infoWindow.setContent("<div style = 'width:150px;min-height:10px'>" +
+        "<p style='font-weight:500; font-size:14px'>" + data.description + "</p>" +
+        "<p style='font-size:14px'>" + data.address + "</p>"+
+        "</div>");
+    //  infoWindow.setContent(contentString);
       infoWindow.open(this.map, marker);
     
     });
@@ -243,10 +245,9 @@ export class GgmapComponent implements OnInit, OnDestroy {
     var marker = new google.maps.Marker();
     this.oldMarkerDelivery = marker;
     var infoWindow = new google.maps.InfoWindow();
-    this.hoverInfoWindow(marker, address, infoWindow);
-    this.mouseOutInfoWindow(marker, address, infoWindow);
+    infoWindow.setContent(address);
+    infoWindow.open(map, marker);
     geocoder = new google.maps.Geocoder();
-
     let $self = this;
     if (geocoder) {
       geocoder.geocode({
