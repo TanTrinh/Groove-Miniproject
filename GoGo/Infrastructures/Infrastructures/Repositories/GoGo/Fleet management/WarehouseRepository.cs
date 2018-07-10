@@ -52,7 +52,7 @@ namespace Infrastructures.Repositories.GoGo
         // Đ
         public async Task<IEnumerable<DataSourceValue<int>>> GetOnFilter(string displayName, long userId)
         {
-            return await this.dbSet.Where(p => p.NameWarehouse.Contains(displayName) && p.OwnerId == userId)
+            return await this.dbSet.Where(p => p.Address.Contains(displayName) && p.OwnerId == userId)
                 .MapQueryTo<DataSourceValue<int>>(_mapper).ToListAsync(); 
         }
         // End Đ

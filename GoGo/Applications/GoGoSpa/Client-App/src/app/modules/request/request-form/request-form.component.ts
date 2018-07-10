@@ -6,6 +6,7 @@ import { RequestService } from '../request.service';
 import { DatePipe } from '@angular/common';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SharingService } from '../../../shared/sevices/sharing-service.service';
+import { RequestStatus } from '../../../shared/models/utilities';
 
 
 @Component({
@@ -18,10 +19,13 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   public warehouseList: Array<any> = [];
   public vehicleFeatureList: Array<any> = [];
   public requestStatus: string = '';
-  private isCustomer: boolean;
+  private isCustomer: boolean = false;
+  private isCoordinator: boolean = false;
   public addDelivery: BehaviorSubject<string> = new BehaviorSubject<string>(this.formData.address);
   public message: string = '';
   public isRoute: boolean;
+  public requestStatusGeneral: RequestStatus = new RequestStatus();
+
   constructor(protected route: ActivatedRoute,
     protected router: Router,
     protected requestService: RequestService,
@@ -32,8 +36,14 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   ) {
     super(route, router, notificationService, requestService, validationService);
     this.resetFormData = (formMode) => { this.resetData(formMode) };
-    (this._sharingService.getRole() == "Customer") ? this.isCustomer = true : this.isCustomer = false;
-    //this.canAccess = (formMode) => { this.canAccessUpdate(formMode) };
+    if (this._sharingService.getRole() == "Customer") {
+      this.isCustomer = true;
+      this.isCoordinator = false;
+    }
+    else if (this._sharingService.getRole() == "Coordinator") {
+      this.isCustomer = false;
+      this.isCoordinator = true;
+    }
     this.canAccess = this.canAccessUpdate;
     this.formConfiguration.events.onAfterInitFormData = (data) => {
       this.onBeforeInitFormData(data);
@@ -43,40 +53,30 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
   }
 
   public canAccessUpdate(formMode) {
-    console.log(formMode)
-    console.log(!this.isCustomer)
-    if (formMode == 'update' && !this.isCustomer) {
-      console.log(1);
-      return false;
+    if (formMode == 'update') {
+      if (!this.isCustomer) {
+        return false;
+      }
+      else {
+        if (this.formData.status != this.requestStatusGeneral.Inactive && this.formData.status != this.requestStatusGeneral.Rejected) {
+          return false;
+        }
+        return true;
+      }
     }
     else {
       return true;
     }
   }
 
-  public onLoadGrid(status) {
-    if (status == 'Inactive') {
-      return 'Activate';
-    }
-    else if (status == 'Waiting') {
-      return 'Deactivate'
-    }
-  }
-
   public onClickStatus(requestId, status) {
-    if (status == 'Inactive') {
-      this.requestService.changeStatus(requestId, 'Waiting').subscribe(
+    if (status == this.requestStatusGeneral.Accepted || status == this.requestStatusGeneral.Rejected || status == this.requestStatusGeneral.Waiting || status == this.requestStatusGeneral.Inactive) {
+      console.log(status);
+      this.requestService.changeStatus(requestId, status).subscribe(
         result => {
           console.log(result);
-          this.formData.status = result.result;
-        }
-      );
-    }
-    else if (status == 'Waiting') {
-      this.requestService.changeStatus(requestId, 'Inactive').subscribe(
-        result => {
-          console.log(result);
-          this.formData.status = result.result;
+          this.requestStatus = result.result;
+          this.refreshForm();
         });
     }
   }
@@ -113,7 +113,7 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
         if (data != null && data != undefined) {
           this.requestStatus = data.result;
           if (this.requestStatus == null || this.requestStatus == undefined) {
-            this.requestStatus = 'not accepted';
+            this.requestStatus = this.formData.status;
           }
         }
       });
@@ -154,7 +154,22 @@ export class RequestFormComponent extends FormBaseComponent implements OnInit {
     this.formData.deliveryLatitude = location.lat;
     this.formData.deliveryLongitude = location.lng;
   }
+
+  //public onSubmitForm(mainForm) {
+  //  if (this.formData.pickingDate < Date.now) {
+  //    alert('Picking Date can not less than now');
+  //  } else if (this.formData.expectedDate < Date.now) {
+  //    alert('Expected Date can not less than now');
+  //  }
+  //  else if (this.formData.expectedDate < this.formData.pickingDate) {
+  //    alert('Expected Date can not less than Picking Date');
+  //  }
+  //  super.onSubmitForm(mainForm);
+  //}
   ngOnInit() {
+    if (this.formData.address != null && this.formData != undefined) {
+
+    }
   }
 
 }

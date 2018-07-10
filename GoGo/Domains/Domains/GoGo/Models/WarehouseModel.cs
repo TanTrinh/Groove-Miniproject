@@ -18,10 +18,10 @@ namespace Domains.GoGo.Models
         {
             CreateMap<WareHouse, DataSourceValue<int>>()
                 .ForMember(desination => desination.Value, option => option.MapFrom(source => source.Id))
-                .ForMember(desination => desination.DisplayName, option => option.MapFrom(source => source.NameWarehouse));
+                .ForMember(desination => desination.DisplayName, option => option.MapFrom(source => source.Address));
             CreateMap<DataSourceValue<int>, WareHouse>()
                 .ForMember(desination => desination.Id, option => option.MapFrom(source => source.Value))
-                .ForMember(desination => desination.NameWarehouse, option => option.MapFrom(source => source.DisplayName));
+                .ForMember(desination => desination.Address, option => option.MapFrom(source => source.DisplayName));
         }
     }
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { State, DataSourceRequestState } from '@progress/kendo-data-query';
 import { SharingService } from '../../../shared/sevices/sharing-service.service';
+import { RequestStatus } from '../../../shared/models/utilities';
 @Component({
   selector: 'app-request-list',
   templateUrl: './request-list.component.html',
@@ -16,6 +17,7 @@ export class RequestListComponent implements OnInit {
     take: 10
   };
   private canCreate: boolean;
+  public requestStatus: RequestStatus = new RequestStatus();
 
   constructor(private _requestService: RequestService, private _sharingService: SharingService) {
     this._requestService.fetch(this.state).subscribe(result => {

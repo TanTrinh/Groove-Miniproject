@@ -6,16 +6,6 @@
     <div class="card">
       <div class="card-block">
         <form class="k-form">
-          <div class="validate">
-            <div class="pb-3">
-              <button type="button" class="btn btn-secondary btn-sm" (click)="back(model.id)">Cancel</button>&nbsp;
-              <button type="button" class="btn btn-primary btn-sm" (click)="save(model.id)">Save</button>&nbsp;
-            </div>
-            <div [hidden]="!isError" class="validation-message">
-              {{message}}
-            </div>
-          </div>
-
 
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -46,8 +36,8 @@
             </div>
             <div class="col-lg-5 col-md-6 col-sm-12">
 
-              <fieldset class="borderstyle">
-                <legend style="visibility:hidden">User Details</legend>
+              <fieldset>
+                <legend >Role</legend>
                 <label class="k-form-field">
                   <span>Role</span>
                   <kendo-dropdownlist [data]="listItems"
@@ -61,19 +51,29 @@
                   Role is required.
                 </div>
                 <!--<div class="form-group py-2">
-    <label for="role">Role</label>
-    <select type="text" class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
-      <option>Customer</option>
-      <option>Driver</option>
-      <option>Coordinator</option>
-      <option>Administrator</option>
-    </select>
-    <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
-      Role is required.
-    </div>
-  </div>-->
+      <label for="role">Role</label>
+      <select type="text" class="form-control" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
+        <option>Customer</option>
+        <option>Driver</option>
+        <option>Coordinator</option>
+        <option>Administrator</option>
+      </select>
+      <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
+        Role is required.
+      </div>
+    </div>-->
+
 
               </fieldset>
+              <div class="validate">
+                <div class="pb-3">
+                  <button type="button" class="btn btn-secondary btn-sm" (click)="back(model.id)">Cancel</button>&nbsp;
+                  <button type="button" class="btn btn-primary btn-sm" (click)="save(model.id)">Save</button>&nbsp;
+                </div>
+                <div [hidden]="!isError" class="validation-message">
+                  {{message}}
+                </div>
+              </div>
             </div>
 
 

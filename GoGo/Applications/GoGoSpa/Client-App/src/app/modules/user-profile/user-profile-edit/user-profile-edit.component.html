@@ -6,16 +6,6 @@
     <div class="card">
       <div class="card-block">
         <form class="k-form">
-          <div class="validate">
-            <div class="pb-3">
-              <button type="button" class="btn btn-secondary btn-sm" (click)="back()">Cancel</button>&nbsp;
-              <button type="button" class="btn btn-primary btn-sm" (click)="save(model.id)">Save</button>&nbsp;
-            </div>
-            <div [hidden]="!isError" class="validation-message">
-              {{message}}
-            </div>
-          </div>
-
 
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -46,6 +36,16 @@
                 </label>
                 <div [ngClass]="{'hidden': phonenumber.valid || phonenumber.pristine}" class="validation-message">
                   Phone number is required.
+                </div>
+
+                <div class="validate">
+                  <div class="pb-3">
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="back()">Cancel</button>&nbsp;
+                    <button type="button" class="btn btn-primary btn-sm" (click)="save(model.id)">Save</button>&nbsp;
+                  </div>
+                  <div [hidden]="!isError" class="validation-message">
+                    {{message}}
+                  </div>
                 </div>
 
               </fieldset>

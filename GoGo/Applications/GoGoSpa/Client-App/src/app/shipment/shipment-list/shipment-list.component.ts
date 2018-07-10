@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { Renderer2, NgZone, AfterViewInit,  EventEmitter, OnDestroy } from '@angular/core';
 import { take } from 'rxjs/operators/take';
 import { SharingService } from '../../shared/sevices/sharing-service.service';
+import { ShipmentStatus } from '../../shared/models/utilities';
 //import { fromEvent } from 'rxjs/observable/fromEvent';
 
 
@@ -25,6 +26,7 @@ export class ShipmentListComponent{
   private currentSubscription: Subscription;
   private isCoordinator: boolean;
   private canCreate: boolean;
+  public shipmentStatus: ShipmentStatus = new ShipmentStatus();
 
   public state: DataSourceRequestState = {
     skip: 0,

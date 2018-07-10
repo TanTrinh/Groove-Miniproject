@@ -6,16 +6,6 @@
     <div class="card">
       <div class="card-block">
         <form class="k-form">
-          <div class="validate">
-            <div class="pb-3">
-              <button type="button" class="btn btn-secondary btn-sm" (click)="back()">Cancel</button>&nbsp;
-              <button type="button" class="btn btn-primary btn-sm" (click)="onCreate()">Save</button>&nbsp;
-            </div>
-            <div [hidden]="!isError" class="validation-message">
-              {{message}}
-            </div>
-          </div>
-
 
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -107,6 +97,18 @@
                 <div [ngClass]="{'hidden': role.valid || role.pristine}" class="validation-message">
                   Role is required.
                 </div>
+
+
+                <div class="validate">
+                  <div class="pb-3">
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="back()">Cancel</button>&nbsp;
+                    <button type="button" class="btn btn-primary btn-sm" (click)="onCreate()">Save</button>&nbsp;
+                  </div>
+                  <div [hidden]="!isError" class="validation-message">
+                    {{message}}
+                  </div>
+                </div>
+
                 <!--<div class="k-form-field">
     <label for="role">Role<span class="note">*</span></label>
     <select type="text" class="k-form-field" id="role" [(ngModel)]="model.role" name="role" #role="ngModel" required>
