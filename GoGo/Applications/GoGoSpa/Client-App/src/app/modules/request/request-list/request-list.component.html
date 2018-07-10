@@ -27,7 +27,7 @@
     <kendo-grid-column field="status" title="Status" [width]="105">
       <ng-template kendoGridCellTemplate let-dataItem>
         <span *ngIf="dataItem.status == requestStatus.Inactive" class="badge badge-pill badge-secondary">{{dataItem.status}}</span>
-        <span *ngIf="dataItem.status == requestStatus.Waiting" class="badge badge-pill badge-primary">{{dataItem.status}}</span>
+        <span *ngIf="dataItem.status == requestStatus.Sending" class="badge badge-pill badge-primary">{{dataItem.status}}</span>
         <span *ngIf="dataItem.status == requestStatus.Accepted" class="badge badge-pill badge-success">{{dataItem.status}}</span>
         <span *ngIf="dataItem.status == requestStatus.Rejected" class="badge badge-pill badge-danger">{{dataItem.status}}</span>
       </ng-template>

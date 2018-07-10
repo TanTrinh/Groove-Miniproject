@@ -14,10 +14,19 @@
               <span class="code-size">
                 {{formData.code}}
                 <span>
+
                   <span *ngIf="requestStatus == requestStatusGeneral.Inactive" class="badge badge-pill badge-secondary size">{{requestStatus}}</span>
-                  <span *ngIf="requestStatus == requestStatusGeneral.Waiting" class="badge badge-pill badge-primary size">{{requestStatus}}</span>
+                  <span *ngIf="requestStatus == requestStatusGeneral.Sending" class="badge badge-pill badge-primary size">{{requestStatus}}</span>
                   <span *ngIf="requestStatus == requestStatusGeneral.Accepted" class="badge badge-pill badge-success size">{{requestStatus}}</span>
                   <span *ngIf="requestStatus == requestStatusGeneral.Rejected" class="badge badge-pill badge-danger size">{{requestStatus}}</span>
+
+
+                  <span *ngIf="requestStatus == requestStatusGeneral.Waiting" class="badge badge-pill badge-primary size">{{requestStatus}}</span>
+
+                  <span *ngIf="requestStatus == requestStatusGeneral.Shipping" class="badge badge-pill badge-primary size">{{requestStatus}}</span>
+                  <span *ngIf="requestStatus == requestStatusGeneral.Unloading" class="badge badge-pill badge-info size">{{requestStatus}}</span>
+                  <span *ngIf="requestStatus == requestStatusGeneral.Completed" class="badge badge-pill badge-success size">{{requestStatus}}</span>
+
                 </span>
               </span>
             </legend>
@@ -27,11 +36,11 @@
 
             <div *ngIf="isCoordinator && isViewFormMode" class="btn-wrapper mb-4">
               <button type="button" class="width btn btn-success btn-sm mr-1" (click)="onClickStatus(formData.id, requestStatusGeneral.Accepted)"
-                      [disabled]="requestStatus == requestStatusGeneral.Accepted">
+                       *ngIf="requestStatus == requestStatusGeneral.Rejected || requestStatus == requestStatusGeneral.Sending">
                 Accept
               </button>
               <button type="button" class="width btn btn-danger btn-sm" (click)="onClickStatus(formData.id, requestStatusGeneral.Rejected)"
-                      [disabled]="requestStatus == requestStatusGeneral.Rejected">
+                       *ngIf="requestStatus == requestStatusGeneral.Accepted || requestStatus == requestStatusGeneral.Sending">
                 Reject
               </button>
             </div>
@@ -164,12 +173,12 @@
     </div>-->
             </div>
             <div *ngIf="isCustomer && isViewFormMode" class="btn-wrapper float-right">
-              <button type="button" class="width btn btn-primary btn-sm" (click)="onClickStatus(formData.id, requestStatusGeneral.Waiting)"
+              <button type="button" class="width btn btn-primary btn-sm" (click)="onClickStatus(formData.id, requestStatusGeneral.Sending)"
                       *ngIf="requestStatus == requestStatusGeneral.Inactive">
                 Activate
               </button>
               <button type="button" class="width btn btn-secondary btn-sm" (click)="onClickStatus(formData.id, requestStatusGeneral.Inactive)"
-                      *ngIf="requestStatus == requestStatusGeneral.Waiting">
+                      *ngIf="requestStatus == requestStatusGeneral.Sending">
                 Deactivate
               </button>
             </div>

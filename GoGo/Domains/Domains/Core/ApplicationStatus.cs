@@ -19,19 +19,21 @@ namespace Domains.Core
     public class ShipmentRequestStatus
     {
         public const string INACTIVE = "Inactive";
-        public const string CREATED = "Created";
-        public const string UPDATED = "Updated";
-
         public const string WAITING = "Waiting";
         public const string SHIPPING = "Shipping";
         public const string UNLOADING = "Unloading";
         public const string COMPLETED = "Completed";
+
+        //Another path
+        public const string CREATED = "Created";
+        public const string UPDATED = "Updated";
+
     }
 
-	public class RequestStatus
+    public class RequestStatus
 	{
 		public const string INACTIVE = "Inactive";
-		public const string WAITING =  "Waiting";
+		public const string SENDING =  "Sending";
 		public const string ACCEPTED =  "Accepted";
 		public const string REJECTED =  "Rejected";
     }

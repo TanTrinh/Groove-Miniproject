@@ -43,11 +43,11 @@
     <kendo-grid-column field="status" title="Status">
       <ng-template kendoGridCellTemplate let-dataItem>
         <span *ngIf="dataItem.status == shipmentStatus.INACTIVE" class="badge badge-pill badge-secondary">{{dataItem.status}}</span>
-        <span *ngIf="dataItem.status == shipmentStatus.WAITING" class="badge badge-pill badge-warning">{{dataItem.status}}</span>
-        <span *ngIf="dataItem.status == shipmentStatus.ACCEPTED" class="badge badge-pill badge-success">{{dataItem.status}}</span>
+        <span *ngIf="dataItem.status == shipmentStatus.WAITING" class="badge badge-pill badge-info">{{dataItem.status}}</span>
+        <span *ngIf="dataItem.status == shipmentStatus.ACCEPTED" class="badge badge-pill badge-primary">{{dataItem.status}}</span>
         <span *ngIf="dataItem.status == shipmentStatus.REJECTED" class="badge badge-pill badge-danger">{{dataItem.status}}</span>
         <span *ngIf="dataItem.status == shipmentStatus.PICKING" class="badge badge-pill badge-primary">{{dataItem.status}}</span>
-        <span *ngIf="dataItem.status == shipmentStatus.LOADING" class="badge badge-pill badge-warning">{{dataItem.status}}</span>
+        <span *ngIf="dataItem.status == shipmentStatus.LOADING" class="badge badge-pill badge-primary">{{dataItem.status}}</span>
         <span *ngIf="dataItem.status == shipmentStatus.SHIPPING" class="badge badge-pill badge-primary">{{dataItem.status}}</span>
         <span *ngIf="dataItem.status == shipmentStatus.COMPLETED" class="badge badge-pill badge-success">{{dataItem.status}}</span>
       </ng-template>

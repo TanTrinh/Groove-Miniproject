@@ -3,10 +3,17 @@ export class StringObject {
 }
 
 export class RequestStatus {
+  public readonly Removed = 'Removed';
+
   public readonly Inactive = 'Inactive';
-  public readonly Waiting = 'Waiting';
+  public readonly Sending = 'Sending';
   public readonly Accepted = 'Accepted';
   public readonly Rejected = 'Rejected';
+
+  public readonly Waiting = "Waiting";
+  public readonly Shipping = "Shipping";
+  public readonly Unloading = "Unloading";
+  public readonly Completed = "Completed";
 }
 
 export class ShipmentStatus {
