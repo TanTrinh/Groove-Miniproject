@@ -164,9 +164,9 @@ export class ShipmentPickingComponent implements OnInit {
     })
   }
 
-  viewRequest(item: requestDetail) {
+  viewRequest(code) {
     this.changeNav(this.requestView);// TODO: never hardcode strign value in codes, create class to store constant
-    this.service.getRequest(item.code).subscribe(data => {
+    this.service.getRequest(code).subscribe(data => {
       this.request = data;
     })
   }
@@ -220,6 +220,9 @@ export class ShipmentPickingComponent implements OnInit {
     this.router.navigate(['/shipment/form/update', this.shipmentDetail.id]);
   }
 
+  markerClick(code) {
+    this.viewRequest(code.code);
+  }
  }
 
  
