@@ -5,4 +5,5 @@ export class infoMarker {
   description : string;
   isRoute: boolean;
   latlng: LatLng;
+  address: string;
 }

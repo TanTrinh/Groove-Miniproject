@@ -97,7 +97,7 @@ export class ShipmentPickingComponent implements OnInit {
       infoMarkerRequest.latlng = this.InitLatlng(item.location.latitude, item.location.longitude);
       infoMarkerRequest.description = item.code;
       infoMarkerRequest.isRoute = true;// TODO: never hardcode strign value in codes, create class to store constant
-      
+      infoMarkerRequest.address = item.location.address;
       if (item.status == this.statusDelivery.COMPLETED || item.isProblem == true) {// TODO: never hardcode strign value in codes, create class to store constant
         infoMarkerRequest.isRoute = false;// TODO: never hardcode strign value in codes, create class to store constant
       }
@@ -164,9 +164,9 @@ export class ShipmentPickingComponent implements OnInit {
     })
   }
 
-  viewRequest(item: requestDetail) {
+  viewRequest(code) {
     this.changeNav(this.requestView);// TODO: never hardcode strign value in codes, create class to store constant
-    this.service.getRequest(item.code).subscribe(data => {
+    this.service.getRequest(code).subscribe(data => {
       this.request = data;
     })
   }
@@ -220,6 +220,9 @@ export class ShipmentPickingComponent implements OnInit {
     this.router.navigate(['/shipment/form/update', this.shipmentDetail.id]);
   }
 
+  markerClick(code) {
+    this.viewRequest(code.code);
+  }
  }
 
  
