@@ -20,11 +20,10 @@
         <a routerLink="/request/form/view/{{dataItem.id}}">{{dataItem.code}}</a>
       </ng-template>
     </kendo-grid-column>
-    <kendo-grid-column field="wareHouse" title="Warehouse"></kendo-grid-column>
+    <kendo-grid-column field="wareHouse" title="Picking Location"></kendo-grid-column>
     <kendo-grid-column field="address" title="Destination"></kendo-grid-column>
-    <kendo-grid-column field="pickingDate" format="{0:dd/MM/yyyy, hh:mm a}" title="Picking Date">
-    </kendo-grid-column>
-    <kendo-grid-column field="expectedDate" format="{0:dd/MM/yyyy, hh:mm a}" title="Expected Date"></kendo-grid-column>
+    <kendo-grid-column field="pickingDate" format="{0:dd/MM/yyyy, hh:mm a}" title="Picking Date" [width]="170"></kendo-grid-column>
+    <kendo-grid-column field="expectedDate" format="{0:dd/MM/yyyy, hh:mm a}" title="Expected Date" [width]="170"></kendo-grid-column>
     <kendo-grid-column field="status" title="Status" [width]="105">
       <ng-template kendoGridCellTemplate let-dataItem>
         <span *ngIf="dataItem.status == requestStatus.Inactive" class="badge badge-pill badge-secondary">{{dataItem.status}}</span>

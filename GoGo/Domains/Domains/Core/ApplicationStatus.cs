@@ -32,5 +32,7 @@ namespace Domains.Core
 	{
 		public const string INACTIVE = "Inactive";
 		public const string WAITING =  "Waiting";
-	}
+		public const string ACCEPTED =  "Accepted";
+		public const string REJECTED =  "Rejected";
+    }
 }

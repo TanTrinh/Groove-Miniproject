@@ -78,6 +78,11 @@ namespace GoGoApi.Controllers.GoGo
             {
                 return BadRequest(ModelState);
             }
+            
+            if (model.Status == RequestStatus.REJECTED)
+            {
+                model.Status = RequestStatus.INACTIVE;
+            }
 
             var userId = GetCurrentUserId<long>();
             var requestResult = await this._requestService.UpdateCustomerRequest(model, userId);
@@ -122,10 +127,10 @@ namespace GoGoApi.Controllers.GoGo
         // PUT /api/requests/{requestId}/status
         [Route("{requestId}/status")]
         [HttpPut]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Customer, Coordinator")]
         public IActionResult ChangeStatus(int requestId,[FromBody] StringObject status)
         {
-            if (status.content != RequestStatus.INACTIVE && status.content != RequestStatus.WAITING)
+            if (status.content != RequestStatus.INACTIVE && status.content != RequestStatus.WAITING && status.content != RequestStatus.ACCEPTED && status.content != RequestStatus.REJECTED)
             {
                 return BadRequest();
             }

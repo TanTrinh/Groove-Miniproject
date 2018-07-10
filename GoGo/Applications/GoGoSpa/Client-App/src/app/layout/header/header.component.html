@@ -8,10 +8,10 @@
          routerLink="/request/list" routerLinkActive="hold" class="dropdown-item">
         <i class="fas fa-list-alt layout"></i> Request
       </a>
-      <a *ngIf="isRole=='Customer'"
+      <!--<a *ngIf="isRole=='Customer'"
          class=" list-group-item list-group-item-action ">
         <i class="fas fa-warehouse"></i> Warehouse
-      </a>
+      </a>-->
         <a *ngIf="isRole=='Coordinator' || isRole=='Driver'"
            routerLink="/shipment" routerLinkActive="hold" class="dropdown-item">
         <i class="fas fa-shipping-fast"></i> Shipment
@@ -20,14 +20,14 @@
            routerLink="/account" routerLinkActive="hold" class="dropdown-item">
         <i class="fas fa-users"></i> Account
         </a>
-        <a *ngIf="isRole=='Administrator'"
+        <!--<a *ngIf="isRole=='Administrator'"
            routerLinkActive="hold" class="dropdown-item" (click)="displayToastr()">
         <i class="fas fa-user layout"></i> Driver
         </a>
         <a *ngIf="isRole=='Administrator'"
            routerLinkActive="hold" class="dropdown-item" (click)="displayToastr()">
         <i class="fas fa-truck"></i> Vehicle
-        </a>
+        </a>-->
     </div>
   </div>
 

@@ -104,7 +104,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                 return this.dbSet.Include(p => p.WareHouse).Where(p => p.CustomerId == userId).Select(p => new SummaryRequestModel
                 {
                     Id = p.Id,
-                    WareHouse = p.WareHouse.NameWarehouse,
+                    WareHouse = p.WareHouse.Address,
                     ExpectedDate = p.ExpectedDate,
                     Address = p.Address,
                     Status = p.Status,
@@ -114,10 +114,10 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             }
             else
             {
-                return this.dbSet.Include(p => p.WareHouse).Where(p => p.Status == RequestStatus.WAITING).Select(p => new SummaryRequestModel
+                return this.dbSet.Include(p => p.WareHouse).Where(p => p.Status != RequestStatus.INACTIVE).Select(p => new SummaryRequestModel
                 {
                     Id = p.Id,
-                    WareHouse = p.WareHouse.NameWarehouse,
+                    WareHouse = p.WareHouse.Address,
                     ExpectedDate = p.ExpectedDate,
                     Address = p.Address,
                     Status = p.Status,
@@ -141,7 +141,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                                           WareHouse = new DataSourceValue<int>()
                                           {
                                               Value = p.WareHouseId,
-                                              DisplayName = p.WareHouse.NameWarehouse
+                                              DisplayName = p.WareHouse.Address
                                           },
                                           Id = p.Id,
                                           Status = p.Status,
@@ -167,7 +167,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
                                           WareHouse = new DataSourceValue<int>()
                                           {
                                               Value = p.WareHouseId,
-                                              DisplayName = p.WareHouse.NameWarehouse
+                                              DisplayName = p.WareHouse.Address
                                           },
                                           Id = p.Id,
                                           Status = p.Status,

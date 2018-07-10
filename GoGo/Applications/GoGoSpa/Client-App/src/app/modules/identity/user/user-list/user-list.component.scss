@@ -25,3 +25,11 @@ $my-color: #0073e6;
 }
 
 
+a {
+  color: $main-color;
+}
+
+a:hover {
+  color: darkblue;
+  text-decoration: underline;
+}
