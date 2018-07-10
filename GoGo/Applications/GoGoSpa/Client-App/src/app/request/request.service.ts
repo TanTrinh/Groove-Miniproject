@@ -37,6 +37,8 @@ export class RequestsService extends BehaviorSubject<any> {
     return this.https.get(`/api/Requests/${id}/datasourcedetail`);
   }
 
-
+  public getAllRequestByWarehouseId(warehouseId: any): Observable<any> {
+    return this.https.get(`/api/Requests/filer/warehouse/${warehouseId}`);
+  }
 
 }

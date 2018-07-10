@@ -10,9 +10,7 @@ export class LoginGuardService implements CanActivate {
   constructor(public auth: AuthService, public router: Router) { }
 
   canActivate(): boolean {
-    const token = localStorage.getItem('tokenKey');
-    if (token != null || token != undefined) {
-      this.router.navigate(['home']);
+    if (this.auth.isAuthenticated()) {
       return false;
     }
     return true;

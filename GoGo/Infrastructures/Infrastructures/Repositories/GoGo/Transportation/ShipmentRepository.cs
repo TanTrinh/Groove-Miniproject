@@ -39,8 +39,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 			return this.dbSet.MapQueryTo<ShipmentModel>(_mapper).ToDataSourceResult(request);
 		}
-
-
+  
         public async Task<ShipmentViewModel> GetShipmentAsync(string code)
         {
             int totalPackage = _shipmentRequestRepository.GetTotalRequest(code);
