@@ -30,6 +30,8 @@ namespace Infrastructures.Repositories.GoGo.Transportation
 
 		public async Task<RequestDetailModel> GetRequestDetailAsync(int? id)
         {
+			
+
             return await this.dbSet.Where(p => p.Id == id).MapQueryTo<RequestDetailModel>(_mapper).FirstAsync();
         }
 
@@ -98,7 +100,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         public async Task<IEnumerable<RequestsModel>> GetAllAsyncByWareHouseId(string warehouseId)
         {
             var plannedRequestIdList = this.context.Set<ShipmentRequest>().Where(p => p.Status != ShipmentRequestStatus.INACTIVE).Select(p => p.RequestId).ToList();
-            return await this.dbSet.Where(p => ((p.WareHouseId.ToString() == warehouseId) && !plannedRequestIdList.Contains(p.Id) && (p.Status == RequestStatus.WAITING))).MapQueryTo<RequestsModel>(_mapper).ToListAsync();
+            return await this.dbSet.Where(p => (!plannedRequestIdList.Contains(p.Id) && (p.Status == RequestStatus.ACCEPTED))).MapQueryTo<RequestsModel>(_mapper).ToListAsync();
         }
 
 

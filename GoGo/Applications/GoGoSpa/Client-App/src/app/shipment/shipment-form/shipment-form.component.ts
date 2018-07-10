@@ -4,13 +4,12 @@ import { RequestsService } from '../../request/request.service';
 import { Observable } from 'rxjs-compat/Observable';
 import { ShipmentService } from '../shipment.service';
 import { DataSourceRequestState } from '@progress/kendo-data-query';
-import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { Request, Shipment } from '../../shared/models/request'
 import { process, State } from '@progress/kendo-data-query';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { ViewChild } from '@angular/core';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { switchMap } from 'rxjs/operators';
@@ -79,11 +78,11 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   public errors: "";
   //Grid
   public requestList: any[] = new Array();
-  public gridData: any = process(this.requestList, this.state);
+  public gridData: GridDataResult = process(this.requestList, this.state);
 
-
-  public gridShipmentRequestData: any = process(this.requestList, this.state);
   public shipmentRequestList: any[] = new Array();
+  public gridShipmentRequestData: any = process(this.shipmentRequestList, this.states);
+
   public requestIdList: any[] = new Array();
 
   constructor(private shipmentService: ShipmentService, private router: Router, private http: Http,
@@ -98,7 +97,11 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
     this.shipmentId = this.route.snapshot.paramMap.get('id');
     this.formMode = this.route.snapshot.paramMap.get('mode');
     (this.formMode == 'update') ? this.isCreateForm = false : this.isCreateForm = true;
-    this.gridData = process(this.requestList, this.state);
+
+    this.getAllRequestByWarehouseId(this.warehouse.value)
+    this.refreshShipmentRequestGrid();
+    this.refreshGrid();
+
   }
 
   ngOnInit(): void {
@@ -264,7 +267,6 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
 
     this.isValid = true;
 
-    console.log(this.requestIdList)
   }
 
   removeHandler(dataItem)
@@ -280,8 +282,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
     if (this.shipmentRequestList.length == 0) {
       this.isValid = false;
     }
-  
-    console.log(this.requestIdList)
+
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {
@@ -299,7 +300,7 @@ export class ShipmentFormComponent implements OnInit, OnDestroy {
   }
 
   public refreshShipmentRequestGrid() {
-    this.gridShipmentRequestData = process(this.shipmentRequestList, this.state)
+    this.gridShipmentRequestData = process(this.shipmentRequestList, this.states)
   }
 
 
