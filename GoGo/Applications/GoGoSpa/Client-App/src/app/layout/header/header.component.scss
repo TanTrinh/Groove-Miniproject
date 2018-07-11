@@ -27,3 +27,6 @@ $main-color: #0073e6;
   background-color: $main-color
 }
 /*  navbar submenu item*/
+.dropdown-toggle::after{
+  display: none;
+}

@@ -110,7 +110,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
         {
             if (role == "Customer")
             {
-                return this.dbSet.Include(p => p.WareHouse).Where(p => p.CustomerId == userId).Select(p => new SummaryRequestModel
+                return this.dbSet.Include(p => p.WareHouse).Where(p => p.CustomerId == userId).OrderByDescending(p => p.CreatedDate).Select(p => new SummaryRequestModel
                 {
                     Id = p.Id,
                     WareHouse = p.WareHouse.Address,
@@ -123,7 +123,7 @@ namespace Infrastructures.Repositories.GoGo.Transportation
             }
             else
             {
-                return this.dbSet.Include(p => p.WareHouse).Where(p => p.Status != RequestStatus.INACTIVE).Select(p => new SummaryRequestModel
+                return this.dbSet.Include(p => p.WareHouse).Where(p => p.Status != RequestStatus.INACTIVE).OrderByDescending(p => p.CreatedDate).Select(p => new SummaryRequestModel
                 {
                     Id = p.Id,
                     WareHouse = p.WareHouse.Address,
