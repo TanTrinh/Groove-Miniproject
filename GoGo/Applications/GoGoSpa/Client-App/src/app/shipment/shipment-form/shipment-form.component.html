@@ -99,8 +99,8 @@
                   (dataStateChange)="dataStateChanges($event)">
 
         <kendo-grid-column field="code" title="Code" width="200"></kendo-grid-column>
-        <kendo-grid-column field="wereHouseAddress" title="Picking Location" width="350"></kendo-grid-column>
-        <kendo-grid-column field="deliveryAddress" title="Delivery Location" width="350"></kendo-grid-column>
+        <kendo-grid-column field="wereHouseAddress" title="Picking Location"></kendo-grid-column>
+        <kendo-grid-column field="deliveryAddress" title="Delivery Location"></kendo-grid-column>
         <kendo-grid-column field="pickingDate" title="Expected Picking Date">
           <ng-template kendoGridCellTemplate let-dataItem>
             <a>{{dataItem.pickingDate | date:'medium'}}</a>
@@ -111,8 +111,8 @@
             <a>{{dataItem.expectedDate | date:'medium'}}</a>
           </ng-template>
         </kendo-grid-column>
-        <kendo-grid-column field="packageQuantity" title="Packages" width="110"></kendo-grid-column>
-        <kendo-grid-column field="customerName" title="Customer Name" width="200"></kendo-grid-column>
+        <kendo-grid-column field="packageQuantity" title="Packages"></kendo-grid-column>
+        <kendo-grid-column field="customerName" title="Customer Name"></kendo-grid-column>
         <kendo-grid-command-column title="Command" width="120">
           <ng-template kendoGridCellTemplate let-dataItem>
             <button (click)="removeHandler(dataItem)" class="btn btn-danger">Remove</button>
@@ -138,8 +138,8 @@
 
 
         <kendo-grid-column field="code" title="Code" [width]="200"></kendo-grid-column>
-        <kendo-grid-column field="wereHouseAddress" title="Picking Location" [width]="350"></kendo-grid-column>
-        <kendo-grid-column field="deliveryAddress" title="Delivery Address" [width]="350"></kendo-grid-column>
+        <kendo-grid-column field="wereHouseAddress" title="Picking Location"></kendo-grid-column>
+        <kendo-grid-column field="deliveryAddress" title="Delivery Address"></kendo-grid-column>
         <kendo-grid-column field="pickingDate" title="Expected Picking Date">
           <ng-template kendoGridCellTemplate let-dataItem>
             <a>{{dataItem.pickingDate | date:'medium'}}</a>
@@ -151,8 +151,8 @@
           </ng-template>
         </kendo-grid-column>
 
-        <kendo-grid-column field="packageQuantity" title="Packages" [width]="110"></kendo-grid-column>
-        <kendo-grid-column field="customerName" title="Customer Name" [width]="200"></kendo-grid-column>
+        <kendo-grid-column field="packageQuantity" title="Packages"></kendo-grid-column>
+        <kendo-grid-column field="customerName" title="Customer Name"></kendo-grid-column>
         <kendo-grid-command-column title="Command" [width]="120">
           <ng-template kendoGridCellTemplate let-dataItem>
             <button *ngIf="dataItem.flag" (click)="AddRequestHandle(dataItem)" class="btn btn-primary btn-width">Add</button>

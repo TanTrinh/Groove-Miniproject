@@ -69,12 +69,12 @@ export class GgmapComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.initMap(this.latcenter, this.lngcenter); 
+    this.initMap(this.latcenter, this.lngcenter);
     if (this.isRoute == false) {
       var addressDeliveryValue: string;
       var addressWarehouseValue: string;
       this.addressDelivery.subscribe(result => {
-       
+
         addressDeliveryValue = result
         if (addressDeliveryValue != '') {
           this.geocodeAddress(addressDeliveryValue, this.iconNext, this.map);
@@ -124,7 +124,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
   drawMarkers() {
     var index;
     var isCurrent: boolean = false;
-    
+
     //init Warehouse marker
     var marker = new google.maps.Marker({
       position: this.Waypts[0].latlng,
@@ -132,7 +132,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
       map: this.map,
     });
     this.markersClean.push(marker);
-    for (index = 1; index < this.Waypts.length; index++) {
+    for (index = 1; index < this.Waypts.length - 1; index++) {
       var infoWindow = new google.maps.InfoWindow();
       var m = new google.maps.Marker({
         position: this.Waypts[index].latlng,
@@ -175,16 +175,25 @@ export class GgmapComponent implements OnInit, OnDestroy {
       map: this.map
     });
     this.oldMarkerOrigin = markerOrigin;
-    
     var markerDetination = new google.maps.Marker({
-      position: { lat: 10.813915253998612, lng: 106.68891112695314},
-      icon: this.iconParking,
       map: this.map,
     });
-   
+    if (this.Waypts[this.Waypts.length - 1].isRoute == false) {
+      markerDetination.setPosition(markerOrigin.get('position'))
+      markerDetination.setIcon(this.iconBase);
+    }
+    else {
+      markerDetination.setPosition(this.Waypts[this.Waypts.length - 1].latlng)
+      markerDetination.setIcon(this.iconNext)
+      var infoWindow = new google.maps.InfoWindow();
+      this.clickInfoWindow(markerDetination, this.Waypts[this.Waypts.length - 1].description)
+      this.hoverInfoWindow(markerDetination, this.Waypts[this.Waypts.length - 1], infoWindow);
+      this.mouseOutInfoWindow(markerDetination, this.Waypts[this.Waypts.length - 1].description, infoWindow);
+    
+    }
     var index;
     for (index = 0; index < this.Waypts.length; index++) {
-     
+
       if (this.Waypts[index].isRoute == true) {// TODO: never hardcode strign value in codes, create class to store constant
         waypts.push({
           location: this.Waypts[index].latlng,
@@ -221,14 +230,14 @@ export class GgmapComponent implements OnInit, OnDestroy {
   }
 
   hoverInfoWindow(marker, data, infoWindow) {
-   google.maps.event.addListener(marker, 'mouseover', function () {
+    google.maps.event.addListener(marker, 'mouseover', function () {
       infoWindow.setContent("<div style = 'width:150px;min-height:10px'>" +
         "<p style='font-weight:500; font-size:14px'>" + data.description + "</p>" +
-        "<p style='font-size:14px'>" + data.address + "</p>"+
+        "<p style='font-size:14px'>" + data.address + "</p>" +
         "</div>");
-    //  infoWindow.setContent(contentString);
+      //  infoWindow.setContent(contentString);
       infoWindow.open(this.map, marker);
-    
+
     });
   }
   mouseOutInfoWindow(marker, data, infoWindow) {
@@ -257,7 +266,7 @@ export class GgmapComponent implements OnInit, OnDestroy {
           var lat = results[0].geometry.location.lat();
           var lng = results[0].geometry.location.lng();
           let latlng = new google.maps.LatLng(lat, lng)
-          
+
           $self.addressDeliveryLocated.emit({
             lat: lat,
             lng: lng
